@@ -1,2 +1,1 @@
-# PipManager
- 
+# Pip Manager
