@@ -46,9 +46,19 @@ public partial class MainWindowViewModel : ObservableObject
     {
         new NavigationViewItem
         {
+            Width = 100,
+            HorizontalContentAlignment = HorizontalAlignment.Center,
             Content = "Settings",
             Icon = new SymbolIcon { Symbol = SymbolRegular.Settings24 },
             TargetPageType = typeof(Views.Pages.SettingsPage)
+        },
+        new NavigationViewItem
+        {
+            Width = 100,
+            HorizontalContentAlignment = HorizontalAlignment.Center,
+            Content = "About",
+            Icon = new SymbolIcon { Symbol = SymbolRegular.Info24 },
+            TargetPageType = typeof(Views.Pages.AboutPage)
         }
     };
 

@@ -15,8 +15,6 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     }
     private bool _isInitialized;
 
-    [ObservableProperty] private string _appVersion = string.Empty;
-
     public void OnNavigatedTo()
     {
         if (!_isInitialized)
@@ -39,15 +37,8 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         LogAutoDeletionTimes = _configurationService.AppConfig.Personalization.LogAutoDeletionTimes;
         CrushesAutoDeletion = _configurationService.AppConfig.Personalization.CrushesAutoDeletion;
         CrushesAutoDeletionTimes = _configurationService.AppConfig.Personalization.CrushesAutoDeletionTimes;
-        AppVersion = $"PipManager - {GetAssemblyVersion()}";
 
         _isInitialized = true;
-    }
-
-    private string GetAssemblyVersion()
-    {
-        return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString()
-               ?? string.Empty;
     }
 
     #region Personalization

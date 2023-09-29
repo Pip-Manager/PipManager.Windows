@@ -9,6 +9,9 @@ public class ConfigurationService: IConfigurationService
     public readonly string ConfigPath = Path.Combine(Directory.GetCurrentDirectory(), "config.json");
     public readonly string CrushesDir = Path.Combine(Directory.GetCurrentDirectory(), "crashes");
     public readonly string LogDir = Path.Combine(Directory.GetCurrentDirectory(), "logs");
+    
+    public string AppVersion { get; } = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString()
+                                                       ?? string.Empty;
     public required AppConfig AppConfig { get; set; }
     public void Initialize()
     {

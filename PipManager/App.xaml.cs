@@ -45,6 +45,8 @@ public partial class App
             services.AddSingleton<UpdateViewModel>();
             services.AddSingleton<SettingsPage>();
             services.AddSingleton<SettingsViewModel>();
+            services.AddSingleton<AboutPage>();
+            services.AddSingleton<AboutViewModel>();
         }).Build();
 
     /// <summary>
