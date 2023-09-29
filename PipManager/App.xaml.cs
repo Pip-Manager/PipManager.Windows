@@ -9,6 +9,7 @@ using PipManager.Views.Windows;
 using System.IO;
 using System.Reflection;
 using System.Windows.Threading;
+using PipManager.Services.Configuration;
 
 namespace PipManager;
 
@@ -24,7 +25,7 @@ public partial class App
     // https://docs.microsoft.com/dotnet/core/extensions/logging
     private static readonly IHost Host = Microsoft.Extensions.Hosting.Host
         .CreateDefaultBuilder()
-        .ConfigureAppConfiguration(c => { c.SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)!); })
+        .ConfigureAppConfiguration(c => { c.SetBasePath(Path.GetDirectoryName(AppContext.BaseDirectory)!); })
         .ConfigureServices((_, services) =>
         {
             services.AddHostedService<ApplicationHostService>();
@@ -34,11 +35,14 @@ public partial class App
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<ISnackbarService, SnackbarService>();
             services.AddSingleton<IContentDialogService, ContentDialogService>();
+            services.AddSingleton<IConfigurationService, ConfigurationService>();
 
-            services.AddSingleton<DashboardPage>();
-            services.AddSingleton<DashboardViewModel>();
-            services.AddSingleton<DataPage>();
-            services.AddSingleton<DataViewModel>();
+            services.AddSingleton<LibraryPage>();
+            services.AddSingleton<LibraryViewModel>();
+            services.AddSingleton<AddPage>();
+            services.AddSingleton<AddViewModel>();
+            services.AddSingleton<UpdatePage>();
+            services.AddSingleton<UpdateViewModel>();
             services.AddSingleton<SettingsPage>();
             services.AddSingleton<SettingsViewModel>();
         }).Build();
@@ -77,6 +81,9 @@ public partial class App
     /// </summary>
     private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
-        // For more info see https://docs.microsoft.com/en-us/dotnet/api/system.windows.application.dispatcherunhandledexception?view=windowsdesktop-6.0
+        var folder = Path.Combine(Directory.GetCurrentDirectory(), "crashes");
+        Directory.CreateDirectory(folder);
+        var file = Path.Combine(folder, $"crash_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.txt");
+        File.WriteAllText(file, e.Exception.ToString());
     }
 }
