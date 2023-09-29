@@ -1,7 +1,7 @@
 ﻿using PipManager.Services.Configuration;
 using Wpf.Ui.Controls;
 
-namespace PipManager.ViewModels.Pages;
+namespace PipManager.ViewModels.Pages.About;
 
 public partial class AboutViewModel : ObservableObject, INavigationAware
 {

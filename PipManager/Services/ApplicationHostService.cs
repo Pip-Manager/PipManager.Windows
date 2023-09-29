@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using PipManager.Services.Configuration;
 using PipManager.Views.Pages;
+using PipManager.Views.Pages.Library;
 using PipManager.Views.Windows;
 
 namespace PipManager.Services;

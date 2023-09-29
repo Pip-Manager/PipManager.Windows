@@ -1,5 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using PipManager.Services.Configuration;
+using PipManager.Views.Pages.About;
+using PipManager.Views.Pages.Library;
+using PipManager.Views.Pages.Search;
+using PipManager.Views.Pages.Settings;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
@@ -25,19 +29,13 @@ public partial class MainWindowViewModel : ObservableObject
         {
             Content = "Library",
             Icon = new SymbolIcon { Symbol = SymbolRegular.Library24 },
-            TargetPageType = typeof(Views.Pages.LibraryPage)
+            TargetPageType = typeof(LibraryPage)
         },
         new NavigationViewItem
         {
-            Content = "Add",
-            Icon = new SymbolIcon { Symbol = SymbolRegular.AddCircle24 },
-            TargetPageType = typeof(Views.Pages.AddPage)
-        },
-        new NavigationViewItem
-        {
-            Content = "Update",
-            Icon = new SymbolIcon { Symbol = SymbolRegular.WindowNew24 },
-            TargetPageType = typeof(Views.Pages.UpdatePage)
+            Content = "Search",
+            Icon = new SymbolIcon { Symbol = SymbolRegular.BoxSearch24 },
+            TargetPageType = typeof(SearchPage)
         }
     };
 
@@ -50,7 +48,7 @@ public partial class MainWindowViewModel : ObservableObject
             HorizontalContentAlignment = HorizontalAlignment.Center,
             Content = "Settings",
             Icon = new SymbolIcon { Symbol = SymbolRegular.Settings24 },
-            TargetPageType = typeof(Views.Pages.SettingsPage)
+            TargetPageType = typeof(SettingsPage)
         },
         new NavigationViewItem
         {
@@ -58,7 +56,7 @@ public partial class MainWindowViewModel : ObservableObject
             HorizontalContentAlignment = HorizontalAlignment.Center,
             Content = "About",
             Icon = new SymbolIcon { Symbol = SymbolRegular.Info24 },
-            TargetPageType = typeof(Views.Pages.AboutPage)
+            TargetPageType = typeof(AboutPage)
         }
     };
 

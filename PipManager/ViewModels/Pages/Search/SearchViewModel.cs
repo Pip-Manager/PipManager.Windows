@@ -1,10 +1,10 @@
-﻿using PipManager.Models;
-using System.Windows.Media;
+﻿using System.Windows.Media;
+using PipManager.Models;
 using Wpf.Ui.Controls;
 
-namespace PipManager.ViewModels.Pages;
+namespace PipManager.ViewModels.Pages.Search;
 
-public partial class AddViewModel : ObservableObject, INavigationAware
+public partial class SearchViewModel : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
 

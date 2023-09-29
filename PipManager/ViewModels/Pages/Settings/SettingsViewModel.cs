@@ -2,7 +2,7 @@
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 
-namespace PipManager.ViewModels.Pages;
+namespace PipManager.ViewModels.Pages.Settings;
 
 public partial class SettingsViewModel : ObservableObject, INavigationAware
 {

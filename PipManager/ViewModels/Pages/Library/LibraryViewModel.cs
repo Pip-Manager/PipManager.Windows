@@ -1,17 +1,17 @@
 ﻿using PipManager.Services.Configuration;
+using PipManager.Views.Pages.Search;
 using Wpf.Ui.Appearance;
-using Wpf.Ui.Controls;
 
-namespace PipManager.ViewModels.Pages;
+namespace PipManager.ViewModels.Pages.Library;
 
 public partial class LibraryViewModel : ObservableObject
 {
-    private readonly ISnackbarService _snackbarService;
+    private readonly INavigationService _navigationService;
     private readonly IConfigurationService _configurationService;
 
-    public LibraryViewModel(ISnackbarService snackbarService, IConfigurationService configurationService)
+    public LibraryViewModel(INavigationService navigationService, IConfigurationService configurationService)
     {
-        _snackbarService = snackbarService;
+        _navigationService = navigationService;
         _configurationService = configurationService;
         
         
@@ -28,6 +28,6 @@ public partial class LibraryViewModel : ObservableObject
     [RelayCommand]
     private void OnCounterIncrement()
     {
-        Counter++;
+        _navigationService.Navigate(typeof(SearchPage));
     }
 }

@@ -10,6 +10,14 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Threading;
 using PipManager.Services.Configuration;
+using PipManager.Views.Pages.About;
+using PipManager.Views.Pages.Library;
+using PipManager.Views.Pages.Search;
+using PipManager.Views.Pages.Settings;
+using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
+using LibraryViewModel = PipManager.ViewModels.Pages.Library.LibraryViewModel;
+using SearchViewModel = PipManager.ViewModels.Pages.Search.SearchViewModel;
+using SettingsViewModel = PipManager.ViewModels.Pages.Settings.SettingsViewModel;
 
 namespace PipManager;
 
@@ -39,10 +47,8 @@ public partial class App
 
             services.AddSingleton<LibraryPage>();
             services.AddSingleton<LibraryViewModel>();
-            services.AddSingleton<AddPage>();
-            services.AddSingleton<AddViewModel>();
-            services.AddSingleton<UpdatePage>();
-            services.AddSingleton<UpdateViewModel>();
+            services.AddSingleton<SearchPage>();
+            services.AddSingleton<SearchViewModel>();
             services.AddSingleton<SettingsPage>();
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<AboutPage>();
