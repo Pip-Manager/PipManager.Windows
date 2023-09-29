@@ -1,16 +1,21 @@
-﻿using Wpf.Ui.Controls;
+﻿using PipManager.Services.Configuration;
+using Wpf.Ui.Appearance;
+using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages;
 
 public partial class SettingsViewModel : ObservableObject, INavigationAware
 {
+    private readonly ISnackbarService _snackbarService;
+    private readonly IConfigurationService _configurationService;
+    public SettingsViewModel(ISnackbarService snackbarService, IConfigurationService configurationService)
+    {
+        _snackbarService = snackbarService;
+        _configurationService = configurationService;
+    }
     private bool _isInitialized;
 
-    [ObservableProperty]
-    private string _appVersion = string.Empty;
-
-    [ObservableProperty]
-    private Wpf.Ui.Appearance.ThemeType _currentTheme = Wpf.Ui.Appearance.ThemeType.Unknown;
+    [ObservableProperty] private string _appVersion = string.Empty;
 
     public void OnNavigatedTo()
     {
@@ -18,11 +23,22 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
             InitializeViewModel();
     }
 
-    public void OnNavigatedFrom() { }
+    public void OnNavigatedFrom()
+    {
+    }
 
     private void InitializeViewModel()
     {
-        CurrentTheme = Wpf.Ui.Appearance.Theme.GetAppTheme();
+        CurrentTheme = _configurationService.AppConfig.Personalization.Theme switch
+        {
+            "light" => ThemeType.Light,
+            "dark" => ThemeType.Dark,
+            _ => ThemeType.Dark
+        };
+        LogAutoDeletion = _configurationService.AppConfig.Personalization.LogAutoDeletion;
+        LogAutoDeletionTimes = _configurationService.AppConfig.Personalization.LogAutoDeletionTimes;
+        CrushesAutoDeletion = _configurationService.AppConfig.Personalization.CrushesAutoDeletion;
+        CrushesAutoDeletionTimes = _configurationService.AppConfig.Personalization.CrushesAutoDeletionTimes;
         AppVersion = $"PipManager - {GetAssemblyVersion()}";
 
         _isInitialized = true;
@@ -31,31 +47,68 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     private string GetAssemblyVersion()
     {
         return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString()
-               ?? String.Empty;
+               ?? string.Empty;
     }
+
+    #region Personalization
+    
+    [ObservableProperty] private ThemeType _currentTheme = ThemeType.Unknown;
 
     [RelayCommand]
     private void OnChangeTheme(string parameter)
     {
         switch (parameter)
         {
-            case "theme_light":
-                if (CurrentTheme == Wpf.Ui.Appearance.ThemeType.Light)
-                    break;
-
-                Wpf.Ui.Appearance.Theme.Apply(Wpf.Ui.Appearance.ThemeType.Light);
-                CurrentTheme = Wpf.Ui.Appearance.ThemeType.Light;
-
+            case "light":
+                Theme.Apply(ThemeType.Light);
+                CurrentTheme = ThemeType.Light;
                 break;
 
             default:
-                if (CurrentTheme == Wpf.Ui.Appearance.ThemeType.Dark)
-                    break;
-
-                Wpf.Ui.Appearance.Theme.Apply(Wpf.Ui.Appearance.ThemeType.Dark);
-                CurrentTheme = Wpf.Ui.Appearance.ThemeType.Dark;
-
+                Theme.Apply(ThemeType.Dark);
+                CurrentTheme = ThemeType.Dark;
                 break;
         }
+        _configurationService.AppConfig.Personalization.Theme = parameter;
+        _configurationService.Save();
     }
+
+    #endregion
+
+    #region Log and Crushes Auto Deletion
+    
+    [ObservableProperty] private bool _logAutoDeletion = false;
+    [ObservableProperty] private bool _crushesAutoDeletion = false;
+    [ObservableProperty] private int _logAutoDeletionTimes = 0;
+    [ObservableProperty] private int _crushesAutoDeletionTimes = 0;
+    
+    [RelayCommand]
+    private void OnChangeLogAutoDeletion()
+    {
+        _configurationService.AppConfig.Personalization.LogAutoDeletion = LogAutoDeletion;
+        _configurationService.Save();
+    }
+    
+    [RelayCommand]
+    private void OnChangeLogAutoDeletionTimes()
+    {
+        _configurationService.AppConfig.Personalization.LogAutoDeletionTimes = LogAutoDeletionTimes;
+        _configurationService.Save();
+    }
+    
+    [RelayCommand]
+    private void OnChangeCrushesAutoDeletion()
+    {
+        _configurationService.AppConfig.Personalization.CrushesAutoDeletion = CrushesAutoDeletion;
+        _configurationService.Save();
+    }
+    
+    [RelayCommand]
+    private void OnChangeCrushesAutoDeletionTimes()
+    {
+        _configurationService.AppConfig.Personalization.CrushesAutoDeletionTimes = CrushesAutoDeletionTimes;
+        _configurationService.Save();
+    }
+
+    #endregion
 }

@@ -1,8 +1,9 @@
-﻿namespace PipManager.Models;
+﻿using Newtonsoft.Json;
+using PipManager.Models.AppConfigModels;
+
+namespace PipManager.Models;
 
 public class AppConfig
 {
-    public required string ConfigurationsFolder { get; set; }
-
-    public required string AppPropertiesFileName { get; set; }
+    [JsonProperty("personalization")] public Personalization Personalization { get; set; } = new();
 }

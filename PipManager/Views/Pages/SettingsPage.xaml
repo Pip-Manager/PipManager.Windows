@@ -1,23 +1,26 @@
 ﻿<Page
-    x:Class="PipManager.Views.Pages.SettingsPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helpers="clr-namespace:PipManager.Helpers"
-    xmlns:local="clr-namespace:PipManager.Views.Pages"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     Title="SettingsPage"
     d:DataContext="{d:DesignInstance local:SettingsPage,
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    mc:Ignorable="d"
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    mc:Ignorable="d">
+    x:Class="PipManager.Views.Pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:PipManager.Helpers"
+    xmlns:local="clr-namespace:PipManager.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:valueConverters="clr-namespace:ValueConverters;assembly=ValueConverters"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Page.Resources>
         <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <valueConverters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
     </Page.Resources>
 
     <StackPanel>
@@ -27,24 +30,79 @@
             Text="Personalization" />
         <TextBlock Margin="0,12,0,0" Text="Theme" />
         <RadioButton
-            Margin="0,12,0,0"
             Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
-            CommandParameter="theme_light"
+            CommandParameter="light"
             Content="Light"
             GroupName="themeSelect"
-            IsChecked="{Binding ViewModel.CurrentTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}" />
+            IsChecked="{Binding ViewModel.CurrentTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=TwoWay}"
+            Margin="0,12,0,0" />
         <RadioButton
-            Margin="0,8,0,0"
             Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
-            CommandParameter="theme_dark"
+            CommandParameter="dark"
             Content="Dark"
             GroupName="themeSelect"
-            IsChecked="{Binding ViewModel.CurrentTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}" />
+            IsChecked="{Binding ViewModel.CurrentTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=TwoWay}"
+            Margin="0,8,0,0" />
+        <TextBlock Margin="0,12,0,0" Text="Log Auto Deletion" />
+        <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
+            <ui:ToggleSwitch
+                Command="{Binding ViewModel.ChangeLogAutoDeletionCommand, Mode=OneWay}"
+                IsChecked="{Binding ViewModel.LogAutoDeletion, Mode=TwoWay}"
+                x:Name="LogAutoDeletionToggleSwitch" />
+            <Slider
+                IsEnabled="{Binding ElementName=LogAutoDeletionToggleSwitch, Path=IsChecked}"
+                IsSnapToTickEnabled="True"
+                Margin="10,0,0,0"
+                Minimum="3"
+                TickPlacement="BottomRight"
+                Value="{Binding ViewModel.LogAutoDeletionTimes, Mode=TwoWay}"
+                Width="200"
+                x:Name="LogAutoDeletionSlider">
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="ValueChanged" SourceObject="{Binding ElementName=LogAutoDeletionSlider}">
+                        <behaviors:InvokeCommandAction Command="{Binding ViewModel.ChangeLogAutoDeletionTimesCommand}" />
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+            </Slider>
+            <TextBlock
+                Foreground="Gray"
+                Margin="10,0,0,0"
+                Text="{Binding ElementName=LogAutoDeletionSlider, Path=Value, StringFormat=Log files will be deleted after {0} times started}"
+                Visibility="{Binding ElementName=LogAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}" />
+        </StackPanel>
+        <TextBlock Margin="0,12,0,0" Text="Crushes Auto Deletion after time(s) started" />
+        <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
+            <ui:ToggleSwitch
+                Command="{Binding ViewModel.ChangeCrushesAutoDeletionCommand, Mode=OneWay}"
+                IsChecked="{Binding ViewModel.CrushesAutoDeletion, Mode=TwoWay}"
+                x:Name="CrushesAutoDeletionToggleSwitch" />
+            <Slider
+                IsEnabled="{Binding ElementName=CrushesAutoDeletionToggleSwitch, Path=IsChecked}"
+                IsSnapToTickEnabled="True"
+                Margin="10,0,0,0"
+                Minimum="3"
+                TickPlacement="BottomRight"
+                Value="{Binding ViewModel.CrushesAutoDeletionTimes, Mode=TwoWay}"
+                Width="200"
+                x:Name="CrushesAutoDeletionSlider">
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="ValueChanged" SourceObject="{Binding ElementName=CrushesAutoDeletionSlider}">
+                        <behaviors:InvokeCommandAction Command="{Binding ViewModel.ChangeCrushesAutoDeletionTimesCommand}" />
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+            </Slider>
+            <TextBlock
+                Foreground="Gray"
+                Margin="10,0,0,0"
+                Text="{Binding ElementName=CrushesAutoDeletionSlider, Path=Value, StringFormat=Crushes files will be deleted after {0} times started}"
+                Visibility="{Binding ElementName=CrushesAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}" />
+
+        </StackPanel>
 
         <TextBlock
-            Margin="0,24,0,0"
             FontSize="20"
             FontWeight="Medium"
+            Margin="0,24,0,0"
             Text="About PipManager" />
         <TextBlock Margin="0,12,0,0" Text="{Binding ViewModel.AppVersion, Mode=OneWay}" />
     </StackPanel>
