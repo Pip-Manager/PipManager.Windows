@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PipManager.Services.Configuration;
 using PipManager.Views.Pages;
 using PipManager.Views.Windows;
 
@@ -56,7 +57,7 @@ public class ApplicationHostService : IHostedService
         {
             return;
         }
-
-        navigationWindow.NavigationView.Navigate(typeof(DashboardPage));
+        
+        navigationWindow.NavigationView.Navigate(typeof(LibraryPage));
     }
 }

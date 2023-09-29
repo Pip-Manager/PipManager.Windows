@@ -4,7 +4,7 @@ using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages;
 
-public partial class DataViewModel : ObservableObject, INavigationAware
+public partial class AddViewModel : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
 
@@ -17,7 +17,9 @@ public partial class DataViewModel : ObservableObject, INavigationAware
             InitializeViewModel();
     }
 
-    public void OnNavigatedFrom() { }
+    public void OnNavigatedFrom()
+    {
+    }
 
     private void InitializeViewModel()
     {
