@@ -1,11 +1,10 @@
-﻿using System.Collections.ObjectModel;
-using System.Text.RegularExpressions;
-using PipManager.Languages;
+﻿using PipManager.Languages;
 using PipManager.Services.Configuration;
 using PipManager.Views.Pages.About;
 using PipManager.Views.Pages.Library;
 using PipManager.Views.Pages.Search;
 using PipManager.Views.Pages.Settings;
+using System.Collections.ObjectModel;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 

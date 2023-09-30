@@ -1,8 +1,4 @@
-﻿using System.IO;
-using Newtonsoft.Json;
-using PipManager.Models;
-
-namespace PipManager.Languages;
+﻿namespace PipManager.Languages;
 
 public static class GetLanguage
 {

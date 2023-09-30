@@ -2,26 +2,20 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PipManager.Services;
-using PipManager.ViewModels.Pages;
-using PipManager.ViewModels.Windows;
-using PipManager.Views.Pages;
-using PipManager.Views.Windows;
-using System.IO;
-using System.Reflection;
-using System.Windows.Threading;
-using PipManager.Languages;
 using PipManager.Services.Configuration;
+using PipManager.ViewModels.Windows;
 using PipManager.Views.Pages.About;
 using PipManager.Views.Pages.Library;
 using PipManager.Views.Pages.Search;
 using PipManager.Views.Pages.Settings;
+using PipManager.Views.Windows;
+using Serilog;
+using System.IO;
+using System.Windows.Threading;
 using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
 using LibraryViewModel = PipManager.ViewModels.Pages.Library.LibraryViewModel;
 using SearchViewModel = PipManager.ViewModels.Pages.Search.SearchViewModel;
 using SettingsViewModel = PipManager.ViewModels.Pages.Settings.SettingsViewModel;
-using System.Globalization;
-using Serilog;
-using System.Windows.Controls;
 
 namespace PipManager;
 
@@ -75,9 +69,9 @@ public partial class App
     /// </summary>
     private void OnStartup(object sender, StartupEventArgs e)
     {
+        AppStarting.StartLogging();
         var appStarting = new AppStarting();
         appStarting.LoadLanguage();
-        AppStarting.StartLogging();
         appStarting.LogDeletion();
         appStarting.CrushesDeletion();
         Host.Start();
@@ -89,8 +83,9 @@ public partial class App
     private async void OnExit(object sender, ExitEventArgs e)
     {
         await Host.StopAsync();
-        Log.CloseAndFlush();
         Host.Dispose();
+        Log.Information("Logging ended");
+        Log.CloseAndFlush();
     }
 
     /// <summary>
@@ -98,6 +93,7 @@ public partial class App
     /// </summary>
     private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
+        Log.Error($"Exception: {e.Exception.ToString()}");
         Directory.CreateDirectory(AppInfo.CrushesDir);
         var file = Path.Combine(AppInfo.CrushesDir, $"crash_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.txt");
         File.WriteAllText(file, e.Exception.ToString());

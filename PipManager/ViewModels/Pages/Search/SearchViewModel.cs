@@ -1,5 +1,5 @@
-﻿using System.Windows.Media;
-using PipManager.Models;
+﻿using PipManager.Models;
+using System.Windows.Media;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Search;

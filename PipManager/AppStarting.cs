@@ -15,7 +15,6 @@ public class AppStarting
         config = ConfigurationService.LoadConfiguration();
         Directory.CreateDirectory(AppInfo.CrushesDir);
         Directory.CreateDirectory(AppInfo.LogDir);
-
     }
 
     public void LoadLanguage()
@@ -26,6 +25,7 @@ public class AppStarting
             Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
         }
+        Log.Information($"Language sets to {language}");
     }
 
     public static void StartLogging()
@@ -36,7 +36,7 @@ public class AppStarting
             .Enrich.With(new ThreadIdEnricher())
             .WriteTo.File(Path.Combine(AppInfo.LogDir, $"log_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.txt"), outputTemplate: "{Timestamp:HH:mm:ss} [{Level}] (Thread: {ThreadId}) {Message}{NewLine}{Exception}")
             .CreateLogger();
-        Log.Information("Start logging");
+        Log.Information("Logging started");
     }
 
     public void LogDeletion()
@@ -70,6 +70,7 @@ public class AppStarting
                         }
                     }
                 }
+                Log.Information($"{logFileAmount} log file(s) deleted");
             }
         }
     }
@@ -105,6 +106,7 @@ public class AppStarting
                         }
                     }
                 }
+                Log.Information($"{crushFileAmount} crush file(s) deleted");
             }
         }
     }

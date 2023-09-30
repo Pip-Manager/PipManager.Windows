@@ -1,5 +1,4 @@
 ﻿using PipManager.Services.Configuration;
-using PipManager.Views.Pages.Search;
 using Wpf.Ui.Appearance;
 
 namespace PipManager.ViewModels.Pages.Library;
@@ -13,8 +12,7 @@ public partial class LibraryViewModel : ObservableObject
     {
         _navigationService = navigationService;
         _configurationService = configurationService;
-        
-        
+
         Theme.Apply(_configurationService.AppConfig.Personalization.Theme switch
         {
             "light" => ThemeType.Light,
@@ -22,12 +20,12 @@ public partial class LibraryViewModel : ObservableObject
             _ => ThemeType.Dark
         });
     }
+
     [ObservableProperty]
     private int _counter;
 
     [RelayCommand]
     private void OnCounterIncrement()
     {
-
     }
 }
