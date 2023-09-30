@@ -1,8 +1,13 @@
-﻿using PipManager.Languages;
+﻿using System.Diagnostics;
+using System.IO;
+using Newtonsoft.Json;
+using PipManager.Languages;
+using PipManager.Models;
 using PipManager.Services.Configuration;
 using Serilog;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
+using MessageBoxResult = Wpf.Ui.Controls.MessageBoxResult;
 
 namespace PipManager.ViewModels.Pages.Settings;
 
@@ -63,7 +68,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     {
         if (_isInitialized)
         {
-            _snackbarService.Show(Lang.Snackbar_Caution, Lang.Snackbar_effectAfterRestart, ControlAppearance.Caution);
+            _snackbarService.Show(Lang.Snackbar_Caution, Lang.Snackbar_effectAfterRestart, ControlAppearance.Info);
         }
         _configurationService.AppConfig.Personalization.Language = Language != "Auto" ? GetLanguage.LanguageList[Language] : "Auto";
         _configurationService.Save();
@@ -138,4 +143,51 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     }
 
     #endregion Log and Crushes Auto Deletion
+
+    #region File Management
+
+    [RelayCommand]
+    private void OpenAppFolder()
+    {
+        Process.Start("explorer.exe", Environment.CurrentDirectory);
+    }
+
+    [RelayCommand]
+    private void OpenLogFolder()
+    {
+        if (Directory.Exists(AppInfo.LogDir))
+        {
+            Process.Start("explorer.exe", AppInfo.LogDir);
+        }
+    }
+
+    [RelayCommand]
+    private void OpenCrushesFolder()
+    {
+        if (Directory.Exists(AppInfo.CrushesDir))
+        {
+            Process.Start("explorer.exe", AppInfo.CrushesDir);
+        }
+    }
+
+    [RelayCommand]
+    private async Task ResetConfigurationAsync()
+    {
+        var messageBox = new Wpf.Ui.Controls.MessageBox
+        {
+            Title = Lang.MessageDialog_Title_AreYouSure,
+            Content = Lang.Settings_FileManagement_ResetConfig_DialogContent,
+            PrimaryButtonText = Lang.MessageDialog_PrimaryButton_Action,
+            CloseButtonText = Lang.MessageDialog_CloseButton_Cancel
+        };
+
+        var result = await messageBox.ShowDialogAsync();
+        if (result == MessageBoxResult.Primary)
+        {
+            Log.Information("Config reset");
+            await File.WriteAllTextAsync(AppInfo.ConfigPath, JsonConvert.SerializeObject(new AppConfig(), Formatting.Indented));
+        }
+    }
+
+    #endregion
 }

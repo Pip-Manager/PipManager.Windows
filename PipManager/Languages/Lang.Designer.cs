@@ -115,11 +115,92 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Cancel 的本地化字符串。
+        /// </summary>
+        public static string MessageDialog_CloseButton_Cancel {
+            get {
+                return ResourceManager.GetString("MessageDialog_CloseButton_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Action 的本地化字符串。
+        /// </summary>
+        public static string MessageDialog_PrimaryButton_Action {
+            get {
+                return ResourceManager.GetString("MessageDialog_PrimaryButton_Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Operation Warning 的本地化字符串。
+        /// </summary>
+        public static string MessageDialog_Title_AreYouSure {
+            get {
+                return ResourceManager.GetString("MessageDialog_Title_AreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 File Management 的本地化字符串。
+        /// </summary>
+        public static string Settings_Category_FileManagement {
+            get {
+                return ResourceManager.GetString("Settings_Category_FileManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Personalization 的本地化字符串。
         /// </summary>
         public static string Settings_Category_Personalization {
             get {
                 return ResourceManager.GetString("Settings_Category_Personalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Open App Folder 的本地化字符串。
+        /// </summary>
+        public static string Settings_FileManagement_OpenAppDir {
+            get {
+                return ResourceManager.GetString("Settings_FileManagement_OpenAppDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Open Crushes Folder 的本地化字符串。
+        /// </summary>
+        public static string Settings_FileManagement_OpenCrushesDir {
+            get {
+                return ResourceManager.GetString("Settings_FileManagement_OpenCrushesDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Open Log Folder 的本地化字符串。
+        /// </summary>
+        public static string Settings_FileManagement_OpenLogDir {
+            get {
+                return ResourceManager.GetString("Settings_FileManagement_OpenLogDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Reset Config 的本地化字符串。
+        /// </summary>
+        public static string Settings_FileManagement_ResetConfig {
+            get {
+                return ResourceManager.GetString("Settings_FileManagement_ResetConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 This action will delete all app-related settings. Are you sure you want to keep going with this? 的本地化字符串。
+        /// </summary>
+        public static string Settings_FileManagement_ResetConfig_DialogContent {
+            get {
+                return ResourceManager.GetString("Settings_FileManagement_ResetConfig_DialogContent", resourceCulture);
             }
         }
         

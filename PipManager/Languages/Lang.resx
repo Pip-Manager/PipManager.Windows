@@ -171,4 +171,31 @@
   <data name="About_MoreInformation" xml:space="preserve">
     <value>More Information</value>
   </data>
+  <data name="Settings_Category_FileManagement" xml:space="preserve">
+    <value>File Management</value>
+  </data>
+  <data name="Settings_FileManagement_OpenAppDir" xml:space="preserve">
+    <value>Open App Folder</value>
+  </data>
+  <data name="Settings_FileManagement_OpenLogDir" xml:space="preserve">
+    <value>Open Log Folder</value>
+  </data>
+  <data name="Settings_FileManagement_OpenCrushesDir" xml:space="preserve">
+    <value>Open Crushes Folder</value>
+  </data>
+  <data name="Settings_FileManagement_ResetConfig" xml:space="preserve">
+    <value>Reset Config</value>
+  </data>
+  <data name="Settings_FileManagement_ResetConfig_DialogContent" xml:space="preserve">
+    <value>This action will delete all app-related settings. Are you sure you want to keep going with this?</value>
+  </data>
+  <data name="MessageDialog_Title_AreYouSure" xml:space="preserve">
+    <value>Operation Warning</value>
+  </data>
+  <data name="MessageDialog_PrimaryButton_Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="MessageDialog_CloseButton_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
 </root>

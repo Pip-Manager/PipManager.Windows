@@ -171,4 +171,31 @@
   <data name="About_MoreInformation" xml:space="preserve">
     <value>更多信息</value>
   </data>
+  <data name="Settings_Category_FileManagement" xml:space="preserve">
+    <value>文件管理</value>
+  </data>
+  <data name="Settings_FileManagement_OpenAppDir" xml:space="preserve">
+    <value>打开应用文件夹</value>
+  </data>
+  <data name="Settings_FileManagement_OpenCrushesDir" xml:space="preserve">
+    <value>打开崩溃记录文件夹</value>
+  </data>
+  <data name="Settings_FileManagement_OpenLogDir" xml:space="preserve">
+    <value>打开日志文件夹</value>
+  </data>
+  <data name="Settings_FileManagement_ResetConfig" xml:space="preserve">
+    <value>重置所有设置</value>
+  </data>
+  <data name="Settings_FileManagement_ResetConfig_DialogContent" xml:space="preserve">
+    <value>此操作会删除所有应用相关设置。你确定要继续执行吗？</value>
+  </data>
+  <data name="MessageDialog_Title_AreYouSure" xml:space="preserve">
+    <value>操作警告</value>
+  </data>
+  <data name="MessageDialog_PrimaryButton_Action" xml:space="preserve">
+    <value>执行</value>
+  </data>
+  <data name="MessageDialog_CloseButton_Cancel" xml:space="preserve">
+    <value>取消操作</value>
+  </data>
 </root>
