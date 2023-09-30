@@ -14,7 +14,11 @@ public static class GetLanguage
 
     public static string? FromFile(string path)
     {
-        var language= JsonConvert.DeserializeObject<AppConfig>(File.ReadAllText(path)).Personalization.Language;
+        var language = "Auto";
+        if (File.Exists(path))
+        {
+            language = JsonConvert.DeserializeObject<AppConfig>(File.ReadAllText(path)).Personalization.Language;
+        }
         return language != "Auto" ? language : null;
     }
     

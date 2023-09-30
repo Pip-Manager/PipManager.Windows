@@ -156,4 +156,13 @@
   <data name="Settings_PersonalizationTitle_CrushesAutoDeletion" xml:space="preserve">
     <value>崩溃记录自动删除</value>
   </data>
+  <data name="TrayMenu_Install" xml:space="preserve">
+    <value>安装包</value>
+  </data>
+  <data name="Snackbar_Caution" xml:space="preserve">
+    <value>提示</value>
+  </data>
+  <data name="Snackbar_effectAfterRestart" xml:space="preserve">
+    <value>更改将在应用重启后生效</value>
+  </data>
 </root>

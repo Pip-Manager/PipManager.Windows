@@ -1,4 +1,5 @@
-﻿using PipManager.Languages;
+﻿using System.Globalization;
+using PipManager.Languages;
 using PipManager.Services.Configuration;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -57,6 +58,10 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private void OnChangeLanguage()
     {
+        if (_isInitialized)
+        {
+            _snackbarService.Show(Lang.Snackbar_Caution, Lang.Snackbar_effectAfterRestart, ControlAppearance.Caution);
+        }
         _configurationService.AppConfig.Personalization.Language = Language != "Auto" ? GetLanguage.LanguageList[Language] : "Auto";
         _configurationService.Save();
     }

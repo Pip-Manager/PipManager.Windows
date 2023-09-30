@@ -176,5 +176,32 @@ namespace PipManager.Languages {
                 return ResourceManager.GetString("Settings_PersonalizationTitle_Theme", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 Caution 的本地化字符串。
+        /// </summary>
+        public static string Snackbar_Caution {
+            get {
+                return ResourceManager.GetString("Snackbar_Caution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Changes will take effect after the application is restarted 的本地化字符串。
+        /// </summary>
+        public static string Snackbar_effectAfterRestart {
+            get {
+                return ResourceManager.GetString("Snackbar_effectAfterRestart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Install Package 的本地化字符串。
+        /// </summary>
+        public static string TrayMenu_Install {
+            get {
+                return ResourceManager.GetString("TrayMenu_Install", resourceCulture);
+            }
+        }
     }
 }

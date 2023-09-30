@@ -20,8 +20,9 @@
     xmlns:local="clr-namespace:PipManager.Views.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:lang="clr-namespace:PipManager.Languages">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -29,7 +30,7 @@
         </Grid.RowDefinitions>
         <ui:NavigationView
             BreadcrumbBar="{Binding ElementName=BreadcrumbBar}"
-            FontSize="12"
+            FontSize="14"
             FooterMenuItemsSource="{Binding ViewModel.FooterMenuItems, Mode=OneWay}"
             FrameMargin="0"
             Grid.Row="1"
@@ -66,6 +67,15 @@
                     Source="pack://application:,,,/Assets/icon.png"
                     Width="22" />
             </ui:TitleBar.Icon>
+            <ui:TitleBar.Tray>
+                <ui:NotifyIcon Name="NotifyIcon" TooltipText="Pip Manager">
+                    <ui:NotifyIcon.Menu>
+                        <ContextMenu>
+                            <MenuItem Header="{x:Static lang:Lang.TrayMenu_Install}"/>
+                        </ContextMenu>
+                    </ui:NotifyIcon.Menu>
+                </ui:NotifyIcon>
+            </ui:TitleBar.Tray>
         </ui:TitleBar>
     </Grid>
 </ui:FluentWindow>

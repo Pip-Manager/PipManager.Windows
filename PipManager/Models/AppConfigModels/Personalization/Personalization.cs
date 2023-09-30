@@ -5,7 +5,7 @@ namespace PipManager.Models.AppConfigModels.Personalization;
 public class Personalization
 {
     [JsonProperty("language")]
-    public string Language { get; set; } = "en-US";
+    public string Language { get; set; } = "Auto";
     [JsonProperty("theme")]
     public string Theme { get; set; } = "dark";
     

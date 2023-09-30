@@ -156,4 +156,13 @@
   <data name="Settings_PersonalizationCrushesAutoDeletion_Tip" xml:space="preserve">
     <value>Crush files will be deleted after more than {0}</value>
   </data>
+  <data name="TrayMenu_Install" xml:space="preserve">
+    <value>Install Package</value>
+  </data>
+  <data name="Snackbar_Caution" xml:space="preserve">
+    <value>Caution</value>
+  </data>
+  <data name="Snackbar_effectAfterRestart" xml:space="preserve">
+    <value>Changes will take effect after the application is restarted</value>
+  </data>
 </root>
