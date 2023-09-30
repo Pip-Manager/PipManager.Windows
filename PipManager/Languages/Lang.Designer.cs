@@ -63,45 +63,117 @@ namespace PipManager.Languages {
         /// <summary>
         ///   查找类似 About 的本地化字符串。
         /// </summary>
-        public static string MainWindowNavigationContentAbout {
+        public static string MainWindow_NavigationContent_About {
             get {
-                return ResourceManager.GetString("MainWindowNavigationContentAbout", resourceCulture);
+                return ResourceManager.GetString("MainWindow_NavigationContent_About", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 Library 的本地化字符串。
         /// </summary>
-        public static string MainWindowNavigationContentLibrary {
+        public static string MainWindow_NavigationContent_Library {
             get {
-                return ResourceManager.GetString("MainWindowNavigationContentLibrary", resourceCulture);
+                return ResourceManager.GetString("MainWindow_NavigationContent_Library", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 Search 的本地化字符串。
         /// </summary>
-        public static string MainWindowNavigationContentSearch {
+        public static string MainWindow_NavigationContent_Search {
             get {
-                return ResourceManager.GetString("MainWindowNavigationContentSearch", resourceCulture);
+                return ResourceManager.GetString("MainWindow_NavigationContent_Search", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 Settings 的本地化字符串。
         /// </summary>
-        public static string MainWindowNavigationContentSettings {
+        public static string MainWindow_NavigationContent_Settings {
             get {
-                return ResourceManager.GetString("MainWindowNavigationContentSettings", resourceCulture);
+                return ResourceManager.GetString("MainWindow_NavigationContent_Settings", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 Personalization 的本地化字符串。
         /// </summary>
-        public static string SettingsCategoryPersonalization {
+        public static string Settings_Category_Personalization {
             get {
-                return ResourceManager.GetString("SettingsCategoryPersonalization", resourceCulture);
+                return ResourceManager.GetString("Settings_Category_Personalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Crush files will be deleted after more than {0} 的本地化字符串。
+        /// </summary>
+        public static string Settings_PersonalizationCrushesAutoDeletion_Tip {
+            get {
+                return ResourceManager.GetString("Settings_PersonalizationCrushesAutoDeletion_Tip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Log files will be deleted after more than {0} 的本地化字符串。
+        /// </summary>
+        public static string Settings_PersonalizationLogAutoDeletion_Tip {
+            get {
+                return ResourceManager.GetString("Settings_PersonalizationLogAutoDeletion_Tip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Dark 的本地化字符串。
+        /// </summary>
+        public static string Settings_PersonalizationTheme_Dark {
+            get {
+                return ResourceManager.GetString("Settings_PersonalizationTheme_Dark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Light 的本地化字符串。
+        /// </summary>
+        public static string Settings_PersonalizationTheme_Light {
+            get {
+                return ResourceManager.GetString("Settings_PersonalizationTheme_Light", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Crushes Auto Deletion 的本地化字符串。
+        /// </summary>
+        public static string Settings_PersonalizationTitle_CrushesAutoDeletion {
+            get {
+                return ResourceManager.GetString("Settings_PersonalizationTitle_CrushesAutoDeletion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Language 的本地化字符串。
+        /// </summary>
+        public static string Settings_PersonalizationTitle_Language {
+            get {
+                return ResourceManager.GetString("Settings_PersonalizationTitle_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Log Auto Deletion 的本地化字符串。
+        /// </summary>
+        public static string Settings_PersonalizationTitle_LogAutoDeletion {
+            get {
+                return ResourceManager.GetString("Settings_PersonalizationTitle_LogAutoDeletion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Theme 的本地化字符串。
+        /// </summary>
+        public static string Settings_PersonalizationTitle_Theme {
+            get {
+                return ResourceManager.GetString("Settings_PersonalizationTitle_Theme", resourceCulture);
             }
         }
     }

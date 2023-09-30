@@ -29,13 +29,13 @@ public partial class MainWindowViewModel : ObservableObject
     {
         new NavigationViewItem
         {
-            Content = Lang.MainWindowNavigationContentLibrary,
+            Content = Lang.MainWindow_NavigationContent_Library,
             Icon = new SymbolIcon { Symbol = SymbolRegular.Library24 },
             TargetPageType = typeof(LibraryPage)
         },
         new NavigationViewItem
         {
-            Content = Lang.MainWindowNavigationContentSearch,
+            Content = Lang.MainWindow_NavigationContent_Search,
             Icon = new SymbolIcon { Symbol = SymbolRegular.BoxSearch24 },
             TargetPageType = typeof(SearchPage)
         }
@@ -47,14 +47,14 @@ public partial class MainWindowViewModel : ObservableObject
         new NavigationViewItem
         {
             HorizontalContentAlignment = HorizontalAlignment.Center,
-            Content = Lang.MainWindowNavigationContentSettings,
+            Content = Lang.MainWindow_NavigationContent_Settings,
             Icon = new SymbolIcon { Symbol = SymbolRegular.Settings24 },
             TargetPageType = typeof(SettingsPage)
         },
         new NavigationViewItem
         {
             HorizontalContentAlignment = HorizontalAlignment.Center,
-            Content = Lang.MainWindowNavigationContentAbout,
+            Content = Lang.MainWindow_NavigationContent_About,
             Icon = new SymbolIcon { Symbol = SymbolRegular.Info24 },
             TargetPageType = typeof(AboutPage)
         }

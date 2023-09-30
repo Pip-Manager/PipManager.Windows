@@ -117,19 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MainWindowNavigationContentAbout" xml:space="preserve">
+  <data name="MainWindow_NavigationContent_About" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="MainWindowNavigationContentLibrary" xml:space="preserve">
+  <data name="MainWindow_NavigationContent_Library" xml:space="preserve">
     <value>Library</value>
   </data>
-  <data name="MainWindowNavigationContentSearch" xml:space="preserve">
+  <data name="MainWindow_NavigationContent_Search" xml:space="preserve">
     <value>Search</value>
   </data>
-  <data name="MainWindowNavigationContentSettings" xml:space="preserve">
+  <data name="MainWindow_NavigationContent_Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="SettingsCategoryPersonalization" xml:space="preserve">
+  <data name="Settings_Category_Personalization" xml:space="preserve">
     <value>Personalization</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="Settings_PersonalizationTheme_Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Settings_PersonalizationTheme_Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_LogAutoDeletion" xml:space="preserve">
+    <value>Log Auto Deletion</value>
+  </data>
+  <data name="Settings_PersonalizationLogAutoDeletion_Tip" xml:space="preserve">
+    <value>Log files will be deleted after more than {0}</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_CrushesAutoDeletion" xml:space="preserve">
+    <value>Crushes Auto Deletion</value>
+  </data>
+  <data name="Settings_PersonalizationCrushesAutoDeletion_Tip" xml:space="preserve">
+    <value>Crush files will be deleted after more than {0}</value>
   </data>
 </root>

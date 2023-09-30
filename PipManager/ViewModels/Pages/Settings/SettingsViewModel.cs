@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-using PipManager.Languages;
-using PipManager.Models.AppConfigModels.Personalization;
+﻿using PipManager.Languages;
 using PipManager.Services.Configuration;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;

@@ -117,19 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MainWindowNavigationContentAbout" xml:space="preserve">
+  <data name="MainWindow_NavigationContent_About" xml:space="preserve">
     <value>关于</value>
   </data>
-  <data name="MainWindowNavigationContentLibrary" xml:space="preserve">
+  <data name="MainWindow_NavigationContent_Library" xml:space="preserve">
     <value>库</value>
   </data>
-  <data name="MainWindowNavigationContentSearch" xml:space="preserve">
+  <data name="MainWindow_NavigationContent_Search" xml:space="preserve">
     <value>搜索</value>
   </data>
-  <data name="MainWindowNavigationContentSettings" xml:space="preserve">
+  <data name="MainWindow_NavigationContent_Settings" xml:space="preserve">
     <value>设置</value>
   </data>
-  <data name="SettingsCategoryPersonalization" xml:space="preserve">
+  <data name="Settings_Category_Personalization" xml:space="preserve">
     <value>个性化</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_Language" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_Theme" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="Settings_PersonalizationTheme_Light" xml:space="preserve">
+    <value>亮色</value>
+  </data>
+  <data name="Settings_PersonalizationTheme_Dark" xml:space="preserve">
+    <value>暗色</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_LogAutoDeletion" xml:space="preserve">
+    <value>日志自动删除</value>
+  </data>
+  <data name="Settings_PersonalizationLogAutoDeletion_Tip" xml:space="preserve">
+    <value>日志文件超过 {0} 个后会被删除</value>
+  </data>
+  <data name="Settings_PersonalizationCrushesAutoDeletion_Tip" xml:space="preserve">
+    <value>崩溃记录文件超过 {0} 个后会被删除</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_CrushesAutoDeletion" xml:space="preserve">
+    <value>崩溃记录自动删除</value>
   </data>
 </root>
