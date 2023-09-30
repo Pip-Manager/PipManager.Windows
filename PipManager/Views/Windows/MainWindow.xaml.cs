@@ -1,8 +1,5 @@
-﻿using System.Drawing;
-using PipManager.Models;
+﻿using PipManager.Services.Configuration;
 using PipManager.ViewModels.Windows;
-using System.Globalization;
-using PipManager.Services.Configuration;
 
 namespace PipManager.Views.Windows;
 

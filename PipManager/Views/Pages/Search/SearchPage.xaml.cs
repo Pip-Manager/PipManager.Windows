@@ -1,5 +1,4 @@
-﻿using PipManager.ViewModels.Pages;
-using Wpf.Ui.Controls;
+﻿using Wpf.Ui.Controls;
 using SearchViewModel = PipManager.ViewModels.Pages.Search.SearchViewModel;
 
 namespace PipManager.Views.Pages.Search;

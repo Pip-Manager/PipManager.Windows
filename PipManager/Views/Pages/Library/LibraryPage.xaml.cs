@@ -1,5 +1,4 @@
-﻿using PipManager.ViewModels.Pages;
-using Wpf.Ui.Controls;
+﻿using Wpf.Ui.Controls;
 using LibraryViewModel = PipManager.ViewModels.Pages.Library.LibraryViewModel;
 
 namespace PipManager.Views.Pages.Library;
