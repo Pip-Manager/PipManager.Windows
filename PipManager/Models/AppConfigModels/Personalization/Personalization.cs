@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
 
-namespace PipManager.Models.AppConfigModels;
+namespace PipManager.Models.AppConfigModels.Personalization;
 
 public class Personalization
 {
+    [JsonProperty("language")]
+    public string Language { get; set; } = "en-US";
     [JsonProperty("theme")]
     public string Theme { get; set; } = "dark";
     

@@ -4,6 +4,7 @@ using PipManager.Services.Configuration;
 using PipManager.Views.Pages;
 using PipManager.Views.Pages.Library;
 using PipManager.Views.Windows;
+using System.Globalization;
 
 namespace PipManager.Services;
 

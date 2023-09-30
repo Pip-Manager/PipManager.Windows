@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PipManager.Models.AppConfigModels;
+using PipManager.Models.AppConfigModels.Personalization;
 
 namespace PipManager.Models;
 

@@ -31,12 +31,27 @@
     <PackageReference Include="ValueConverters" Version="3.0.26" />
     <PackageReference Include="WPF-UI" Version="3.0.0-preview.4" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1 " />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1 "/>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1 " />
   </ItemGroup>
   
   <ItemGroup>
     <Resource Include="Assets\icon.png" />
     <Resource Include="Assets\icon.ico" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Update="Languages\Lang.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Lang.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Update="Languages\Lang.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Lang.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   
   <ItemGroup>

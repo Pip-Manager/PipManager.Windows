@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System.Globalization;
+using System.IO;
 using Newtonsoft.Json;
+using PipManager.Languages;
 using PipManager.Models;
 
 namespace PipManager.Services.Configuration;
@@ -20,6 +22,7 @@ public class ConfigurationService: IConfigurationService
             File.WriteAllText(ConfigPath, JsonConvert.SerializeObject(new AppConfig(), Formatting.Indented));
         }
         AppConfig = JsonConvert.DeserializeObject<AppConfig>(File.ReadAllText(ConfigPath));
+        
     }
     
     public void Save()

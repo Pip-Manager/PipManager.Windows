@@ -9,6 +9,7 @@ using PipManager.Views.Windows;
 using System.IO;
 using System.Reflection;
 using System.Windows.Threading;
+using PipManager.Languages;
 using PipManager.Services.Configuration;
 using PipManager.Views.Pages.About;
 using PipManager.Views.Pages.Library;
@@ -18,6 +19,7 @@ using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
 using LibraryViewModel = PipManager.ViewModels.Pages.Library.LibraryViewModel;
 using SearchViewModel = PipManager.ViewModels.Pages.Search.SearchViewModel;
 using SettingsViewModel = PipManager.ViewModels.Pages.Settings.SettingsViewModel;
+using System.Globalization;
 
 namespace PipManager;
 
@@ -71,6 +73,12 @@ public partial class App
     /// </summary>
     private void OnStartup(object sender, StartupEventArgs e)
     {
+        var language = GetLanguage.FromFile(Path.Combine(Directory.GetCurrentDirectory(), "config.json"));
+        if (language != null)
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+        }
         Host.Start();
     }
 

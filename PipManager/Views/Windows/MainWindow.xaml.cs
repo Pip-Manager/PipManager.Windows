@@ -1,4 +1,8 @@
-﻿using PipManager.ViewModels.Windows;
+﻿using System.Drawing;
+using PipManager.Models;
+using PipManager.ViewModels.Windows;
+using System.Globalization;
+using PipManager.Services.Configuration;
 
 namespace PipManager.Views.Windows;
 
@@ -11,7 +15,8 @@ public partial class MainWindow
         INavigationService navigationService,
         IServiceProvider serviceProvider,
         ISnackbarService snackbarService,
-        IContentDialogService contentDialogService
+        IContentDialogService contentDialogService,
+        IConfigurationService configurationService
     )
     {
         Wpf.Ui.Appearance.Watcher.Watch(this);

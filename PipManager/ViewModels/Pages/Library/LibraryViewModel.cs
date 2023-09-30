@@ -28,6 +28,6 @@ public partial class LibraryViewModel : ObservableObject
     [RelayCommand]
     private void OnCounterIncrement()
     {
-        _navigationService.Navigate(typeof(SearchPage));
+
     }
 }
