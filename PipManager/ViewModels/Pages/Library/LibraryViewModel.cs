@@ -1,4 +1,5 @@
 ﻿using PipManager.Services.Configuration;
+using Serilog;
 using Wpf.Ui.Appearance;
 
 namespace PipManager.ViewModels.Pages.Library;
@@ -19,6 +20,8 @@ public partial class LibraryViewModel : ObservableObject
             "dark" => ThemeType.Dark,
             _ => ThemeType.Dark
         });
+
+        Log.Information("[Library] Initialized");
     }
 
     [ObservableProperty]

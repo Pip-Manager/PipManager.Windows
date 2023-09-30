@@ -61,6 +61,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 More Information 的本地化字符串。
+        /// </summary>
+        public static string About_MoreInformation {
+            get {
+                return ResourceManager.GetString("About_MoreInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 About 的本地化字符串。
         /// </summary>
         public static string MainWindow_NavigationContent_About {
@@ -93,6 +102,15 @@ namespace PipManager.Languages {
         public static string MainWindow_NavigationContent_Settings {
             get {
                 return ResourceManager.GetString("MainWindow_NavigationContent_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Tools 的本地化字符串。
+        /// </summary>
+        public static string MainWindow_NavigationContent_Tools {
+            get {
+                return ResourceManager.GetString("MainWindow_NavigationContent_Tools", resourceCulture);
             }
         }
         

@@ -124,11 +124,11 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/Pip-Manager/PipManager.svg?style=for-the-badge
 [stars-url]: https://github.com/Pip-Manager/PipManager/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/Pip-Manager/PipManager.svg?style=for-the-badge
 [issues-url]: https://github.com/Pip-Manager/PipManager/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/Pip-Manager/PipManager.svg?style=for-the-badge
 [license-url]: https://github.com/Pip-Manager/PipManager/blob/master/LICENSE.txt
 [screenshot]: images/screenshot.png
 [.NET Core]: https://img.shields.io/badge/.NET_Core-512BD4?style=for-the-badge&logo=dotnet&logoColor=white

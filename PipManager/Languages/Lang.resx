@@ -165,4 +165,10 @@
   <data name="Snackbar_effectAfterRestart" xml:space="preserve">
     <value>Changes will take effect after the application is restarted</value>
   </data>
+  <data name="MainWindow_NavigationContent_Tools" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="About_MoreInformation" xml:space="preserve">
+    <value>More Information</value>
+  </data>
 </root>

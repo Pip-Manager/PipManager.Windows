@@ -165,4 +165,10 @@
   <data name="Snackbar_effectAfterRestart" xml:space="preserve">
     <value>更改将在应用重启后生效</value>
   </data>
+  <data name="MainWindow_NavigationContent_Tools" xml:space="preserve">
+    <value>工具箱</value>
+  </data>
+  <data name="About_MoreInformation" xml:space="preserve">
+    <value>更多信息</value>
+  </data>
 </root>

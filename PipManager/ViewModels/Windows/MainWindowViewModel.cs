@@ -4,6 +4,7 @@ using PipManager.Views.Pages.About;
 using PipManager.Views.Pages.Library;
 using PipManager.Views.Pages.Search;
 using PipManager.Views.Pages.Settings;
+using PipManager.Views.Pages.Tools;
 using System.Collections.ObjectModel;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
@@ -37,6 +38,12 @@ public partial class MainWindowViewModel : ObservableObject
             Content = Lang.MainWindow_NavigationContent_Search,
             Icon = new SymbolIcon { Symbol = SymbolRegular.BoxSearch24 },
             TargetPageType = typeof(SearchPage)
+        },
+        new NavigationViewItem
+        {
+            Content = Lang.MainWindow_NavigationContent_Tools,
+            Icon = new SymbolIcon { Symbol = SymbolRegular.Toolbox24 },
+            TargetPageType = typeof(ToolsPage)
         }
     };
 

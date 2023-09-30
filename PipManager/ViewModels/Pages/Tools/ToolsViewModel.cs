@@ -1,13 +1,13 @@
-﻿using Serilog;
+﻿using PipManager.Models;
+using Serilog;
+using System.Windows.Media;
 using Wpf.Ui.Controls;
 
-namespace PipManager.ViewModels.Pages.About;
+namespace PipManager.ViewModels.Pages.Tools;
 
-public partial class AboutViewModel : ObservableObject, INavigationAware
+public partial class ToolsViewModel : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
-
-    [ObservableProperty] private string _appVersion = string.Empty;
 
     public void OnNavigatedTo()
     {
@@ -21,8 +21,7 @@ public partial class AboutViewModel : ObservableObject, INavigationAware
 
     private void InitializeViewModel()
     {
-        AppVersion = AppInfo.AppVersion;
         _isInitialized = true;
-        Log.Information("[About] Initialized");
+        Log.Information("[Tools] Initialized");
     }
 }

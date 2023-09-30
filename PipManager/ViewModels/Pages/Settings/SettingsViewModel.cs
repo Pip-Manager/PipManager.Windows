@@ -10,17 +10,19 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
 {
     private readonly ISnackbarService _snackbarService;
     private readonly IConfigurationService _configurationService;
+
     public SettingsViewModel(ISnackbarService snackbarService, IConfigurationService configurationService)
     {
         _snackbarService = snackbarService;
         _configurationService = configurationService;
 
-        foreach (var languagePair in GetLanguage.LanguageList) 
+        foreach (var languagePair in GetLanguage.LanguageList)
         {
             Languages.Add(languagePair.Key);
         }
         Log.Information("[Settings] Language list items added");
     }
+
     private bool _isInitialized;
 
     public void OnNavigatedTo()
@@ -53,7 +55,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
 
     #region Language
 
-    [ObservableProperty] private List<string> _languages = new() {"Auto"};
+    [ObservableProperty] private List<string> _languages = new() { "Auto" };
     [ObservableProperty] private string _language = "Auto";
 
     [RelayCommand]
@@ -68,7 +70,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         Log.Information($"[Settings] Language changes to {Language}");
     }
 
-    #endregion
+    #endregion Language
 
     #region Theme
 
@@ -94,7 +96,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         Log.Information($"[Settings] Theme changes to {parameter}");
     }
 
-    #endregion
+    #endregion Theme
 
     #region Log and Crushes Auto Deletion
 
@@ -102,7 +104,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     [ObservableProperty] private bool _crushesAutoDeletion = false;
     [ObservableProperty] private int _logAutoDeletionTimes = 0;
     [ObservableProperty] private int _crushesAutoDeletionTimes = 0;
-    
+
     [RelayCommand]
     private void OnChangeLogAutoDeletion()
     {
@@ -135,5 +137,5 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         Log.Information($"[Settings] Crushes auto deletion will be executed when the number of files reaches {CrushesAutoDeletionTimes}");
     }
 
-    #endregion
+    #endregion Log and Crushes Auto Deletion
 }

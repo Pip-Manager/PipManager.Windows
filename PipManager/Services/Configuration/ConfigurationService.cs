@@ -1,14 +1,12 @@
-﻿using System.Globalization;
-using System.IO;
-using Newtonsoft.Json;
-using PipManager.Languages;
+﻿using Newtonsoft.Json;
 using PipManager.Models;
+using System.IO;
 
 namespace PipManager.Services.Configuration;
 
-public class ConfigurationService: IConfigurationService
+public class ConfigurationService : IConfigurationService
 {
-    public required AppConfig AppConfig { get; set; }
+    public AppConfig AppConfig { get; set; }
 
     public static AppConfig LoadConfiguration()
     {
@@ -23,7 +21,7 @@ public class ConfigurationService: IConfigurationService
     {
         AppConfig = LoadConfiguration();
     }
-    
+
     public void Save()
     {
         File.WriteAllText(AppInfo.ConfigPath, JsonConvert.SerializeObject(AppConfig, Formatting.Indented));

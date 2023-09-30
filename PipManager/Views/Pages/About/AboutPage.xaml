@@ -5,6 +5,7 @@
     xmlns:about="clr-namespace:PipManager.Views.Pages.About"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:PipManager.Views.Pages"
+    xmlns:lang="clr-namespace:PipManager.Languages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="SettingsPage"
@@ -49,7 +50,7 @@
             </Border>
 
             <StackPanel Margin="0,20,0,0">
-                <TextBlock FontSize="20" Text="More Information" />
+                <TextBlock FontSize="20" Text="{x:Static lang:Lang.About_MoreInformation}" />
                 <ui:Hyperlink
                     Margin="-5,3,0,0"
                     Content="Github Issues"

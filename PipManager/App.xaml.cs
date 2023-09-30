@@ -3,11 +3,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PipManager.Services;
 using PipManager.Services.Configuration;
+using PipManager.ViewModels.Pages.Tools;
 using PipManager.ViewModels.Windows;
 using PipManager.Views.Pages.About;
 using PipManager.Views.Pages.Library;
 using PipManager.Views.Pages.Search;
 using PipManager.Views.Pages.Settings;
+using PipManager.Views.Pages.Tools;
 using PipManager.Views.Windows;
 using Serilog;
 using System.IO;
@@ -24,11 +26,6 @@ namespace PipManager;
 /// </summary>
 public partial class App
 {
-    // The.NET Generic Host provides dependency injection, configuration, logging, and other services.
-    // https://docs.microsoft.com/dotnet/core/extensions/generic-host
-    // https://docs.microsoft.com/dotnet/core/extensions/dependency-injection
-    // https://docs.microsoft.com/dotnet/core/extensions/configuration
-    // https://docs.microsoft.com/dotnet/core/extensions/logging
     private static readonly IHost Host = Microsoft.Extensions.Hosting.Host
         .CreateDefaultBuilder()
         .ConfigureAppConfiguration(c => { c.SetBasePath(Path.GetDirectoryName(AppContext.BaseDirectory)!); })
@@ -47,6 +44,8 @@ public partial class App
             services.AddSingleton<LibraryViewModel>();
             services.AddSingleton<SearchPage>();
             services.AddSingleton<SearchViewModel>();
+            services.AddSingleton<ToolsPage>();
+            services.AddSingleton<ToolsViewModel>();
             services.AddSingleton<SettingsPage>();
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<AboutPage>();

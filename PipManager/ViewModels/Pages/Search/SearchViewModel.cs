@@ -1,4 +1,5 @@
 ﻿using PipManager.Models;
+using Serilog;
 using System.Windows.Media;
 using Wpf.Ui.Controls;
 
@@ -44,5 +45,6 @@ public partial class SearchViewModel : ObservableObject, INavigationAware
         Colors = colorCollection;
 
         _isInitialized = true;
+        Log.Information("[Search] Initialized");
     }
 }
