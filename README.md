@@ -89,6 +89,7 @@ _Get `PipManager-XXX.zip` from Github Releases._
 - [x] Crushes Logging
 - [x] Settings Service
 - [x] System Tray Menu
+- [x] Localization Support
 
 ### Features
 
@@ -98,10 +99,10 @@ _Get `PipManager-XXX.zip` from Github Releases._
 - [ ] Search Package
 - [ ] Show Packages in data grid
 
-### Localization
+### Long-term
 
-- [x] Support
-- [ ] Completing
+- Logging
+- Localization
 
 See the [Open Issues](https://github.com/Pip-Manager/PipManager/issues) for a full list of proposed features (and known issues).
 

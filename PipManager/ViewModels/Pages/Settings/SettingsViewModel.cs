@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using PipManager.Languages;
 using PipManager.Services.Configuration;
+using Serilog;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 

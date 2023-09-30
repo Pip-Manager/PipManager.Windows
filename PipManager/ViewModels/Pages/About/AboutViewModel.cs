@@ -5,11 +5,6 @@ namespace PipManager.ViewModels.Pages.About;
 
 public partial class AboutViewModel : ObservableObject, INavigationAware
 {
-    private readonly IConfigurationService _configurationService;
-    public AboutViewModel(IConfigurationService configurationService)
-    {
-        _configurationService = configurationService;
-    }
     private bool _isInitialized;
 
     [ObservableProperty] private string _appVersion = string.Empty;
@@ -26,7 +21,7 @@ public partial class AboutViewModel : ObservableObject, INavigationAware
 
     private void InitializeViewModel()
     {
-        AppVersion = _configurationService.AppVersion;
+        AppVersion = AppInfo.AppVersion;
         _isInitialized = true;
     }
 

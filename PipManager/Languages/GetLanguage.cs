@@ -11,15 +11,4 @@ public static class GetLanguage
         {"English", "en-US"},
         {"简体中文", "zh-CN"}
     };
-
-    public static string? FromFile(string path)
-    {
-        var language = "Auto";
-        if (File.Exists(path))
-        {
-            language = JsonConvert.DeserializeObject<AppConfig>(File.ReadAllText(path)).Personalization.Language;
-        }
-        return language != "Auto" ? language : null;
-    }
-    
 }

@@ -20,6 +20,8 @@ using LibraryViewModel = PipManager.ViewModels.Pages.Library.LibraryViewModel;
 using SearchViewModel = PipManager.ViewModels.Pages.Search.SearchViewModel;
 using SettingsViewModel = PipManager.ViewModels.Pages.Settings.SettingsViewModel;
 using System.Globalization;
+using Serilog;
+using System.Windows.Controls;
 
 namespace PipManager;
 
@@ -73,12 +75,11 @@ public partial class App
     /// </summary>
     private void OnStartup(object sender, StartupEventArgs e)
     {
-        var language = GetLanguage.FromFile(Path.Combine(Directory.GetCurrentDirectory(), "config.json"));
-        if (language != null)
-        {
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
-        }
+        var appStarting = new AppStarting();
+        appStarting.LoadLanguage();
+        AppStarting.StartLogging();
+        appStarting.LogDeletion();
+        appStarting.CrushesDeletion();
         Host.Start();
     }
 
@@ -88,7 +89,7 @@ public partial class App
     private async void OnExit(object sender, ExitEventArgs e)
     {
         await Host.StopAsync();
-
+        Log.CloseAndFlush();
         Host.Dispose();
     }
 
@@ -97,9 +98,8 @@ public partial class App
     /// </summary>
     private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
-        var folder = Path.Combine(Directory.GetCurrentDirectory(), "crashes");
-        Directory.CreateDirectory(folder);
-        var file = Path.Combine(folder, $"crash_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.txt");
+        Directory.CreateDirectory(AppInfo.CrushesDir);
+        var file = Path.Combine(AppInfo.CrushesDir, $"crash_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.txt");
         File.WriteAllText(file, e.Exception.ToString());
     }
 }
