@@ -20,6 +20,8 @@ using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
 using LibraryViewModel = PipManager.ViewModels.Pages.Library.LibraryViewModel;
 using SearchViewModel = PipManager.ViewModels.Pages.Search.SearchViewModel;
 using SettingsViewModel = PipManager.ViewModels.Pages.Settings.SettingsViewModel;
+using System.Net.Http;
+using System.Net;
 
 namespace PipManager;
 
@@ -34,6 +36,14 @@ public partial class App
         .ConfigureServices((_, services) =>
         {
             services.AddHostedService<ApplicationHostService>();
+
+            services.AddTransient(_ =>
+            {
+                var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.All }) { DefaultRequestVersion = HttpVersion.Version20 };
+                client.DefaultRequestHeaders.Add("User-Agent", $"PipManager/{AppInfo.AppVersion}");
+                client.Timeout = TimeSpan.FromSeconds(10);
+                return client;
+            });
 
             services.AddSingleton<MainWindow>();
             services.AddSingleton<MainWindowViewModel>();

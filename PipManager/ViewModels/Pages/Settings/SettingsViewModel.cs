@@ -5,6 +5,7 @@ using PipManager.Services.Configuration;
 using Serilog;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using MessageBoxResult = Wpf.Ui.Controls.MessageBoxResult;
@@ -13,11 +14,13 @@ namespace PipManager.ViewModels.Pages.Settings;
 
 public partial class SettingsViewModel : ObservableObject, INavigationAware
 {
+    private readonly HttpClient _httpClient;
     private readonly ISnackbarService _snackbarService;
     private readonly IConfigurationService _configurationService;
 
     public SettingsViewModel(ISnackbarService snackbarService, IConfigurationService configurationService)
     {
+        _httpClient = App.GetService<HttpClient>();
         _snackbarService = snackbarService;
         _configurationService = configurationService;
 
@@ -57,6 +60,92 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         _isInitialized = true;
         Log.Information("[Settings] Initialized");
     }
+
+    #region Package Source
+
+    [ObservableProperty] private PackageSourceType _currentPackageSource = PackageSourceType.Official;
+    [ObservableProperty] private string _officialPackageSourceNetwork = string.Empty;
+    [ObservableProperty] private string _tsinghuaPackageSourceNetwork = string.Empty;
+    [ObservableProperty] private string _aliyunPackageSourceNetwork = string.Empty;
+    [ObservableProperty] private string _doubanPackageSourceNetwork = string.Empty;
+
+    [RelayCommand]
+    private void OnChangePackageSource(string parameter)
+    {
+        CurrentPackageSource = parameter switch
+        {
+            "official" => PackageSourceType.Official,
+            "tsinghua" => PackageSourceType.Tsinghua,
+            "aliyun" => PackageSourceType.Aliyun,
+            "douban" => PackageSourceType.Douban,
+            _ => PackageSourceType.Official
+        };
+        _configurationService.AppConfig.PackageSource.PackageSourceType = parameter;
+        _configurationService.Save();
+        Log.Information($"[Settings] Package source changes to {parameter}");
+    }
+
+    [RelayCommand]
+    private async Task OnTestNetwork()
+    {
+        OfficialPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTesting;
+        TsinghuaPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTesting;
+        AliyunPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTesting;
+        DoubanPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTesting;
+        var stopwatch = Stopwatch.StartNew();
+        var officialTask = async () =>
+        {
+            try
+            {
+                await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Official));
+                OfficialPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
+            }
+            catch (HttpRequestException)
+            {
+                OfficialPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTestFailed;
+            }
+        };
+        var tsinghuaTask = async () =>
+        {
+            try
+            {
+                await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Tsinghua));
+                TsinghuaPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
+            }
+            catch (HttpRequestException)
+            {
+                TsinghuaPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTestFailed;
+            }
+        };
+        var aliyunTask = async () =>
+        {
+            try
+            {
+                await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Aliyun));
+                AliyunPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
+            }
+            catch (HttpRequestException)
+            {
+                AliyunPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTestFailed;
+            }
+        };
+        var doubanTask = async () =>
+        {
+            try
+            {
+                await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Douban));
+                DoubanPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
+            }
+            catch (HttpRequestException)
+            {
+                DoubanPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTestFailed;
+            }
+        };
+        await Task.WhenAll(officialTask(), tsinghuaTask(), aliyunTask(), doubanTask());
+        Log.Information($"[Settings] Package Source network tested: Official({OfficialPackageSourceNetwork}) Tsinghua({TsinghuaPackageSourceNetwork}) Aliyun({AliyunPackageSourceNetwork}) Douban({DoubanPackageSourceNetwork})");
+    }
+
+    #endregion Package Source
 
     #region Language
 

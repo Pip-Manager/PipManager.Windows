@@ -70,6 +70,33 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Add Environment 的本地化字符串。
+        /// </summary>
+        public static string Environment_Operation_AddEnvironment {
+            get {
+                return ResourceManager.GetString("Environment_Operation_AddEnvironment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Remove Environment (from list) 的本地化字符串。
+        /// </summary>
+        public static string Environment_Operation_RemoveEnvironment {
+            get {
+                return ResourceManager.GetString("Environment_Operation_RemoveEnvironment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Verify Environment 的本地化字符串。
+        /// </summary>
+        public static string Environment_Operation_VerifyEnvironment {
+            get {
+                return ResourceManager.GetString("Environment_Operation_VerifyEnvironment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 About 的本地化字符串。
         /// </summary>
         public static string MainWindow_NavigationContent_About {
@@ -160,6 +187,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Package Source 的本地化字符串。
+        /// </summary>
+        public static string Settings_Category_PackageSource {
+            get {
+                return ResourceManager.GetString("Settings_Category_PackageSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Personalization 的本地化字符串。
         /// </summary>
         public static string Settings_Category_Personalization {
@@ -219,6 +255,69 @@ namespace PipManager.Languages {
         public static string Settings_FileManagement_ResetConfig_DialogContent {
             get {
                 return ResourceManager.GetString("Settings_FileManagement_ResetConfig_DialogContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Aliyun 的本地化字符串。
+        /// </summary>
+        public static string Settings_PackageSource_Aliyun {
+            get {
+                return ResourceManager.GetString("Settings_PackageSource_Aliyun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Douban 的本地化字符串。
+        /// </summary>
+        public static string Settings_PackageSource_Douban {
+            get {
+                return ResourceManager.GetString("Settings_PackageSource_Douban", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Test Network 的本地化字符串。
+        /// </summary>
+        public static string Settings_PackageSource_NetworkTest {
+            get {
+                return ResourceManager.GetString("Settings_PackageSource_NetworkTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Network Error 的本地化字符串。
+        /// </summary>
+        public static string Settings_PackageSource_NetworkTestFailed {
+            get {
+                return ResourceManager.GetString("Settings_PackageSource_NetworkTestFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Testing 的本地化字符串。
+        /// </summary>
+        public static string Settings_PackageSource_NetworkTesting {
+            get {
+                return ResourceManager.GetString("Settings_PackageSource_NetworkTesting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 PyPI Official 的本地化字符串。
+        /// </summary>
+        public static string Settings_PackageSource_Official {
+            get {
+                return ResourceManager.GetString("Settings_PackageSource_Official", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Tsinghua 的本地化字符串。
+        /// </summary>
+        public static string Settings_PackageSource_Tsinghua {
+            get {
+                return ResourceManager.GetString("Settings_PackageSource_Tsinghua", resourceCulture);
             }
         }
         

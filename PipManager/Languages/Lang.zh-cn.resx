@@ -204,4 +204,37 @@
   <data name="MainWindow_NavigationContent_Environment" xml:space="preserve">
     <value>环境</value>
   </data>
+  <data name="Environment_Operation_AddEnvironment" xml:space="preserve">
+    <value>添加环境</value>
+  </data>
+  <data name="Environment_Operation_RemoveEnvironment" xml:space="preserve">
+    <value>从列表中移除环境</value>
+  </data>
+  <data name="Environment_Operation_VerifyEnvironment" xml:space="preserve">
+    <value>验证环境可用性</value>
+  </data>
+  <data name="Settings_Category_PackageSource" xml:space="preserve">
+    <value>包源</value>
+  </data>
+  <data name="Settings_PackageSource_Aliyun" xml:space="preserve">
+    <value>阿里源</value>
+  </data>
+  <data name="Settings_PackageSource_Douban" xml:space="preserve">
+    <value>豆瓣源</value>
+  </data>
+  <data name="Settings_PackageSource_Official" xml:space="preserve">
+    <value>PyPI 官方源</value>
+  </data>
+  <data name="Settings_PackageSource_Tsinghua" xml:space="preserve">
+    <value>清华源</value>
+  </data>
+  <data name="Settings_PackageSource_NetworkTest" xml:space="preserve">
+    <value>网络测试</value>
+  </data>
+  <data name="Settings_PackageSource_NetworkTesting" xml:space="preserve">
+    <value>测试中</value>
+  </data>
+  <data name="Settings_PackageSource_NetworkTestFailed" xml:space="preserve">
+    <value>网络异常</value>
+  </data>
 </root>

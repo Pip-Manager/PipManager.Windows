@@ -23,6 +23,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\logo\python-logo-only.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Costura.Fody" Version="5.7.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -39,6 +43,7 @@
   <ItemGroup>
     <Resource Include="Assets\icon.png" />
     <Resource Include="Assets\icon.ico" />
+    <Resource Include="Assets\logo\python-logo-only.png" />
   </ItemGroup>
   
   <ItemGroup>

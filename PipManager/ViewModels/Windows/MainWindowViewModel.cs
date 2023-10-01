@@ -71,10 +71,4 @@ public partial class MainWindowViewModel : ObservableObject
             TargetPageType = typeof(AboutPage)
         }
     };
-
-    [ObservableProperty]
-    private ObservableCollection<MenuItem> _trayMenuItems = new()
-    {
-        new MenuItem { Header = "Home", Tag = "tray_home" }
-    };
 }

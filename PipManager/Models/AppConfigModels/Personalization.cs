@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PipManager.Models.AppConfigModels.Personalization;
+namespace PipManager.Models.AppConfigModels;
 
 public class Personalization
 {

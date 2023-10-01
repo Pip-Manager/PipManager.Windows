@@ -1,14 +1,14 @@
 ﻿<Page
     x:Class="PipManager.Views.Pages.Settings.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="clr-namespace:PipManager.Helpers"
     xmlns:lang="clr-namespace:PipManager.Languages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:settings="clr-namespace:PipManager.Views.Pages.Settings"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:valueConverters="clr-namespace:ValueConverters;assembly=ValueConverters"
     Title="SettingsPage"
     d:DataContext="{d:DesignInstance settings:SettingsPage,
@@ -21,11 +21,93 @@
     mc:Ignorable="d">
     <Page.Resources>
         <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <helpers:PackageSourceEnumToBooleanConverter x:Key="PackageSourceEnumToBooleanConverter" />
         <valueConverters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+
+        <Style x:Key="PackageSourceNetworkTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Gray" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
     </Page.Resources>
 
-    <StackPanel>
+    <StackPanel Cursor="">
         <TextBlock
+            FontSize="20"
+            FontWeight="Medium"
+            Text="{x:Static lang:Lang.Settings_Category_PackageSource}" />
+        <Grid Margin="0, 8, 0, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <RadioButton
+                Grid.Row="0"
+                Grid.Column="0"
+                Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
+                CommandParameter="official"
+                Content="{x:Static lang:Lang.Settings_PackageSource_Official}"
+                Cursor="Hand"
+                GroupName="packageSourceSelect"
+                IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Official, Mode=TwoWay}" />
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="1"
+                Style="{StaticResource PackageSourceNetworkTextBlockStyle}"
+                Text="{Binding ViewModel.OfficialPackageSourceNetwork}" />
+            <RadioButton
+                Grid.Row="1"
+                Grid.Column="0"
+                Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
+                CommandParameter="tsinghua"
+                Content="{x:Static lang:Lang.Settings_PackageSource_Tsinghua}"
+                GroupName="packageSourceSelect"
+                IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Tsinghua, Mode=TwoWay}" />
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="1"
+                Style="{StaticResource PackageSourceNetworkTextBlockStyle}"
+                Text="{Binding ViewModel.TsinghuaPackageSourceNetwork}" />
+            <RadioButton
+                Grid.Row="2"
+                Grid.Column="0"
+                Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
+                CommandParameter="aliyun"
+                Content="{x:Static lang:Lang.Settings_PackageSource_Aliyun}"
+                GroupName="packageSourceSelect"
+                IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Aliyun, Mode=TwoWay}" />
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="1"
+                Style="{StaticResource PackageSourceNetworkTextBlockStyle}"
+                Text="{Binding ViewModel.AliyunPackageSourceNetwork}" />
+            <RadioButton
+                Grid.Row="3"
+                Grid.Column="0"
+                Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
+                CommandParameter="douban"
+                Content="{x:Static lang:Lang.Settings_PackageSource_Douban}"
+                GroupName="packageSourceSelect"
+                IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Douban, Mode=TwoWay}" Cursor="Hand" />
+            <TextBlock
+                Grid.Row="3"
+                Grid.Column="1"
+                Style="{StaticResource PackageSourceNetworkTextBlockStyle}"
+                Text="{Binding ViewModel.DoubanPackageSourceNetwork}" />
+        </Grid>
+        <ui:Button
+            Margin="0,10,0,0"
+            Command="{Binding ViewModel.TestNetworkCommand}"
+            Content="{x:Static lang:Lang.Settings_PackageSource_NetworkTest}"
+            Icon="{ui:SymbolIcon NetworkCheck20}" />
+
+        <TextBlock
+            Margin="0,12,0,0"
             FontSize="20"
             FontWeight="Medium"
             Text="{x:Static lang:Lang.Settings_Category_Personalization}" />
@@ -133,6 +215,7 @@
                 Icon="{ui:SymbolIcon CircleOff20}" />
             <ui:Button
                 Margin="0,7,0,0"
+                Appearance="Danger"
                 Command="{Binding ViewModel.ResetConfigurationCommand}"
                 Content="{x:Static lang:Lang.Settings_FileManagement_ResetConfig}"
                 Icon="{ui:SymbolIcon ArrowReset20}" />

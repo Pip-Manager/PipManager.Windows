@@ -1,6 +1,7 @@
 ﻿using PipManager.Models;
 using Serilog;
 using System.Windows.Media;
+using PipManager.Models.EnvironmentModels;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Environment;
@@ -9,8 +10,7 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
 
-    [ObservableProperty]
-    private IEnumerable<DataColor> _colors = null!;
+    [ObservableProperty] private List<PipItemModel> _pipItems;
 
     public void OnNavigatedTo()
     {
@@ -24,27 +24,11 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
 
     private void InitializeViewModel()
     {
-        var random = new Random();
-        var colorCollection = new List<DataColor>();
-
-        for (int i = 0; i < 8192; i++)
-            colorCollection.Add(
-                new DataColor
-                {
-                    Color = new SolidColorBrush(
-                        Color.FromArgb(
-                            (byte)200,
-                            (byte)random.Next(0, 250),
-                            (byte)random.Next(0, 250),
-                            (byte)random.Next(0, 250)
-                        )
-                    )
-                }
-            );
-
-        Colors = colorCollection;
-
         _isInitialized = true;
         Log.Information("[Environment] Initialized");
+        PipItems = new List<PipItemModel>
+        {
+            new("Main environment", "23.1.2", "3.11", "C:\\Users\\Mccree Lee\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\pip")
+        };
     }
 }

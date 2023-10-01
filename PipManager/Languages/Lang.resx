@@ -204,4 +204,37 @@
   <data name="MainWindow_NavigationContent_Environment" xml:space="preserve">
     <value>Environment</value>
   </data>
+  <data name="Environment_Operation_AddEnvironment" xml:space="preserve">
+    <value>Add Environment</value>
+  </data>
+  <data name="Environment_Operation_RemoveEnvironment" xml:space="preserve">
+    <value>Remove Environment (from list)</value>
+  </data>
+  <data name="Environment_Operation_VerifyEnvironment" xml:space="preserve">
+    <value>Verify Environment</value>
+  </data>
+  <data name="Settings_Category_PackageSource" xml:space="preserve">
+    <value>Package Source</value>
+  </data>
+  <data name="Settings_PackageSource_Official" xml:space="preserve">
+    <value>PyPI Official</value>
+  </data>
+  <data name="Settings_PackageSource_Tsinghua" xml:space="preserve">
+    <value>Tsinghua</value>
+  </data>
+  <data name="Settings_PackageSource_Aliyun" xml:space="preserve">
+    <value>Aliyun</value>
+  </data>
+  <data name="Settings_PackageSource_Douban" xml:space="preserve">
+    <value>Douban</value>
+  </data>
+  <data name="Settings_PackageSource_NetworkTest" xml:space="preserve">
+    <value>Test Network</value>
+  </data>
+  <data name="Settings_PackageSource_NetworkTesting" xml:space="preserve">
+    <value>Testing</value>
+  </data>
+  <data name="Settings_PackageSource_NetworkTestFailed" xml:space="preserve">
+    <value>Network Error</value>
+  </data>
 </root>
