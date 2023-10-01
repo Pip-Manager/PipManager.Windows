@@ -45,6 +45,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
 
     private void InitializeViewModel()
     {
+        CurrentPackageSource = _configurationService.AppConfig.PackageSource.PackageSourceType;
         var language = _configurationService.AppConfig.Personalization.Language;
         Language = language != "Auto" ? GetLanguage.LanguageList.Select(x => x.Key).ToList()[GetLanguage.LanguageList.Select(x => x.Value).ToList().IndexOf(language)] : "Auto";
         CurrentTheme = _configurationService.AppConfig.Personalization.Theme switch
@@ -80,7 +81,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
             "douban" => PackageSourceType.Douban,
             _ => PackageSourceType.Official
         };
-        _configurationService.AppConfig.PackageSource.PackageSourceType = parameter;
+        _configurationService.AppConfig.PackageSource.PackageSourceType = CurrentPackageSource;
         _configurationService.Save();
         Log.Information($"[Settings] Package source changes to {parameter}");
     }
@@ -157,7 +158,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     {
         if (_isInitialized)
         {
-            _snackbarService.Show(Lang.Snackbar_Caution, Lang.Snackbar_effectAfterRestart);
+            _snackbarService.Show(Lang.Common_NoticeTitle_Caution, Lang.Snackbar_effectAfterRestart);
         }
         _configurationService.AppConfig.Personalization.Language = Language != "Auto" ? GetLanguage.LanguageList[Language] : "Auto";
         _configurationService.Save();
@@ -259,7 +260,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         }
         else
         {
-            _snackbarService.Show(Lang.Snackbar_Caution, Lang.Settings_FileManagement_CrushesDirNotFound);
+            _snackbarService.Show(Lang.Common_NoticeTitle_Caution, Lang.Settings_FileManagement_CrushesDirNotFound);
             Log.Information("[Settings] Crushes folder not found");
         }
     }

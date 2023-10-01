@@ -4,5 +4,5 @@ namespace PipManager.Models.AppConfigModels;
 
 public class PackageSource
 {
-    [JsonProperty("packageSourceType")] public string PackageSourceType { get; set; } = "Official";
+    [JsonProperty("packageSourceType")] public PackageSourceType PackageSourceType { get; set; } = PackageSourceType.Official;
 }

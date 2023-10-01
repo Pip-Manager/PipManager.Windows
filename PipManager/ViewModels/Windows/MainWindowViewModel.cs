@@ -1,12 +1,12 @@
 ﻿using PipManager.Languages;
 using PipManager.Services.Configuration;
 using PipManager.Views.Pages.About;
+using PipManager.Views.Pages.Environment;
 using PipManager.Views.Pages.Library;
 using PipManager.Views.Pages.Search;
 using PipManager.Views.Pages.Settings;
 using PipManager.Views.Pages.Tools;
 using System.Collections.ObjectModel;
-using PipManager.Views.Pages.Environment;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 
@@ -20,6 +20,7 @@ public partial class MainWindowViewModel : ObservableObject
     {
         _configurationService = configurationService;
     }
+
     [ObservableProperty]
     private string _applicationTitle = "Pip Manager";
 

@@ -12,6 +12,6 @@ public class PipItemModel
 
     public string Description { get; set; }
     public string PipVersion { get; set; }
-    public string PythonVersion { get; set;}
+    public string PythonVersion { get; set; }
     public string PipDir { get; set; }
 }

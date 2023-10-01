@@ -70,6 +70,24 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Caution 的本地化字符串。
+        /// </summary>
+        public static string Common_NoticeTitle_Caution {
+            get {
+                return ResourceManager.GetString("Common_NoticeTitle_Caution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Notice 的本地化字符串。
+        /// </summary>
+        public static string Common_NoticeTitle_Notice {
+            get {
+                return ResourceManager.GetString("Common_NoticeTitle_Notice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Add Environment 的本地化字符串。
         /// </summary>
         public static string Environment_Operation_AddEnvironment {
@@ -304,6 +322,16 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 The PyPI source contains the most complete library, but the connection is slow.
+        ///Other sources are faster to connect to, but may be incomplete. 的本地化字符串。
+        /// </summary>
+        public static string Settings_PackageSource_Notice {
+            get {
+                return ResourceManager.GetString("Settings_PackageSource_Notice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 PyPI Official 的本地化字符串。
         /// </summary>
         public static string Settings_PackageSource_Official {
@@ -390,15 +418,6 @@ namespace PipManager.Languages {
         public static string Settings_PersonalizationTitle_Theme {
             get {
                 return ResourceManager.GetString("Settings_PersonalizationTitle_Theme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Caution 的本地化字符串。
-        /// </summary>
-        public static string Snackbar_Caution {
-            get {
-                return ResourceManager.GetString("Snackbar_Caution", resourceCulture);
             }
         }
         

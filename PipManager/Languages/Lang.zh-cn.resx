@@ -159,7 +159,7 @@
   <data name="TrayMenu_Install" xml:space="preserve">
     <value>安装包</value>
   </data>
-  <data name="Snackbar_Caution" xml:space="preserve">
+  <data name="Common_NoticeTitle_Caution" xml:space="preserve">
     <value>提示</value>
   </data>
   <data name="Snackbar_effectAfterRestart" xml:space="preserve">
@@ -236,5 +236,12 @@
   </data>
   <data name="Settings_PackageSource_NetworkTestFailed" xml:space="preserve">
     <value>网络异常</value>
+  </data>
+  <data name="Common_NoticeTitle_Notice" xml:space="preserve">
+    <value>提示</value>
+  </data>
+  <data name="Settings_PackageSource_Notice" xml:space="preserve">
+    <value>PyPI 源包含最完整的库，但是连接速度慢
+其他源连接速度较快，但可能并不完整</value>
   </data>
 </root>

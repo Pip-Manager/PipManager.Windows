@@ -159,7 +159,7 @@
   <data name="TrayMenu_Install" xml:space="preserve">
     <value>Install Package</value>
   </data>
-  <data name="Snackbar_Caution" xml:space="preserve">
+  <data name="Common_NoticeTitle_Caution" xml:space="preserve">
     <value>Caution</value>
   </data>
   <data name="Snackbar_effectAfterRestart" xml:space="preserve">
@@ -236,5 +236,12 @@
   </data>
   <data name="Settings_PackageSource_NetworkTestFailed" xml:space="preserve">
     <value>Network Error</value>
+  </data>
+  <data name="Common_NoticeTitle_Notice" xml:space="preserve">
+    <value>Notice</value>
+  </data>
+  <data name="Settings_PackageSource_Notice" xml:space="preserve">
+    <value>The PyPI source contains the most complete library, but the connection is slow.
+Other sources are faster to connect to, but may be incomplete.</value>
   </data>
 </root>

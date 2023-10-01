@@ -1,10 +1,10 @@
-﻿using System.Globalization;
+﻿using PipManager.Models;
+using System.Globalization;
 using System.Windows.Data;
-using PipManager.Models;
 
 namespace PipManager.Helpers;
 
-internal class PackageSourceEnumToBooleanConverter: IValueConverter
+internal class PackageSourceEnumToBooleanConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

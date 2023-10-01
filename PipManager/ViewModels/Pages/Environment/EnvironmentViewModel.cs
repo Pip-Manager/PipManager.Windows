@@ -1,7 +1,5 @@
-﻿using PipManager.Models;
+﻿using PipManager.Models.EnvironmentModels;
 using Serilog;
-using System.Windows.Media;
-using PipManager.Models.EnvironmentModels;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Environment;
