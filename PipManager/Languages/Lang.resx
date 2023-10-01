@@ -198,4 +198,10 @@
   <data name="MessageDialog_CloseButton_Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Settings_FileManagement_CrushesDirNotFound" xml:space="preserve">
+    <value>Crushes folder not found</value>
+  </data>
+  <data name="MainWindow_NavigationContent_Environment" xml:space="preserve">
+    <value>Environment</value>
+  </data>
 </root>

@@ -6,6 +6,7 @@ using PipManager.Views.Pages.Search;
 using PipManager.Views.Pages.Settings;
 using PipManager.Views.Pages.Tools;
 using System.Collections.ObjectModel;
+using PipManager.Views.Pages.Environment;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 
@@ -18,9 +19,7 @@ public partial class MainWindowViewModel : ObservableObject
     public MainWindowViewModel(IConfigurationService configurationService)
     {
         _configurationService = configurationService;
-        _configurationService.Initialize();
     }
-
     [ObservableProperty]
     private string _applicationTitle = "Pip Manager";
 
@@ -50,6 +49,13 @@ public partial class MainWindowViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<object> _footerMenuItems = new()
     {
+        new NavigationViewItem
+        {
+            HorizontalContentAlignment = HorizontalAlignment.Center,
+            Content = Lang.MainWindow_NavigationContent_Environment,
+            Icon = new SymbolIcon { Symbol = SymbolRegular.AlignSpaceEvenlyHorizontal20 },
+            TargetPageType = typeof(EnvironmentPage)
+        },
         new NavigationViewItem
         {
             HorizontalContentAlignment = HorizontalAlignment.Center,

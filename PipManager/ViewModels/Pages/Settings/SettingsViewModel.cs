@@ -54,8 +54,8 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         LogAutoDeletionTimes = _configurationService.AppConfig.Personalization.LogAutoDeletionTimes;
         CrushesAutoDeletion = _configurationService.AppConfig.Personalization.CrushesAutoDeletion;
         CrushesAutoDeletionTimes = _configurationService.AppConfig.Personalization.CrushesAutoDeletionTimes;
-        Log.Information("[Settings] Initialized");
         _isInitialized = true;
+        Log.Information("[Settings] Initialized");
     }
 
     #region Language
@@ -68,7 +68,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     {
         if (_isInitialized)
         {
-            _snackbarService.Show(Lang.Snackbar_Caution, Lang.Snackbar_effectAfterRestart, ControlAppearance.Info);
+            _snackbarService.Show(Lang.Snackbar_Caution, Lang.Snackbar_effectAfterRestart);
         }
         _configurationService.AppConfig.Personalization.Language = Language != "Auto" ? GetLanguage.LanguageList[Language] : "Auto";
         _configurationService.Save();
@@ -147,18 +147,18 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     #region File Management
 
     [RelayCommand]
-    private void OpenAppFolder()
+    private static void OpenAppFolder()
     {
-        Process.Start("explorer.exe", Environment.CurrentDirectory);
+        Process.Start("explorer.exe", System.Environment.CurrentDirectory);
+        Log.Information("[Settings] App folder opened");
     }
 
     [RelayCommand]
-    private void OpenLogFolder()
+    private static void OpenLogFolder()
     {
-        if (Directory.Exists(AppInfo.LogDir))
-        {
-            Process.Start("explorer.exe", AppInfo.LogDir);
-        }
+        if (!Directory.Exists(AppInfo.LogDir)) return;
+        Process.Start("explorer.exe", AppInfo.LogDir);
+        Log.Information("[Settings] Log folder opened");
     }
 
     [RelayCommand]
@@ -168,10 +168,15 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         {
             Process.Start("explorer.exe", AppInfo.CrushesDir);
         }
+        else
+        {
+            _snackbarService.Show(Lang.Snackbar_Caution, Lang.Settings_FileManagement_CrushesDirNotFound);
+            Log.Information("[Settings] Crushes folder not found");
+        }
     }
 
     [RelayCommand]
-    private async Task ResetConfigurationAsync()
+    private static async Task ResetConfigurationAsync()
     {
         var messageBox = new Wpf.Ui.Controls.MessageBox
         {

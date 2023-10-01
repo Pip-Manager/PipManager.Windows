@@ -14,6 +14,8 @@ using PipManager.Views.Windows;
 using Serilog;
 using System.IO;
 using System.Windows.Threading;
+using PipManager.ViewModels.Pages.Environment;
+using PipManager.Views.Pages.Environment;
 using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
 using LibraryViewModel = PipManager.ViewModels.Pages.Library.LibraryViewModel;
 using SearchViewModel = PipManager.ViewModels.Pages.Search.SearchViewModel;
@@ -46,6 +48,9 @@ public partial class App
             services.AddSingleton<SearchViewModel>();
             services.AddSingleton<ToolsPage>();
             services.AddSingleton<ToolsViewModel>();
+
+            services.AddSingleton<EnvironmentPage>();
+            services.AddSingleton<EnvironmentViewModel>();
             services.AddSingleton<SettingsPage>();
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<AboutPage>();
@@ -84,7 +89,7 @@ public partial class App
         await Host.StopAsync();
         Host.Dispose();
         Log.Information("Logging ended");
-        Log.CloseAndFlush();
+        await Log.CloseAndFlushAsync();
     }
 
     /// <summary>
@@ -92,7 +97,7 @@ public partial class App
     /// </summary>
     private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
-        Log.Error($"Exception: {e.Exception.ToString()}");
+        Log.Error($"Exception: {e.Exception}");
         Directory.CreateDirectory(AppInfo.CrushesDir);
         var file = Path.Combine(AppInfo.CrushesDir, $"crash_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.txt");
         File.WriteAllText(file, e.Exception.ToString());

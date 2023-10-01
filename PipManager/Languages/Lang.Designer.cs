@@ -79,6 +79,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Environment 的本地化字符串。
+        /// </summary>
+        public static string MainWindow_NavigationContent_Environment {
+            get {
+                return ResourceManager.GetString("MainWindow_NavigationContent_Environment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Library 的本地化字符串。
         /// </summary>
         public static string MainWindow_NavigationContent_Library {
@@ -156,6 +165,15 @@ namespace PipManager.Languages {
         public static string Settings_Category_Personalization {
             get {
                 return ResourceManager.GetString("Settings_Category_Personalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Crushes folder not found 的本地化字符串。
+        /// </summary>
+        public static string Settings_FileManagement_CrushesDirNotFound {
+            get {
+                return ResourceManager.GetString("Settings_FileManagement_CrushesDirNotFound", resourceCulture);
             }
         }
         

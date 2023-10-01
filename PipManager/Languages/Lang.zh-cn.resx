@@ -198,4 +198,10 @@
   <data name="MessageDialog_CloseButton_Cancel" xml:space="preserve">
     <value>取消操作</value>
   </data>
+  <data name="Settings_FileManagement_CrushesDirNotFound" xml:space="preserve">
+    <value>崩溃记录文件夹不存在</value>
+  </data>
+  <data name="MainWindow_NavigationContent_Environment" xml:space="preserve">
+    <value>环境</value>
+  </data>
 </root>
