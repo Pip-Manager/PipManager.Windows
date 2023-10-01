@@ -6,7 +6,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:lang="clr-namespace:PipManager.Languages"
-    xmlns:models="clr-namespace:PipManager.Models.EnvironmentModels"
+    xmlns:appConfigModels="clr-namespace:PipManager.Models.AppConfigModels"
     xmlns:environment="clr-namespace:PipManager.Views.Pages.Environment"
     Title="EnvironmentPage"
     d:DataContext="{d:DesignInstance environment:EnvironmentPage,
@@ -23,6 +23,7 @@
         <StackPanel Orientation="Horizontal">
             <ui:Button
                 Appearance="Primary"
+                Command="{Binding ViewModel.AddEnvironmentCommand}"
                 Content="{x:Static lang:Lang.Environment_Operation_AddEnvironment}"
                 Icon="{ui:SymbolIcon Add24}" />
             <ui:Button
@@ -34,9 +35,9 @@
                 Content="{x:Static lang:Lang.Environment_Operation_VerifyEnvironment}"
                 Icon="{ui:SymbolIcon Check24}" />
         </StackPanel>
-        <ListView Margin="0,10,0,0" ItemsSource="{Binding ViewModel.PipItems}">
+        <ListView Margin="0,10,0,0">
             <ListView.ItemTemplate>
-                <DataTemplate DataType="{x:Type models:PipItemModel}">
+                <DataTemplate DataType="{x:Type appConfigModels:EnvironmentItem}">
                     <StackPanel Margin="0,8,0,0" Orientation="Horizontal">
                         <Image
                             Width="48"

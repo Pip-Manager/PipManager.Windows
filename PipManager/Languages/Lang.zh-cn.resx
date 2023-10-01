@@ -241,7 +241,7 @@
     <value>提示</value>
   </data>
   <data name="Settings_PackageSource_Notice" xml:space="preserve">
-    <value>PyPI 源包含最完整的库，但是连接速度慢
-其他源连接速度较快，但可能并不完整</value>
+    <value>PyPI 源包含最完整的库，但是连接速度慢。
+其他源连接速度较快，但可能并不完整。</value>
   </data>
 </root>

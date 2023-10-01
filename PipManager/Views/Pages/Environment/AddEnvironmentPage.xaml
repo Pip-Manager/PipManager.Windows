@@ -1,0 +1,136 @@
+<Page
+    x:Class="PipManager.Views.Pages.Environment.AddEnvironmentPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:appConfigModels="clr-namespace:PipManager.Models.AppConfigModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:environment="clr-namespace:PipManager.Views.Pages.Environment"
+    xmlns:lang="clr-namespace:PipManager.Languages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="AddEnvironmentPage"
+    d:DataContext="{d:DesignInstance environment:AddEnvironmentPage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="700"
+    d:DesignWidth="1200"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    ScrollViewer.CanContentScroll="False"
+    mc:Ignorable="d">
+
+    <Grid>
+        <TextBlock
+            Margin="0,32,0,0"
+            FontSize="26"
+            FontWeight="Bold"
+            Text="Add Environment" />
+        <Grid Margin="0,80,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Margin="0,0,5,60">
+                <RadioButton
+                    x:Name="ByEnvironmentVariableRadioButton"
+                    VerticalAlignment="Top"
+                    Command="{Binding ViewModel.ChangeAddEnvironmentWayCommand, Mode=OneWay}"
+                    CommandParameter="system"
+                    Content="By environment variables"
+                    GroupName="addEnvironmentByWays"
+                    IsChecked="True" />
+                <Border
+                    Margin="0,40,0,0"
+                    CornerRadius="5"
+                    IsEnabled="{Binding ElementName=ByEnvironmentVariableRadioButton, Path=IsChecked}">
+                    <Border.Background>
+                        <SolidColorBrush Opacity="0.3" Color="LightGray" />
+                    </Border.Background>
+                    <Grid Margin="20">
+                        <ListView
+                            Margin="0,0,0,50"
+                            VerticalAlignment="Stretch"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                            ItemsSource="{Binding ViewModel.EnvironmentItems, Mode=TwoWay}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate DataType="{x:Type appConfigModels:EnvironmentItem}">
+                                    <Grid x:Name="ByEnvironmentVariableGrid" Margin="0,8,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="48"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0"
+                                            Source="../../../Assets/logo/python-logo-only.png" />
+                                        <StackPanel Grid.Column="1" Margin="7, 0, 0,0">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock FontSize="14" Text="{Binding PipVersion}" />
+                                                <TextBlock FontSize="14" Text=" " />
+                                                <TextBlock FontSize="14" Text="{Binding PythonVersion, StringFormat=for Python {0}}" />
+                                            </StackPanel>
+                                            
+                                            <TextBlock
+                                                FontSize="12"
+                                                Foreground="Gray"
+                                                Text="{Binding PipDir}"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <ui:Button
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Bottom"
+                            Command="{Binding ViewModel.RefreshPipListCommand}"
+                            Content="Refresh"
+                            Icon="{ui:SymbolIcon ArrowClockwise20}" />
+                    </Grid>
+                </Border>
+
+            </Grid>
+            <Grid Grid.Column="1" Margin="5,0,0,60">
+                <RadioButton
+                    x:Name="ByCommandRadioButton"
+                    VerticalAlignment="Top"
+                    Command="{Binding ViewModel.ChangeAddEnvironmentWayCommand, Mode=OneWay}"
+                    CommandParameter="command"
+                    Content="By command"
+                    GroupName="addEnvironmentByWays" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <ui:InfoBar
+                        Title="{x:Static lang:Lang.Common_NoticeTitle_Notice}"
+                        Grid.Row="0"
+                        Margin="0,40,0,0"
+                        IsClosable="False"
+                        IsOpen="True"
+                        Message="If you are using &quot;pip install&quot;, type &quot;pip&quot; in the box. Similarly, for &quot;pip3.11 install&quot;, type &quot;pip3.11&quot;." />
+                    <Border
+                        Grid.Row="1"
+                        Margin="0,10,0,0"
+                        CornerRadius="5"
+                        IsEnabled="{Binding ElementName=ByCommandRadioButton, Path=IsChecked}">
+                        <Border.Background>
+                            <SolidColorBrush Opacity="0.3" Color="LightGray" />
+                        </Border.Background>
+                        <StackPanel Margin="20">
+                            <Label Content="Enter the Pip command" Target="{Binding ElementName=ByCommandTextBox}" />
+                            <ui:TextBox x:Name="ByCommandTextBox" PlaceholderText="pip" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Grid>
+        <ui:Button
+            Margin="0,0,0,13"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Appearance="Primary"
+            Content="Add"
+            Icon="{ui:SymbolIcon Add20}" />
+    </Grid>
+
+</Page>

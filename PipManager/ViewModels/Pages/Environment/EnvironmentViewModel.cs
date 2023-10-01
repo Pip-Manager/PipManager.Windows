@@ -1,4 +1,4 @@
-﻿using PipManager.Models.EnvironmentModels;
+﻿using PipManager.Views.Pages.Environment;
 using Serilog;
 using Wpf.Ui.Controls;
 
@@ -7,8 +7,12 @@ namespace PipManager.ViewModels.Pages.Environment;
 public partial class EnvironmentViewModel : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
+    private readonly INavigationService _navigationService;
 
-    [ObservableProperty] private List<PipItemModel> _pipItems;
+    public EnvironmentViewModel(INavigationService navigationService)
+    {
+        _navigationService = navigationService;
+    }
 
     public void OnNavigatedTo()
     {
@@ -24,9 +28,15 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
     {
         _isInitialized = true;
         Log.Information("[Environment] Initialized");
-        PipItems = new List<PipItemModel>
-        {
-            new("Main environment", "23.1.2", "3.11", "C:\\Users\\Mccree Lee\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\pip")
-        };
     }
+
+    #region Add Environment
+
+    [RelayCommand]
+    private void AddEnvironment()
+    {
+        _navigationService.Navigate(typeof(AddEnvironmentPage));
+    }
+
+    #endregion
 }

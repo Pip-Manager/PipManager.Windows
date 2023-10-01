@@ -3,9 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PipManager.Services;
 using PipManager.Services.Configuration;
+using PipManager.ViewModels.Pages.Environment;
 using PipManager.ViewModels.Pages.Tools;
 using PipManager.ViewModels.Windows;
 using PipManager.Views.Pages.About;
+using PipManager.Views.Pages.Environment;
 using PipManager.Views.Pages.Library;
 using PipManager.Views.Pages.Search;
 using PipManager.Views.Pages.Settings;
@@ -13,15 +15,13 @@ using PipManager.Views.Pages.Tools;
 using PipManager.Views.Windows;
 using Serilog;
 using System.IO;
+using System.Net;
+using System.Net.Http;
 using System.Windows.Threading;
-using PipManager.ViewModels.Pages.Environment;
-using PipManager.Views.Pages.Environment;
 using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
 using LibraryViewModel = PipManager.ViewModels.Pages.Library.LibraryViewModel;
 using SearchViewModel = PipManager.ViewModels.Pages.Search.SearchViewModel;
 using SettingsViewModel = PipManager.ViewModels.Pages.Settings.SettingsViewModel;
-using System.Net.Http;
-using System.Net;
 
 namespace PipManager;
 
@@ -61,6 +61,9 @@ public partial class App
 
             services.AddSingleton<EnvironmentPage>();
             services.AddSingleton<EnvironmentViewModel>();
+            services.AddSingleton<AddEnvironmentPage>();
+            services.AddSingleton<AddEnvironmentViewModel>();
+
             services.AddSingleton<SettingsPage>();
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<AboutPage>();
