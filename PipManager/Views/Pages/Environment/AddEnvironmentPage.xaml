@@ -1,16 +1,15 @@
 <Page
     x:Class="PipManager.Views.Pages.Environment.AddEnvironmentPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:appConfigModels="clr-namespace:PipManager.Models.AppConfigModels"
-    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:environment="clr-namespace:PipManager.Views.Pages.Environment"
-    xmlns:lang="clr-namespace:PipManager.Languages"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:pages="clr-namespace:PipManager.Models.Pages"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:valueConverters="clr-namespace:ValueConverters;assembly=ValueConverters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:lang="clr-namespace:PipManager.Languages"
+    xmlns:appConfigModels="clr-namespace:PipManager.Models.AppConfigModels"
+    xmlns:pages="clr-namespace:PipManager.Models.Pages"
+    xmlns:environment="clr-namespace:PipManager.Views.Pages.Environment"
     Title="AddEnvironmentPage"
     d:DataContext="{d:DesignInstance environment:AddEnvironmentPage,
                                      IsDesignTimeCreatable=False}"
@@ -27,7 +26,7 @@
             Margin="0,32,0,0"
             FontSize="26"
             FontWeight="Bold"
-            Text="Add Environment" />
+            Text="{x:Static lang:Lang.EnvironmentAdd_Header}" />
         <Grid Margin="0,80,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.22*" />
@@ -80,25 +79,49 @@
 
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
-                        <TextBlock Text="Detected Environment" FontWeight="Medium" FontSize="18" Margin="5, 0, 0, 0" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="18"
+                            FontWeight="Medium"
+                            Text="{x:Static lang:Lang.EnvironmentAdd_EnvironmentVariable_Header}" />
                         <ui:Button
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             Command="{Binding ViewModel.RefreshPipListCommand}"
-                            Content="Refresh"
+                            Content="{x:Static lang:Lang.Common_Button_Refresh}"
                             Icon="{ui:SymbolIcon ArrowClockwise20}" />
                     </Grid>
-                    <ui:ProgressRing Visibility="{Binding ViewModel.Loading, Converter={StaticResource BoolToVisibility}}" Grid.Row="1" Width="90" Height="90" VerticalAlignment="Center" HorizontalAlignment="Center" IsIndeterminate="True" Margin="0, 0, 0, 50"/>
-                    <ListView Grid.Row="1"
-                              Visibility="{Binding ViewModel.Loading, Converter={StaticResource InverseBoolToVisibility}}"
+                    <ui:ProgressRing
+                        Grid.Row="1"
+                        Width="90"
+                        Height="90"
+                        Margin="0,0,0,50"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        IsIndeterminate="True"
+                        Visibility="{Binding ViewModel.Loading, Converter={StaticResource BoolToVisibility}}" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Margin="0,0,0,50"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="22"
+                        Text="{x:Static lang:Lang.EnvironmentAdd_EnvironmentVariable_NotFound}"
+                        Visibility="{Binding ViewModel.Found, Converter={StaticResource BoolToVisibility}}" />
+                    <ListView
+                        x:Name="ByEnvironmentVariablesList"
+                        Grid.Row="1"
                         Margin="0,0,0,50"
                         VerticalAlignment="Stretch"
                         ItemsSource="{Binding ViewModel.EnvironmentItems, Mode=TwoWay}"
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        SelectedItem="{Binding ViewModel.EnvironmentItemInList}"
+                        Visibility="{Binding ViewModel.Loading, Converter={StaticResource InverseBoolToVisibility}}">
                         <ListView.ItemTemplate>
                             <DataTemplate DataType="{x:Type appConfigModels:EnvironmentItem}">
                                 <Grid x:Name="ByEnvironmentVariableGrid" Margin="0,8,0,0">
@@ -129,8 +152,15 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    
                 </Grid>
+                <ui:Button
+                    Margin="0,0,0,13"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Appearance="Primary"
+                    Command="{Binding ViewModel.AddEnvironmentCommand}"
+                    Content="{x:Static lang:Lang.Common_Button_Add}"
+                    Icon="{ui:SymbolIcon Add20}" />
             </Grid>
             <Grid
                 Grid.Row="0"
@@ -138,43 +168,89 @@
                 Margin="7,0,0,0"
                 Visibility="{Binding ViewModel.ByPipCommandGridVisibility, Converter={StaticResource BoolToVisibility}}">
                 <StackPanel>
-                    <StackPanel>
-                        <Label Content="Enter the Pip command" Target="{Binding ElementName=ByPipCommandTextBox}" />
-                        <ui:TextBox x:Name="ByPipCommandTextBox" PlaceholderText="pip" />
-                    </StackPanel>
+                    <TextBlock Text="{x:Static lang:Lang.EnvironmentAdd_PipCommand_Label}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <ui:TextBox
+                            x:Name="ByPipCommandTextBox"
+                            Grid.Column="0"
+                            PlaceholderText="pip"
+                            Text="{Binding ViewModel.PipCommand, UpdateSourceTrigger=PropertyChanged}">
+                            <b:Interaction.Triggers>
+                                <b:EventTrigger EventName="TextChanged">
+                                    <b:InvokeCommandAction Command="{Binding ViewModel.CheckAddEnabledCommand}" />
+                                </b:EventTrigger>
+                            </b:Interaction.Triggers>
+                        </ui:TextBox>
+                    </Grid>
+
                     <ui:InfoBar
-                        Margin="0, 10, 0, 0"
                         Title="{x:Static lang:Lang.Common_NoticeTitle_Notice}"
+                        Margin="0,10,0,0"
                         IsClosable="False"
                         IsOpen="True"
-                        Message="If you are using &quot;pip install&quot;, type &quot;pip&quot; in the box. Similarly, for &quot;pip3.11 install&quot;, type &quot;pip3.11&quot;." />
+                        Message="{x:Static lang:Lang.EnvironmentAdd_PipCommand_Notice}" />
                 </StackPanel>
+                <ui:Button
+                    Margin="0,0,0,13"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Appearance="Primary"
+                    Command="{Binding ViewModel.AddEnvironmentCommand}"
+                    Content="{x:Static lang:Lang.Common_Button_Add}"
+                    Icon="{ui:SymbolIcon Add20}"
+                    IsEnabled="{Binding ElementName=ByPipCommandTextBox, Path=Text, Converter={StaticResource StringIsNotNullOrEmpty}}" />
             </Grid>
             <Grid
                 Grid.Row="0"
                 Grid.Column="1"
                 Margin="7,0,0,0"
-                Visibility="{Binding ViewModel.ByPythonCommandGridVisibility, Converter={StaticResource BoolToVisibility}}">
+                Visibility="{Binding ViewModel.ByPythonPathGridVisibility, Converter={StaticResource BoolToVisibility}}">
                 <StackPanel>
                     <StackPanel>
-                        <Label Content="Enter the Python command" Target="{Binding ElementName=ByPythonCommandTextBox}" />
-                        <ui:TextBox x:Name="ByPythonCommandTextBox" PlaceholderText="python.exe" />
+                        <TextBlock Text="{x:Static lang:Lang.EnvironmentAdd_PythonPath_Label}" />
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ui:TextBox
+                                x:Name="ByPythonPathTextBox"
+                                Grid.Column="0"
+                                HorizontalAlignment="Stretch"
+                                PlaceholderText="python.exe"
+                                Text="{Binding ViewModel.PythonPath}">
+                                <b:Interaction.Triggers>
+                                    <b:EventTrigger EventName="TextChanged">
+                                        <b:InvokeCommandAction Command="{Binding ViewModel.CheckAddEnabledCommand}" />
+                                    </b:EventTrigger>
+                                </b:Interaction.Triggers>
+                            </ui:TextBox>
+
+                            <ui:Button
+                                Grid.Column="2"
+                                Margin="3,0,0,0"
+                                Content="{x:Static lang:Lang.Common_Button_Browse}"
+                                Icon="{ui:SymbolIcon FolderOpen20}" />
+                        </Grid>
                     </StackPanel>
-                    <ui:InfoBar
-                        Margin="0, 10, 0, 0"
-                        Title="{x:Static lang:Lang.Common_NoticeTitle_Notice}"
-                        IsClosable="False"
-                        IsOpen="True"
-                        Message="Please enter the absolute path to &quot;python.exe&quot;." />
                 </StackPanel>
+
+                <ui:Button
+                    Margin="0,0,0,13"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Appearance="Primary"
+                    Command="{Binding ViewModel.AddEnvironmentCommand}"
+                    Content="{x:Static lang:Lang.Common_Button_Add}"
+                    Icon="{ui:SymbolIcon Add20}"
+                    IsEnabled="{Binding ElementName=ByPythonPathTextBox, Path=Text, Converter={StaticResource StringIsNotNullOrEmpty}}" />
             </Grid>
         </Grid>
-        <ui:Button
-            Margin="0,0,0,13"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Appearance="Primary"
-            Content="Add"
-            Icon="{ui:SymbolIcon Add20}" />
     </Grid>
 </Page>

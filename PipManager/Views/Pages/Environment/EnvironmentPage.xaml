@@ -38,6 +38,7 @@
         <ListView
             Margin="0,10,0,0"
             VerticalAlignment="Stretch"
+            ItemsSource="{Binding ViewModel.EnvironmentItems}"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type appConfigModels:EnvironmentItem}">

@@ -9,21 +9,22 @@
     Startup="OnStartup">
     <Application.Resources>
         <ResourceDictionary>
-            <!-- UI -->
+            <!--  UI  -->
 
             <ResourceDictionary.MergedDictionaries>
                 <ui:ThemesDictionary Theme="Dark" />
                 <ui:ControlsDictionary />
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- Value Converters -->
+            <!--  Value Converters  -->
 
             <valueConverters:ValueConverterGroup x:Key="InverseBoolToVisibility">
-                <valueConverters:InverseBoolConverter/>
+                <valueConverters:InverseBoolConverter />
                 <valueConverters:BoolToVisibilityConverter />
             </valueConverters:ValueConverterGroup>
             <valueConverters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
             <valueConverters:InverseBoolConverter x:Key="InverseBool" />
+            <valueConverters:StringIsNotNullOrEmptyConverter x:Key="StringIsNotNullOrEmpty" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

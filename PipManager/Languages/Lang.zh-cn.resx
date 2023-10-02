@@ -196,7 +196,7 @@
     <value>执行</value>
   </data>
   <data name="MessageDialog_CloseButton_Cancel" xml:space="preserve">
-    <value>取消操作</value>
+    <value>取消</value>
   </data>
   <data name="Settings_FileManagement_CrushesDirNotFound" xml:space="preserve">
     <value>崩溃记录文件夹不存在</value>
@@ -243,5 +243,50 @@
   <data name="Settings_PackageSource_Notice" xml:space="preserve">
     <value>PyPI 源包含最完整的库，但是连接速度慢。
 其他源连接速度较快，但可能并不完整。</value>
+  </data>
+  <data name="EnvironmentAdd_Header" xml:space="preserve">
+    <value>添加环境</value>
+  </data>
+  <data name="EnvironmentAdd_EnvironmentVariable_Header" xml:space="preserve">
+    <value>检测到以下环境</value>
+  </data>
+  <data name="Common_Button_Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="Common_Button_Add" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="EnvironmentAdd_PipCommand_Label" xml:space="preserve">
+    <value>输入 Pip 命令</value>
+  </data>
+  <data name="EnvironmentAdd_PipCommand_Notice" xml:space="preserve">
+    <value>如果使用 "pip install"，请在框中输入 "pip"。同样，如果使用 "pip3.11 install"，请输入 "pip3.11"。</value>
+  </data>
+  <data name="EnvironmentAdd_PythonPath_Label" xml:space="preserve">
+    <value>输入 python.exe 的绝对路径</value>
+  </data>
+  <data name="Common_Button_Browse" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="EnvironmentAdd_EnvironmentVariable_Title" xml:space="preserve">
+    <value>通过环境变量获取</value>
+  </data>
+  <data name="EnvironmentAdd_PipCommand_Title" xml:space="preserve">
+    <value>通过 Pip 命令获取</value>
+  </data>
+  <data name="EnvironmentAdd_PythonPath_Title" xml:space="preserve">
+    <value>通过 Python.exe 路径获取</value>
+  </data>
+  <data name="MsgBox_Title_Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="MsgBox_Message_EnvironmentAlreadyExists" xml:space="preserve">
+    <value>环境已存在</value>
+  </data>
+  <data name="MsgBox_Message_EnvironmentNoSelection" xml:space="preserve">
+    <value>你没有选择环境</value>
+  </data>
+  <data name="EnvironmentAdd_EnvironmentVariable_NotFound" xml:space="preserve">
+    <value>未发现环境</value>
   </data>
 </root>

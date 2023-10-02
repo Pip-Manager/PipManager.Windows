@@ -1,11 +1,11 @@
-﻿using PipManager.Models.AppConfigModels;
-using System.Diagnostics;
-using System.IO;
-using Microsoft.Extensions.Primitives;
+﻿using PipManager.Controls;
+using PipManager.Languages;
+using PipManager.Models.AppConfigModels;
 using PipManager.Models.Pages;
+using PipManager.Services.Configuration;
+using System.IO;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
-using MessageBox = System.Windows.MessageBox;
 
 namespace PipManager.ViewModels.Pages.Environment;
 
@@ -13,10 +13,12 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
 {
     private bool _isInitialized;
     private readonly INavigationService _navigationService;
+    private readonly IConfigurationService _configurationService;
 
-    public AddEnvironmentViewModel(INavigationService navigationService)
+    public AddEnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService)
     {
         _navigationService = navigationService;
+        _configurationService = configurationService;
     }
 
     public void OnNavigatedTo()
@@ -24,7 +26,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
         if (!_isInitialized)
             InitializeViewModel();
         _navigationService.GetNavigationControl().BreadcrumbBar!.Visibility = Visibility.Collapsed;
-        RefreshPipList();
+        _ = RefreshPipList();
     }
 
     public void OnNavigatedFrom()
@@ -39,26 +41,28 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
 
     #region ByWaysList
 
-    [ObservableProperty] private List<AddEnvironmentByWaysListItem> _byWaysListItems = new()
+    [ObservableProperty]
+    private List<AddEnvironmentByWaysListItem> _byWaysListItems = new()
     {
-        new AddEnvironmentByWaysListItem(new SymbolIcon(SymbolRegular.Box24, filled: true), "Environment Variables"),
-        new AddEnvironmentByWaysListItem(new SymbolIcon(SymbolRegular.WindowApps24, filled:true), "Pip Command"),
-        new AddEnvironmentByWaysListItem(new SymbolIcon(SymbolRegular.WindowText20, filled: true), "Python Command")
+        new AddEnvironmentByWaysListItem(new SymbolIcon(SymbolRegular.Box24, filled: true), Lang.EnvironmentAdd_EnvironmentVariable_Title),
+        new AddEnvironmentByWaysListItem(new SymbolIcon(SymbolRegular.WindowApps24, filled:true), Lang.EnvironmentAdd_PipCommand_Title),
+        new AddEnvironmentByWaysListItem(new SymbolIcon(SymbolRegular.WindowText20, filled: true), Lang.EnvironmentAdd_PythonPath_Title)
     };
+
     [ObservableProperty] private int _byWaysListSelectedIndex;
     [ObservableProperty] private bool _byEnvironmentVariablesGridVisibility = true;
     [ObservableProperty] private bool _byPipCommandGridVisibility;
-    [ObservableProperty] private bool _byPythonCommandGridVisibility;
+    [ObservableProperty] private bool _byPythonPathGridVisibility;
 
     [RelayCommand]
     private void ChangeWay()
     {
         ByEnvironmentVariablesGridVisibility = ByWaysListSelectedIndex == 0;
         ByPipCommandGridVisibility = ByWaysListSelectedIndex == 1;
-        ByPythonCommandGridVisibility = ByWaysListSelectedIndex == 2;
+        ByPythonPathGridVisibility = ByWaysListSelectedIndex == 2;
     }
 
-    #endregion
+    #endregion ByWaysList
 
     #region By Environment Variables
 
@@ -66,7 +70,13 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
     private List<EnvironmentItem> _environmentItems = new();
 
     [ObservableProperty]
+    private EnvironmentItem? _environmentItemInList;
+
+    [ObservableProperty]
     private bool _loading = true;
+
+    [ObservableProperty]
+    private bool _found = true;
 
     [RelayCommand]
     private async Task RefreshPipList()
@@ -74,66 +84,114 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
         await Task.Run(() =>
         {
             Loading = true;
+            Found = false;
             EnvironmentItems = new List<EnvironmentItem>();
             var value = System.Environment.GetEnvironmentVariable("Path")!.Split(';');
             foreach (var item in value)
             {
                 if (!item.Contains("Python") || item.Contains("Scripts") ||
                     !File.Exists(Path.Combine(item, "python.exe"))) continue;
-                var proc = new Process
-                {
-                    StartInfo = new ProcessStartInfo
-                    {
-                        FileName = $"{Path.Combine(item, "python.exe")}",
-                        Arguments = "-m pip -V",
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        CreateNoWindow = true
-                    }
-                };
-                proc.Start();
-                while (!proc.StandardOutput.EndOfStream)
-                {
-                    var output = proc.StandardOutput.ReadLine();
-                    if (string.IsNullOrWhiteSpace(output)) continue;
-                    var sections = output.Split(' ');
-                    var pipDirStart = false;
-                    var pipVersion = "";
-                    var pythonVersion = "";
-                    var pipDir = "";
-                    for (var i = 0; i < sections.Length; i++)
-                    {
-                        if (sections[i] == "from")
-                        {
-                            pipVersion = sections[i - 1];
-                            pipDirStart = true;
-                        }
-                        else if (sections[i] == "(python")
-                        {
-                            pythonVersion = sections[i + 1].Replace(")", "");
-                            break;
-                        }
-                        else if (pipDirStart)
-                        {
-                            pipDir += sections[i] + ' ';
-                        }
-                    }
-
-                    EnvironmentItems.Add(new EnvironmentItem(pipVersion.Trim(), pipDir.Trim(), pythonVersion.Trim()));
-                }
+                var environmentItem =
+                    _configurationService.GetEnvironmentItemFromCommand(Path.Combine(item, "python.exe"), "-m pip -V");
+                if (environmentItem == null) continue;
+                EnvironmentItems.Add(environmentItem);
             }
-        }).ContinueWith(task => { Loading = false; });
-
-
+        }).ContinueWith(_ => { Loading = false; Found = EnvironmentItems.Count == 0; });
     }
 
     #endregion By Environment Variables
 
-    [ObservableProperty] private string _addEnvironmentByWay = string.Empty;
+    #region By Pip Command
+
+    [ObservableProperty] private string _pipCommand = string.Empty;
+
+    #endregion By Pip Command
+
+    #region Python Path
+
+    [ObservableProperty] private string _pythonPath = string.Empty;
+
+    #endregion Python Path
+
+    #region Add
 
     [RelayCommand]
-    private void OnChangeAddEnvironmentWay(string parameter)
+    private async Task AddEnvironment(string parameter)
     {
-        AddEnvironmentByWay = parameter;
+        if (ByEnvironmentVariablesGridVisibility)
+        {
+            if (EnvironmentItemInList == null)
+            {
+                await MsgBox.Error(Lang.MsgBox_Message_EnvironmentNoSelection);
+            }
+            else
+            {
+                var result = _configurationService.CheckEnvironmentAvailable(EnvironmentItemInList);
+                var alreadyExists = _configurationService.CheckEnvironmentExists(EnvironmentItemInList);
+                if (result.Item1)
+                {
+                    if (alreadyExists)
+                    {
+                        await MsgBox.Error(Lang.MsgBox_Message_EnvironmentAlreadyExists);
+                    }
+                    else
+                    {
+                        _configurationService.AppConfig.EnvironmentItems.Add(EnvironmentItemInList);
+                        _configurationService.Save();
+                        _navigationService.GoBack();
+                    }
+                }
+                else
+                {
+                    await MsgBox.Error(result.Item2);
+                }
+            }
+        }
+        else if (ByPipCommandGridVisibility)
+        {
+            var result = _configurationService.GetEnvironmentItemFromCommand(PipCommand, "-V");
+            if (result != null)
+            {
+                var alreadyExists = _configurationService.CheckEnvironmentExists(result);
+                if (alreadyExists)
+                {
+                    await MsgBox.Error(Lang.MsgBox_Message_EnvironmentAlreadyExists);
+                }
+                else
+                {
+                    _configurationService.AppConfig.EnvironmentItems.Add(result);
+                    _configurationService.Save();
+                    _navigationService.GoBack();
+                }
+            }
+            else
+            {
+                await MsgBox.Error("");
+            }
+        }
+        else if (ByPythonPathGridVisibility)
+        {
+            var result = _configurationService.GetEnvironmentItemFromCommand(PythonPath, "-m pip -V");
+            if (result != null)
+            {
+                var alreadyExists = _configurationService.CheckEnvironmentExists(result);
+                if (alreadyExists)
+                {
+                    await MsgBox.Error(Lang.MsgBox_Message_EnvironmentAlreadyExists);
+                }
+                else
+                {
+                    _configurationService.AppConfig.EnvironmentItems.Add(result);
+                    _configurationService.Save();
+                    _navigationService.GoBack();
+                }
+            }
+            else
+            {
+                await MsgBox.Error("");
+            }
+        }
     }
+
+    #endregion Add
 }

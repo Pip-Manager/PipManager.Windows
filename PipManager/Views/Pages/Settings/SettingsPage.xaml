@@ -9,7 +9,6 @@
     xmlns:helpers="clr-namespace:PipManager.Helpers"
     xmlns:lang="clr-namespace:PipManager.Languages"
     xmlns:settings="clr-namespace:PipManager.Views.Pages.Settings"
-    xmlns:valueConverters="clr-namespace:ValueConverters;assembly=ValueConverters"
     Title="SettingsPage"
     d:DataContext="{d:DesignInstance settings:SettingsPage,
                                      IsDesignTimeCreatable=False}"

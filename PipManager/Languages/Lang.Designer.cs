@@ -70,6 +70,33 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Add 的本地化字符串。
+        /// </summary>
+        public static string Common_Button_Add {
+            get {
+                return ResourceManager.GetString("Common_Button_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Browse 的本地化字符串。
+        /// </summary>
+        public static string Common_Button_Browse {
+            get {
+                return ResourceManager.GetString("Common_Button_Browse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Refresh 的本地化字符串。
+        /// </summary>
+        public static string Common_Button_Refresh {
+            get {
+                return ResourceManager.GetString("Common_Button_Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Caution 的本地化字符串。
         /// </summary>
         public static string Common_NoticeTitle_Caution {
@@ -111,6 +138,87 @@ namespace PipManager.Languages {
         public static string Environment_Operation_VerifyEnvironment {
             get {
                 return ResourceManager.GetString("Environment_Operation_VerifyEnvironment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Detected Environment 的本地化字符串。
+        /// </summary>
+        public static string EnvironmentAdd_EnvironmentVariable_Header {
+            get {
+                return ResourceManager.GetString("EnvironmentAdd_EnvironmentVariable_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Can&apos;t find any environment 的本地化字符串。
+        /// </summary>
+        public static string EnvironmentAdd_EnvironmentVariable_NotFound {
+            get {
+                return ResourceManager.GetString("EnvironmentAdd_EnvironmentVariable_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Environment Variables 的本地化字符串。
+        /// </summary>
+        public static string EnvironmentAdd_EnvironmentVariable_Title {
+            get {
+                return ResourceManager.GetString("EnvironmentAdd_EnvironmentVariable_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Add Environment 的本地化字符串。
+        /// </summary>
+        public static string EnvironmentAdd_Header {
+            get {
+                return ResourceManager.GetString("EnvironmentAdd_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Enter Pip command 的本地化字符串。
+        /// </summary>
+        public static string EnvironmentAdd_PipCommand_Label {
+            get {
+                return ResourceManager.GetString("EnvironmentAdd_PipCommand_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 If you are using &quot;pip install&quot;, type &quot;pip&quot; in the box. Similarly, for &quot;pip3.11 install&quot;, type &quot;pip3.11&quot;. 的本地化字符串。
+        /// </summary>
+        public static string EnvironmentAdd_PipCommand_Notice {
+            get {
+                return ResourceManager.GetString("EnvironmentAdd_PipCommand_Notice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Pip Command 的本地化字符串。
+        /// </summary>
+        public static string EnvironmentAdd_PipCommand_Title {
+            get {
+                return ResourceManager.GetString("EnvironmentAdd_PipCommand_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Enter the absolute path of python.exe 的本地化字符串。
+        /// </summary>
+        public static string EnvironmentAdd_PythonPath_Label {
+            get {
+                return ResourceManager.GetString("EnvironmentAdd_PythonPath_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Python Executable Path 的本地化字符串。
+        /// </summary>
+        public static string EnvironmentAdd_PythonPath_Title {
+            get {
+                return ResourceManager.GetString("EnvironmentAdd_PythonPath_Title", resourceCulture);
             }
         }
         
@@ -192,6 +300,33 @@ namespace PipManager.Languages {
         public static string MessageDialog_Title_AreYouSure {
             get {
                 return ResourceManager.GetString("MessageDialog_Title_AreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Environment already exists 的本地化字符串。
+        /// </summary>
+        public static string MsgBox_Message_EnvironmentAlreadyExists {
+            get {
+                return ResourceManager.GetString("MsgBox_Message_EnvironmentAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 You didn&apos;t choose an environment 的本地化字符串。
+        /// </summary>
+        public static string MsgBox_Message_EnvironmentNoSelection {
+            get {
+                return ResourceManager.GetString("MsgBox_Message_EnvironmentNoSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Error 的本地化字符串。
+        /// </summary>
+        public static string MsgBox_Title_Error {
+            get {
+                return ResourceManager.GetString("MsgBox_Title_Error", resourceCulture);
             }
         }
         

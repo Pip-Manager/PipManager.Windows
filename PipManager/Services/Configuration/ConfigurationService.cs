@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PipManager.Models;
+using PipManager.Models.AppConfigModels;
+using System.Diagnostics;
 using System.IO;
 
 namespace PipManager.Services.Configuration;
@@ -21,6 +23,92 @@ public class ConfigurationService : IConfigurationService
     {
         AppConfig = LoadConfiguration();
     }
+
+    public void Save()
+    {
+        File.WriteAllText(AppInfo.ConfigPath, JsonConvert.SerializeObject(AppConfig, Formatting.Indented));
+    }
+
+    #region Environment
+
+    public bool CheckEnvironmentExists(EnvironmentItem environmentItem)
+    {
+        var environmentItems = AppConfig.EnvironmentItems;
+        return environmentItems.Any(item => item.PipDir == environmentItem.PipDir);
+    }
+
+    public EnvironmentItem? GetEnvironmentItemFromCommand(string command, string arguments)
+    {
+        var proc = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = command,
+                Arguments = arguments,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                CreateNoWindow = true
+            }
+        };
+        proc.Start();
+
+        var pipVersion = "";
+        var pythonVersion = "";
+        var pipDir = "";
+        while (!proc.StandardOutput.EndOfStream)
+        {
+            var output = proc.StandardOutput.ReadLine();
+            if (string.IsNullOrWhiteSpace(output)) continue;
+            var sections = output.Split(' ');
+            var pipDirStart = false;
+            for (var i = 0; i < sections.Length; i++)
+            {
+                if (sections[i] == "from")
+                {
+                    pipVersion = sections[i - 1];
+                    pipDirStart = true;
+                }
+                else if (sections[i] == "(python")
+                {
+                    pythonVersion = sections[i + 1].Replace(")", "");
+                    break;
+                }
+                else if (pipDirStart)
+                {
+                    pipDir += sections[i] + ' ';
+                }
+            }
+        }
+
+        return new EnvironmentItem(pipVersion.Trim(), pipDir.Trim(), pythonVersion.Trim());
+    }
+
+    public (bool, string) CheckEnvironmentAvailable(EnvironmentItem environmentItem)
+    {
+        try
+        {
+            var pipExePathAttempt1 = Path.Combine(new DirectoryInfo(environmentItem.PipDir).Parent.Parent.Parent.FullName,
+                "python.exe");
+            var verify = GetEnvironmentItemFromCommand(pipExePathAttempt1, "-m pip -V");
+            if (verify.PipDir != string.Empty)
+            {
+                return (true, "");
+            }
+        }
+        catch
+        {
+            var pipExePathAttempt2 = Path.Combine(new DirectoryInfo(environmentItem.PipDir).Parent.Parent.FullName,
+                "python.exe");
+            var verify = GetEnvironmentItemFromCommand(pipExePathAttempt2, "-m pip -V");
+            return verify.PipDir != string.Empty ? (true, "") : (false, "Broken Environment");
+        }
+
+        return (false, "Broken Environment");
+    }
+
+    #endregion Environment
+
+    #region Settings - Package Source
 
     public string GetUrlFromPackageSourceType(PackageSourceType packageSourceType)
     {
@@ -46,8 +134,5 @@ public class ConfigurationService : IConfigurationService
         };
     }
 
-    public void Save()
-    {
-        File.WriteAllText(AppInfo.ConfigPath, JsonConvert.SerializeObject(AppConfig, Formatting.Indented));
-    }
+    #endregion Settings - Package Source
 }

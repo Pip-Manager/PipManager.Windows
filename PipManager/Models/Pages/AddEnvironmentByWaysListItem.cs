@@ -9,6 +9,7 @@ public class AddEnvironmentByWaysListItem
         SymbolIcon = icon;
         Way = way;
     }
+
     public SymbolIcon SymbolIcon { get; set; }
     public string Way { get; set; }
 }

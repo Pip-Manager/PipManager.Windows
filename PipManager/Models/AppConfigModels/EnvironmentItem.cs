@@ -10,6 +10,7 @@ public class EnvironmentItem
         PipDir = pipDir;
         PythonVersion = pythonVersion;
     }
+
     [JsonProperty("pipVersion")] public string PipVersion { get; set; } = string.Empty;
     [JsonProperty("pipDir")] public string PipDir { get; set; } = string.Empty;
     [JsonProperty("pythonVersion")] public string PythonVersion { get; set; } = string.Empty;
