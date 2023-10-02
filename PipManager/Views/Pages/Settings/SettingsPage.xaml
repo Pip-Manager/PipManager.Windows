@@ -22,7 +22,6 @@
     <Page.Resources>
         <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
         <helpers:PackageSourceEnumToBooleanConverter x:Key="PackageSourceEnumToBooleanConverter" />
-        <valueConverters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
 
         <Style x:Key="PackageSourceNetworkTextBlockStyle" TargetType="TextBlock">
             <Setter Property="Foreground" Value="Gray" />
@@ -36,11 +35,11 @@
             FontWeight="Medium"
             Text="{x:Static lang:Lang.Settings_Category_PackageSource}" />
         <ui:InfoBar
-            Margin="0, 8, 0, 0"
             Title="{x:Static lang:Lang.Common_NoticeTitle_Notice}"
-            Message="{x:Static lang:Lang.Settings_PackageSource_Notice}"
+            Margin="0,8,0,0"
             IsClosable="False"
-            IsOpen="True" />
+            IsOpen="True"
+            Message="{x:Static lang:Lang.Settings_PackageSource_Notice}" />
         <Grid Margin="0,8,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="130" />

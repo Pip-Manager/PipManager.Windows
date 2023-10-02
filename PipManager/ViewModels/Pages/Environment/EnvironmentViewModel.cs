@@ -38,5 +38,5 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
         _navigationService.Navigate(typeof(AddEnvironmentPage));
     }
 
-    #endregion
+    #endregion Add Environment
 }

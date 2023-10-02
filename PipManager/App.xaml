@@ -3,15 +3,27 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:valueConverters="clr-namespace:ValueConverters;assembly=ValueConverters"
     DispatcherUnhandledException="OnDispatcherUnhandledException"
     Exit="OnExit"
     Startup="OnStartup">
     <Application.Resources>
         <ResourceDictionary>
+            <!-- UI -->
+
             <ResourceDictionary.MergedDictionaries>
                 <ui:ThemesDictionary Theme="Dark" />
                 <ui:ControlsDictionary />
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- Value Converters -->
+
+            <valueConverters:ValueConverterGroup x:Key="InverseBoolToVisibility">
+                <valueConverters:InverseBoolConverter/>
+                <valueConverters:BoolToVisibilityConverter />
+            </valueConverters:ValueConverterGroup>
+            <valueConverters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+            <valueConverters:InverseBoolConverter x:Key="InverseBool" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
