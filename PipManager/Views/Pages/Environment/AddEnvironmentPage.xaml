@@ -225,17 +225,13 @@
                                 HorizontalAlignment="Stretch"
                                 PlaceholderText="python.exe"
                                 Text="{Binding ViewModel.PythonPath}">
-                                <b:Interaction.Triggers>
-                                    <b:EventTrigger EventName="TextChanged">
-                                        <b:InvokeCommandAction Command="{Binding ViewModel.CheckAddEnabledCommand}" />
-                                    </b:EventTrigger>
-                                </b:Interaction.Triggers>
                             </ui:TextBox>
 
                             <ui:Button
                                 Grid.Column="2"
                                 Margin="3,0,0,0"
                                 Content="{x:Static lang:Lang.Common_Button_Browse}"
+                                Command="{Binding ViewModel.BrowsePythonPathCommand}"
                                 Icon="{ui:SymbolIcon FolderOpen20}" />
                         </Grid>
                     </StackPanel>

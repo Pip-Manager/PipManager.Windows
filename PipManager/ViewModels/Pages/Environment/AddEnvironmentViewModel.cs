@@ -4,8 +4,10 @@ using PipManager.Models.AppConfigModels;
 using PipManager.Models.Pages;
 using PipManager.Services.Configuration;
 using System.IO;
+using Microsoft.Win32;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
+using MessageBox = System.Windows.MessageBox;
 
 namespace PipManager.ViewModels.Pages.Environment;
 
@@ -107,11 +109,27 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
 
     #endregion By Pip Command
 
-    #region Python Path
+    #region By Python Path
 
     [ObservableProperty] private string _pythonPath = string.Empty;
 
-    #endregion Python Path
+    [RelayCommand]
+    private void BrowsePythonPath()
+    {
+        var openFileDialog = new OpenFileDialog
+        {
+            Title = "Python",
+            FileName = "python.exe",
+            DefaultExt = ".exe",
+            Filter = "python.exe | *.exe"
+        };
+        var result = openFileDialog.ShowDialog();
+        if (result == true)
+        {
+            PythonPath = openFileDialog.FileName;
+        }
+    }
+    #endregion By Python Path
 
     #region Add
 
