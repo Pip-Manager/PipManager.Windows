@@ -57,6 +57,7 @@
                             Grid.Column="0"
                             Width="48"
                             Height="48"
+                            RenderOptions.BitmapScalingMode="HighQuality"
                             HorizontalAlignment="Right"
                             Source="../../../Assets/logo/python-logo-only.png" />
                         <StackPanel Grid.Column="1" Margin="7,0,0,0">
