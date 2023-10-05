@@ -6,12 +6,18 @@ using System.Diagnostics;
 using System.IO;
 using PipManager.Controls;
 using PipManager.Languages;
+using Serilog;
 
 namespace PipManager.Services.Configuration;
 
 public class ConfigurationService : IConfigurationService
 {
     public AppConfig AppConfig { get; set; }
+
+    public ConfigurationService()
+    {
+        AppConfig = LoadConfiguration();
+    }
 
     public static AppConfig LoadConfiguration()
     {
@@ -20,11 +26,6 @@ public class ConfigurationService : IConfigurationService
             File.WriteAllText(AppInfo.ConfigPath, JsonConvert.SerializeObject(new AppConfig(), Formatting.Indented));
         }
         return JsonConvert.DeserializeObject<AppConfig>(File.ReadAllText(AppInfo.ConfigPath))!;
-    }
-
-    public void Initialize()
-    {
-        AppConfig = LoadConfiguration();
     }
 
     public void Save()

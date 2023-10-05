@@ -1,4 +1,5 @@
 ﻿using PipManager.Languages;
+using Serilog;
 
 namespace PipManager.Controls;
 

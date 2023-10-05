@@ -8,7 +8,7 @@ using Microsoft.Win32;
 using PipManager.Services.Environment;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
-using MessageBox = System.Windows.MessageBox;
+using Serilog;
 
 namespace PipManager.ViewModels.Pages.Environment;
 
@@ -42,6 +42,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
     private void InitializeViewModel()
     {
         _isInitialized = true;
+        Log.Information("[AddEnvironment] Initialized");
     }
 
     #region ByWaysList
@@ -62,6 +63,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
     [RelayCommand]
     private void ChangeWay()
     {
+        Log.Information($"[AddEnvironment] Addition way changed to index:{ByWaysListSelectedIndex}");
         ByEnvironmentVariablesGridVisibility = ByWaysListSelectedIndex == 0;
         ByPipCommandGridVisibility = ByWaysListSelectedIndex == 1;
         ByPythonPathGridVisibility = ByWaysListSelectedIndex == 2;
@@ -101,7 +103,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
                 if (environmentItem == null) continue;
                 EnvironmentItems.Add(environmentItem);
             }
-        }).ContinueWith(_ => { Loading = false; Found = EnvironmentItems.Count == 0; });
+        }).ContinueWith(_ => { Loading = false; Found = EnvironmentItems.Count == 0; Log.Information($"[AddEnvironment] Pip list in environment variable refreshed"); });
     }
 
     #endregion By Environment Variables
@@ -131,6 +133,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
         {
             PythonPath = openFileDialog.FileName;
         }
+        Log.Information($"[AddEnvironment] python.exe found in {PythonPath}");
     }
     #endregion By Python Path
 
@@ -157,8 +160,10 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
                     }
                     else
                     {
+                        _configurationService.AppConfig.CurrentEnvironment = EnvironmentItemInList;
                         _configurationService.AppConfig.EnvironmentItems.Add(EnvironmentItemInList);
                         _configurationService.Save();
+                        Log.Information($"[AddEnvironment] Environment added ({EnvironmentItemInList.PipVersion} for {EnvironmentItemInList.PythonVersion})");
                         _navigationService.GoBack();
                     }
                 }
@@ -181,6 +186,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
                 else
                 {
                     _configurationService.AppConfig.EnvironmentItems.Add(result);
+                    Log.Information($"[AddEnvironment] Environment added ({result.PipVersion} for {result.PythonVersion})");
                     _configurationService.Save();
                     _navigationService.GoBack();
                 }
@@ -203,6 +209,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
                 else
                 {
                     _configurationService.AppConfig.EnvironmentItems.Add(result);
+                    Log.Information($"[AddEnvironment] Environment added ({result.PipVersion} for {result.PythonVersion})");
                     _configurationService.Save();
                     _navigationService.GoBack();
                 }

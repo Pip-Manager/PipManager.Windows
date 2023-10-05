@@ -77,24 +77,16 @@ public class EnvironmentService: IEnvironmentService
 
     public (bool, string) CheckEnvironmentAvailable(EnvironmentItem environmentItem)
     {
-        try
+        // Need more information
+        var pipExePath = Path.Combine(new DirectoryInfo(environmentItem.PipDir).Parent.Parent.Parent.FullName,
+            "python.exe");
+        var pipExePathAttempt1 = Path.Combine(new DirectoryInfo(environmentItem.PipDir).Parent.Parent.FullName,
+            "python.exe");
+        if (!File.Exists(pipExePath))
         {
-            var pipExePathAttempt1 = Path.Combine(new DirectoryInfo(environmentItem.PipDir).Parent.Parent.Parent.FullName,
-                "python.exe");
-            var verify = GetEnvironmentItemFromCommand(pipExePathAttempt1, "-m pip -V");
-            if (verify != null && verify.PipDir != string.Empty)
-            {
-                return (true, "");
-            }
+            pipExePath = pipExePathAttempt1;
         }
-        catch
-        {
-            var pipExePathAttempt2 = Path.Combine(new DirectoryInfo(environmentItem.PipDir).Parent.Parent.FullName,
-                "python.exe");
-            var verify = GetEnvironmentItemFromCommand(pipExePathAttempt2, "-m pip -V");
-            return verify != null && verify.PipDir != string.Empty ? (true, "") : (false, "Broken Environment");
-        }
-
-        return (false, "Broken Environment");
+        var verify = GetEnvironmentItemFromCommand(pipExePath, "-m pip -V");
+        return verify != null && verify.PipDir != string.Empty ? (true, "") : (false, "Broken Environment");
     }
 }

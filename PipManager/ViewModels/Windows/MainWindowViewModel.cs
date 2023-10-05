@@ -7,6 +7,8 @@ using PipManager.Views.Pages.Search;
 using PipManager.Views.Pages.Settings;
 using PipManager.Views.Pages.Tools;
 using System.Collections.ObjectModel;
+using PipManager.Services.Environment;
+using Serilog;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 
@@ -15,10 +17,21 @@ namespace PipManager.ViewModels.Windows;
 public partial class MainWindowViewModel : ObservableObject
 {
     private readonly IConfigurationService _configurationService;
+    private readonly IEnvironmentService _environmentService;
 
-    public MainWindowViewModel(IConfigurationService configurationService)
+    public MainWindowViewModel(IConfigurationService configurationService, IEnvironmentService environmentService)
     {
         _configurationService = configurationService;
+        _environmentService = environmentService;
+        if (_configurationService.AppConfig.CurrentEnvironment.PipDir != string.Empty)
+        {
+            Log.Information($"[MainWindow] Environment loaded ({_configurationService.AppConfig.CurrentEnvironment.PipVersion} for {_configurationService.AppConfig.CurrentEnvironment.PythonVersion})");
+            ApplicationTitle = $"Pip Manager | {_configurationService.AppConfig.CurrentEnvironment.PipVersion} for {_configurationService.AppConfig.CurrentEnvironment.PythonVersion}";
+        }
+        else
+        {
+            Log.Information("[MainWindow] No previous selected environment found");
+        }
     }
 
     [ObservableProperty]

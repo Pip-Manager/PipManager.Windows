@@ -7,6 +7,7 @@ using System.ComponentModel;
 using PipManager.Controls;
 using PipManager.Languages;
 using PipManager.Services.Environment;
+using PipManager.ViewModels.Windows;
 using Wpf.Ui.Controls;
 using MessageBox = System.Windows.MessageBox;
 using MessageBoxResult = Wpf.Ui.Controls.MessageBoxResult;
@@ -35,7 +36,7 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
         var currentEnvironment = _configurationService.AppConfig.CurrentEnvironment;
         foreach (var environmentItem in EnvironmentItems)
         {
-            if (environmentItem.PipDir == currentEnvironment)
+            if (environmentItem.PipDir == currentEnvironment.PipDir)
             {
                 CurrentEnvironment = environmentItem;
             }
@@ -64,8 +65,9 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
         if (MsgBox.Warning(Lang.MsgBox_Message_EnvironmentDeletion, Lang.MsgBox_PrimaryButton_Action).Result !=
             MessageBoxResult.Primary) return;
         EnvironmentItems.Remove(CurrentEnvironment!);
+        Log.Information($"[Environment] Environment has been removed from list ({CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion})");
         CurrentEnvironment = null;
-        _configurationService.AppConfig.CurrentEnvironment = string.Empty;
+        _configurationService.AppConfig.CurrentEnvironment = new();
         _configurationService.AppConfig.EnvironmentItems = new List<EnvironmentItem>(EnvironmentItems);
         _configurationService.Save();
         EnvironmentSelected = false;
@@ -77,10 +79,13 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
         var result = _environmentService.CheckEnvironmentAvailable(CurrentEnvironment!);
         if (result.Item1)
         {
+            Log.Information($"[Environment] Environment available ({CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion})");
             await MsgBox.Success(Lang.MsgBox_Message_EnvironmentCheckPassed);
         }
         else
         {
+            Log.Error($"[Environment] Environment not available ({CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion})");
+
             if (MsgBox.Error(Lang.MsgBox_Message_EnvironmentCheckFailed, Lang.MsgBox_PrimaryButton_EnvironmentDeletion).Result == MessageBoxResult.Primary)
             {
                 DeleteEnvironment();
@@ -94,9 +99,12 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
 
         if (e.PropertyName == nameof(CurrentEnvironment) && CurrentEnvironment is not null)
         {
-            _configurationService.AppConfig.CurrentEnvironment = CurrentEnvironment.PipDir;
+            var mainWindowViewModel = App.GetService<MainWindowViewModel>();
+            mainWindowViewModel.ApplicationTitle = $"Pip Manager | {CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion}";
+            _configurationService.AppConfig.CurrentEnvironment = CurrentEnvironment;
             _configurationService.Save();
             EnvironmentSelected = true;
+            Log.Information($"[Environment] Environment changed ({CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion})");
         }
     }
 
