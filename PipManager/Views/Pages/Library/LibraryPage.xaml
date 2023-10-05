@@ -1,13 +1,13 @@
 ﻿<Page
     x:Class="PipManager.Views.Pages.Library.LibraryPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:lang="clr-namespace:PipManager.Languages"
-    xmlns:library="clr-namespace:PipManager.Views.Pages.Library"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:pages="clr-namespace:PipManager.Models.Pages"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:lang="clr-namespace:PipManager.Languages"
+    xmlns:pages="clr-namespace:PipManager.Models.Pages"
+    xmlns:library="clr-namespace:PipManager.Views.Pages.Library"
     x:Name="Library"
     Title="LibraryPage"
     Height="560"
@@ -30,8 +30,8 @@
                 <ui:Button
                     Appearance="Primary"
                     Content="{x:Static lang:Lang.Library_Operation_Install}"
-                    IsEnabled="{Binding ViewModel.EnvironmentFoundVisible}"
-                    Icon="{ui:SymbolIcon Add24}" />
+                    Icon="{ui:SymbolIcon Add24}"
+                    IsEnabled="{Binding ViewModel.EnvironmentFoundVisible}" />
                 <ui:Button
                     Margin="5,0,0,0"
                     Content="{x:Static lang:Lang.Library_Operation_Information}"
@@ -113,10 +113,9 @@
             <TextBlock FontSize="32" Text="No Environment" />
             <ui:Hyperlink
                 HorizontalAlignment="Center"
-                Content="Add environment"
                 Command="{Binding ViewModel.NavigateToAddEnvironmentCommand}"
+                Content="Add environment"
                 FontSize="16" />
-
         </StackPanel>
 
         <ui:ProgressRing

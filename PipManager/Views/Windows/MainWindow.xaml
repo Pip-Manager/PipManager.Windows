@@ -10,7 +10,6 @@
     Title="{Binding ViewModel.ApplicationTitle, Mode=OneWay}"
     MinWidth="1200"
     MinHeight="740"
-    ResizeMode="CanMinimize"
     d:DataContext="{d:DesignInstance local:MainWindow,
                                      IsDesignTimeCreatable=True}"
     d:DesignHeight="700"
@@ -19,6 +18,7 @@
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     ExtendsContentIntoTitleBar="True"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    ResizeMode="CanMinimize"
     WindowBackdropType="Mica"
     WindowCornerPreference="Round"
     WindowStartupLocation="CenterScreen"
@@ -60,9 +60,9 @@
             x:Name="TitleBar"
             Title="{Binding ViewModel.ApplicationTitle}"
             Grid.Row="0"
-            ShowMaximize="False"
             CloseWindowByDoubleClickOnIcon="True"
-            FontSize="14">
+            FontSize="14"
+            ShowMaximize="False">
             <ui:TitleBar.Icon>
                 <ui:ImageIcon
                     Width="22"

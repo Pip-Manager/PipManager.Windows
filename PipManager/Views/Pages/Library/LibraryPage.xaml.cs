@@ -1,7 +1,4 @@
-﻿using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using Wpf.Ui.Controls;
+﻿using Wpf.Ui.Controls;
 using LibraryViewModel = PipManager.ViewModels.Pages.Library.LibraryViewModel;
 
 namespace PipManager.Views.Pages.Library;

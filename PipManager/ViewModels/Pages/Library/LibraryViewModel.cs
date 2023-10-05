@@ -1,15 +1,10 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows.Documents;
-using System.Windows.Threading;
-using PipManager.Models.AppConfigModels;
-using PipManager.Models.Pages;
+﻿using PipManager.Models.Pages;
 using PipManager.Models.PipInspection;
 using PipManager.Services.Configuration;
 using PipManager.Services.Environment;
-using PipManager.ViewModels.Windows;
 using PipManager.Views.Pages.Environment;
 using Serilog;
+using System.Collections.ObjectModel;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
