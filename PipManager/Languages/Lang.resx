@@ -189,13 +189,13 @@
   <data name="Settings_FileManagement_ResetConfig_DialogContent" xml:space="preserve">
     <value>This action will delete all app-related settings. Are you sure you want to keep going with this?</value>
   </data>
-  <data name="MessageDialog_Title_AreYouSure" xml:space="preserve">
+  <data name="MsgBox_Title_AreYouSure" xml:space="preserve">
     <value>Operation Warning</value>
   </data>
-  <data name="MessageDialog_PrimaryButton_Action" xml:space="preserve">
+  <data name="MsgBox_PrimaryButton_Action" xml:space="preserve">
     <value>Action</value>
   </data>
-  <data name="MessageDialog_CloseButton_Cancel" xml:space="preserve">
+  <data name="MsgBox_CloseButton_Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
   <data name="Settings_FileManagement_CrushesDirNotFound" xml:space="preserve">
@@ -288,5 +288,14 @@ Other sources are faster to connect to, but may be incomplete.</value>
   </data>
   <data name="EnvironmentAdd_EnvironmentVariable_NotFound" xml:space="preserve">
     <value>Can't find any environment</value>
+  </data>
+  <data name="MsgBox_Title_Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="MsgBox_Message_EnvironmentDeletion" xml:space="preserve">
+    <value>The environment will be removed from the list</value>
+  </data>
+  <data name="MsgBox_Message_EnvironmentInvaild" xml:space="preserve">
+    <value>Error in adding environment</value>
   </data>
 </root>

@@ -270,10 +270,10 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     {
         var messageBox = new Wpf.Ui.Controls.MessageBox
         {
-            Title = Lang.MessageDialog_Title_AreYouSure,
+            Title = Lang.MsgBox_Title_AreYouSure,
             Content = Lang.Settings_FileManagement_ResetConfig_DialogContent,
-            PrimaryButtonText = Lang.MessageDialog_PrimaryButton_Action,
-            CloseButtonText = Lang.MessageDialog_CloseButton_Cancel
+            PrimaryButtonText = Lang.MsgBox_PrimaryButton_Action,
+            CloseButtonText = Lang.MsgBox_CloseButton_Cancel
         };
 
         var result = await messageBox.ShowDialogAsync();

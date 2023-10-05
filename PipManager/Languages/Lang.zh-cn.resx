@@ -189,13 +189,13 @@
   <data name="Settings_FileManagement_ResetConfig_DialogContent" xml:space="preserve">
     <value>此操作会删除所有应用相关设置。你确定要继续执行吗？</value>
   </data>
-  <data name="MessageDialog_Title_AreYouSure" xml:space="preserve">
+  <data name="MsgBox_Title_AreYouSure" xml:space="preserve">
     <value>操作警告</value>
   </data>
-  <data name="MessageDialog_PrimaryButton_Action" xml:space="preserve">
+  <data name="MsgBox_PrimaryButton_Action" xml:space="preserve">
     <value>执行</value>
   </data>
-  <data name="MessageDialog_CloseButton_Cancel" xml:space="preserve">
+  <data name="MsgBox_CloseButton_Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
   <data name="Settings_FileManagement_CrushesDirNotFound" xml:space="preserve">
@@ -288,5 +288,14 @@
   </data>
   <data name="EnvironmentAdd_EnvironmentVariable_NotFound" xml:space="preserve">
     <value>未发现环境</value>
+  </data>
+  <data name="MsgBox_Title_Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="MsgBox_Message_EnvironmentDeletion" xml:space="preserve">
+    <value>该环境将被从列表中移除</value>
+  </data>
+  <data name="MsgBox_Message_EnvironmentInvaild" xml:space="preserve">
+    <value>添加环境时出错</value>
   </data>
 </root>

@@ -56,7 +56,7 @@
                                     <ColumnDefinition Width="24" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <ui:SymbolIcon Grid.Column="0" Symbol="{Binding SymbolIcon, Path=SymbolIcon.Symbol}" />
+                                <ui:SymbolIcon Grid.Column="0" Symbol="{Binding Path=SymbolIcon.Symbol}" />
                                 <StackPanel Grid.Column="1" Margin="5,0,0,0">
                                     <TextBlock FontSize="14" Text="{Binding Way}" />
                                 </StackPanel>
@@ -179,11 +179,6 @@
                             Grid.Column="0"
                             PlaceholderText="pip"
                             Text="{Binding ViewModel.PipCommand, UpdateSourceTrigger=PropertyChanged}">
-                            <b:Interaction.Triggers>
-                                <b:EventTrigger EventName="TextChanged">
-                                    <b:InvokeCommandAction Command="{Binding ViewModel.CheckAddEnabledCommand}" />
-                                </b:EventTrigger>
-                            </b:Interaction.Triggers>
                         </ui:TextBox>
                     </Grid>
 

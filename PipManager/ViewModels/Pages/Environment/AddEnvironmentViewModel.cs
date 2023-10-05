@@ -121,7 +121,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
             Title = "Python",
             FileName = "python.exe",
             DefaultExt = ".exe",
-            Filter = "python.exe | *.exe"
+            Filter = "python | python.exe"
         };
         var result = openFileDialog.ShowDialog();
         if (result == true)
@@ -184,7 +184,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
             }
             else
             {
-                await MsgBox.Error("");
+                await MsgBox.Error(Lang.MsgBox_Message_EnvironmentInvaild);
             }
         }
         else if (ByPythonPathGridVisibility)
@@ -206,7 +206,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
             }
             else
             {
-                await MsgBox.Error("");
+                await MsgBox.Error(Lang.MsgBox_Message_EnvironmentInvaild);
             }
         }
     }

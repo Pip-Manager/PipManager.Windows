@@ -279,27 +279,9 @@ namespace PipManager.Languages {
         /// <summary>
         ///   查找类似 Cancel 的本地化字符串。
         /// </summary>
-        public static string MessageDialog_CloseButton_Cancel {
+        public static string MsgBox_CloseButton_Cancel {
             get {
-                return ResourceManager.GetString("MessageDialog_CloseButton_Cancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Action 的本地化字符串。
-        /// </summary>
-        public static string MessageDialog_PrimaryButton_Action {
-            get {
-                return ResourceManager.GetString("MessageDialog_PrimaryButton_Action", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Operation Warning 的本地化字符串。
-        /// </summary>
-        public static string MessageDialog_Title_AreYouSure {
-            get {
-                return ResourceManager.GetString("MessageDialog_Title_AreYouSure", resourceCulture);
+                return ResourceManager.GetString("MsgBox_CloseButton_Cancel", resourceCulture);
             }
         }
         
@@ -313,6 +295,24 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 The environment will be removed from the list 的本地化字符串。
+        /// </summary>
+        public static string MsgBox_Message_EnvironmentDeletion {
+            get {
+                return ResourceManager.GetString("MsgBox_Message_EnvironmentDeletion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Error in adding environment 的本地化字符串。
+        /// </summary>
+        public static string MsgBox_Message_EnvironmentInvaild {
+            get {
+                return ResourceManager.GetString("MsgBox_Message_EnvironmentInvaild", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 You didn&apos;t choose an environment 的本地化字符串。
         /// </summary>
         public static string MsgBox_Message_EnvironmentNoSelection {
@@ -322,11 +322,38 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Action 的本地化字符串。
+        /// </summary>
+        public static string MsgBox_PrimaryButton_Action {
+            get {
+                return ResourceManager.GetString("MsgBox_PrimaryButton_Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Operation Warning 的本地化字符串。
+        /// </summary>
+        public static string MsgBox_Title_AreYouSure {
+            get {
+                return ResourceManager.GetString("MsgBox_Title_AreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Error 的本地化字符串。
         /// </summary>
         public static string MsgBox_Title_Error {
             get {
                 return ResourceManager.GetString("MsgBox_Title_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Warning 的本地化字符串。
+        /// </summary>
+        public static string MsgBox_Title_Warning {
+            get {
+                return ResourceManager.GetString("MsgBox_Title_Warning", resourceCulture);
             }
         }
         

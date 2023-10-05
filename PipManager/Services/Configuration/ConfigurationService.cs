@@ -1,8 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using System.ComponentModel;
+using Newtonsoft.Json;
 using PipManager.Models;
 using PipManager.Models.AppConfigModels;
 using System.Diagnostics;
 using System.IO;
+using PipManager.Controls;
+using PipManager.Languages;
 
 namespace PipManager.Services.Configuration;
 
@@ -47,10 +50,18 @@ public class ConfigurationService : IConfigurationService
                 Arguments = arguments,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
-                CreateNoWindow = true
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden
             }
         };
-        proc.Start();
+        try
+        {
+            proc.Start();
+        }
+        catch
+        {
+            return null;
+        }
 
         var pipVersion = "";
         var pythonVersion = "";
@@ -79,8 +90,11 @@ public class ConfigurationService : IConfigurationService
                 }
             }
         }
-
-        return new EnvironmentItem(pipVersion.Trim(), pipDir.Trim(), pythonVersion.Trim());
+        pipVersion = pipVersion.Trim();
+        pipDir = pipDir.Trim();
+        pythonVersion = pythonVersion.Trim();
+        proc.Close();
+        return pipDir.Length > 0 ? new EnvironmentItem(pipVersion, pipDir, pythonVersion) : null;
     }
 
     public (bool, string) CheckEnvironmentAvailable(EnvironmentItem environmentItem)
