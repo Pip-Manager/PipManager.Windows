@@ -18,6 +18,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Windows.Threading;
+using PipManager.Services.Environment;
 using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
 using LibraryViewModel = PipManager.ViewModels.Pages.Library.LibraryViewModel;
 using SearchViewModel = PipManager.ViewModels.Pages.Search.SearchViewModel;
@@ -51,6 +52,7 @@ public partial class App
             services.AddSingleton<ISnackbarService, SnackbarService>();
             services.AddSingleton<IContentDialogService, ContentDialogService>();
             services.AddSingleton<IConfigurationService, ConfigurationService>();
+            services.AddSingleton<IEnvironmentService, EnvironmentService>();
 
             services.AddSingleton<LibraryPage>();
             services.AddSingleton<LibraryViewModel>();

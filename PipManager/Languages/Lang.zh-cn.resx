@@ -298,4 +298,16 @@
   <data name="MsgBox_Message_EnvironmentInvaild" xml:space="preserve">
     <value>添加环境时出错</value>
   </data>
+  <data name="MsgBox_Title_Success" xml:space="preserve">
+    <value>成功</value>
+  </data>
+  <data name="MsgBox_Message_EnvironmentCheckPassed" xml:space="preserve">
+    <value>环境可用</value>
+  </data>
+  <data name="MsgBox_Message_EnvironmentCheckFailed" xml:space="preserve">
+    <value>环境不可用</value>
+  </data>
+  <data name="MsgBox_PrimaryButton_EnvironmentDeletion" xml:space="preserve">
+    <value>移除环境</value>
+  </data>
 </root>

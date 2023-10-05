@@ -298,4 +298,16 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="MsgBox_Message_EnvironmentInvaild" xml:space="preserve">
     <value>Error in adding environment</value>
   </data>
+  <data name="MsgBox_Title_Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="MsgBox_Message_EnvironmentCheckPassed" xml:space="preserve">
+    <value>Environment available</value>
+  </data>
+  <data name="MsgBox_Message_EnvironmentCheckFailed" xml:space="preserve">
+    <value>Environment not available</value>
+  </data>
+  <data name="MsgBox_PrimaryButton_EnvironmentDeletion" xml:space="preserve">
+    <value>Remove Environment</value>
+  </data>
 </root>

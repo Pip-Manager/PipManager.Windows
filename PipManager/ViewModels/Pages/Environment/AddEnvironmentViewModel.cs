@@ -5,6 +5,7 @@ using PipManager.Models.Pages;
 using PipManager.Services.Configuration;
 using System.IO;
 using Microsoft.Win32;
+using PipManager.Services.Environment;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 using MessageBox = System.Windows.MessageBox;
@@ -16,11 +17,13 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
     private bool _isInitialized;
     private readonly INavigationService _navigationService;
     private readonly IConfigurationService _configurationService;
+    private readonly IEnvironmentService _environmentService;
 
-    public AddEnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService)
+    public AddEnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService, IEnvironmentService environmentService)
     {
         _navigationService = navigationService;
         _configurationService = configurationService;
+        _environmentService = environmentService;
     }
 
     public void OnNavigatedTo()
@@ -94,7 +97,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
                 if (!item.Contains("Python") || item.Contains("Scripts") ||
                     !File.Exists(Path.Combine(item, "python.exe"))) continue;
                 var environmentItem =
-                    _configurationService.GetEnvironmentItemFromCommand(Path.Combine(item, "python.exe"), "-m pip -V");
+                    _environmentService.GetEnvironmentItemFromCommand(Path.Combine(item, "python.exe"), "-m pip -V");
                 if (environmentItem == null) continue;
                 EnvironmentItems.Add(environmentItem);
             }
@@ -121,7 +124,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
             Title = "Python",
             FileName = "python.exe",
             DefaultExt = ".exe",
-            Filter = "python | python.exe"
+            Filter = "python|python.exe"
         };
         var result = openFileDialog.ShowDialog();
         if (result == true)
@@ -144,8 +147,8 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
             }
             else
             {
-                var result = _configurationService.CheckEnvironmentAvailable(EnvironmentItemInList);
-                var alreadyExists = _configurationService.CheckEnvironmentExists(EnvironmentItemInList);
+                var result = _environmentService.CheckEnvironmentAvailable(EnvironmentItemInList);
+                var alreadyExists = _environmentService.CheckEnvironmentExists(EnvironmentItemInList);
                 if (result.Item1)
                 {
                     if (alreadyExists)
@@ -167,10 +170,10 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
         }
         else if (ByPipCommandGridVisibility)
         {
-            var result = _configurationService.GetEnvironmentItemFromCommand(PipCommand, "-V");
+            var result = _environmentService.GetEnvironmentItemFromCommand(PipCommand, "-V");
             if (result != null)
             {
-                var alreadyExists = _configurationService.CheckEnvironmentExists(result);
+                var alreadyExists = _environmentService.CheckEnvironmentExists(result);
                 if (alreadyExists)
                 {
                     await MsgBox.Error(Lang.MsgBox_Message_EnvironmentAlreadyExists);
@@ -189,10 +192,10 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
         }
         else if (ByPythonPathGridVisibility)
         {
-            var result = _configurationService.GetEnvironmentItemFromCommand(PythonPath, "-m pip -V");
+            var result = _environmentService.GetEnvironmentItemFromCommand(PythonPath, "-m pip -V");
             if (result != null)
             {
-                var alreadyExists = _configurationService.CheckEnvironmentExists(result);
+                var alreadyExists = _environmentService.CheckEnvironmentExists(result);
                 if (alreadyExists)
                 {
                     await MsgBox.Error(Lang.MsgBox_Message_EnvironmentAlreadyExists);

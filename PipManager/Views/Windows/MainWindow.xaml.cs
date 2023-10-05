@@ -1,4 +1,5 @@
 ﻿using PipManager.Services.Configuration;
+using PipManager.Services.Environment;
 using PipManager.ViewModels.Windows;
 
 namespace PipManager.Views.Windows;
@@ -13,7 +14,8 @@ public partial class MainWindow
         IServiceProvider serviceProvider,
         ISnackbarService snackbarService,
         IContentDialogService contentDialogService,
-        IConfigurationService configurationService
+        IConfigurationService configurationService,
+        IEnvironmentService environmentService
     )
     {
         Wpf.Ui.Appearance.Watcher.Watch(this);
@@ -27,6 +29,7 @@ public partial class MainWindow
         snackbarService.SetSnackbarPresenter(SnackbarPresenter);
         contentDialogService.SetContentPresenter(RootContentDialog);
         configurationService.Initialize();
+        environmentService.Initialize(configurationService.AppConfig);
 
         NavigationView.SetServiceProvider(serviceProvider);
     }

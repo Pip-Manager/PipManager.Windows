@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using PipManager.Controls;
 using PipManager.Languages;
+using PipManager.Services.Environment;
 using Wpf.Ui.Controls;
 using MessageBox = System.Windows.MessageBox;
 using MessageBoxResult = Wpf.Ui.Controls.MessageBoxResult;
@@ -17,11 +18,13 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
     private bool _isInitialized;
     private readonly INavigationService _navigationService;
     private readonly IConfigurationService _configurationService;
+    private readonly IEnvironmentService _environmentService;
 
-    public EnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService)
+    public EnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService, IEnvironmentService environmentService)
     {
         _navigationService = navigationService;
         _configurationService = configurationService;
+        _environmentService = environmentService;
     }
 
     public void OnNavigatedTo()
@@ -58,22 +61,31 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private void DeleteEnvironment()
     {
-        if (MsgBox.Warning(Lang.MsgBox_Message_EnvironmentDeletion, Lang.MsgBox_PrimaryButton_Action).Result == MessageBoxResult.Primary)
-        {
-            EnvironmentItems.Remove(CurrentEnvironment);
-            CurrentEnvironment = null;
-            _configurationService.AppConfig.CurrentEnvironment = string.Empty;
-            _configurationService.AppConfig.EnvironmentItems = new List<EnvironmentItem>(EnvironmentItems);
-            _configurationService.Save();
-            EnvironmentSelected = false;
-        }
+        if (MsgBox.Warning(Lang.MsgBox_Message_EnvironmentDeletion, Lang.MsgBox_PrimaryButton_Action).Result !=
+            MessageBoxResult.Primary) return;
+        EnvironmentItems.Remove(CurrentEnvironment!);
+        CurrentEnvironment = null;
+        _configurationService.AppConfig.CurrentEnvironment = string.Empty;
+        _configurationService.AppConfig.EnvironmentItems = new List<EnvironmentItem>(EnvironmentItems);
+        _configurationService.Save();
+        EnvironmentSelected = false;
     }
 
     [RelayCommand]
-    private void CheckEnvironment()
+    private async Task CheckEnvironment()
     {
-        MessageBox.Show("c");
-
+        var result = _environmentService.CheckEnvironmentAvailable(CurrentEnvironment!);
+        if (result.Item1)
+        {
+            await MsgBox.Success(Lang.MsgBox_Message_EnvironmentCheckPassed);
+        }
+        else
+        {
+            if (MsgBox.Error(Lang.MsgBox_Message_EnvironmentCheckFailed, Lang.MsgBox_PrimaryButton_EnvironmentDeletion).Result == MessageBoxResult.Primary)
+            {
+                DeleteEnvironment();
+            }
+        }
     }
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)

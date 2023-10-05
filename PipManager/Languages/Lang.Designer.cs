@@ -295,6 +295,24 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Environment not available 的本地化字符串。
+        /// </summary>
+        public static string MsgBox_Message_EnvironmentCheckFailed {
+            get {
+                return ResourceManager.GetString("MsgBox_Message_EnvironmentCheckFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Environment available 的本地化字符串。
+        /// </summary>
+        public static string MsgBox_Message_EnvironmentCheckPassed {
+            get {
+                return ResourceManager.GetString("MsgBox_Message_EnvironmentCheckPassed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 The environment will be removed from the list 的本地化字符串。
         /// </summary>
         public static string MsgBox_Message_EnvironmentDeletion {
@@ -331,6 +349,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Remove Environment 的本地化字符串。
+        /// </summary>
+        public static string MsgBox_PrimaryButton_EnvironmentDeletion {
+            get {
+                return ResourceManager.GetString("MsgBox_PrimaryButton_EnvironmentDeletion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Operation Warning 的本地化字符串。
         /// </summary>
         public static string MsgBox_Title_AreYouSure {
@@ -345,6 +372,15 @@ namespace PipManager.Languages {
         public static string MsgBox_Title_Error {
             get {
                 return ResourceManager.GetString("MsgBox_Title_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Success 的本地化字符串。
+        /// </summary>
+        public static string MsgBox_Title_Success {
+            get {
+                return ResourceManager.GetString("MsgBox_Title_Success", resourceCulture);
             }
         }
         

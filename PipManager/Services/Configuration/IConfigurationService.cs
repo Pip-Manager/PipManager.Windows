@@ -9,12 +9,6 @@ public interface IConfigurationService
 
     public void Initialize();
 
-    public bool CheckEnvironmentExists(EnvironmentItem environmentItem);
-
-    public EnvironmentItem? GetEnvironmentItemFromCommand(string command, string arguments);
-
-    public (bool, string) CheckEnvironmentAvailable(EnvironmentItem environmentItem);
-
     public string GetUrlFromPackageSourceType(PackageSourceType packageSourceType);
 
     public string GetTestingUrlFromPackageSourceType(PackageSourceType packageSourceType);
