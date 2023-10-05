@@ -1,22 +1,30 @@
 ﻿using PipManager.Models;
 using PipManager.Models.AppConfigModels;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
+using PipManager.Models.Pages;
+using PipManager.Services.Configuration;
+using Newtonsoft.Json;
+using PipManager.Models.PipInspection;
+using ErrorEventArgs = Newtonsoft.Json.Serialization.ErrorEventArgs;
+using System.Text;
+using Serilog;
 
 namespace PipManager.Services.Environment;
 
 public class EnvironmentService : IEnvironmentService
 {
-    public AppConfig AppConfig { get; set; }
+    private readonly IConfigurationService _configurationService;
 
-    public void Initialize(AppConfig appConfig)
+    public EnvironmentService(IConfigurationService configurationService)
     {
-        AppConfig = appConfig;
+        _configurationService = configurationService;
     }
 
     public bool CheckEnvironmentExists(EnvironmentItem environmentItem)
     {
-        var environmentItems = AppConfig.EnvironmentItems;
+        var environmentItems = _configurationService.AppConfig.EnvironmentItems;
         return environmentItems.Any(item => item.PipDir == environmentItem.PipDir);
     }
 
@@ -77,18 +85,55 @@ public class EnvironmentService : IEnvironmentService
         return pipDir.Length > 0 ? new EnvironmentItem(pipVersion, pipDir, pythonVersion) : null;
     }
 
-    public (bool, string) CheckEnvironmentAvailable(EnvironmentItem environmentItem)
+    public string FindPythonExecutableByPipDir(string pipDir)
     {
         // Need more information
-        var pipExePath = Path.Combine(new DirectoryInfo(environmentItem.PipDir).Parent.Parent.Parent.FullName,
+        var pipExePath = Path.Combine(new DirectoryInfo(pipDir).Parent.Parent.Parent.FullName,
             "python.exe");
-        var pipExePathAttempt1 = Path.Combine(new DirectoryInfo(environmentItem.PipDir).Parent.Parent.FullName,
+        var pipExePathAttempt1 = Path.Combine(new DirectoryInfo(pipDir).Parent.Parent.FullName,
             "python.exe");
         if (!File.Exists(pipExePath))
         {
             pipExePath = pipExePathAttempt1;
         }
+
+        return pipExePath;
+    }
+
+    public (bool, string) CheckEnvironmentAvailable(EnvironmentItem environmentItem)
+    {
+        var pipExePath = FindPythonExecutableByPipDir(environmentItem.PipDir);
         var verify = GetEnvironmentItemFromCommand(pipExePath, "-m pip -V");
         return verify != null && verify.PipDir != string.Empty ? (true, "") : (false, "Broken Environment");
+    }
+
+    public List<PipMetadata>? GetLibraries()
+    {
+        if (_configurationService.AppConfig.CurrentEnvironment.PipDir == "")
+        {
+            return null;
+        }
+        var process = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = FindPythonExecutableByPipDir(_configurationService.AppConfig.CurrentEnvironment.PipDir),
+                Arguments = "-m pip inspect",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                CreateNoWindow = true
+            }
+        };
+        var inspection = "";
+        process.StartInfo.EnvironmentVariables.Add("PYTHONIOENCODING", "utf-8");
+        process.OutputDataReceived += delegate (object _, DataReceivedEventArgs e)
+        {
+            inspection += e.Data;
+        };
+        process.Start();
+        process.BeginOutputReadLine();
+        process.WaitForExit();
+        process.Close();
+        return JsonConvert.DeserializeObject<PipInspection>(inspection)?.Installed;
     }
 }

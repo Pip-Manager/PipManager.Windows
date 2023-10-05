@@ -310,4 +310,19 @@
   <data name="MsgBox_PrimaryButton_EnvironmentDeletion" xml:space="preserve">
     <value>移除环境</value>
   </data>
+  <data name="Library_Operation_Install" xml:space="preserve">
+    <value>安装</value>
+  </data>
+  <data name="Library_Operation_Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Library_Operation_CheckUpdate" xml:space="preserve">
+    <value>检查更新</value>
+  </data>
+  <data name="Library_Operation_Information" xml:space="preserve">
+    <value>信息</value>
+  </data>
+  <data name="Library_Data_PackageFound" xml:space="preserve">
+    <value> 个包已安装</value>
+  </data>
 </root>

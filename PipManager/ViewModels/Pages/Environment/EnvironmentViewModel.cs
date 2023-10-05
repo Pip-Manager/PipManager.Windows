@@ -64,8 +64,8 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
     {
         if (MsgBox.Warning(Lang.MsgBox_Message_EnvironmentDeletion, Lang.MsgBox_PrimaryButton_Action).Result !=
             MessageBoxResult.Primary) return;
-        EnvironmentItems.Remove(CurrentEnvironment!);
         Log.Information($"[Environment] Environment has been removed from list ({CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion})");
+        EnvironmentItems.Remove(CurrentEnvironment!);
         CurrentEnvironment = null;
         _configurationService.AppConfig.CurrentEnvironment = new();
         _configurationService.AppConfig.EnvironmentItems = new List<EnvironmentItem>(EnvironmentItems);
@@ -116,6 +116,7 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private void AddEnvironment()
     {
+        _navigationService.Navigate(typeof(EnvironmentPage));
         _navigationService.Navigate(typeof(AddEnvironmentPage));
     }
 

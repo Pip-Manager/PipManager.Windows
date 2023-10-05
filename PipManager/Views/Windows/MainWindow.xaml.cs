@@ -28,7 +28,6 @@ public partial class MainWindow
         navigationService.SetNavigationControl(NavigationView);
         snackbarService.SetSnackbarPresenter(SnackbarPresenter);
         contentDialogService.SetContentPresenter(RootContentDialog);
-        environmentService.Initialize(configurationService.AppConfig);
 
         NavigationView.SetServiceProvider(serviceProvider);
     }

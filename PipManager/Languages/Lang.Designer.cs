@@ -223,6 +223,51 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似  package(s) found 的本地化字符串。
+        /// </summary>
+        public static string Library_Data_PackageFound {
+            get {
+                return ResourceManager.GetString("Library_Data_PackageFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Check Update 的本地化字符串。
+        /// </summary>
+        public static string Library_Operation_CheckUpdate {
+            get {
+                return ResourceManager.GetString("Library_Operation_CheckUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Delete 的本地化字符串。
+        /// </summary>
+        public static string Library_Operation_Delete {
+            get {
+                return ResourceManager.GetString("Library_Operation_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Information 的本地化字符串。
+        /// </summary>
+        public static string Library_Operation_Information {
+            get {
+                return ResourceManager.GetString("Library_Operation_Information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Install 的本地化字符串。
+        /// </summary>
+        public static string Library_Operation_Install {
+            get {
+                return ResourceManager.GetString("Library_Operation_Install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 About 的本地化字符串。
         /// </summary>
         public static string MainWindow_NavigationContent_About {

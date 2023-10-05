@@ -1,4 +1,7 @@
-﻿using Wpf.Ui.Controls;
+﻿using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using Wpf.Ui.Controls;
 using LibraryViewModel = PipManager.ViewModels.Pages.Library.LibraryViewModel;
 
 namespace PipManager.Views.Pages.Library;
@@ -11,7 +14,6 @@ public partial class LibraryPage : INavigableView<LibraryViewModel>
     {
         ViewModel = viewModel;
         DataContext = this;
-
         InitializeComponent();
     }
 }

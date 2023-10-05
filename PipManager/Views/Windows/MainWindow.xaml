@@ -10,6 +10,7 @@
     Title="{Binding ViewModel.ApplicationTitle, Mode=OneWay}"
     MinWidth="1200"
     MinHeight="740"
+    ResizeMode="CanMinimize"
     d:DataContext="{d:DesignInstance local:MainWindow,
                                      IsDesignTimeCreatable=True}"
     d:DesignHeight="700"
@@ -59,6 +60,7 @@
             x:Name="TitleBar"
             Title="{Binding ViewModel.ApplicationTitle}"
             Grid.Row="0"
+            ShowMaximize="False"
             CloseWindowByDoubleClickOnIcon="True"
             FontSize="14">
             <ui:TitleBar.Icon>
