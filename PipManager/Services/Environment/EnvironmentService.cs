@@ -1,11 +1,11 @@
-﻿using PipManager.Models.AppConfigModels;
-using PipManager.Models;
+﻿using PipManager.Models;
+using PipManager.Models.AppConfigModels;
 using System.Diagnostics;
 using System.IO;
 
 namespace PipManager.Services.Environment;
 
-public class EnvironmentService: IEnvironmentService
+public class EnvironmentService : IEnvironmentService
 {
     public AppConfig AppConfig { get; set; }
 
@@ -13,11 +13,13 @@ public class EnvironmentService: IEnvironmentService
     {
         AppConfig = appConfig;
     }
+
     public bool CheckEnvironmentExists(EnvironmentItem environmentItem)
     {
         var environmentItems = AppConfig.EnvironmentItems;
         return environmentItems.Any(item => item.PipDir == environmentItem.PipDir);
     }
+
     public EnvironmentItem? GetEnvironmentItemFromCommand(string command, string arguments)
     {
         var proc = new Process

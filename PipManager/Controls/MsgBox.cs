@@ -1,5 +1,4 @@
 ﻿using PipManager.Languages;
-using Serilog;
 
 namespace PipManager.Controls;
 
@@ -17,6 +16,7 @@ public static class MsgBox
         };
         await messageBox.ShowDialogAsync();
     }
+
     public static async Task Error(string message)
     {
         var messageBox = new Wpf.Ui.Controls.MessageBox

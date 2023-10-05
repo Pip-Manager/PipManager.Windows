@@ -1,14 +1,14 @@
-﻿using PipManager.Controls;
+﻿using Microsoft.Win32;
+using PipManager.Controls;
 using PipManager.Languages;
 using PipManager.Models.AppConfigModels;
 using PipManager.Models.Pages;
 using PipManager.Services.Configuration;
-using System.IO;
-using Microsoft.Win32;
 using PipManager.Services.Environment;
+using Serilog;
+using System.IO;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
-using Serilog;
 
 namespace PipManager.ViewModels.Pages.Environment;
 
@@ -135,6 +135,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
         }
         Log.Information($"[AddEnvironment] python.exe found in {PythonPath}");
     }
+
     #endregion By Python Path
 
     #region Add

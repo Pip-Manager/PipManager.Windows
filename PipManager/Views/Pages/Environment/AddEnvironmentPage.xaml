@@ -178,8 +178,7 @@
                             x:Name="ByPipCommandTextBox"
                             Grid.Column="0"
                             PlaceholderText="pip"
-                            Text="{Binding ViewModel.PipCommand, UpdateSourceTrigger=PropertyChanged}">
-                        </ui:TextBox>
+                            Text="{Binding ViewModel.PipCommand, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
 
                     <ui:InfoBar
@@ -219,14 +218,13 @@
                                 Grid.Column="0"
                                 HorizontalAlignment="Stretch"
                                 PlaceholderText="python.exe"
-                                Text="{Binding ViewModel.PythonPath}">
-                            </ui:TextBox>
+                                Text="{Binding ViewModel.PythonPath}" />
 
                             <ui:Button
                                 Grid.Column="2"
                                 Margin="3,0,0,0"
-                                Content="{x:Static lang:Lang.Common_Button_Browse}"
                                 Command="{Binding ViewModel.BrowsePythonPathCommand}"
+                                Content="{x:Static lang:Lang.Common_Button_Browse}"
                                 Icon="{ui:SymbolIcon FolderOpen20}" />
                         </Grid>
                     </StackPanel>

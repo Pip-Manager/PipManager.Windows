@@ -1,12 +1,6 @@
-﻿using System.ComponentModel;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using PipManager.Models;
-using PipManager.Models.AppConfigModels;
-using System.Diagnostics;
 using System.IO;
-using PipManager.Controls;
-using PipManager.Languages;
-using Serilog;
 
 namespace PipManager.Services.Configuration;
 

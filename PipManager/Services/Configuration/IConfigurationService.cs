@@ -1,5 +1,4 @@
 ﻿using PipManager.Models;
-using PipManager.Models.AppConfigModels;
 
 namespace PipManager.Services.Configuration;
 

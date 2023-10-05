@@ -1,15 +1,14 @@
-﻿using PipManager.Models.AppConfigModels;
+﻿using PipManager.Controls;
+using PipManager.Languages;
+using PipManager.Models.AppConfigModels;
 using PipManager.Services.Configuration;
+using PipManager.Services.Environment;
+using PipManager.ViewModels.Windows;
 using PipManager.Views.Pages.Environment;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using PipManager.Controls;
-using PipManager.Languages;
-using PipManager.Services.Environment;
-using PipManager.ViewModels.Windows;
 using Wpf.Ui.Controls;
-using MessageBox = System.Windows.MessageBox;
 using MessageBoxResult = Wpf.Ui.Controls.MessageBoxResult;
 
 namespace PipManager.ViewModels.Pages.Environment;
@@ -56,7 +55,8 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
     [ObservableProperty]
     private EnvironmentItem? _currentEnvironment;
 
-    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(DeleteEnvironmentCommand), nameof(CheckEnvironmentCommand))]
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(DeleteEnvironmentCommand), nameof(CheckEnvironmentCommand))]
     private bool _environmentSelected;
 
     [RelayCommand]
