@@ -325,4 +325,31 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="Library_Data_PackageFound" xml:space="preserve">
     <value> package(s) found</value>
   </data>
+  <data name="About_Document" xml:space="preserve">
+    <value>Document</value>
+  </data>
+  <data name="About_GithubRepo" xml:space="preserve">
+    <value>Github Repo</value>
+  </data>
+  <data name="About_GithubIssue" xml:space="preserve">
+    <value>Github Issue</value>
+  </data>
+  <data name="About_GithubDiscussion" xml:space="preserve">
+    <value>Github Discussion</value>
+  </data>
+  <data name="About_MoreInformation_OpenSourceLicense" xml:space="preserve">
+    <value>Open Source License</value>
+  </data>
+  <data name="About_MoreInformation_Privacy" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="About_MoreInformation_PrivacyLine1" xml:space="preserve">
+    <value>Pip Manager will not upload any of your information.</value>
+  </data>
+  <data name="About_MoreInformation_PrivacyLine2" xml:space="preserve">
+    <value>Pip Manager collects all data locally and stores it in the config.json file in the application directory.</value>
+  </data>
+  <data name="About_MoreInformation_PrivacyLine3" xml:space="preserve">
+    <value>Pip Manager does not modify the registry.</value>
+  </data>
 </root>

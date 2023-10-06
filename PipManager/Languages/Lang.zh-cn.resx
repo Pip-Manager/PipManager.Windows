@@ -325,4 +325,31 @@
   <data name="Library_Data_PackageFound" xml:space="preserve">
     <value> 个包已安装</value>
   </data>
+  <data name="About_Document" xml:space="preserve">
+    <value>文档</value>
+  </data>
+  <data name="About_GithubRepo" xml:space="preserve">
+    <value>Github 仓库</value>
+  </data>
+  <data name="About_GithubIssue" xml:space="preserve">
+    <value>前往 Github 反馈</value>
+  </data>
+  <data name="About_GithubDiscussion" xml:space="preserve">
+    <value>前往 Github 讨论</value>
+  </data>
+  <data name="About_MoreInformation_OpenSourceLicense" xml:space="preserve">
+    <value>开源许可</value>
+  </data>
+  <data name="About_MoreInformation_Privacy" xml:space="preserve">
+    <value>隐私信息</value>
+  </data>
+  <data name="About_MoreInformation_PrivacyLine3" xml:space="preserve">
+    <value>Pip Manager 不会修改注册表。</value>
+  </data>
+  <data name="About_MoreInformation_PrivacyLine2" xml:space="preserve">
+    <value>Pip Manager 的所有数据收集在本地，且存放在程序目录下的config.json文件中。</value>
+  </data>
+  <data name="About_MoreInformation_PrivacyLine1" xml:space="preserve">
+    <value>Pip Manager 不会上传您的任何信息。</value>
+  </data>
 </root>

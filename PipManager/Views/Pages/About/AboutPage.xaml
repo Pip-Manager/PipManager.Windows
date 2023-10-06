@@ -6,6 +6,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:lang="clr-namespace:PipManager.Languages"
+    xmlns:pages="clr-namespace:PipManager.Models.Pages"
     xmlns:about="clr-namespace:PipManager.Views.Pages.About"
     Title="SettingsPage"
     d:DataContext="{d:DesignInstance about:AboutPage,
@@ -23,58 +24,133 @@
                 <Border.Background>
                     <SolidColorBrush Opacity="0.3" Color="Gray" />
                 </Border.Background>
-                <StackPanel Margin="16,0,0,0" Orientation="Horizontal">
-                    <Image
-                        Width="200"
-                        Height="200"
-                        Source="pack://application:,,,/Assets/icon.png" />
-                    <StackPanel Margin="15,30,0,0">
-                        <TextBlock FontSize="42" Text="Pip Manager" />
-                        <TextBlock
-                            Margin="0,10,0,0"
-                            FontSize="16"
-                            Text="{Binding ViewModel.AppVersion, StringFormat=Version: {0}}" />
-                        <ui:Hyperlink
-                            Margin="-5,10,0,0"
-                            Content="Github Repo"
-                            Icon="{ui:SymbolIcon Link24}"
-                            NavigateUri="https://github.com/Pip-Manager/PipManager" />
+                <Grid>
+                    <StackPanel Margin="16,0,0,0" Orientation="Horizontal">
+                        <Image
+                            Width="200"
+                            Height="200"
+                            Source="pack://application:,,,/Assets/icon.png" />
+                        <StackPanel Margin="15,30,0,0">
+                            <TextBlock FontSize="42" Text="Pip Manager" />
+                            <TextBlock
+                                Margin="3,10,0,0"
+                                FontSize="16"
+                                Text="{Binding ViewModel.AppVersion, StringFormat=Version: {0}}" />
+                            <Grid Margin="-3,10,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <ui:Hyperlink
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Content="{x:Static lang:Lang.About_GithubRepo}"
+                                    Icon="{ui:SymbolIcon Link24}"
+                                    NavigateUri="https://github.com/Pip-Manager/PipManager" />
+                                <ui:Hyperlink
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Content="{x:Static lang:Lang.About_GithubIssue}"
+                                    Icon="{ui:SymbolIcon Bug24}"
+                                    NavigateUri="https://github.com/Pip-Manager/PipManager/issues" />
+                                <ui:Hyperlink
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Content="{x:Static lang:Lang.About_Document}"
+                                    Icon="{ui:SymbolIcon Document24}"
+                                    NavigateUri="http://pipmanager.ziling.space/" />
+                                <ui:Hyperlink
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Content="{x:Static lang:Lang.About_GithubDiscussion}"
+                                    Icon="{ui:SymbolIcon ArrowUpload24}"
+                                    NavigateUri="https://github.com/Pip-Manager/PipManager/discussions" />
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel
+                        Margin="0,0,5,10"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom">
                         <ui:Hyperlink
                             Margin="-5,3,0,0"
-                            Content="Document"
-                            Icon="{ui:SymbolIcon Document24}"
-                            NavigateUri="http://pipmanager.ziling.space/" />
+                            HorizontalAlignment="Right"
+                            Content="MIT License"
+                            NavigateUri="https://github.com/Pip-Manager/PipManager/blob/main/LICENSE" />
+                        <TextBlock
+                            Margin="0,0,10,0"
+                            FontSize="14"
+                            Text="Copyright (c) 2023 AuroraZiling" />
                     </StackPanel>
-                </StackPanel>
+                </Grid>
             </Border>
 
             <StackPanel Margin="0,20,0,0">
                 <TextBlock FontSize="20" Text="{x:Static lang:Lang.About_MoreInformation}" />
-                <ui:Hyperlink
-                    Margin="-5,3,0,0"
-                    Content="Github Issues"
-                    Icon="{ui:SymbolIcon Bug24}"
-                    NavigateUri="https://github.com/Pip-Manager/PipManager/issues" />
-                <ui:Hyperlink
-                    Margin="-5,3,0,0"
-                    Content="Github Requests"
-                    Icon="{ui:SymbolIcon ArrowUpload24}"
-                    NavigateUri="https://github.com/Pip-Manager/PipManager/pulls" />
+                <TextBlock
+                    Margin="0,10,0,0"
+                    FontSize="18"
+                    Text="{x:Static lang:Lang.About_MoreInformation_Privacy}" />
+                <TextBlock
+                    Margin="0,5,0,0"
+                    FontSize="16"
+                    Foreground="OrangeRed">
+                    <Run Text="{x:Static lang:Lang.About_MoreInformation_PrivacyLine1}" />
+                    <LineBreak />
+                    <Run Text="{x:Static lang:Lang.About_MoreInformation_PrivacyLine2}" />
+                    <LineBreak />
+                    <Run Text="{x:Static lang:Lang.About_MoreInformation_PrivacyLine3}" />
+                </TextBlock>
+                <TextBlock
+                    Margin="0,10,0,0"
+                    FontSize="18"
+                    Text="{x:Static lang:Lang.About_MoreInformation_OpenSourceLicense}" />
+                <ItemsControl
+                    Margin="0,10,0,0"
+                    VerticalAlignment="Stretch"
+                    ItemsSource="{Binding ViewModel.NugetLibraryList}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type pages:AboutNugetLibraryListItem}">
+                            <Grid x:Name="NugetLibraryListItemGrid" Margin="7,3,0,3">
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:Hyperlink
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Icon="{ui:SymbolIcon Link24}"
+                                        NavigateUri="{Binding LibraryUrl}" />
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock FontSize="14" Text="{Binding LibraryName}" />
+                                            <TextBlock FontSize="14" Text=" " />
+                                            <TextBlock FontSize="12" Text="{Binding LibraryVersion}" />
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock
+                                                FontSize="12"
+                                                Foreground="Gray"
+                                                Text="{Binding LibraryLicenseType}" />
+                                            <TextBlock
+                                                FontSize="12"
+                                                Foreground="Gray"
+                                                Text=" · " />
+                                            <TextBlock
+                                                FontSize="12"
+                                                Foreground="Gray"
+                                                Text="{Binding LibraryCopyright}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </StackPanel>
-        </StackPanel>
-        <StackPanel
-            Margin="0,0,0,20"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom">
-            <ui:Hyperlink
-                Margin="-5,3,0,0"
-                HorizontalAlignment="Right"
-                Content="MIT License"
-                NavigateUri="https://github.com/Pip-Manager/PipManager/blob/main/LICENSE" />
-            <TextBlock
-                Margin="0,0,10,0"
-                FontSize="14"
-                Text="Copyright (c) 2023 AuroraZiling" />
         </StackPanel>
     </Grid>
 </Page>

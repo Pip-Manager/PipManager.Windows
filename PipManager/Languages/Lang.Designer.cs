@@ -61,11 +61,92 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Document 的本地化字符串。
+        /// </summary>
+        public static string About_Document {
+            get {
+                return ResourceManager.GetString("About_Document", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Github Discussion 的本地化字符串。
+        /// </summary>
+        public static string About_GithubDiscussion {
+            get {
+                return ResourceManager.GetString("About_GithubDiscussion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Github Issue 的本地化字符串。
+        /// </summary>
+        public static string About_GithubIssue {
+            get {
+                return ResourceManager.GetString("About_GithubIssue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Github Repo 的本地化字符串。
+        /// </summary>
+        public static string About_GithubRepo {
+            get {
+                return ResourceManager.GetString("About_GithubRepo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 More Information 的本地化字符串。
         /// </summary>
         public static string About_MoreInformation {
             get {
                 return ResourceManager.GetString("About_MoreInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Open Source License 的本地化字符串。
+        /// </summary>
+        public static string About_MoreInformation_OpenSourceLicense {
+            get {
+                return ResourceManager.GetString("About_MoreInformation_OpenSourceLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Privacy 的本地化字符串。
+        /// </summary>
+        public static string About_MoreInformation_Privacy {
+            get {
+                return ResourceManager.GetString("About_MoreInformation_Privacy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Pip Manager will not upload any of your information. 的本地化字符串。
+        /// </summary>
+        public static string About_MoreInformation_PrivacyLine1 {
+            get {
+                return ResourceManager.GetString("About_MoreInformation_PrivacyLine1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Pip Manager collects all data locally and stores it in the config.json file in the application directory. 的本地化字符串。
+        /// </summary>
+        public static string About_MoreInformation_PrivacyLine2 {
+            get {
+                return ResourceManager.GetString("About_MoreInformation_PrivacyLine2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Pip Manager does not modify the registry. 的本地化字符串。
+        /// </summary>
+        public static string About_MoreInformation_PrivacyLine3 {
+            get {
+                return ResourceManager.GetString("About_MoreInformation_PrivacyLine3", resourceCulture);
             }
         }
         
