@@ -15,7 +15,7 @@ public class EnvironmentItem
         PythonVersion = pythonVersion;
     }
 
-    [JsonProperty("pipVersion")] public string PipVersion { get; set; } = string.Empty;
-    [JsonProperty("pythonPath")] public string PythonPath { get; set; } = string.Empty;
-    [JsonProperty("pythonVersion")] public string PythonVersion { get; set; } = string.Empty;
+    [JsonProperty("pipVersion")] public string? PipVersion { get; set; }
+    [JsonProperty("pythonPath")] public string? PythonPath { get; set; }
+    [JsonProperty("pythonVersion")] public string? PythonVersion { get; set; }
 }

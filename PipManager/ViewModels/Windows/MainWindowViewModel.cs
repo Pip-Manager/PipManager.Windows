@@ -23,7 +23,7 @@ public partial class MainWindowViewModel : ObservableObject
     {
         _configurationService = configurationService;
         _environmentService = environmentService;
-        if (_configurationService.AppConfig.CurrentEnvironment.PythonPath != string.Empty)
+        if (_configurationService.AppConfig.CurrentEnvironment != null)
         {
             Log.Information($"[MainWindow] Environment loaded ({_configurationService.AppConfig.CurrentEnvironment.PipVersion} for {_configurationService.AppConfig.CurrentEnvironment.PythonVersion})");
             ApplicationTitle = $"Pip Manager | {_configurationService.AppConfig.CurrentEnvironment.PipVersion} for {_configurationService.AppConfig.CurrentEnvironment.PythonVersion}";

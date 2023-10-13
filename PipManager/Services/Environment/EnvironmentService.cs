@@ -79,7 +79,7 @@ public class EnvironmentService : IEnvironmentService
         return pipDir.Length > 0 ? new EnvironmentItem(pipVersion, pythonPath, pythonVersion) : null;
     }
 
-    public string FindPythonPathByPipDir(string pipDir)
+    public static string FindPythonPathByPipDir(string pipDir)
     {
         // Need more information
         var pipExePath = Path.Combine(new DirectoryInfo(pipDir).Parent.Parent.Parent.FullName,
@@ -96,13 +96,13 @@ public class EnvironmentService : IEnvironmentService
 
     public (bool, string) CheckEnvironmentAvailable(EnvironmentItem environmentItem)
     {
-        var verify = GetEnvironmentItemFromCommand(environmentItem.PythonPath, "-m pip -V");
+        var verify = GetEnvironmentItemFromCommand(environmentItem.PythonPath!, "-m pip -V");
         return verify != null && environmentItem.PythonPath != string.Empty ? (true, "") : (false, "Broken Environment");
     }
 
     public List<PipMetadata>? GetLibraries()
     {
-        if (_configurationService.AppConfig.CurrentEnvironment.PythonPath == "")
+        if (_configurationService.AppConfig.CurrentEnvironment is null)
         {
             return null;
         }

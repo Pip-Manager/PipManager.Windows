@@ -71,7 +71,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         EnvironmentFoundVisible = true;
         LoadingVisible = true;
         ListVisible = false;
-        if (_configurationService.AppConfig.CurrentEnvironment.PythonPath == "")
+        if (_configurationService.AppConfig.CurrentEnvironment == null)
         {
             LoadingVisible = false;
             EnvironmentFoundVisible = false;
