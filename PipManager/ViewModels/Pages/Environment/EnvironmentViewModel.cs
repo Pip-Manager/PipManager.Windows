@@ -38,6 +38,7 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
             if (currentEnvironment is not null && environmentItem.PythonPath == currentEnvironment.PythonPath)
             {
                 CurrentEnvironment = environmentItem;
+                Log.Information($"[Environment] Current Environment changed: {CurrentEnvironment.PythonPath}");
             }
         }
     }

@@ -97,6 +97,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             }
             LibraryListLength = library.Count;
             ListVisible = true;
+            Log.Information("[Library] Package list refreshed successfully");
         }
     }
 }

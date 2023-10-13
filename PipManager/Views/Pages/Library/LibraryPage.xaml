@@ -28,7 +28,6 @@
         <Grid Grid.Row="0">
             <StackPanel Orientation="Horizontal">
                 <ui:Button
-                    Appearance="Primary"
                     Content="{x:Static lang:Lang.Library_Operation_Install}"
                     Icon="{ui:SymbolIcon Add24}"
                     IsEnabled="{Binding ViewModel.EnvironmentFoundVisible}" />

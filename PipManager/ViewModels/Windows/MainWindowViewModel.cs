@@ -17,12 +17,10 @@ namespace PipManager.ViewModels.Windows;
 public partial class MainWindowViewModel : ObservableObject
 {
     private readonly IConfigurationService _configurationService;
-    private readonly IEnvironmentService _environmentService;
 
-    public MainWindowViewModel(IConfigurationService configurationService, IEnvironmentService environmentService)
+    public MainWindowViewModel(IConfigurationService configurationService)
     {
         _configurationService = configurationService;
-        _environmentService = environmentService;
         if (_configurationService.AppConfig.CurrentEnvironment != null)
         {
             Log.Information($"[MainWindow] Environment loaded ({_configurationService.AppConfig.CurrentEnvironment.PipVersion} for {_configurationService.AppConfig.CurrentEnvironment.PythonVersion})");

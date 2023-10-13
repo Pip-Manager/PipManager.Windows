@@ -94,7 +94,8 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         AliyunPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTesting;
         DoubanPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTesting;
         var stopwatch = Stopwatch.StartNew();
-        var officialTask = async () =>
+
+        async Task OfficialTask()
         {
             try
             {
@@ -105,8 +106,9 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
             {
                 OfficialPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTestFailed;
             }
-        };
-        var tsinghuaTask = async () =>
+        }
+
+        async Task TsinghuaTask()
         {
             try
             {
@@ -117,8 +119,9 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
             {
                 TsinghuaPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTestFailed;
             }
-        };
-        var aliyunTask = async () =>
+        }
+
+        async Task AliyunTask()
         {
             try
             {
@@ -129,8 +132,9 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
             {
                 AliyunPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTestFailed;
             }
-        };
-        var doubanTask = async () =>
+        }
+
+        async Task DoubanTask()
         {
             try
             {
@@ -141,8 +145,9 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
             {
                 DoubanPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTestFailed;
             }
-        };
-        await Task.WhenAll(officialTask(), tsinghuaTask(), aliyunTask(), doubanTask());
+        }
+
+        await Task.WhenAll(OfficialTask(), TsinghuaTask(), AliyunTask(), DoubanTask());
         Log.Information($"[Settings] Package Source network tested: Official({OfficialPackageSourceNetwork}) Tsinghua({TsinghuaPackageSourceNetwork}) Aliyun({AliyunPackageSourceNetwork}) Douban({DoubanPackageSourceNetwork})");
     }
 

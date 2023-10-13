@@ -82,9 +82,9 @@ public class EnvironmentService : IEnvironmentService
     public static string FindPythonPathByPipDir(string pipDir)
     {
         // Need more information
-        var pipExePath = Path.Combine(new DirectoryInfo(pipDir).Parent.Parent.Parent.FullName,
+        var pipExePath = Path.Combine(new DirectoryInfo(pipDir).Parent!.Parent!.Parent!.FullName,
             "python.exe");
-        var pipExePathAttempt1 = Path.Combine(new DirectoryInfo(pipDir).Parent.Parent.FullName,
+        var pipExePathAttempt1 = Path.Combine(new DirectoryInfo(pipDir).Parent!.Parent!.FullName,
             "python.exe");
         if (!File.Exists(pipExePath))
         {
