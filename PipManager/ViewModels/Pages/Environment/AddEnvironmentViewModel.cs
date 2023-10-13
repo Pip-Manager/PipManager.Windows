@@ -186,6 +186,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
                 }
                 else
                 {
+                    _configurationService.AppConfig.CurrentEnvironment = result;
                     _configurationService.AppConfig.EnvironmentItems.Add(result);
                     Log.Information($"[AddEnvironment] Environment added ({result.PipVersion} for {result.PythonVersion})");
                     _configurationService.Save();
@@ -209,6 +210,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
                 }
                 else
                 {
+                    _configurationService.AppConfig.CurrentEnvironment = result;
                     _configurationService.AppConfig.EnvironmentItems.Add(result);
                     Log.Information($"[AddEnvironment] Environment added ({result.PipVersion} for {result.PythonVersion})");
                     _configurationService.Save();
