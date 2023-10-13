@@ -70,7 +70,7 @@
                             <TextBlock
                                 FontSize="12"
                                 Foreground="Gray"
-                                Text="{Binding PipDir}"
+                                Text="{Binding PythonPath}"
                                 TextWrapping="Wrap" />
                         </StackPanel>
                     </Grid>

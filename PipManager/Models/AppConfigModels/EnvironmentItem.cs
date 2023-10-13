@@ -4,21 +4,18 @@ namespace PipManager.Models.AppConfigModels;
 
 public class EnvironmentItem
 {
-    public EnvironmentItem(string pipVersion, string pipDir, string pythonVersion)
+    public EnvironmentItem()
+    {
+    }
+
+    public EnvironmentItem(string pipVersion, string pythonPath, string pythonVersion)
     {
         PipVersion = pipVersion;
-        PipDir = pipDir;
+        PythonPath = pythonPath;
         PythonVersion = pythonVersion;
     }
 
-    public EnvironmentItem()
-    {
-        PipVersion = "";
-        PipDir = "";
-        PythonVersion = "";
-    }
-
     [JsonProperty("pipVersion")] public string PipVersion { get; set; } = string.Empty;
-    [JsonProperty("pipDir")] public string PipDir { get; set; } = string.Empty;
+    [JsonProperty("pythonPath")] public string PythonPath { get; set; } = string.Empty;
     [JsonProperty("pythonVersion")] public string PythonVersion { get; set; } = string.Empty;
 }

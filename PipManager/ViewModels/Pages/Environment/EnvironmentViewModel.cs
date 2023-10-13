@@ -35,7 +35,7 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
         var currentEnvironment = _configurationService.AppConfig.CurrentEnvironment;
         foreach (var environmentItem in EnvironmentItems)
         {
-            if (environmentItem.PipDir == currentEnvironment.PipDir)
+            if (environmentItem.PythonPath == currentEnvironment.PythonPath)
             {
                 CurrentEnvironment = environmentItem;
             }

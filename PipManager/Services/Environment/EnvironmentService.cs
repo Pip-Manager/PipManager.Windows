@@ -19,7 +19,7 @@ public class EnvironmentService : IEnvironmentService
     public bool CheckEnvironmentExists(EnvironmentItem environmentItem)
     {
         var environmentItems = _configurationService.AppConfig.EnvironmentItems;
-        return environmentItems.Any(item => item.PipDir == environmentItem.PipDir);
+        return environmentItems.Any(item => item.PythonPath == environmentItem.PythonPath);
     }
 
     public EnvironmentItem? GetEnvironmentItemFromCommand(string command, string arguments)
@@ -73,13 +73,13 @@ public class EnvironmentService : IEnvironmentService
             }
         }
         pipVersion = pipVersion.Trim();
-        pipDir = pipDir.Trim();
+        var pythonPath = FindPythonPathByPipDir(pipDir.Trim());
         pythonVersion = pythonVersion.Trim();
         proc.Close();
-        return pipDir.Length > 0 ? new EnvironmentItem(pipVersion, pipDir, pythonVersion) : null;
+        return pipDir.Length > 0 ? new EnvironmentItem(pipVersion, pythonPath, pythonVersion) : null;
     }
 
-    public string FindPythonExecutableByPipDir(string pipDir)
+    public string FindPythonPathByPipDir(string pipDir)
     {
         // Need more information
         var pipExePath = Path.Combine(new DirectoryInfo(pipDir).Parent.Parent.Parent.FullName,
@@ -96,14 +96,13 @@ public class EnvironmentService : IEnvironmentService
 
     public (bool, string) CheckEnvironmentAvailable(EnvironmentItem environmentItem)
     {
-        var pipExePath = FindPythonExecutableByPipDir(environmentItem.PipDir);
-        var verify = GetEnvironmentItemFromCommand(pipExePath, "-m pip -V");
-        return verify != null && verify.PipDir != string.Empty ? (true, "") : (false, "Broken Environment");
+        var verify = GetEnvironmentItemFromCommand(environmentItem.PythonPath, "-m pip -V");
+        return verify != null && environmentItem.PythonPath != string.Empty ? (true, "") : (false, "Broken Environment");
     }
 
     public List<PipMetadata>? GetLibraries()
     {
-        if (_configurationService.AppConfig.CurrentEnvironment.PipDir == "")
+        if (_configurationService.AppConfig.CurrentEnvironment.PythonPath == "")
         {
             return null;
         }
@@ -111,7 +110,7 @@ public class EnvironmentService : IEnvironmentService
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = FindPythonExecutableByPipDir(_configurationService.AppConfig.CurrentEnvironment.PipDir),
+                FileName = _configurationService.AppConfig.CurrentEnvironment.PythonPath,
                 Arguments = "-m pip inspect",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
