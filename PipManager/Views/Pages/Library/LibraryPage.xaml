@@ -28,6 +28,7 @@
         <Grid Grid.Row="0">
             <StackPanel Orientation="Horizontal">
                 <ui:Button
+                    Appearance="Primary"
                     Content="{x:Static lang:Lang.Library_Operation_Install}"
                     Icon="{ui:SymbolIcon Add24}"
                     IsEnabled="{Binding ViewModel.EnvironmentFoundVisible}" />
@@ -109,11 +110,11 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Visibility="{Binding ViewModel.EnvironmentFoundVisible, Converter={StaticResource InverseBoolToVisibility}}">
-            <TextBlock FontSize="32" Text="No Environment" />
+            <TextBlock FontSize="32" Text="{x:Static lang:Lang.Library_Error_NoEnvironment}" />
             <ui:Hyperlink
                 HorizontalAlignment="Center"
                 Command="{Binding ViewModel.NavigateToAddEnvironmentCommand}"
-                Content="Add environment"
+                Content="{x:Static lang:Lang.Library_Error_AddEnvironment}"
                 FontSize="16" />
         </StackPanel>
 

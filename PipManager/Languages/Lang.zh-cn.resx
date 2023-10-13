@@ -352,4 +352,10 @@
   <data name="About_MoreInformation_PrivacyLine1" xml:space="preserve">
     <value>Pip Manager 不会上传您的任何信息。</value>
   </data>
+  <data name="Library_Error_NoEnvironment" xml:space="preserve">
+    <value>未选择环境</value>
+  </data>
+  <data name="Library_Error_AddEnvironment" xml:space="preserve">
+    <value>添加环境</value>
+  </data>
 </root>

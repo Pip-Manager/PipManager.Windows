@@ -352,4 +352,10 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="About_MoreInformation_PrivacyLine3" xml:space="preserve">
     <value>Pip Manager does not modify the registry.</value>
   </data>
+  <data name="Library_Error_NoEnvironment" xml:space="preserve">
+    <value>No Environment</value>
+  </data>
+  <data name="Library_Error_AddEnvironment" xml:space="preserve">
+    <value>Add environment</value>
+  </data>
 </root>

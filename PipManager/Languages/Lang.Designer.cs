@@ -313,6 +313,24 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Add environment 的本地化字符串。
+        /// </summary>
+        public static string Library_Error_AddEnvironment {
+            get {
+                return ResourceManager.GetString("Library_Error_AddEnvironment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 No Environment 的本地化字符串。
+        /// </summary>
+        public static string Library_Error_NoEnvironment {
+            get {
+                return ResourceManager.GetString("Library_Error_NoEnvironment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Check Update 的本地化字符串。
         /// </summary>
         public static string Library_Operation_CheckUpdate {
