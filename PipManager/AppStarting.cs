@@ -41,73 +41,51 @@ public class AppStarting
 
     public void LogDeletion()
     {
-        if (config.Personalization.LogAutoDeletion && Directory.Exists(AppInfo.LogDir))
+        if (!config.Personalization.LogAutoDeletion || !Directory.Exists(AppInfo.LogDir)) return;
+        var fileList = Directory.GetFileSystemEntries(AppInfo.LogDir);
+        var logFileAmount = fileList.Count(file => File.Exists(file) && file.EndsWith(".txt"));
+        if (logFileAmount >= config.Personalization.LogAutoDeletionTimes)
         {
-            var logFileAmount = 0;
-            string[] fileList = Directory.GetFileSystemEntries(AppInfo.LogDir);
-            foreach (string file in fileList)
+            var directoryInfo = new DirectoryInfo(AppInfo.LogDir);
+            var filesInfo = directoryInfo.GetFileSystemInfos();
+            foreach (var file in filesInfo)
             {
-                if (File.Exists(file) && file.EndsWith(".txt"))
+                if (file.Extension != ".txt") continue;
+                try
                 {
-                    logFileAmount++;
+                    File.Delete(file.FullName);
+                }
+                catch
+                {
+                    continue;
                 }
             }
-            if (logFileAmount >= config.Personalization.LogAutoDeletionTimes)
-            {
-                var directoryInfo = new DirectoryInfo(AppInfo.LogDir);
-                var filesInfo = directoryInfo.GetFileSystemInfos();
-                foreach (var file in filesInfo)
-                {
-                    if (file.Extension == ".txt")
-                    {
-                        try
-                        {
-                            File.Delete(file.FullName);
-                        }
-                        catch
-                        {
-                            continue;
-                        }
-                    }
-                }
-                Log.Information($"{logFileAmount} log file(s) deleted");
-            }
+            Log.Information($"{logFileAmount} log file(s) deleted");
         }
     }
 
     public void CrushesDeletion()
     {
-        if (config.Personalization.CrushesAutoDeletion && Directory.Exists(AppInfo.CrushesDir))
+        if (!config.Personalization.CrushesAutoDeletion || !Directory.Exists(AppInfo.CrushesDir)) return;
+        var fileList = Directory.GetFileSystemEntries(AppInfo.CrushesDir);
+        var crushFileAmount = fileList.Count(file => File.Exists(file) && file.EndsWith(".txt"));
+        if (crushFileAmount >= config.Personalization.CrushesAutoDeletionTimes)
         {
-            var crushFileAmount = 0;
-            string[] fileList = Directory.GetFileSystemEntries(AppInfo.CrushesDir);
-            foreach (string file in fileList)
+            var directoryInfo = new DirectoryInfo(AppInfo.CrushesDir);
+            var filesInfo = directoryInfo.GetFileSystemInfos();
+            foreach (var file in filesInfo)
             {
-                if (File.Exists(file) && file.EndsWith(".txt"))
+                if (file.Extension != ".txt") continue;
+                try
                 {
-                    crushFileAmount++;
+                    File.Delete(file.FullName);
+                }
+                catch
+                {
+                    continue;
                 }
             }
-            if (crushFileAmount >= config.Personalization.CrushesAutoDeletionTimes)
-            {
-                var directoryInfo = new DirectoryInfo(AppInfo.CrushesDir);
-                var filesInfo = directoryInfo.GetFileSystemInfos();
-                foreach (var file in filesInfo)
-                {
-                    if (file.Extension == ".txt")
-                    {
-                        try
-                        {
-                            File.Delete(file.FullName);
-                        }
-                        catch
-                        {
-                            continue;
-                        }
-                    }
-                }
-                Log.Information($"{crushFileAmount} crush file(s) deleted");
-            }
+            Log.Information($"{crushFileAmount} crush file(s) deleted");
         }
     }
 }

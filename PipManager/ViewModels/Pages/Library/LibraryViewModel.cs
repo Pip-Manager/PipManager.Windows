@@ -59,23 +59,25 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private async Task DeletePackageAsync()
     {
-        var grid = new Grid();
-        var textBlock = new Wpf.Ui.Controls.TextBlock
-        {
-            Text = Lang.Msgbox_Message_LibraryDeletionWarning
-        };
-        var packageList = new ListView
-        {
-            ItemTemplate = Application.Current.TryFindResource("LibraryDeletionListDataTemplate") as DataTemplate,
-            Margin = new Thickness(0, 20, 0, 0),
-            ItemsSource = LibraryList.Where(libraryListItem => libraryListItem.IsSelected)
-        };
-        grid.Children.Add(textBlock);
-        grid.Children.Add(packageList);
         var messageBox = new Wpf.Ui.Controls.MessageBox                                             
         {
             Title = Lang.MsgBox_Title_Warning,
-            Content = grid,
+            Content = new Grid
+            {
+                Children =
+                {
+                    new System.Windows.Controls.TextBlock
+                    {
+                        Text = Lang.Msgbox_Message_LibraryDeletionWarning
+                    },
+                    new ListView
+                    {
+                        ItemTemplate = Application.Current.TryFindResource("LibraryDeletionListDataTemplate") as DataTemplate,
+                        Margin = new Thickness(0, 20, 0, 0),
+                        ItemsSource = LibraryList.Where(libraryListItem => libraryListItem.IsSelected)
+                    }
+                }
+            },
             MinHeight = 300,
             MaxHeight = 500,
             MinWidth = 500,
@@ -83,7 +85,10 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             CloseButtonText = Lang.MsgBox_CloseButton_Cancel
         };
         var result = await messageBox.ShowDialogAsync();
-        if (result != Wpf.Ui.Controls.MessageBoxResult.Primary) return;
+        if (result == Wpf.Ui.Controls.MessageBoxResult.Primary)
+        {
+            return;
+        }
     }
 
     #endregion
