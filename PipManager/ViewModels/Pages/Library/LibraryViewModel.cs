@@ -1,17 +1,17 @@
-﻿using PipManager.Models.Pages;
+﻿using PipManager.Languages;
+using PipManager.Models.Pages;
 using PipManager.Models.PipInspection;
+using PipManager.Services.Action;
 using PipManager.Services.Configuration;
 using PipManager.Services.Environment;
+using PipManager.Views.Pages.Action;
 using PipManager.Views.Pages.Environment;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
-using PipManager.Controls;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
-using PipManager.Languages;
-using MessageBox = System.Windows.MessageBox;
 
 namespace PipManager.ViewModels.Pages.Library;
 
@@ -21,13 +21,15 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private readonly INavigationService _navigationService;
     private readonly IEnvironmentService _environmentService;
     private readonly IConfigurationService _configurationService;
+    private readonly IActionService _actionService;
 
     public LibraryViewModel(INavigationService navigationService, IEnvironmentService environmentService,
-        IConfigurationService configurationService)
+        IConfigurationService configurationService, IActionService actionService)
     {
         _navigationService = navigationService;
         _environmentService = environmentService;
         _configurationService = configurationService;
+        _actionService = actionService;
 
         Theme.Apply(_configurationService.AppConfig.Personalization.Theme switch
         {
@@ -59,7 +61,8 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private async Task DeletePackageAsync()
     {
-        var messageBox = new Wpf.Ui.Controls.MessageBox                                             
+        var selected = LibraryList.Where(libraryListItem => libraryListItem.IsSelected);
+        var messageBox = new Wpf.Ui.Controls.MessageBox
         {
             Title = Lang.MsgBox_Title_Warning,
             Content = new Grid
@@ -74,7 +77,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
                     {
                         ItemTemplate = Application.Current.TryFindResource("LibraryDeletionListDataTemplate") as DataTemplate,
                         Margin = new Thickness(0, 20, 0, 0),
-                        ItemsSource = LibraryList.Where(libraryListItem => libraryListItem.IsSelected)
+                        ItemsSource = selected
                     }
                 }
             },
@@ -85,13 +88,21 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             CloseButtonText = Lang.MsgBox_CloseButton_Cancel
         };
         var result = await messageBox.ShowDialogAsync();
+        var command = LibraryList.Where(libraryListItem => libraryListItem.IsSelected).Aggregate("", (current, item) => current + (item.PackageName + ' '));
         if (result == Wpf.Ui.Controls.MessageBoxResult.Primary)
         {
-            return;
+            _actionService.ActionList.Add(new ActionListItem
+            (
+                ActionType.Uninstall,
+                "Delete Packages",
+                command.Trim(),
+                totalSubTaskNumber: selected.Count()
+            ));
+            _navigationService.Navigate(typeof(ActionPage));
         }
     }
 
-    #endregion
+    #endregion Delete Package
 
     [ObservableProperty] private int _libraryListLength;
     [ObservableProperty] private ObservableCollection<LibraryListItem> _libraryList = new();

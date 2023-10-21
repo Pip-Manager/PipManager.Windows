@@ -8,6 +8,7 @@
     xmlns:models="clr-namespace:PipManager.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:action="clr-namespace:PipManager.Views.Pages.Action"
+    xmlns:pages="clr-namespace:PipManager.Models.Pages"
     Title="SearchPage"
     d:DataContext="{d:DesignInstance action:ActionPage,
                                      IsDesignTimeCreatable=False}"
@@ -20,25 +21,29 @@
     mc:Ignorable="d">
 
     <Grid>
-        <ui:VirtualizingItemsControl
-            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-            ItemsSource="{Binding ViewModel.Colors, Mode=OneWay}"
-            VirtualizingPanel.CacheLengthUnit="Item">
+        <ItemsControl
+            ItemsSource="{Binding ViewModel.Actions}">
             <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type models:DataColor}">
-                    <ui:Button
-                        Width="80"
-                        Height="80"
-                        Margin="2"
-                        Padding="0"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        Appearance="Secondary"
-                        Background="{Binding Color, Mode=OneWay}"
-                        FontSize="25"
-                        Icon="Fluent24" />
+                <DataTemplate DataType="{x:Type pages:ActionListItem}">
+                    <Border Margin="0, 5, 0, 0" CornerRadius="5" BorderBrush="Gray" BorderThickness="2" Padding="15">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:SymbolIcon Symbol="{Binding Path=OperationIcon.Symbol}" VerticalAlignment="Center" />
+                                <TextBlock Margin="5, 0, 0, 0" FontSize="16" Text="{Binding OperationDescription}" VerticalAlignment="Center"  />
+                                <ui:Badge Margin="5, 0, 0, 0" FontSize="12" Content="{Binding OperationType}" Appearance="{Binding BadgeAppearance}" VerticalAlignment="Center" ></ui:Badge>
+                            </StackPanel>
+                            <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
+                                <ProgressBar Width="300" IsIndeterminate="{Binding ProgressIntermediate}"></ProgressBar>
+                                <TextBlock Margin="5, 0, 0, 0" FontSize="16" Text="{Binding CompletedSubTaskNumber}" />
+                                <TextBlock FontSize="16" Text="/" />
+                                <TextBlock FontSize="16" Text="{Binding TotalSubTaskNumber}" />
+                            </StackPanel>
+                            <TextBlock FontSize="12" Margin="0,7,0,0" Text="{Binding OperationCommand}"/>
+                        </StackPanel>
+                    </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ui:VirtualizingItemsControl>
+
+        </ItemsControl>
     </Grid>
 </Page>

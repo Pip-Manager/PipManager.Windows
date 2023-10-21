@@ -1,6 +1,10 @@
-﻿using PipManager.Models;
+﻿using System.Collections.ObjectModel;
+using PipManager.Models;
 using Serilog;
 using System.Windows.Media;
+using PipManager.Models.Pages;
+using PipManager.Services.Action;
+using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Action;
@@ -8,14 +12,21 @@ namespace PipManager.ViewModels.Pages.Action;
 public partial class ActionViewModel : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
-
     [ObservableProperty]
-    private IEnumerable<DataColor> _colors = null!;
+    private ObservableCollection<ActionListItem> _actions;
+
+    private IActionService _actionService;
+
+    public ActionViewModel(IActionService actionService)
+    {
+        _actionService = actionService;
+    }
 
     public void OnNavigatedTo()
     {
         if (!_isInitialized)
             InitializeViewModel();
+        Actions = new ObservableCollection<ActionListItem>(_actionService.ActionList);
     }
 
     public void OnNavigatedFrom()
@@ -24,26 +35,6 @@ public partial class ActionViewModel : ObservableObject, INavigationAware
 
     private void InitializeViewModel()
     {
-        var random = new Random();
-        var colorCollection = new List<DataColor>();
-
-        for (int i = 0; i < 8192; i++)
-            colorCollection.Add(
-                new DataColor
-                {
-                    Color = new SolidColorBrush(
-                        Color.FromArgb(
-                            (byte)200,
-                            (byte)random.Next(0, 250),
-                            (byte)random.Next(0, 250),
-                            (byte)random.Next(0, 250)
-                        )
-                    )
-                }
-            );
-
-        Colors = colorCollection;
-
         _isInitialized = true;
         Log.Information("[Action] Initialized");
     }

@@ -19,6 +19,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Windows.Threading;
+using PipManager.Services.Action;
 using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
 using LibraryViewModel = PipManager.ViewModels.Pages.Library.LibraryViewModel;
 using ActionViewModel = PipManager.ViewModels.Pages.Action.ActionViewModel;
@@ -55,6 +56,7 @@ public partial class App
             services.AddSingleton<IContentDialogService, ContentDialogService>();
             services.AddSingleton<IConfigurationService, ConfigurationService>();
             services.AddSingleton<IEnvironmentService, EnvironmentService>();
+            services.AddSingleton<IActionService, ActionService>();
 
             services.AddSingleton<LibraryPage>();
             services.AddSingleton<LibraryViewModel>();
