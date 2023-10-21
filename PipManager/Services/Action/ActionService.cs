@@ -1,14 +1,13 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Threading;
-using PipManager.Models.Pages;
+﻿using PipManager.Models.Pages;
 using PipManager.Services.Environment;
 using Serilog;
 
 namespace PipManager.Services.Action;
 
-public class ActionService: IActionService
+public class ActionService : IActionService
 {
-    private IEnvironmentService _environmentService;
+    private readonly IEnvironmentService _environmentService;
+
     public ActionService(IEnvironmentService environmentService)
     {
         _environmentService = environmentService;
@@ -24,7 +23,6 @@ public class ActionService: IActionService
             {
                 if (ActionList[0].OperationType == ActionType.Uninstall)
                 {
-                    ActionList[0].OperationStatus = "Action Started";
                     var queue = ActionList[0].OperationCommand.Split(' ');
                     foreach (var item in queue)
                     {
@@ -39,7 +37,6 @@ public class ActionService: IActionService
                     Log.Information($"[Runner] Task {ActionList[0].OperationDescription} Completed");
                 }
                 ActionList.Remove(ActionList[0]);
-                
             }
 
             Thread.Sleep(3000);

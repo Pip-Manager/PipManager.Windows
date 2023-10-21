@@ -1,7 +1,7 @@
 ﻿using PipManager.Languages;
 using PipManager.Services.Configuration;
-using PipManager.Services.Environment;
 using PipManager.Views.Pages.About;
+using PipManager.Views.Pages.Action;
 using PipManager.Views.Pages.Environment;
 using PipManager.Views.Pages.Library;
 using PipManager.Views.Pages.Search;
@@ -9,7 +9,6 @@ using PipManager.Views.Pages.Settings;
 using PipManager.Views.Pages.Tools;
 using Serilog;
 using System.Collections.ObjectModel;
-using PipManager.Views.Pages.Action;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 
@@ -30,6 +29,7 @@ public partial class MainWindowViewModel : ObservableObject
         else
         {
             Log.Information("[MainWindow] No previous selected environment found");
+            ApplicationTitle = "Pip Manager";
         }
     }
 

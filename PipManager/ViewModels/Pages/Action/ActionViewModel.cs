@@ -1,10 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using PipManager.Models;
-using Serilog;
-using System.Windows.Media;
-using PipManager.Models.Pages;
+﻿using PipManager.Models.Pages;
 using PipManager.Services.Action;
-using Wpf.Ui.Common;
+using Serilog;
+using System.Collections.ObjectModel;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Action;
@@ -12,10 +9,11 @@ namespace PipManager.ViewModels.Pages.Action;
 public partial class ActionViewModel : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
+
     [ObservableProperty]
     private ObservableCollection<ActionListItem> _actions;
 
-    private IActionService _actionService;
+    private readonly IActionService _actionService;
 
     public ActionViewModel(IActionService actionService)
     {

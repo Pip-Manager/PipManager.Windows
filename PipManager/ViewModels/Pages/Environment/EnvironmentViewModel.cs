@@ -71,6 +71,8 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
         _configurationService.AppConfig.CurrentEnvironment = null;
         _configurationService.AppConfig.EnvironmentItems = new List<EnvironmentItem>(EnvironmentItems);
         _configurationService.Save();
+        var mainWindowViewModel = App.GetService<MainWindowViewModel>();
+        mainWindowViewModel.ApplicationTitle = $"Pip Manager";
         EnvironmentSelected = false;
     }
 

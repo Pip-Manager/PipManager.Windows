@@ -132,7 +132,19 @@ public class EnvironmentService : IEnvironmentService
 
     public bool Uninstall(string packageName)
     {
-        Thread.Sleep(1500);
+        var process = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = _configurationService.AppConfig.CurrentEnvironment.PythonPath,
+                Arguments = $"-m pip uninstall -y \"{packageName}\"",
+                UseShellExecute = false,
+                CreateNoWindow = true
+            }
+        };
+        process.Start();
+        process.WaitForExit();
+        process.Close();
         return true;
     }
 }

@@ -2,12 +2,14 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PipManager.Services;
+using PipManager.Services.Action;
 using PipManager.Services.Configuration;
 using PipManager.Services.Environment;
 using PipManager.ViewModels.Pages.Environment;
 using PipManager.ViewModels.Pages.Tools;
 using PipManager.ViewModels.Windows;
 using PipManager.Views.Pages.About;
+using PipManager.Views.Pages.Action;
 using PipManager.Views.Pages.Environment;
 using PipManager.Views.Pages.Library;
 using PipManager.Views.Pages.Search;
@@ -19,13 +21,11 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Windows.Threading;
-using PipManager.Services.Action;
 using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
-using LibraryViewModel = PipManager.ViewModels.Pages.Library.LibraryViewModel;
 using ActionViewModel = PipManager.ViewModels.Pages.Action.ActionViewModel;
+using LibraryViewModel = PipManager.ViewModels.Pages.Library.LibraryViewModel;
 using SearchViewModel = PipManager.ViewModels.Pages.Search.SearchViewModel;
 using SettingsViewModel = PipManager.ViewModels.Pages.Settings.SettingsViewModel;
-using PipManager.Views.Pages.Action;
 
 namespace PipManager;
 

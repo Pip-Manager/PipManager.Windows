@@ -1,6 +1,6 @@
-﻿using System.Collections.ObjectModel;
-using PipManager.Models.Pages;
+﻿using PipManager.Models.Pages;
 using Serilog;
+using System.Collections.ObjectModel;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.About;
@@ -28,7 +28,8 @@ public partial class AboutViewModel : ObservableObject, INavigationAware
         Log.Information("[About] Initialized");
     }
 
-    [ObservableProperty] private ObservableCollection<AboutNugetLibraryListItem> _nugetLibraryList = new ()
+    [ObservableProperty]
+    private ObservableCollection<AboutNugetLibraryListItem> _nugetLibraryList = new()
     {
         new AboutNugetLibraryListItem("CommunityToolkit.Mvvm", "8.2.1", "MIT", "Copyright © .NET Foundation and Contributors", "https://github.com/CommunityToolkit/dotnet"),
         new AboutNugetLibraryListItem("Costura.Fody", "5.7.0", "MIT", "Copyright (c) 2012 Simon Cropp and contributors", "https://github.com/Fody/Costura"),
