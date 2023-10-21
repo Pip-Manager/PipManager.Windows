@@ -376,6 +376,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Action 的本地化字符串。
+        /// </summary>
+        public static string MainWindow_NavigationContent_Action {
+            get {
+                return ResourceManager.GetString("MainWindow_NavigationContent_Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Environment 的本地化字符串。
         /// </summary>
         public static string MainWindow_NavigationContent_Environment {

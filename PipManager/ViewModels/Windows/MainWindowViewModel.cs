@@ -9,6 +9,7 @@ using PipManager.Views.Pages.Settings;
 using PipManager.Views.Pages.Tools;
 using Serilog;
 using System.Collections.ObjectModel;
+using PipManager.Views.Pages.Action;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 
@@ -43,6 +44,12 @@ public partial class MainWindowViewModel : ObservableObject
             Content = Lang.MainWindow_NavigationContent_Library,
             Icon = new SymbolIcon { Symbol = SymbolRegular.Library24 },
             TargetPageType = typeof(LibraryPage)
+        },
+        new NavigationViewItem
+        {
+            Content = Lang.MainWindow_NavigationContent_Action,
+            Icon = new SymbolIcon { Symbol = SymbolRegular.PlayCircle24 },
+            TargetPageType = typeof(ActionPage)
         },
         new NavigationViewItem
         {
