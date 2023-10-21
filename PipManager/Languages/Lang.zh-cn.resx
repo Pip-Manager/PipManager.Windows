@@ -364,4 +364,13 @@
   <data name="MainWindow_NavigationContent_Action" xml:space="preserve">
     <value>任务</value>
   </data>
+  <data name="Action_Command" xml:space="preserve">
+    <value>命令</value>
+  </data>
+  <data name="Action_CurrentStatus" xml:space="preserve">
+    <value>当前状态</value>
+  </data>
+  <data name="Action_Operation_Uninstall" xml:space="preserve">
+    <value>删除包</value>
+  </data>
 </root>

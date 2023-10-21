@@ -151,6 +151,33 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Command 的本地化字符串。
+        /// </summary>
+        public static string Action_Command {
+            get {
+                return ResourceManager.GetString("Action_Command", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Current Status 的本地化字符串。
+        /// </summary>
+        public static string Action_CurrentStatus {
+            get {
+                return ResourceManager.GetString("Action_CurrentStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Package Uninstallation 的本地化字符串。
+        /// </summary>
+        public static string Action_Operation_Uninstall {
+            get {
+                return ResourceManager.GetString("Action_Operation_Uninstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Add 的本地化字符串。
         /// </summary>
         public static string Common_Button_Add {

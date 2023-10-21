@@ -129,4 +129,10 @@ public class EnvironmentService : IEnvironmentService
         process.Close();
         return JsonConvert.DeserializeObject<PipInspection>(inspection)?.Installed;
     }
+
+    public bool Uninstall(string packageName)
+    {
+        Thread.Sleep(1500);
+        return true;
+    }
 }

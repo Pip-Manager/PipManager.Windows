@@ -364,4 +364,13 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="MainWindow_NavigationContent_Action" xml:space="preserve">
     <value>Action</value>
   </data>
+  <data name="Action_Command" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="Action_CurrentStatus" xml:space="preserve">
+    <value>Current Status</value>
+  </data>
+  <data name="Action_Operation_Uninstall" xml:space="preserve">
+    <value>Package Uninstallation</value>
+  </data>
 </root>

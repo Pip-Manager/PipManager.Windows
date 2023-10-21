@@ -5,11 +5,12 @@ namespace PipManager.Models.Pages;
 
 public class ActionListItem
 {
-    public ActionListItem(ActionType operationType, string operationDescription, string operationCommand, bool progressIntermediate = true, int totalSubTaskNumber = 0, int completedSubTaskNumber = 0)
+    public ActionListItem(ActionType operationType, string operationDescription, string operationCommand, string operationStatus = "Waiting in queue", bool progressIntermediate = false, int totalSubTaskNumber = 0, int completedSubTaskNumber = 0)
     {
         OperationType = operationType;
         OperationDescription = operationDescription;
         OperationCommand = operationCommand;
+        OperationStatus = operationStatus;
         ProgressIntermediate = progressIntermediate;
         TotalSubTaskNumber = totalSubTaskNumber;
         CompletedSubTaskNumber = completedSubTaskNumber;
@@ -27,15 +28,29 @@ public class ActionListItem
             ActionType.Update => "Caution",
             _ => "Primary",
         };
+        ProgressBarValue = 0;
     }
 
     public SymbolIcon OperationIcon { get; set; }
     public ActionType OperationType { get; set; }
     public string OperationDescription { get; set; }
     public string OperationCommand { get; set; }
+    public string OperationStatus { get; set; }
     public bool ProgressIntermediate { get; set; }
     public int TotalSubTaskNumber { get; set; }
-    public int CompletedSubTaskNumber { get; set; }
+
+    private int completedSubTaskNumber;
+
+    public int CompletedSubTaskNumber
+    {
+        get => completedSubTaskNumber;
+        set
+        {
+            completedSubTaskNumber = value;
+            ProgressBarValue = (double)value / TotalSubTaskNumber * 100.0;
+        }
+    }
 
     public string BadgeAppearance { get; set; }
+    public double ProgressBarValue { get; set; }
 }

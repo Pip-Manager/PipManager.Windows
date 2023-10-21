@@ -20,17 +20,27 @@ public partial class ActionViewModel : ObservableObject, INavigationAware
     public ActionViewModel(IActionService actionService)
     {
         _actionService = actionService;
+        Actions = new ObservableCollection<ActionListItem>(_actionService.ActionList);
+        _ = UpdateActionListTask();
     }
 
     public void OnNavigatedTo()
     {
         if (!_isInitialized)
             InitializeViewModel();
-        Actions = new ObservableCollection<ActionListItem>(_actionService.ActionList);
     }
 
     public void OnNavigatedFrom()
     {
+    }
+
+    private async Task UpdateActionListTask()
+    {
+        while (true)
+        {
+            Actions = new ObservableCollection<ActionListItem>(_actionService.ActionList);
+            await Task.Delay(1);
+        }
     }
 
     private void InitializeViewModel()

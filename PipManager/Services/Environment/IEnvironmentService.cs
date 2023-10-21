@@ -12,4 +12,6 @@ public interface IEnvironmentService
     public (bool, string) CheckEnvironmentAvailable(EnvironmentItem environmentItem);
 
     public List<PipMetadata>? GetLibraries();
+
+    public bool Uninstall(string packageName);
 }

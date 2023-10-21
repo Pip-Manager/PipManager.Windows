@@ -94,8 +94,9 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             _actionService.ActionList.Add(new ActionListItem
             (
                 ActionType.Uninstall,
-                "Delete Packages",
+                Lang.Action_Operation_Uninstall,
                 command.Trim(),
+                progressIntermediate: false,
                 totalSubTaskNumber: selected.Count()
             ));
             _navigationService.Navigate(typeof(ActionPage));

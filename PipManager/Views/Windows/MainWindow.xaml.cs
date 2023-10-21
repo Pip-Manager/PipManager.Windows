@@ -1,4 +1,6 @@
-﻿using PipManager.Services.Configuration;
+﻿using System.ComponentModel;
+using PipManager.Services.Action;
+using PipManager.Services.Configuration;
 using PipManager.Services.Environment;
 using PipManager.ViewModels.Windows;
 
@@ -15,6 +17,7 @@ public partial class MainWindow
         ISnackbarService snackbarService,
         IContentDialogService contentDialogService,
         IConfigurationService configurationService,
+        IActionService actionService,
         IEnvironmentService environmentService
     )
     {
@@ -28,6 +31,9 @@ public partial class MainWindow
         navigationService.SetNavigationControl(NavigationView);
         snackbarService.SetSnackbarPresenter(SnackbarPresenter);
         contentDialogService.SetContentPresenter(RootContentDialog);
+        var runnerThread = new Thread(actionService.Runner);
+        runnerThread.IsBackground = true;
+        runnerThread.Start();
 
         NavigationView.SetServiceProvider(serviceProvider);
     }
