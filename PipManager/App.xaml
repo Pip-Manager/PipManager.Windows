@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:valueConverters="clr-namespace:ValueConverters;assembly=ValueConverters"
+    xmlns:pages="clr-namespace:PipManager.Models.Pages"
     DispatcherUnhandledException="OnDispatcherUnhandledException"
     Exit="OnExit"
     Startup="OnStartup">
@@ -26,6 +27,42 @@
             <valueConverters:InverseBoolConverter x:Key="InverseBool" />
             <valueConverters:StringIsNotNullOrEmptyConverter x:Key="StringIsNotNullOrEmpty" />
             <valueConverters:NullToBoolConverter x:Key="NullToBool" IsInverted="True" />
+            <valueConverters:IntegerToBoolConverter x:Key="IntegerToBool" IsInverted="True" />
+
+            <DataTemplate x:Key="LibraryListDataTemplate" DataType="{x:Type pages:LibraryListItem}">
+                <Grid x:Name="ByEnvironmentVariableGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="24" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <ui:SymbolIcon Grid.Column="0" Symbol="{Binding Path=PackageIcon.Symbol}" />
+                    <StackPanel Grid.Column="1" Margin="7,0,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="14" Text="{Binding PackageName}" VerticalAlignment="Center" />
+                            <TextBlock FontSize="14" Text=" " />
+                            <ui:Badge FontSize="12" Content="{Binding PackageVersion}" Appearance="Primary"></ui:Badge>
+                        </StackPanel>
+
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="Gray"
+                            Text="{Binding PackageSummary}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="LibraryDeletionListDataTemplate" DataType="{x:Type pages:LibraryListItem}">
+                <Grid x:Name="ByEnvironmentVariableGrid">
+                    <StackPanel Margin="7,0,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="14" Text="{Binding PackageName}" VerticalAlignment="Center" />
+                            <TextBlock FontSize="14" Text=" " />
+                            <ui:Badge FontSize="12" Content="{Binding PackageVersion}" Appearance="Primary"></ui:Badge>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

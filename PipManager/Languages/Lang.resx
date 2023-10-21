@@ -319,11 +319,8 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="Library_Operation_CheckUpdate" xml:space="preserve">
     <value>Check Update</value>
   </data>
-  <data name="Library_Operation_Information" xml:space="preserve">
-    <value>Information</value>
-  </data>
   <data name="Library_Data_PackageFound" xml:space="preserve">
-    <value> package(s) found</value>
+    <value>{0} package(s) found</value>
   </data>
   <data name="About_Document" xml:space="preserve">
     <value>Document</value>
@@ -357,5 +354,11 @@ Other sources are faster to connect to, but may be incomplete.</value>
   </data>
   <data name="Library_Error_AddEnvironment" xml:space="preserve">
     <value>Add environment</value>
+  </data>
+  <data name="Library_Data_SelectedItemsCount" xml:space="preserve">
+    <value>{0} item(s) selected</value>
+  </data>
+  <data name="Msgbox_Message_LibraryDeletionWarning" xml:space="preserve">
+    <value>The following packages will be removed from the environment:</value>
   </data>
 </root>

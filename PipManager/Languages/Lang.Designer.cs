@@ -304,11 +304,20 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   查找类似  package(s) found 的本地化字符串。
+        ///   查找类似 {0} package(s) found 的本地化字符串。
         /// </summary>
         public static string Library_Data_PackageFound {
             get {
                 return ResourceManager.GetString("Library_Data_PackageFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0} item(s) selected 的本地化字符串。
+        /// </summary>
+        public static string Library_Data_SelectedItemsCount {
+            get {
+                return ResourceManager.GetString("Library_Data_SelectedItemsCount", resourceCulture);
             }
         }
         
@@ -345,15 +354,6 @@ namespace PipManager.Languages {
         public static string Library_Operation_Delete {
             get {
                 return ResourceManager.GetString("Library_Operation_Delete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Information 的本地化字符串。
-        /// </summary>
-        public static string Library_Operation_Information {
-            get {
-                return ResourceManager.GetString("Library_Operation_Information", resourceCulture);
             }
         }
         
@@ -480,6 +480,15 @@ namespace PipManager.Languages {
         public static string MsgBox_Message_EnvironmentNoSelection {
             get {
                 return ResourceManager.GetString("MsgBox_Message_EnvironmentNoSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 The following packages will be removed from the environment: 的本地化字符串。
+        /// </summary>
+        public static string Msgbox_Message_LibraryDeletionWarning {
+            get {
+                return ResourceManager.GetString("Msgbox_Message_LibraryDeletionWarning", resourceCulture);
             }
         }
         

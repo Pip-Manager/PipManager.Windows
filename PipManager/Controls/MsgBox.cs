@@ -30,6 +30,19 @@ public static class MsgBox
         await messageBox.ShowDialogAsync();
     }
 
+    public static async Task Warning(string message)
+    {
+        var messageBox = new Wpf.Ui.Controls.MessageBox
+        {
+            Title = Lang.MsgBox_Title_Warning,
+            Content = message,
+            MinWidth = 300,
+            IsPrimaryButtonEnabled = false,
+            CloseButtonText = Lang.MsgBox_CloseButton_Cancel
+        };
+        await messageBox.ShowDialogAsync();
+    }
+
     public static async Task<Wpf.Ui.Controls.MessageBoxResult> Error(string message, string primaryButtonText)
     {
         var messageBox = new Wpf.Ui.Controls.MessageBox

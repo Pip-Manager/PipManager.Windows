@@ -319,11 +319,8 @@
   <data name="Library_Operation_CheckUpdate" xml:space="preserve">
     <value>检查更新</value>
   </data>
-  <data name="Library_Operation_Information" xml:space="preserve">
-    <value>信息</value>
-  </data>
   <data name="Library_Data_PackageFound" xml:space="preserve">
-    <value> 个包已安装</value>
+    <value>已安装 {0} 个包</value>
   </data>
   <data name="About_Document" xml:space="preserve">
     <value>文档</value>
@@ -357,5 +354,11 @@
   </data>
   <data name="Library_Error_AddEnvironment" xml:space="preserve">
     <value>添加环境</value>
+  </data>
+  <data name="Library_Data_SelectedItemsCount" xml:space="preserve">
+    <value>已选中 {0} 个包</value>
+  </data>
+  <data name="Msgbox_Message_LibraryDeletionWarning" xml:space="preserve">
+    <value>将从环境中移除下列库：</value>
   </data>
 </root>
