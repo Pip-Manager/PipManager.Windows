@@ -22,81 +22,11 @@ public class EnvironmentService : IEnvironmentService
         return environmentItems.Any(item => item.PythonPath == environmentItem.PythonPath);
     }
 
-    public EnvironmentItem? GetEnvironmentItemFromCommand(string command, string arguments)
-    {
-        var proc = new Process
-        {
-            StartInfo = new ProcessStartInfo
-            {
-                FileName = command,
-                Arguments = arguments,
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                CreateNoWindow = true,
-                WindowStyle = ProcessWindowStyle.Hidden
-            }
-        };
-        try
-        {
-            proc.Start();
-        }
-        catch
-        {
-            return null;
-        }
-
-        var pipVersion = "";
-        var pythonVersion = "";
-        var pipDir = "";
-        while (!proc.StandardOutput.EndOfStream)
-        {
-            var output = proc.StandardOutput.ReadLine();
-            if (string.IsNullOrWhiteSpace(output)) continue;
-            var sections = output.Split(' ');
-            var pipDirStart = false;
-            for (var i = 0; i < sections.Length; i++)
-            {
-                if (sections[i] == "from")
-                {
-                    pipVersion = sections[i - 1];
-                    pipDirStart = true;
-                }
-                else if (sections[i] == "(python")
-                {
-                    pythonVersion = sections[i + 1].Replace(")", "");
-                    break;
-                }
-                else if (pipDirStart)
-                {
-                    pipDir += sections[i] + ' ';
-                }
-            }
-        }
-        pipVersion = pipVersion.Trim();
-        var pythonPath = FindPythonPathByPipDir(pipDir.Trim());
-        pythonVersion = pythonVersion.Trim();
-        proc.Close();
-        return pipDir.Length > 0 ? new EnvironmentItem(pipVersion, pythonPath, pythonVersion) : null;
-    }
-
-    public static string FindPythonPathByPipDir(string pipDir)
-    {
-        // Need more information
-        var pipExePath = Path.Combine(new DirectoryInfo(pipDir).Parent!.Parent!.Parent!.FullName,
-            "python.exe");
-        var pipExePathAttempt1 = Path.Combine(new DirectoryInfo(pipDir).Parent!.Parent!.FullName,
-            "python.exe");
-        if (!File.Exists(pipExePath))
-        {
-            pipExePath = pipExePathAttempt1;
-        }
-
-        return pipExePath;
-    }
+    
 
     public (bool, string) CheckEnvironmentAvailable(EnvironmentItem environmentItem)
     {
-        var verify = GetEnvironmentItemFromCommand(environmentItem.PythonPath!, "-m pip -V");
+        var verify = _configurationService.GetEnvironmentItemFromCommand(environmentItem.PythonPath!, "-m pip -V");
         return verify != null && environmentItem.PythonPath != string.Empty ? (true, "") : (false, "Broken Environment");
     }
 
@@ -130,7 +60,47 @@ public class EnvironmentService : IEnvironmentService
         return JsonConvert.DeserializeObject<PipInspection>(inspection)?.Installed;
     }
 
-    public bool Uninstall(string packageName)
+    public string[] GetVersions(string packageName)
+    {
+        var process = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = _configurationService.AppConfig.CurrentEnvironment.PythonPath,
+                Arguments = $"-m pip install \"{packageName}\"==random",
+                UseShellExecute = false,
+                RedirectStandardError = true,
+                CreateNoWindow = true
+            }
+        };
+        process.Start();
+        var output = process.StandardError.ReadToEnd();
+        process.WaitForExit();
+        process.Close();
+        return output.Split("ERROR: No m")[0].Split("from versions: ")[1].Replace(")", "").Split(", ");
+    }
+
+    public (bool, string) Update(string packageName)
+    {
+        var process = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = _configurationService.AppConfig.CurrentEnvironment.PythonPath,
+                Arguments = $"-m pip install --upgrade \"{packageName}\"",
+                UseShellExecute = false,
+                RedirectStandardError = true,
+                CreateNoWindow = true
+            }
+        };
+        process.Start();
+        var output = process.StandardError.ReadToEnd();
+        process.WaitForExit();
+        process.Close();
+        return string.IsNullOrEmpty(output) ? (true, "") : (false, output);
+    }
+
+    public (bool, string) Uninstall(string packageName)
     {
         var process = new Process
         {
@@ -139,12 +109,14 @@ public class EnvironmentService : IEnvironmentService
                 FileName = _configurationService.AppConfig.CurrentEnvironment.PythonPath,
                 Arguments = $"-m pip uninstall -y \"{packageName}\"",
                 UseShellExecute = false,
+                RedirectStandardError = true,
                 CreateNoWindow = true
             }
         };
         process.Start();
+        var output = process.StandardError.ReadToEnd();
         process.WaitForExit();
         process.Close();
-        return true;
+        return string.IsNullOrEmpty(output) ? (true, "") : (false, output);
     }
 }

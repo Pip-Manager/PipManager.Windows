@@ -178,6 +178,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Package Update 的本地化字符串。
+        /// </summary>
+        public static string Action_Operation_Update {
+            get {
+                return ResourceManager.GetString("Action_Operation_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Add 的本地化字符串。
         /// </summary>
         public static string Common_Button_Add {
@@ -228,6 +237,15 @@ namespace PipManager.Languages {
         public static string Environment_Operation_AddEnvironment {
             get {
                 return ResourceManager.GetString("Environment_Operation_AddEnvironment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Check Update 的本地化字符串。
+        /// </summary>
+        public static string Environment_Operation_CheckEnvironmentUpdate {
+            get {
+                return ResourceManager.GetString("Environment_Operation_CheckEnvironmentUpdate", resourceCulture);
             }
         }
         
@@ -511,11 +529,29 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 The environment is up to date 的本地化字符串。
+        /// </summary>
+        public static string MsgBox_Message_EnvironmentIsLatest {
+            get {
+                return ResourceManager.GetString("MsgBox_Message_EnvironmentIsLatest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 You didn&apos;t choose an environment 的本地化字符串。
         /// </summary>
         public static string MsgBox_Message_EnvironmentNoSelection {
             get {
                 return ResourceManager.GetString("MsgBox_Message_EnvironmentNoSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 New version detected. Update? 的本地化字符串。
+        /// </summary>
+        public static string MsgBox_Message_FindUpdate {
+            get {
+                return ResourceManager.GetString("MsgBox_Message_FindUpdate", resourceCulture);
             }
         }
         
@@ -561,6 +597,15 @@ namespace PipManager.Languages {
         public static string MsgBox_Title_Error {
             get {
                 return ResourceManager.GetString("MsgBox_Title_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Notice 的本地化字符串。
+        /// </summary>
+        public static string MsgBox_Title_Notice {
+            get {
+                return ResourceManager.GetString("MsgBox_Title_Notice", resourceCulture);
             }
         }
         

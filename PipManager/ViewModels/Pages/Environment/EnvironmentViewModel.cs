@@ -8,7 +8,10 @@ using PipManager.Views.Pages.Environment;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using PipManager.Services.Action;
 using Wpf.Ui.Controls;
+using PipManager.Models.Pages;
+using PipManager.Views.Pages.Action;
 
 namespace PipManager.ViewModels.Pages.Environment;
 
@@ -18,18 +21,21 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
     private readonly INavigationService _navigationService;
     private readonly IConfigurationService _configurationService;
     private readonly IEnvironmentService _environmentService;
+    private readonly IActionService _actionService;
 
-    public EnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService, IEnvironmentService environmentService)
+    public EnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService, IEnvironmentService environmentService, IActionService actionService)
     {
         _navigationService = navigationService;
         _configurationService = configurationService;
         _environmentService = environmentService;
+        _actionService = actionService;
     }
 
-    public void OnNavigatedTo()
+    public async void OnNavigatedTo()
     {
         if (!_isInitialized)
             InitializeViewModel();
+        await _configurationService.RefreshAllEnvironmentVersions();
         EnvironmentItems = new ObservableCollection<EnvironmentItem>(_configurationService.AppConfig.EnvironmentItems);
         var currentEnvironment = _configurationService.AppConfig.CurrentEnvironment;
         foreach (var environmentItem in EnvironmentItems)
@@ -37,6 +43,8 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
             if (currentEnvironment is not null && environmentItem.PythonPath == currentEnvironment.PythonPath)
             {
                 CurrentEnvironment = environmentItem;
+                var mainWindowViewModel = App.GetService<MainWindowViewModel>();
+                mainWindowViewModel.ApplicationTitle = $"Pip Manager | {CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion}";
                 Log.Information($"[Environment] Current Environment changed: {CurrentEnvironment.PythonPath}");
             }
         }
@@ -92,6 +100,35 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
             {
                 DeleteEnvironment();
             }
+        }
+    }
+    [RelayCommand]
+    private async Task CheckEnvironmentUpdate()
+    {
+        var latest = _environmentService.GetVersions("pip").Last().Trim();
+        var current = _configurationService.AppConfig.CurrentEnvironment.PipVersion.Trim();
+        if (latest != current)
+        {
+            Log.Information($"[Environment] Environment update available ({current} => {latest})");
+            var message = $"{Lang.MsgBox_Message_FindUpdate}\n\n{current} => {latest}";
+            if (MsgBox.Warning(message, Lang.MsgBox_PrimaryButton_Action, Lang.MsgBox_Title_Notice).Result == MessageBoxResult.Primary)
+            {
+                _actionService.ActionList.Add(new ActionListItem
+                (
+                    ActionType.Update,
+                    Lang.Action_Operation_Update,
+                    "pip",
+                    progressIntermediate: false,
+                    totalSubTaskNumber: 1
+                ));
+                _navigationService.Navigate(typeof(ActionPage));
+                await _configurationService.RefreshAllEnvironmentVersions();
+            }
+        }
+        else
+        {
+            await MsgBox.Success(Lang.MsgBox_Message_EnvironmentIsLatest);
+
         }
     }
 

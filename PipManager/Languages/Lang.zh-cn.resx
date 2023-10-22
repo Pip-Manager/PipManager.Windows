@@ -371,6 +371,21 @@
     <value>当前状态</value>
   </data>
   <data name="Action_Operation_Uninstall" xml:space="preserve">
-    <value>删除包</value>
+    <value>删除操作</value>
+  </data>
+  <data name="Environment_Operation_CheckEnvironmentUpdate" xml:space="preserve">
+    <value>检查更新</value>
+  </data>
+  <data name="MsgBox_Message_FindUpdate" xml:space="preserve">
+    <value>检测到新版本，是否更新？</value>
+  </data>
+  <data name="MsgBox_Title_Notice" xml:space="preserve">
+    <value>提示</value>
+  </data>
+  <data name="Action_Operation_Update" xml:space="preserve">
+    <value>更新操作</value>
+  </data>
+  <data name="MsgBox_Message_EnvironmentIsLatest" xml:space="preserve">
+    <value>无需更新</value>
   </data>
 </root>

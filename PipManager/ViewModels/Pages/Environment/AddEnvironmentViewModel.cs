@@ -99,7 +99,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
                 if (!item.Contains("Python") || item.Contains("Scripts") ||
                     !File.Exists(Path.Combine(item, "python.exe"))) continue;
                 var environmentItem =
-                    _environmentService.GetEnvironmentItemFromCommand(Path.Combine(item, "python.exe"), "-m pip -V");
+                    _configurationService.GetEnvironmentItemFromCommand(Path.Combine(item, "python.exe"), "-m pip -V");
                 if (environmentItem == null) continue;
                 EnvironmentItems.Add(environmentItem);
             }
@@ -176,7 +176,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
         }
         else if (ByPipCommandGridVisibility)
         {
-            var result = _environmentService.GetEnvironmentItemFromCommand(PipCommand, "-V");
+            var result = _configurationService.GetEnvironmentItemFromCommand(PipCommand, "-V");
             if (result != null)
             {
                 var alreadyExists = _environmentService.CheckEnvironmentExists(result);
@@ -200,7 +200,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
         }
         else if (ByPythonPathGridVisibility)
         {
-            var result = _environmentService.GetEnvironmentItemFromCommand(PythonPath, "-m pip -V");
+            var result = _configurationService.GetEnvironmentItemFromCommand(PythonPath, "-m pip -V");
             if (result != null)
             {
                 var alreadyExists = _environmentService.CheckEnvironmentExists(result);

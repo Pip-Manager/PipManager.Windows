@@ -66,15 +66,15 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         var custom = new DeletionWarningMsgBox(selected);
         var command = selected.Aggregate("", (current, item) => current + (item.PackageName + ' '));
         if (custom.ShowAsync().Result != MessageBoxResult.Primary) return Task.CompletedTask;
-        //_actionService.ActionList.Add(new ActionListItem
-        //(
-        //    ActionType.Uninstall,
-        //    Lang.Action_Operation_Uninstall,
-        //    command.Trim(),
-        //    progressIntermediate: false,
-        //    totalSubTaskNumber: selected.Count
-        //));
-        //_navigationService.Navigate(typeof(ActionPage));
+        _actionService.ActionList.Add(new ActionListItem
+        (
+            ActionType.Uninstall,
+            Lang.Action_Operation_Uninstall,
+            command.Trim(),
+            progressIntermediate: false,
+            totalSubTaskNumber: selected.Count
+        ));
+        _navigationService.Navigate(typeof(ActionPage));
 
         return Task.CompletedTask;
     }

@@ -7,11 +7,11 @@ public interface IEnvironmentService
 {
     public bool CheckEnvironmentExists(EnvironmentItem environmentItem);
 
-    public EnvironmentItem? GetEnvironmentItemFromCommand(string command, string arguments);
-
     public (bool, string) CheckEnvironmentAvailable(EnvironmentItem environmentItem);
 
     public List<PipMetadata>? GetLibraries();
+    public string[] GetVersions(string packageName);
+    public (bool, string) Update(string packageName);
 
-    public bool Uninstall(string packageName);
+    public (bool, string) Uninstall(string packageName);
 }

@@ -32,7 +32,7 @@ public static class MsgBox
 
     public static async Task Warning(string message)
     {
-        var messageBox = new Wpf.Ui.Controls.MessageBox
+        var messageBox = new MessageBox
         {
             Title = Lang.MsgBox_Title_Warning,
             Content = message,
@@ -43,9 +43,9 @@ public static class MsgBox
         await messageBox.ShowDialogAsync();
     }
 
-    public static async Task<Wpf.Ui.Controls.MessageBoxResult> Error(string message, string primaryButtonText)
+    public static async Task<MessageBoxResult> Error(string message, string primaryButtonText)
     {
-        var messageBox = new Wpf.Ui.Controls.MessageBox
+        var messageBox = new MessageBox
         {
             Title = Lang.MsgBox_Title_Error,
             Content = message,
@@ -57,11 +57,12 @@ public static class MsgBox
         return result;
     }
 
-    public static async Task<Wpf.Ui.Controls.MessageBoxResult> Warning(string message, string primaryButtonText)
+    public static async Task<MessageBoxResult> Warning(string message, string primaryButtonText, string? title=null)
     {
-        var messageBox = new Wpf.Ui.Controls.MessageBox
+        title ??= Lang.MsgBox_Title_Warning;
+        var messageBox = new MessageBox
         {
-            Title = Lang.MsgBox_Title_Error,
+            Title = title,
             Content = message,
             MinWidth = 300,
             PrimaryButtonText = primaryButtonText,

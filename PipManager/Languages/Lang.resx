@@ -373,4 +373,19 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="Action_Operation_Uninstall" xml:space="preserve">
     <value>Package Uninstallation</value>
   </data>
+  <data name="Environment_Operation_CheckEnvironmentUpdate" xml:space="preserve">
+    <value>Check Update</value>
+  </data>
+  <data name="MsgBox_Message_FindUpdate" xml:space="preserve">
+    <value>New version detected. Update?</value>
+  </data>
+  <data name="MsgBox_Title_Notice" xml:space="preserve">
+    <value>Notice</value>
+  </data>
+  <data name="Action_Operation_Update" xml:space="preserve">
+    <value>Package Update</value>
+  </data>
+  <data name="MsgBox_Message_EnvironmentIsLatest" xml:space="preserve">
+    <value>The environment is up to date</value>
+  </data>
 </root>

@@ -28,18 +28,35 @@ public class ActionService : IActionService
                     {
                         ActionList[0].OperationStatus = $"Uninstalling {item}";
                         var result = _environmentService.Uninstall(item);
-                        if (result)
-                        {
-                            ActionList[0].CompletedSubTaskNumber++;
-                            Log.Information($"[Runner] Uninstalled {item}");
-                        }
+                        ActionList[0].CompletedSubTaskNumber++;
+                        Log.Information(result.Item1
+                            ? $"[Runner] {item} uninstall sub-task completed"
+                            : $"[Runner] {item} uninstall sub-task failed\n   Reason:{result.Item2}");
                     }
                     Log.Information($"[Runner] Task {ActionList[0].OperationDescription} Completed");
                 }
+                else if (ActionList[0].OperationType == ActionType.Update)
+                {
+                    var queue = ActionList[0].OperationCommand.Split(' ');
+                    foreach (var item in queue)
+                    {
+                        ActionList[0].OperationStatus = $"Updating {item}";
+                        var result = _environmentService.Update(item);
+                        ActionList[0].CompletedSubTaskNumber++;
+                        Log.Information(result.Item1
+                            ? $"[Runner] {item} update sub-task completed"
+                            : $"[Runner] {item} update sub-task failed\n   Reason:{result.Item2}");
+                    }
+                    Log.Information($"[Runner] Task {ActionList[0].OperationDescription} Completed");
+                }
+
+                ActionList[0].CompletedSubTaskNumber = ActionList[0].TotalSubTaskNumber;
+                ActionList[0].OperationStatus = "Completed";
+                Thread.Sleep(1000);
                 ActionList.Remove(ActionList[0]);
             }
 
-            Thread.Sleep(3000);
+            Thread.Sleep(500);
         }
     }
 }

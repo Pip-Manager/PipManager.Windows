@@ -39,6 +39,12 @@
                 Content="{x:Static lang:Lang.Environment_Operation_VerifyEnvironment}"
                 Icon="{ui:SymbolIcon Check24}"
                 IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}" />
+            <ui:Button
+                Margin="5,0,0,0"
+                Command="{Binding ViewModel.CheckEnvironmentUpdateCommand}"
+                Content="{x:Static lang:Lang.Environment_Operation_CheckEnvironmentUpdate}"
+                Icon="{ui:SymbolIcon ArrowUp24}"
+                IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}" />
         </StackPanel>
         <ListView
             Margin="0,10,0,0"
@@ -62,7 +68,7 @@
                             Source="../../../Assets/logo/python-logo-only.png" />
                         <StackPanel Grid.Column="1" Margin="7,0,0,0">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock FontSize="14" Text="{Binding PipVersion}" />
+                                <TextBlock FontSize="14" Text="{Binding PipVersion, Mode=TwoWay}" />
                                 <TextBlock FontSize="14" Text=" " />
                                 <TextBlock FontSize="14" Text="{Binding PythonVersion, StringFormat=for Python {0}}" />
                             </StackPanel>
