@@ -8,6 +8,7 @@
     xmlns:lang="clr-namespace:PipManager.Languages"
     xmlns:pages="clr-namespace:PipManager.Models.Pages"
     xmlns:library="clr-namespace:PipManager.Views.Pages.Library"
+    xmlns:custom="clr-namespace:PipManager.Controls.Library"
     x:Name="Library"
     Title="LibraryPage"
     Height="560"

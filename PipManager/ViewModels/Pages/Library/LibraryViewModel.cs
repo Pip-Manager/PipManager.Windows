@@ -9,6 +9,7 @@ using PipManager.Views.Pages.Environment;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using PipManager.Controls.Library;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
@@ -61,6 +62,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private async Task DeletePackageAsync()
     {
+        var custom = new DeletionWarningDialog()
         var selected = LibraryList.Where(libraryListItem => libraryListItem.IsSelected);
         var messageBox = new Wpf.Ui.Controls.MessageBox
         {
