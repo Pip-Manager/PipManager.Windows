@@ -1,4 +1,32 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:lang="clr-namespace:PipManager.Languages"
+                    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                    xmlns:pages="clr-namespace:PipManager.Models.Pages">
+    <Grid x:Key="LibraryDeletionWarningMsgBoxContent" VerticalAlignment="Top">
+        <TextBlock VerticalAlignment="Top" Text="{x:Static lang:Lang.Msgbox_Message_LibraryDeletionWarning}" FontSize="16" Foreground="Red"></TextBlock>
+        <ScrollViewer VerticalAlignment="Top" Margin="0, 30, 0, 0">
+            <ItemsControl x:Name="LibraryDeletionWarningMsgBoxContentListView">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type pages:LibraryListItem}">
+                        <Grid>
+                            <StackPanel Margin="7,0,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="{Binding PackageName}" />
+                                    <TextBlock FontSize="14" Text=" " />
+                                    <ui:Badge
+                                        Appearance="Primary"
+                                        Content="{Binding PackageVersion}"
+                                        FontSize="12" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
 </ResourceDictionary>

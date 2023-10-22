@@ -9,7 +9,6 @@ using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Wpf.Ui.Controls;
-using MessageBoxResult = Wpf.Ui.Controls.MessageBoxResult;
 
 namespace PipManager.ViewModels.Pages.Environment;
 

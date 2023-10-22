@@ -8,7 +8,6 @@ using System.IO;
 using System.Net.Http;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
-using MessageBoxResult = Wpf.Ui.Controls.MessageBoxResult;
 
 namespace PipManager.ViewModels.Pages.Settings;
 

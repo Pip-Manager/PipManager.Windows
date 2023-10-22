@@ -359,7 +359,7 @@
     <value>已选中 {0} 个包</value>
   </data>
   <data name="Msgbox_Message_LibraryDeletionWarning" xml:space="preserve">
-    <value>将从环境中移除下列库：</value>
+    <value>将从环境中移除：</value>
   </data>
   <data name="MainWindow_NavigationContent_Action" xml:space="preserve">
     <value>任务</value>

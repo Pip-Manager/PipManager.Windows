@@ -60,49 +60,23 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     #region Delete Package
 
     [RelayCommand]
-    private async Task DeletePackageAsync()
+    private Task DeletePackageAsync()
     {
-        var custom = new DeletionWarningDialog()
-        var selected = LibraryList.Where(libraryListItem => libraryListItem.IsSelected);
-        var messageBox = new Wpf.Ui.Controls.MessageBox
-        {
-            Title = Lang.MsgBox_Title_Warning,
-            Content = new Grid
-            {
-                Children =
-                {
-                    new System.Windows.Controls.TextBlock
-                    {
-                        Text = Lang.Msgbox_Message_LibraryDeletionWarning
-                    },
-                    new ListView
-                    {
-                        ItemTemplate = Application.Current.TryFindResource("LibraryDeletionListDataTemplate") as DataTemplate,
-                        Margin = new Thickness(0, 20, 0, 0),
-                        ItemsSource = selected
-                    }
-                }
-            },
-            MinHeight = 300,
-            MaxHeight = 500,
-            MinWidth = 500,
-            PrimaryButtonText = Lang.MsgBox_PrimaryButton_Action,
-            CloseButtonText = Lang.MsgBox_CloseButton_Cancel
-        };
-        var result = await messageBox.ShowDialogAsync();
-        var command = LibraryList.Where(libraryListItem => libraryListItem.IsSelected).Aggregate("", (current, item) => current + (item.PackageName + ' '));
-        if (result == Wpf.Ui.Controls.MessageBoxResult.Primary)
-        {
-            _actionService.ActionList.Add(new ActionListItem
-            (
-                ActionType.Uninstall,
-                Lang.Action_Operation_Uninstall,
-                command.Trim(),
-                progressIntermediate: false,
-                totalSubTaskNumber: selected.Count()
-            ));
-            _navigationService.Navigate(typeof(ActionPage));
-        }
+        var selected = LibraryList.Where(libraryListItem => libraryListItem.IsSelected).ToList();
+        var custom = new DeletionWarningMsgBox(selected);
+        var command = selected.Aggregate("", (current, item) => current + (item.PackageName + ' '));
+        if (custom.ShowAsync().Result != MessageBoxResult.Primary) return Task.CompletedTask;
+        //_actionService.ActionList.Add(new ActionListItem
+        //(
+        //    ActionType.Uninstall,
+        //    Lang.Action_Operation_Uninstall,
+        //    command.Trim(),
+        //    progressIntermediate: false,
+        //    totalSubTaskNumber: selected.Count
+        //));
+        //_navigationService.Navigate(typeof(ActionPage));
+
+        return Task.CompletedTask;
     }
 
     #endregion Delete Package
