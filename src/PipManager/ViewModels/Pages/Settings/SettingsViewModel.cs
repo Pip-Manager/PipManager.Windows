@@ -105,7 +105,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
                 await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Official));
                 OfficialPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
             }
-            catch (Exception exception) when (exception is HttpRequestException or TaskCanceledException) 
+            catch (Exception exception) when (exception is HttpRequestException) 
             {
                 OfficialPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTestFailed;
             }

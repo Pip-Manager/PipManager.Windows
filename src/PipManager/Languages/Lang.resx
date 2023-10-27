@@ -388,4 +388,7 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="MsgBox_Message_EnvironmentIsLatest" xml:space="preserve">
     <value>The environment is up to date</value>
   </data>
+  <data name="ExceptionWindow_Title" xml:space="preserve">
+    <value>Pip Manager - Unexpected Exception</value>
+  </data>
 </root>

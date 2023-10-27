@@ -349,6 +349,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Pip Manager - Unexpected Exception 的本地化字符串。
+        /// </summary>
+        public static string ExceptionWindow_Title {
+            get {
+                return ResourceManager.GetString("ExceptionWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 {0} package(s) found 的本地化字符串。
         /// </summary>
         public static string Library_Data_PackageFound {

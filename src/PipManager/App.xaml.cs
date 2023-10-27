@@ -128,5 +128,8 @@ public partial class App
         Directory.CreateDirectory(AppInfo.CrushesDir);
         var file = Path.Combine(AppInfo.CrushesDir, $"crash_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.txt");
         File.WriteAllText(file, e.Exception.ToString());
+        var exceptionWindow = new ExceptionWindow();
+        exceptionWindow.Initialize(e.Exception);
+        exceptionWindow.ShowDialog();
     }
 }
