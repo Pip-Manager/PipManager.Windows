@@ -46,12 +46,15 @@ public partial class App
             {
                 var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.All }) { DefaultRequestVersion = HttpVersion.Version20 };
                 client.DefaultRequestHeaders.Add("User-Agent", $"PipManager/{AppInfo.AppVersion}");
-                client.Timeout = TimeSpan.FromSeconds(10);
+                client.Timeout = TimeSpan.FromSeconds(6);
                 return client;
             });
 
+            // Window
             services.AddSingleton<MainWindow>();
             services.AddSingleton<MainWindowViewModel>();
+
+            // Services
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<ISnackbarService, SnackbarService>();
             services.AddSingleton<IContentDialogService, ContentDialogService>();
@@ -60,6 +63,7 @@ public partial class App
             services.AddSingleton<IActionService, ActionService>();
             services.AddSingleton<IThemeService, ThemeService>();
 
+            // Pages
             services.AddSingleton<LibraryPage>();
             services.AddSingleton<LibraryViewModel>();
             services.AddSingleton<ActionPage>();

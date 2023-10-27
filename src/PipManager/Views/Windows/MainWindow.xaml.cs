@@ -17,9 +17,7 @@ public partial class MainWindow
         IServiceProvider serviceProvider,
         ISnackbarService snackbarService,
         IContentDialogService contentDialogService,
-        IConfigurationService configurationService,
-        IActionService actionService,
-        IEnvironmentService environmentService
+        IActionService actionService
     )
     {
         ViewModel = viewModel;

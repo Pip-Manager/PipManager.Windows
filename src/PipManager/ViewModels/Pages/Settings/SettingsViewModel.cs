@@ -105,7 +105,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
                 await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Official));
                 OfficialPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
             }
-            catch (HttpRequestException)
+            catch (Exception exception) when (exception is HttpRequestException or TaskCanceledException) 
             {
                 OfficialPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTestFailed;
             }
@@ -118,7 +118,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
                 await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Tsinghua));
                 TsinghuaPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
             }
-            catch (HttpRequestException)
+            catch (Exception exception) when (exception is HttpRequestException or TaskCanceledException)
             {
                 TsinghuaPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTestFailed;
             }
@@ -131,7 +131,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
                 await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Aliyun));
                 AliyunPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
             }
-            catch (HttpRequestException)
+            catch (Exception exception) when (exception is HttpRequestException or TaskCanceledException)
             {
                 AliyunPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTestFailed;
             }
