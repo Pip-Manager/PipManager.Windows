@@ -129,7 +129,7 @@
             VerticalAlignment="Center"
             Visibility="{Binding ViewModel.EnvironmentFoundVisible, Converter={StaticResource InverseBoolToVisibility}}">
             <TextBlock FontSize="32" Text="{x:Static lang:Lang.Library_Error_NoEnvironment}" />
-            <ui:Hyperlink
+            <ui:HyperlinkButton
                 HorizontalAlignment="Center"
                 Command="{Binding ViewModel.NavigateToAddEnvironmentCommand}"
                 Content="{x:Static lang:Lang.Library_Error_AddEnvironment}"

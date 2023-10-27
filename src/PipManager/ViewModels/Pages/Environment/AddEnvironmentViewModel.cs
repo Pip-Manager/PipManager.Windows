@@ -7,7 +7,7 @@ using PipManager.Services.Configuration;
 using PipManager.Services.Environment;
 using Serilog;
 using System.IO;
-using Wpf.Ui.Common;
+using Wpf.Ui;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Environment;

@@ -2,6 +2,8 @@
 using PipManager.Services.Configuration;
 using PipManager.Services.Environment;
 using PipManager.ViewModels.Windows;
+using Wpf.Ui;
+using Wpf.Ui.Appearance;
 
 namespace PipManager.Views.Windows;
 
@@ -20,10 +22,10 @@ public partial class MainWindow
         IEnvironmentService environmentService
     )
     {
-        Wpf.Ui.Appearance.Watcher.Watch(this);
-
         ViewModel = viewModel;
         DataContext = this;
+
+        SystemThemeWatcher.Watch(this);
 
         InitializeComponent();
 

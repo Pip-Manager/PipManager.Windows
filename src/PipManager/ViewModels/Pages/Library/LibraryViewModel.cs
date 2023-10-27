@@ -10,8 +10,8 @@ using Serilog;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using PipManager.Controls.Library;
+using Wpf.Ui;
 using Wpf.Ui.Appearance;
-using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Library;
@@ -23,20 +23,22 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private readonly IEnvironmentService _environmentService;
     private readonly IConfigurationService _configurationService;
     private readonly IActionService _actionService;
+    private readonly IThemeService _themeService;
 
     public LibraryViewModel(INavigationService navigationService, IEnvironmentService environmentService,
-        IConfigurationService configurationService, IActionService actionService)
+        IConfigurationService configurationService, IActionService actionService, IThemeService themeService)
     {
         _navigationService = navigationService;
         _environmentService = environmentService;
         _configurationService = configurationService;
         _actionService = actionService;
+        _themeService = themeService;
 
-        Theme.Apply(_configurationService.AppConfig.Personalization.Theme switch
+        _themeService.SetTheme(_configurationService.AppConfig.Personalization.Theme switch
         {
-            "light" => ThemeType.Light,
-            "dark" => ThemeType.Dark,
-            _ => ThemeType.Dark
+            "light" => ApplicationTheme.Light,
+            "dark" => ApplicationTheme.Dark,
+            _ => ApplicationTheme.Dark
         });
     }
 

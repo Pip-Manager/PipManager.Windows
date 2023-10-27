@@ -6,8 +6,10 @@ using Serilog;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
+using Wpf.Ui.Extensions;
 
 namespace PipManager.ViewModels.Pages.Settings;
 
@@ -16,12 +18,14 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     private readonly HttpClient _httpClient;
     private readonly ISnackbarService _snackbarService;
     private readonly IConfigurationService _configurationService;
+    private readonly IThemeService _themeService;
 
-    public SettingsViewModel(ISnackbarService snackbarService, IConfigurationService configurationService)
+    public SettingsViewModel(ISnackbarService snackbarService, IConfigurationService configurationService, IThemeService themeService)
     {
         _httpClient = App.GetService<HttpClient>();
         _snackbarService = snackbarService;
         _configurationService = configurationService;
+        _themeService = themeService;
 
         foreach (var languagePair in GetLanguage.LanguageList)
         {
@@ -49,9 +53,9 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         Language = language != "Auto" ? GetLanguage.LanguageList.Select(x => x.Key).ToList()[GetLanguage.LanguageList.Select(x => x.Value).ToList().IndexOf(language)] : "Auto";
         CurrentTheme = _configurationService.AppConfig.Personalization.Theme switch
         {
-            "light" => ThemeType.Light,
-            "dark" => ThemeType.Dark,
-            _ => ThemeType.Dark
+            "light" => ApplicationTheme.Light,
+            "dark" => ApplicationTheme.Dark,
+            _ => ApplicationTheme.Dark
         };
         LogAutoDeletion = _configurationService.AppConfig.Personalization.LogAutoDeletion;
         LogAutoDeletionTimes = _configurationService.AppConfig.Personalization.LogAutoDeletionTimes;
@@ -173,7 +177,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
 
     #region Theme
 
-    [ObservableProperty] private ThemeType _currentTheme = ThemeType.Unknown;
+    [ObservableProperty] private ApplicationTheme _currentTheme = ApplicationTheme.Unknown;
 
     [RelayCommand]
     private void OnChangeTheme(string parameter)
@@ -181,13 +185,13 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         switch (parameter)
         {
             case "light":
-                Theme.Apply(ThemeType.Light);
-                CurrentTheme = ThemeType.Light;
+                _themeService.SetTheme(ApplicationTheme.Light);
+                CurrentTheme = ApplicationTheme.Light;
                 break;
 
             default:
-                Theme.Apply(ThemeType.Dark);
-                CurrentTheme = ThemeType.Dark;
+                _themeService.SetTheme(ApplicationTheme.Dark);
+                CurrentTheme = ApplicationTheme.Dark;
                 break;
         }
         _configurationService.AppConfig.Personalization.Theme = parameter;

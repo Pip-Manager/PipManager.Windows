@@ -45,25 +45,25 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <ui:Hyperlink
+                                <ui:HyperlinkButton
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     Content="{x:Static lang:Lang.About_GithubRepo}"
                                     Icon="{ui:SymbolIcon Link24}"
                                     NavigateUri="https://github.com/Pip-Manager/PipManager" />
-                                <ui:Hyperlink
+                                <ui:HyperlinkButton
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     Content="{x:Static lang:Lang.About_GithubIssue}"
                                     Icon="{ui:SymbolIcon Bug24}"
                                     NavigateUri="https://github.com/Pip-Manager/PipManager/issues" />
-                                <ui:Hyperlink
+                                <ui:HyperlinkButton
                                     Grid.Row="0"
                                     Grid.Column="1"
                                     Content="{x:Static lang:Lang.About_Document}"
                                     Icon="{ui:SymbolIcon Document24}"
                                     NavigateUri="http://pipmanager.ziling.space/" />
-                                <ui:Hyperlink
+                                <ui:HyperlinkButton
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     Content="{x:Static lang:Lang.About_GithubDiscussion}"
@@ -76,7 +76,7 @@
                         Margin="0,0,5,10"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom">
-                        <ui:Hyperlink
+                        <ui:HyperlinkButton
                             Margin="-5,3,0,0"
                             HorizontalAlignment="Right"
                             Content="MIT License"
@@ -118,7 +118,7 @@
                         <DataTemplate DataType="{x:Type pages:AboutNugetLibraryListItem}">
                             <Grid x:Name="NugetLibraryListItemGrid" Margin="7,3,0,3">
                                 <StackPanel Orientation="Horizontal">
-                                    <ui:Hyperlink
+                                    <ui:HyperlinkButton
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
                                         Icon="{ui:SymbolIcon Link24}"

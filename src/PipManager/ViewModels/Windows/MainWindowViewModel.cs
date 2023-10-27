@@ -9,7 +9,6 @@ using PipManager.Views.Pages.Settings;
 using PipManager.Views.Pages.Tools;
 using Serilog;
 using System.Collections.ObjectModel;
-using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Windows;

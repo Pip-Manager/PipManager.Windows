@@ -69,15 +69,6 @@
                     Height="22"
                     Source="pack://application:,,,/Assets/icon.png" />
             </ui:TitleBar.Icon>
-            <ui:TitleBar.Tray>
-                <ui:NotifyIcon Name="NotifyIcon" TooltipText="Pip Manager">
-                    <ui:NotifyIcon.Menu>
-                        <ContextMenu>
-                            <MenuItem Header="{x:Static lang:Lang.TrayMenu_Install}" />
-                        </ContextMenu>
-                    </ui:NotifyIcon.Menu>
-                </ui:NotifyIcon>
-            </ui:TitleBar.Tray>
         </ui:TitleBar>
     </Grid>
 </ui:FluentWindow>

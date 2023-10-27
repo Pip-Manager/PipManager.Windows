@@ -1,5 +1,4 @@
-﻿using Wpf.Ui.Common;
-using Wpf.Ui.Controls;
+﻿using Wpf.Ui.Controls;
 
 namespace PipManager.Models.Pages;
 
