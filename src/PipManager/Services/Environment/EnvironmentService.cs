@@ -51,6 +51,7 @@ public class EnvironmentService : IEnvironmentService
                 var packageName = packageBasicInfo[0];
                 var packageVersion = packageBasicInfo[1];
 
+                if (packageName == "pip") return;
                 // Metadata
                 var metadataDict = new Dictionary<string, List<string>>();
                 var lastValidKey = "";
@@ -135,7 +136,7 @@ public class EnvironmentService : IEnvironmentService
                         DistInfoPath = distInfoDirectoryFullName,
                         Summary = metadataDict.GetValueOrDefault("summary", new List<string> { "" })[0],
                         Author = metadataDict.GetValueOrDefault("author", new List<string>()),
-                        AuthorEmail = metadataDict.GetValueOrDefault("author-email", new List<string>{ "" })[0],
+                        AuthorEmail = metadataDict.GetValueOrDefault("author-email", new List<string> { "" })[0],
                         ProjectUrl = projectUrlDictionary,
                         Classifier = classifiers,
                         Metadata = metadataDict,
