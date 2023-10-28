@@ -421,6 +421,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Details 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Header {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 About 的本地化字符串。
         /// </summary>
         public static string MainWindow_NavigationContent_About {

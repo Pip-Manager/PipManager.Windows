@@ -87,7 +87,7 @@
             Visibility="{Binding ViewModel.ListVisible, Converter={StaticResource BoolToVisibility}}">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type pages:LibraryListItem}">
-                    <Grid x:Name="ByEnvironmentVariableGrid">
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="24" />
                             <ColumnDefinition Width="*" />
@@ -112,6 +112,7 @@
                                 Text="{Binding PackageSummary}"
                                 TextWrapping="Wrap" />
                         </StackPanel>
+                        <ui:HyperlinkButton Margin="0, 0, 10, 0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Icon="{ui:SymbolIcon ChevronRight24}" Content="Details" Command="{Binding ElementName=Library, Path=ViewModel.ToDetailPageCommand}" CommandParameter="{Binding PackageName}"></ui:HyperlinkButton>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

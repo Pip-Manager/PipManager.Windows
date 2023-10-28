@@ -28,6 +28,7 @@ using ActionViewModel = PipManager.ViewModels.Pages.Action.ActionViewModel;
 using LibraryViewModel = PipManager.ViewModels.Pages.Library.LibraryViewModel;
 using SearchViewModel = PipManager.ViewModels.Pages.Search.SearchViewModel;
 using SettingsViewModel = PipManager.ViewModels.Pages.Settings.SettingsViewModel;
+using PipManager.ViewModels.Pages.Library;
 
 namespace PipManager;
 
@@ -68,6 +69,9 @@ public partial class App
             // Pages
             services.AddSingleton<LibraryPage>();
             services.AddSingleton<LibraryViewModel>();
+            services.AddSingleton<LibraryDetailPage>();
+            services.AddSingleton<LibraryDetailViewModel>();
+
             services.AddSingleton<ActionPage>();
             services.AddSingleton<ActionViewModel>();
             services.AddSingleton<SearchPage>();

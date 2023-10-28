@@ -394,4 +394,7 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="OverlayLoad_Loading" xml:space="preserve">
     <value>Loading...</value>
   </data>
+  <data name="LibraryDetail_Header" xml:space="preserve">
+    <value>Details</value>
+  </data>
 </root>

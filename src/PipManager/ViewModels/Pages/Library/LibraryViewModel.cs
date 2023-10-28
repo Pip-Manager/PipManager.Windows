@@ -10,14 +10,19 @@ using System.Collections.ObjectModel;
 using PipManager.Controls.Library;
 using PipManager.Models;
 using PipManager.Services.OverlayLoad;
+using PipManager.Views.Pages.Library;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
+using CommunityToolkit.Mvvm.Messaging;
+using static PipManager.ViewModels.Pages.Library.LibraryDetailViewModel;
+using System.IO.Packaging;
 
 namespace PipManager.ViewModels.Pages.Library;
 
 public partial class LibraryViewModel : ObservableObject, INavigationAware
 {
+    private List<PackageItem>? _library = new ();
     private bool _isInitialized;
     private readonly INavigationService _navigationService;
     private readonly IEnvironmentService _environmentService;
@@ -85,10 +90,22 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
 
     #endregion Delete Package
 
+    #region Details
+
+    [RelayCommand]
+    private void ToDetailPage(object parameter)
+    {
+        if (_library is null) return;
+        _navigationService.Navigate(typeof(LibraryDetailPage));
+        var current = _library.Where(libraryListItem => libraryListItem.Name == parameter as string).ToList()[0];
+        WeakReferenceMessenger.Default.Send(new LibraryDetailMessage(current));
+    }
+
+    #endregion
+
     [ObservableProperty] private int _libraryListLength;
     [ObservableProperty] private ObservableCollection<LibraryListItem> _libraryList = new();
-
-    [ObservableProperty] private bool _loadingVisible;
+    
     [ObservableProperty] private bool _environmentFoundVisible;
     [ObservableProperty] private bool _listVisible;
 
@@ -105,31 +122,31 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         EnvironmentFoundVisible = true;
         _overlayLoadService.Show(Lang.MainWindow_NavigationContent_Library);
         ListVisible = false;
+        _library = new List<PackageItem>();
         if (_configurationService.AppConfig.CurrentEnvironment == null)
         {
             _overlayLoadService.Hide();
             EnvironmentFoundVisible = false;
             return;
         }
-        var library = new List<PackageItem>();
         await Task.Run(() =>
         {
-            library = _environmentService.GetLibraries();
+            _library = _environmentService.GetLibraries();
         }).ContinueWith(_ =>
         {
             _overlayLoadService.Hide();
         });
-        if (library != null)
+        if (_library != null)
         {
             LibraryList = new ObservableCollection<LibraryListItem>();
-            foreach (var package in library)
+            foreach (var package in _library)
             {
                 LibraryList.Add(new LibraryListItem
                 (
                     new SymbolIcon(SymbolRegular.Box24), package.Name, package.Version, package.Summary, false
                 ));
             }
-            LibraryListLength = library.Count;
+            LibraryListLength = _library.Count;
             ListVisible = true;
             Log.Information("[Library] Package list refreshed successfully");
         }
