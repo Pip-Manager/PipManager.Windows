@@ -4,12 +4,8 @@ using PipManager.Models;
 using PipManager.Services.Configuration;
 using Serilog;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Net.Http;
-using PipManager.Services.OverlayLoad;
-using PipManager.ViewModels.Windows;
-using PipManager.Views.Windows;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -109,7 +105,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
                 await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Official));
                 OfficialPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
             }
-            catch (Exception exception) when (exception is HttpRequestException) 
+            catch (Exception exception) when (exception is HttpRequestException)
             {
                 OfficialPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTestFailed;
             }

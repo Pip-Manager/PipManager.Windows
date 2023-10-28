@@ -1,13 +1,13 @@
-﻿using System.Windows.Controls;
-using System.Windows.Media;
-using PipManager.Controls;
+﻿using PipManager.Controls;
 using PipManager.Languages;
+using System.Windows.Controls;
+using System.Windows.Media;
 using Wpf.Ui.Controls;
 using TextBlock = Wpf.Ui.Controls.TextBlock;
 
 namespace PipManager.Services.OverlayLoad;
 
-public class OverlayLoadService:IOverlayLoadService
+public class OverlayLoadService : IOverlayLoadService
 {
     private OverlayLoadPresenter? _presenter;
     private Grid? _grid;
@@ -19,13 +19,13 @@ public class OverlayLoadService:IOverlayLoadService
         {
             Background = new SolidColorBrush(Color.FromArgb(70, 0, 0, 0))
         };
-        _grid.Children.Add(new ProgressRing{Width = 100, Height = 100, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, IsIndeterminate = true});
-        _grid.Children.Add(new TextBlock{FontSize = 24, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 160, 0, 0)});
-        _grid.Children.Add(new TextBlock{ HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 220, 0, 0) });
+        _grid.Children.Add(new ProgressRing { Width = 100, Height = 100, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, IsIndeterminate = true });
+        _grid.Children.Add(new TextBlock { FontSize = 24, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 160, 0, 0) });
+        _grid.Children.Add(new TextBlock { HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 220, 0, 0) });
     }
 
     public OverlayLoadPresenter GetOverlayLoadPresenter() => _presenter ?? throw new ArgumentNullException("The OverlayLoadPresenter didn't set previously.");
-    
+
     public void Show(string message)
     {
         if (_presenter == null || _grid == null)

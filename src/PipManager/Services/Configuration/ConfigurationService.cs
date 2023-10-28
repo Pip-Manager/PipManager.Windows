@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
 using PipManager.Models;
 using PipManager.Models.AppConfigModels;
-using System.IO;
-using PipManager.Services.Environment;
 using System.Diagnostics;
+using System.IO;
 
 namespace PipManager.Services.Configuration;
 
@@ -14,7 +13,6 @@ public class ConfigurationService : IConfigurationService
     public ConfigurationService()
     {
         AppConfig = LoadConfiguration();
-
     }
 
     public static AppConfig LoadConfiguration()
@@ -120,7 +118,7 @@ public class ConfigurationService : IConfigurationService
         return Task.CompletedTask;
     }
 
-    #endregion
+    #endregion Environments
 
     #region Settings - Package Source
 

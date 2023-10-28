@@ -148,7 +148,6 @@ public class EnvironmentService : IEnvironmentService
                         });
                     }
                 });
-                
 
                 lock (packageLock)
                 {

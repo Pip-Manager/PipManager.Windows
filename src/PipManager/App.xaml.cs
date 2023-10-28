@@ -5,7 +5,9 @@ using PipManager.Services;
 using PipManager.Services.Action;
 using PipManager.Services.Configuration;
 using PipManager.Services.Environment;
+using PipManager.Services.OverlayLoad;
 using PipManager.ViewModels.Pages.Environment;
+using PipManager.ViewModels.Pages.Library;
 using PipManager.ViewModels.Pages.Tools;
 using PipManager.ViewModels.Windows;
 using PipManager.Views.Pages.About;
@@ -21,14 +23,12 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Windows.Threading;
-using PipManager.Services.OverlayLoad;
 using Wpf.Ui;
 using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
 using ActionViewModel = PipManager.ViewModels.Pages.Action.ActionViewModel;
 using LibraryViewModel = PipManager.ViewModels.Pages.Library.LibraryViewModel;
 using SearchViewModel = PipManager.ViewModels.Pages.Search.SearchViewModel;
 using SettingsViewModel = PipManager.ViewModels.Pages.Settings.SettingsViewModel;
-using PipManager.ViewModels.Pages.Library;
 
 namespace PipManager;
 

@@ -4,15 +4,15 @@ namespace PipManager.Models;
 
 public class PackageItem
 {
-    public required string Name { get; set; }
-    public required string Version { get; set; }
-    public required string Path { get; set; }
-    public required string DistInfoPath { get; set; }
-    public required string Summary { get; set; }
-    public required List<string> Author { get; set; }
-    public required string AuthorEmail { get; set; }
-    public required List<LibraryDetailProjectUrlModel> ProjectUrl { get; set; }
-    public required Dictionary<string, List<string>> Classifier { get; set; }
-    public required Dictionary<string, List<string>> Metadata { get; set; }
-    public required List<string> Record { get; set; }
+    public string Name { get; set; }
+    public string Version { get; set; }
+    public string Path { get; set; }
+    public string DistInfoPath { get; set; }
+    public string Summary { get; set; }
+    public List<string> Author { get; set; }
+    public string AuthorEmail { get; set; }
+    public List<LibraryDetailProjectUrlModel> ProjectUrl { get; set; }
+    public Dictionary<string, List<string>> Classifier { get; set; }
+    public Dictionary<string, List<string>> Metadata { get; set; }
+    public List<string> Record { get; set; }
 }

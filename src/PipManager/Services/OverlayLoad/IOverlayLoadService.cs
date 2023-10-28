@@ -1,6 +1,4 @@
 ﻿using PipManager.Controls;
-using System.Windows.Controls;
-using Wpf.Ui.Controls;
 
 namespace PipManager.Services.OverlayLoad;
 

@@ -21,7 +21,7 @@ public class OverlayLoadPresenter : ContentPresenter
 
     public async Task HideGrid()
     {
-        await Application.Current.Dispatcher.InvokeAsync(()=>
+        await Application.Current.Dispatcher.InvokeAsync(() =>
         {
             Visibility = Visibility.Collapsed;
         });

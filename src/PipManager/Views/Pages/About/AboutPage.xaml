@@ -19,7 +19,7 @@
     mc:Ignorable="d">
 
     <Grid>
-        <StackPanel Margin="0, 0, 0, 20">
+        <StackPanel Margin="0,0,0,20">
             <Border CornerRadius="16">
                 <Border.Background>
                     <SolidColorBrush Opacity="0.3" Color="Gray" />
@@ -121,10 +121,10 @@
                                     <ui:HyperlinkButton
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
-                                        Icon="{ui:SymbolIcon Link24}"
                                         Content="Github"
+                                        Icon="{ui:SymbolIcon Link24}"
                                         NavigateUri="{Binding LibraryUrl}" />
-                                    <StackPanel Margin="5, 0, 0, 0">
+                                    <StackPanel Margin="5,0,0,0">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock
                                                 VerticalAlignment="Center"

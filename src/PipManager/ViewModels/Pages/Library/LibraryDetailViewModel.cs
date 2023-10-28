@@ -1,12 +1,10 @@
-﻿using PipManager.Languages;
-using PipManager.Models.Pages;
-using PipManager.Services.Environment;
-using System.Collections.ObjectModel;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using PipManager.Languages;
 using PipManager.Models;
-using PipManager.Services.OverlayLoad;
+using PipManager.Models.Pages;
+using System.Collections.ObjectModel;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
-using CommunityToolkit.Mvvm.Messaging;
 
 namespace PipManager.ViewModels.Pages.Library;
 
@@ -25,7 +23,7 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
     [ObservableProperty] private string? _authorEmail;
     [ObservableProperty] private ObservableCollection<LibraryDetailProjectUrlModel>? _projectUrl;
 
-    #endregion
+    #endregion Contact
 
     #region Classifier
 
@@ -38,7 +36,7 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
     [ObservableProperty] private ObservableCollection<string>? _environment;
     [ObservableProperty] private ObservableCollection<string>? _topic;
 
-    #endregion
+    #endregion Classifier
 
     public LibraryDetailViewModel(INavigationService navigationService)
     {
@@ -73,7 +71,7 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
         AuthorEmail = Package.AuthorEmail == "" ? Lang.LibraryDetail_Unknown : Package.AuthorEmail;
         ProjectUrl = new ObservableCollection<LibraryDetailProjectUrlModel>(Package.ProjectUrl);
 
-        #endregion
+        #endregion Contact
 
         #region Classifier
 
@@ -128,6 +126,6 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
         // Topic
         Topic = new ObservableCollection<string>(Package.Classifier.GetValueOrDefault("Topic", new List<string> { Lang.LibraryDetail_Unknown }));
 
-        #endregion
+        #endregion Classifier
     }
 }

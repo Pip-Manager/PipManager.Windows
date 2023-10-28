@@ -1,28 +1,27 @@
-﻿using PipManager.Languages;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using PipManager.Controls.Library;
+using PipManager.Languages;
+using PipManager.Models;
 using PipManager.Models.Pages;
 using PipManager.Services.Action;
 using PipManager.Services.Configuration;
 using PipManager.Services.Environment;
+using PipManager.Services.OverlayLoad;
 using PipManager.Views.Pages.Action;
 using PipManager.Views.Pages.Environment;
+using PipManager.Views.Pages.Library;
 using Serilog;
 using System.Collections.ObjectModel;
-using PipManager.Controls.Library;
-using PipManager.Models;
-using PipManager.Services.OverlayLoad;
-using PipManager.Views.Pages.Library;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
-using CommunityToolkit.Mvvm.Messaging;
 using static PipManager.ViewModels.Pages.Library.LibraryDetailViewModel;
-using System.IO.Packaging;
 
 namespace PipManager.ViewModels.Pages.Library;
 
 public partial class LibraryViewModel : ObservableObject, INavigationAware
 {
-    private List<PackageItem>? _library = new ();
+    private List<PackageItem>? _library = new();
     private bool _isInitialized;
     private readonly INavigationService _navigationService;
     private readonly IEnvironmentService _environmentService;
@@ -101,11 +100,11 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         WeakReferenceMessenger.Default.Send(new LibraryDetailMessage(current));
     }
 
-    #endregion
+    #endregion Details
 
     [ObservableProperty] private int _libraryListLength;
     [ObservableProperty] private ObservableCollection<LibraryListItem> _libraryList = new();
-    
+
     [ObservableProperty] private bool _environmentFoundVisible;
     [ObservableProperty] private bool _listVisible;
 

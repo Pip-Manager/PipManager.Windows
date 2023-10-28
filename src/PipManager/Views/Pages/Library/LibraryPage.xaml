@@ -8,7 +8,6 @@
     xmlns:lang="clr-namespace:PipManager.Languages"
     xmlns:pages="clr-namespace:PipManager.Models.Pages"
     xmlns:library="clr-namespace:PipManager.Views.Pages.Library"
-    xmlns:custom="clr-namespace:PipManager.Controls.Library"
     x:Name="Library"
     Title="LibraryPage"
     Height="560"
@@ -112,7 +111,15 @@
                                 Text="{Binding PackageSummary}"
                                 TextWrapping="Wrap" />
                         </StackPanel>
-                        <ui:HyperlinkButton Margin="0, 0, 10, 0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Icon="{ui:SymbolIcon ChevronRight24}" Content="{x:Static lang:Lang.Library_Operation_Details}" Command="{Binding ElementName=Library, Path=ViewModel.ToDetailPageCommand}" CommandParameter="{Binding PackageName}"></ui:HyperlinkButton>
+                        <ui:HyperlinkButton
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Margin="0,0,10,0"
+                            HorizontalAlignment="Right"
+                            Command="{Binding ElementName=Library, Path=ViewModel.ToDetailPageCommand}"
+                            CommandParameter="{Binding PackageName}"
+                            Content="{x:Static lang:Lang.Library_Operation_Details}"
+                            Icon="{ui:SymbolIcon ChevronRight24}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -131,7 +138,7 @@
             Visibility="{Binding ViewModel.EnvironmentFoundVisible, Converter={StaticResource InverseBoolToVisibility}}">
             <TextBlock FontSize="32" Text="{x:Static lang:Lang.Library_Error_NoEnvironment}" />
             <ui:HyperlinkButton
-                Margin="0, 5, 0, 0"
+                Margin="0,5,0,0"
                 HorizontalAlignment="Center"
                 Command="{Binding ViewModel.NavigateToAddEnvironmentCommand}"
                 Content="{x:Static lang:Lang.Library_Error_AddEnvironment}"

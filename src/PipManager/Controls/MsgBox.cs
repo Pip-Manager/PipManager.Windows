@@ -57,7 +57,7 @@ public static class MsgBox
         return result;
     }
 
-    public static async Task<MessageBoxResult> Warning(string message, string primaryButtonText, string? title=null)
+    public static async Task<MessageBoxResult> Warning(string message, string primaryButtonText, string? title = null)
     {
         title ??= Lang.MsgBox_Title_Warning;
         var messageBox = new MessageBox

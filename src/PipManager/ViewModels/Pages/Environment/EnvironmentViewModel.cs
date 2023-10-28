@@ -1,19 +1,19 @@
 ﻿using PipManager.Controls;
 using PipManager.Languages;
 using PipManager.Models.AppConfigModels;
+using PipManager.Models.Pages;
+using PipManager.Services.Action;
 using PipManager.Services.Configuration;
 using PipManager.Services.Environment;
+using PipManager.Services.OverlayLoad;
 using PipManager.ViewModels.Windows;
+using PipManager.Views.Pages.Action;
 using PipManager.Views.Pages.Environment;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using PipManager.Services.Action;
-using Wpf.Ui.Controls;
-using PipManager.Models.Pages;
-using PipManager.Services.OverlayLoad;
-using PipManager.Views.Pages.Action;
 using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Environment;
 
@@ -106,6 +106,7 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
             }
         }
     }
+
     [RelayCommand]
     private async Task CheckEnvironmentUpdate()
     {
