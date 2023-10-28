@@ -40,9 +40,9 @@ public class EnvironmentService : IEnvironmentService
             return null;
         }
         var packageLock = new object();
-        var packageDirInfo = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(_configurationService.AppConfig.CurrentEnvironment.PythonPath), @"Lib\site-packages"));
+        var packageDirInfo = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(_configurationService.AppConfig.CurrentEnvironment!.PythonPath)!, @"Lib\site-packages"));
         var packages = new List<PackageItem>();
-        var ioList = new List<Task>();
+        var ioTaskList = new List<Task>();
         foreach (var dir in packageDirInfo.GetDirectories().Where(path => path.Name.EndsWith(".dist-info")).ToList())
         {
             var task = Task.Run(() =>
@@ -51,7 +51,6 @@ public class EnvironmentService : IEnvironmentService
                 var dirPath = dir.FullName;
                 var packageName = dirInfo[0];
                 var packageVersion = dirInfo[1];
-
                 var metadataDict = new Dictionary<string, List<string>>();
                 var lastValidKey = "";
                 var lastValidPos = 0;
@@ -92,13 +91,14 @@ public class EnvironmentService : IEnvironmentService
                         Version = packageVersion,
                         Path = dirPath,
                         Summary = metadataDict.GetValueOrDefault("summary", new List<string>{""})[0],
+                        Classifier = metadataDict.GetValueOrDefault("classifier", new List<string> ()),
                         Metadata = metadataDict
                     });
                 }
             });
-            ioList.Add(task);
+            ioTaskList.Add(task);
         }
-        Task.WaitAll(ioList.ToArray());
+        Task.WaitAll(ioTaskList.ToArray());
         return packages.OrderBy(x => x.Name).ToList();
     }
 

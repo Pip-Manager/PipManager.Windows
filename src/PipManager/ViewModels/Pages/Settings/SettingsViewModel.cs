@@ -166,7 +166,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     {
         if (_isInitialized)
         {
-            _snackbarService.Show(Lang.Common_NoticeTitle_Caution, Lang.Snackbar_effectAfterRestart);
+            _snackbarService.Show(Lang.Common_NoticeTitle_Caution, Lang.Snackbar_effectAfterRestart, ControlAppearance.Caution);
         }
         _configurationService.AppConfig.Personalization.Language = Language != "Auto" ? GetLanguage.LanguageList[Language] : "Auto";
         _configurationService.Save();
@@ -276,7 +276,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private static async Task ResetConfigurationAsync()
     {
-        var messageBox = new Wpf.Ui.Controls.MessageBox
+        var messageBox = new MessageBox
         {
             Title = Lang.MsgBox_Title_AreYouSure,
             Content = Lang.Settings_FileManagement_ResetConfig_DialogContent,

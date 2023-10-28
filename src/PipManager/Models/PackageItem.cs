@@ -6,5 +6,6 @@ public class PackageItem
     public required string Version { get; set; }
     public required string Path { get; set; }
     public required string Summary { get; set; }
+    public required List<string> Classifier { get; set; }
     public required Dictionary<string, List<string>> Metadata { get; set; }
 }

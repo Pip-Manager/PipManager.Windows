@@ -19,7 +19,7 @@
     mc:Ignorable="d">
 
     <Grid>
-        <StackPanel>
+        <StackPanel Margin="0, 0, 0, 20">
             <Border CornerRadius="16">
                 <Border.Background>
                     <SolidColorBrush Opacity="0.3" Color="Gray" />
@@ -122,8 +122,9 @@
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
                                         Icon="{ui:SymbolIcon Link24}"
+                                        Content="Github"
                                         NavigateUri="{Binding LibraryUrl}" />
-                                    <StackPanel>
+                                    <StackPanel Margin="5, 0, 0, 0">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock
                                                 VerticalAlignment="Center"
