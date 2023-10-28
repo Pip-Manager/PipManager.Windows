@@ -11,6 +11,7 @@ using System.ComponentModel;
 using PipManager.Services.Action;
 using Wpf.Ui.Controls;
 using PipManager.Models.Pages;
+using PipManager.Services.OverlayLoad;
 using PipManager.Views.Pages.Action;
 using Wpf.Ui;
 
@@ -23,13 +24,15 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
     private readonly IConfigurationService _configurationService;
     private readonly IEnvironmentService _environmentService;
     private readonly IActionService _actionService;
+    private readonly IOverlayLoadService _overlayLoadService;
 
-    public EnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService, IEnvironmentService environmentService, IActionService actionService)
+    public EnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService, IEnvironmentService environmentService, IActionService actionService, IOverlayLoadService overlayLoadService)
     {
         _navigationService = navigationService;
         _configurationService = configurationService;
         _environmentService = environmentService;
         _actionService = actionService;
+        _overlayLoadService = overlayLoadService;
     }
 
     public async void OnNavigatedTo()
@@ -106,8 +109,15 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private async Task CheckEnvironmentUpdate()
     {
-        var latest = _environmentService.GetVersions("pip").Last().Trim();
-        var current = _configurationService.AppConfig.CurrentEnvironment.PipVersion.Trim();
+        _overlayLoadService.Show("Check Update", "Loading...");
+        var latest = "";
+        await Task.Run(() =>
+        {
+            latest = _environmentService.GetVersions("pip").Last().Trim();
+        });
+        _overlayLoadService.Hide();
+        Task.WaitAll();
+        var current = _configurationService.AppConfig.CurrentEnvironment!.PipVersion!.Trim();
         if (latest != current)
         {
             Log.Information($"[Environment] Environment update available ({current} => {latest})");
@@ -129,7 +139,6 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
         else
         {
             await MsgBox.Success(Lang.MsgBox_Message_EnvironmentIsLatest);
-
         }
     }
 

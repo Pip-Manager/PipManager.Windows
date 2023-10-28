@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net.Http;
+using PipManager.Services.OverlayLoad;
 using PipManager.ViewModels.Windows;
 using PipManager.Views.Windows;
 using Wpf.Ui;

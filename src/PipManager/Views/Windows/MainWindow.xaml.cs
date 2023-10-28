@@ -2,6 +2,7 @@
 using PipManager.Services.Action;
 using PipManager.Services.Configuration;
 using PipManager.Services.Environment;
+using PipManager.Services.OverlayLoad;
 using PipManager.ViewModels.Windows;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
@@ -18,6 +19,7 @@ public partial class MainWindow
         IServiceProvider serviceProvider,
         ISnackbarService snackbarService,
         IContentDialogService contentDialogService,
+        IOverlayLoadService overlayLoadPresenter,
         IActionService actionService
     )
     {
@@ -27,9 +29,9 @@ public partial class MainWindow
         SystemThemeWatcher.Watch(this);
 
         InitializeComponent();
-
         navigationService.SetNavigationControl(NavigationView);
         snackbarService.SetSnackbarPresenter(SnackbarPresenter);
+        overlayLoadPresenter.SetOverlayLoadPresenter(OverlayLoadPresenter);
         contentDialogService.SetContentPresenter(RootContentDialog);
         var runnerThread = new Thread(actionService.Runner)
         {

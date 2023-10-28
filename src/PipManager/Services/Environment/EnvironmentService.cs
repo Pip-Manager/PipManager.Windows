@@ -108,8 +108,8 @@ public class EnvironmentService : IEnvironmentService
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = _configurationService.AppConfig.CurrentEnvironment.PythonPath,
-                Arguments = $"-m pip install \"{packageName}\"==random",
+                FileName = _configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
+                Arguments = $"-m pip install \"{packageName}\"==random -i {_configurationService.GetUrlFromPackageSourceType()}",
                 UseShellExecute = false,
                 RedirectStandardError = true,
                 CreateNoWindow = true
@@ -128,8 +128,8 @@ public class EnvironmentService : IEnvironmentService
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = _configurationService.AppConfig.CurrentEnvironment.PythonPath,
-                Arguments = $"-m pip install --upgrade \"{packageName}\"",
+                FileName = _configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
+                Arguments = $"-m pip install --upgrade \"{packageName}\" -i {_configurationService.GetUrlFromPackageSourceType()}",
                 UseShellExecute = false,
                 RedirectStandardError = true,
                 CreateNoWindow = true
@@ -148,7 +148,7 @@ public class EnvironmentService : IEnvironmentService
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = _configurationService.AppConfig.CurrentEnvironment.PythonPath,
+                FileName = _configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
                 Arguments = $"-m pip uninstall -y \"{packageName}\"",
                 UseShellExecute = false,
                 RedirectStandardError = true,

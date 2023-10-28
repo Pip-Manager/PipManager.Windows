@@ -7,6 +7,7 @@ public interface IConfigurationService
 {
     public AppConfig AppConfig { get; set; }
 
+    public string GetUrlFromPackageSourceType();
     public string GetUrlFromPackageSourceType(PackageSourceType packageSourceType);
 
     public string GetTestingUrlFromPackageSourceType(PackageSourceType packageSourceType);

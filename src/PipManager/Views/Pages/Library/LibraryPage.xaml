@@ -135,14 +135,5 @@
                 Content="{x:Static lang:Lang.Library_Error_AddEnvironment}"
                 FontSize="16" />
         </StackPanel>
-
-        <ui:ProgressRing
-            Grid.Row="1"
-            Width="90"
-            Height="90"
-            Margin="0,0,0,50"
-            VerticalAlignment="Center"
-            IsIndeterminate="True"
-            Visibility="{Binding ViewModel.LoadingVisible, Converter={StaticResource BoolToVisibility}}" />
     </Grid>
 </Page>

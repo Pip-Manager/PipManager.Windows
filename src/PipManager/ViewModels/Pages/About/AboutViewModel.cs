@@ -9,7 +9,7 @@ public partial class AboutViewModel : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
 
-    [ObservableProperty] private string _appVersion = string.Empty;
+    [ObservableProperty] private string _appVersion = "Development";
 
     public void OnNavigatedTo()
     {

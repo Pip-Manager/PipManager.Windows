@@ -124,6 +124,18 @@ public class ConfigurationService : IConfigurationService
 
     #region Settings - Package Source
 
+    public string GetUrlFromPackageSourceType()
+    {
+        return AppConfig.PackageSource.PackageSourceType switch
+        {
+            PackageSourceType.Official => "https://pypi.org/simple",
+            PackageSourceType.Tsinghua => "https://pypi.tuna.tsinghua.edu.cn/simple",
+            PackageSourceType.Aliyun => "https://mirrors.aliyun.com/pypi/simple/",
+            PackageSourceType.Douban => "https://pypi.doubanio.com/simple/",
+            _ => throw new ArgumentOutOfRangeException(nameof(AppConfig.PackageSource.PackageSourceType), AppConfig.PackageSource.PackageSourceType, null)
+        };
+    }
+
     public string GetUrlFromPackageSourceType(PackageSourceType packageSourceType)
     {
         return packageSourceType switch

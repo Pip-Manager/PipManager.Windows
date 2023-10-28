@@ -21,6 +21,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Windows.Threading;
+using PipManager.Services.OverlayLoad;
 using Wpf.Ui;
 using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
 using ActionViewModel = PipManager.ViewModels.Pages.Action.ActionViewModel;
@@ -57,6 +58,7 @@ public partial class App
             // Services
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<ISnackbarService, SnackbarService>();
+            services.AddSingleton<IOverlayLoadService, OverlayLoadService>();
             services.AddSingleton<IContentDialogService, ContentDialogService>();
             services.AddSingleton<IConfigurationService, ConfigurationService>();
             services.AddSingleton<IEnvironmentService, EnvironmentService>();

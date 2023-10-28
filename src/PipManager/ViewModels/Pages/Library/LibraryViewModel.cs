@@ -9,6 +9,7 @@ using Serilog;
 using System.Collections.ObjectModel;
 using PipManager.Controls.Library;
 using PipManager.Models;
+using PipManager.Services.OverlayLoad;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -23,15 +24,17 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private readonly IConfigurationService _configurationService;
     private readonly IActionService _actionService;
     private readonly IThemeService _themeService;
+    private readonly IOverlayLoadService _overlayLoadService;
 
     public LibraryViewModel(INavigationService navigationService, IEnvironmentService environmentService,
-        IConfigurationService configurationService, IActionService actionService, IThemeService themeService)
+        IConfigurationService configurationService, IActionService actionService, IThemeService themeService, IOverlayLoadService overlayLoadService)
     {
         _navigationService = navigationService;
         _environmentService = environmentService;
         _configurationService = configurationService;
         _actionService = actionService;
         _themeService = themeService;
+        _overlayLoadService = overlayLoadService;
 
         _themeService.SetTheme(_configurationService.AppConfig.Personalization.Theme switch
         {
@@ -100,11 +103,11 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private async Task RefreshLibrary()
     {
         EnvironmentFoundVisible = true;
-        LoadingVisible = true;
+        _overlayLoadService.Show("Library", "Reading information...");
         ListVisible = false;
         if (_configurationService.AppConfig.CurrentEnvironment == null)
         {
-            LoadingVisible = false;
+            _overlayLoadService.Hide();
             EnvironmentFoundVisible = false;
             return;
         }
@@ -114,7 +117,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             library = _environmentService.GetLibraries();
         }).ContinueWith(_ =>
         {
-            LoadingVisible = false;
+            _overlayLoadService.Hide();
         });
         if (library != null)
         {

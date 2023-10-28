@@ -2,8 +2,8 @@
     x:Class="PipManager.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:pages="clr-namespace:PipManager.Models.Pages"
     xmlns:library="clr-namespace:PipManager.Controls.Library"
+    xmlns:pages="clr-namespace:PipManager.Models.Pages"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:valueConverters="clr-namespace:ValueConverters;assembly=ValueConverters"
     DispatcherUnhandledException="OnDispatcherUnhandledException"
@@ -17,7 +17,7 @@
                 <ui:ThemesDictionary Theme="Dark" />
                 <ui:ControlsDictionary />
 
-                <ResourceDictionary Source="/PipManager;component/Controls/Library/LibraryStyles.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/PipManager;component/Controls/Library/LibraryStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!--  Value Converters  -->
