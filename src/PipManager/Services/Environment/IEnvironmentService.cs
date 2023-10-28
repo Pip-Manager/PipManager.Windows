@@ -1,5 +1,5 @@
-﻿using PipManager.Models.AppConfigModels;
-using PipManager.Models.PipInspection;
+﻿using PipManager.Models;
+using PipManager.Models.AppConfigModels;
 
 namespace PipManager.Services.Environment;
 
@@ -9,7 +9,7 @@ public interface IEnvironmentService
 
     public (bool, string) CheckEnvironmentAvailable(EnvironmentItem environmentItem);
 
-    public List<PipMetadata>? GetLibraries();
+    public List<PackageItem>? GetLibraries();
     public string[] GetVersions(string packageName);
     public (bool, string) Update(string packageName);
 

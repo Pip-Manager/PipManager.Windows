@@ -1,6 +1,5 @@
 ﻿using PipManager.Languages;
 using PipManager.Models.Pages;
-using PipManager.Models.PipInspection;
 using PipManager.Services.Action;
 using PipManager.Services.Configuration;
 using PipManager.Services.Environment;
@@ -8,8 +7,8 @@ using PipManager.Views.Pages.Action;
 using PipManager.Views.Pages.Environment;
 using Serilog;
 using System.Collections.ObjectModel;
-using System.Windows.Controls;
 using PipManager.Controls.Library;
+using PipManager.Models;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -109,7 +108,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             EnvironmentFoundVisible = false;
             return;
         }
-        var library = new List<PipMetadata>();
+        var library = new List<PackageItem>();
         await Task.Run(() =>
         {
             library = _environmentService.GetLibraries();
@@ -124,7 +123,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             {
                 LibraryList.Add(new LibraryListItem
                 (
-                    new SymbolIcon(SymbolRegular.Box24), package.Information.Name, package.Information.Version, package.Information.Summary, false
+                    new SymbolIcon(SymbolRegular.Box24), package.Name, package.Version, package.Summary, false
                 ));
             }
             LibraryListLength = library.Count;
