@@ -63,6 +63,11 @@
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
+                    <b:Interaction.Triggers>
+                        <b:EventTrigger EventName="SelectionChanged">
+                            <b:InvokeCommandAction Command="{Binding ViewModel.ChangeWayCommand}" />
+                        </b:EventTrigger>
+                    </b:Interaction.Triggers>
                 </ListView>
             </Border>
 
