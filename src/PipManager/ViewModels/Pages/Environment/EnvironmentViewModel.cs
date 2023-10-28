@@ -109,7 +109,7 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private async Task CheckEnvironmentUpdate()
     {
-        _overlayLoadService.Show("Check Update", "Loading...");
+        _overlayLoadService.Show(Lang.Environment_Operation_CheckEnvironmentUpdate);
         var latest = "";
         await Task.Run(() =>
         {

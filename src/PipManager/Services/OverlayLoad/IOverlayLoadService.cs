@@ -10,7 +10,7 @@ public interface IOverlayLoadService
 
     public OverlayLoadPresenter GetOverlayLoadPresenter();
 
-    public void Show(string title, string message);
+    public void Show(string message);
 
     public void Hide();
 }

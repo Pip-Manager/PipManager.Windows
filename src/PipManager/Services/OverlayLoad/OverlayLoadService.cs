@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Media;
 using PipManager.Controls;
+using PipManager.Languages;
 using Wpf.Ui.Controls;
 using TextBlock = Wpf.Ui.Controls.TextBlock;
 
@@ -25,11 +26,11 @@ public class OverlayLoadService:IOverlayLoadService
 
     public OverlayLoadPresenter GetOverlayLoadPresenter() => _presenter ?? throw new ArgumentNullException("The OverlayLoadPresenter didn't set previously.");
     
-    public void Show(string title, string message)
+    public void Show(string message)
     {
         if (_presenter == null || _grid == null)
             throw new ArgumentNullException("The OverlayLoadPresenter didn't set previously.");
-        (_grid.Children[1] as TextBlock)!.Text = title;
+        (_grid.Children[1] as TextBlock)!.Text = Lang.OverlayLoad_Loading;
         (_grid.Children[2] as TextBlock)!.Text = message;
         _presenter.ShowGrid(_grid);
     }

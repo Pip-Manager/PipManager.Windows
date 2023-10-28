@@ -637,6 +637,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Loading... 的本地化字符串。
+        /// </summary>
+        public static string OverlayLoad_Loading {
+            get {
+                return ResourceManager.GetString("OverlayLoad_Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 File Management 的本地化字符串。
         /// </summary>
         public static string Settings_Category_FileManagement {

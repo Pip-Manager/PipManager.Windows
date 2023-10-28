@@ -391,4 +391,7 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="ExceptionWindow_Title" xml:space="preserve">
     <value>Pip Manager - Unexpected Exception</value>
   </data>
+  <data name="OverlayLoad_Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
 </root>

@@ -103,7 +103,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private async Task RefreshLibrary()
     {
         EnvironmentFoundVisible = true;
-        _overlayLoadService.Show("Library", "Reading information...");
+        _overlayLoadService.Show(Lang.MainWindow_NavigationContent_Library);
         ListVisible = false;
         if (_configurationService.AppConfig.CurrentEnvironment == null)
         {
