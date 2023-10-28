@@ -4,6 +4,7 @@ using PipManager.Models.Pages;
 using PipManager.Services.Configuration;
 using System.Diagnostics;
 using System.IO;
+using Wpf.Ui.Controls;
 using Path = System.IO.Path;
 
 namespace PipManager.Services.Environment;
@@ -113,18 +114,41 @@ public class EnvironmentService : IEnvironmentService
                 // Extra
                 var projectUrl = metadataDict.GetValueOrDefault("project-url", new List<string>());
                 var projectUrlDictionary = new List<LibraryDetailProjectUrlModel>();
-                if (projectUrl.Count != 0)
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    projectUrlDictionary.AddRange(projectUrl.Select(url => new LibraryDetailProjectUrlModel() { UrlType = url.Split(", ")[0], Url = url.Split(", ")[1] }));
-                }
-                else
-                {
-                    projectUrlDictionary.Add(new LibraryDetailProjectUrlModel
+                    if (projectUrl.Count != 0)
                     {
-                        UrlType = "Unknown",
-                        Url = ""
-                    });
-                }
+                        projectUrlDictionary.AddRange(projectUrl.Select(url => new LibraryDetailProjectUrlModel
+                        {
+                            Icon = url.Split(", ")[0].ToLower() switch
+                            {
+                                "homepage" or "home" => new SymbolIcon(SymbolRegular.Home24),
+                                "download" => new SymbolIcon(SymbolRegular.ArrowDownload24),
+                                "changelog" or "changes" or "release notes" => new SymbolIcon(SymbolRegular.ClipboardTextEdit24),
+                                "bug tracker" or "issue tracker" or "bug reports" or "issues" or "tracker" => new SymbolIcon(SymbolRegular.Bug24),
+                                "source code" or "source" or "repository" or "code" => new SymbolIcon(SymbolRegular.Code24),
+                                "funding" or "donate" or "donations" => new SymbolIcon(SymbolRegular.Money24),
+                                "documentation" => new SymbolIcon(SymbolRegular.Document24),
+                                "commercial" => new SymbolIcon(SymbolRegular.PeopleMoney24),
+                                "support" => new SymbolIcon(SymbolRegular.PersonSupport24),
+                                "chat" or "q & a" => new SymbolIcon(SymbolRegular.ChatHelp24),
+                                _ => new SymbolIcon(SymbolRegular.Link24)
+                            },
+                            UrlType = url.Split(", ")[0],
+                            Url = url.Split(", ")[1]
+                        }));
+                    }
+                    else
+                    {
+                        projectUrlDictionary.Add(new LibraryDetailProjectUrlModel
+                        {
+                            Icon = new SymbolIcon(SymbolRegular.Question24),
+                            UrlType = "Unknown",
+                            Url = ""
+                        });
+                    }
+                });
+                
 
                 lock (packageLock)
                 {
