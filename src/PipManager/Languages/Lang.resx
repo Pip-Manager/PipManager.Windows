@@ -397,4 +397,100 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="LibraryDetail_Header" xml:space="preserve">
     <value>Details</value>
   </data>
+  <data name="LibraryDetail_Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="LibraryDetail_Classifier_Title" xml:space="preserve">
+    <value>Classifier</value>
+  </data>
+  <data name="LibraryDetail_Classifier_DevelopmentStatus" xml:space="preserve">
+    <value>Development Status</value>
+  </data>
+  <data name="LibraryDetail_Classifier_ProgrammingLanguage" xml:space="preserve">
+    <value>Programming Language</value>
+  </data>
+  <data name="LibraryDetail_Classifier_OperatingSystem" xml:space="preserve">
+    <value>Operating System</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience" xml:space="preserve">
+    <value>Intended Audience</value>
+  </data>
+  <data name="LibraryDetail_Package" xml:space="preserve">
+    <value>Package</value>
+  </data>
+  <data name="LibraryDetail_Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="LibraryDetail_Path" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="LibraryDetail_Summary" xml:space="preserve">
+    <value>Summary</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_Developers" xml:space="preserve">
+    <value>Developers</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_Education" xml:space="preserve">
+    <value>Education</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_EndUsersDesktop" xml:space="preserve">
+    <value>End Users &amp; Desktop</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_FinancialAndInsuranceIndustry" xml:space="preserve">
+    <value>Financial and Insurance Industry</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_HealthcareIndustry" xml:space="preserve">
+    <value>Healthcare Industry</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_InformationTechonology" xml:space="preserve">
+    <value>Information Technology</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_LegalIndustry" xml:space="preserve">
+    <value>Legal Industry</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_Manufacturing" xml:space="preserve">
+    <value>Manufacturing</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_OtherAudience" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_Religion" xml:space="preserve">
+    <value>Religion</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_ScienceResearch" xml:space="preserve">
+    <value>Science &amp; Research</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_SystemAdministrators" xml:space="preserve">
+    <value>System Administrators</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_TelecommunicationsIndustry" xml:space="preserve">
+    <value>Telecommunications Industry</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_CustomerService" xml:space="preserve">
+    <value>Customer Service</value>
+  </data>
+  <data name="LibraryDetail_Classifier_OperatingSystem_OSIndependent" xml:space="preserve">
+    <value>OS Independent</value>
+  </data>
+  <data name="Library_Operation_Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="LibraryDetail_Classifier_Environment" xml:space="preserve">
+    <value>Environment</value>
+  </data>
+  <data name="LibraryDetail_Classifier_Topic" xml:space="preserve">
+    <value>Topic</value>
+  </data>
+  <data name="LibraryDetail_Contact_Title" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="LibraryDetail_Contact_Author" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="LibraryDetail_Contact_AuthorEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="LibraryDetail_Contact_ProjectUrl" xml:space="preserve">
+    <value>Project Url</value>
+  </data>
 </root>

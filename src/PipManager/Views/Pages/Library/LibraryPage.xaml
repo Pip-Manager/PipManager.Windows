@@ -51,7 +51,7 @@
                 Orientation="Horizontal">
                 <Border
                     Margin="0,0,5,0"
-                    Background="{DynamicResource ApplicationBackgroundBrush}"
+                    Background="Transparent"
                     BorderBrush="Gray"
                     BorderThickness="1"
                     CornerRadius="5"
@@ -62,7 +62,7 @@
                 </Border>
                 <Border
                     Margin="0,0,5,0"
-                    Background="{DynamicResource ApplicationBackgroundBrush}"
+                    Background="Transparent"
                     BorderBrush="Gray"
                     BorderThickness="1"
                     CornerRadius="5"
@@ -112,7 +112,7 @@
                                 Text="{Binding PackageSummary}"
                                 TextWrapping="Wrap" />
                         </StackPanel>
-                        <ui:HyperlinkButton Margin="0, 0, 10, 0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Icon="{ui:SymbolIcon ChevronRight24}" Content="Details" Command="{Binding ElementName=Library, Path=ViewModel.ToDetailPageCommand}" CommandParameter="{Binding PackageName}"></ui:HyperlinkButton>
+                        <ui:HyperlinkButton Margin="0, 0, 10, 0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Icon="{ui:SymbolIcon ChevronRight24}" Content="{x:Static lang:Lang.Library_Operation_Details}" Command="{Binding ElementName=Library, Path=ViewModel.ToDetailPageCommand}" CommandParameter="{Binding PackageName}"></ui:HyperlinkButton>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -131,6 +131,7 @@
             Visibility="{Binding ViewModel.EnvironmentFoundVisible, Converter={StaticResource InverseBoolToVisibility}}">
             <TextBlock FontSize="32" Text="{x:Static lang:Lang.Library_Error_NoEnvironment}" />
             <ui:HyperlinkButton
+                Margin="0, 5, 0, 0"
                 HorizontalAlignment="Center"
                 Command="{Binding ViewModel.NavigateToAddEnvironmentCommand}"
                 Content="{x:Static lang:Lang.Library_Error_AddEnvironment}"

@@ -412,6 +412,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Details 的本地化字符串。
+        /// </summary>
+        public static string Library_Operation_Details {
+            get {
+                return ResourceManager.GetString("Library_Operation_Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Install 的本地化字符串。
         /// </summary>
         public static string Library_Operation_Install {
@@ -421,11 +430,290 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Development Status 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_DevelopmentStatus {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_DevelopmentStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Environment 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_Environment {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_Environment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Intended Audience 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_IntendedAudience {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_IntendedAudience", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Customer Service 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_IntendedAudience_CustomerService {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_IntendedAudience_CustomerService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Developers 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_IntendedAudience_Developers {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_IntendedAudience_Developers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Education 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_IntendedAudience_Education {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_IntendedAudience_Education", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 End Users &amp; Desktop 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_IntendedAudience_EndUsersDesktop {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_IntendedAudience_EndUsersDesktop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Financial and Insurance Industry 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_IntendedAudience_FinancialAndInsuranceIndustry {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_IntendedAudience_FinancialAndInsuranceIndustry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Healthcare Industry 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_IntendedAudience_HealthcareIndustry {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_IntendedAudience_HealthcareIndustry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Information Technology 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_IntendedAudience_InformationTechonology {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_IntendedAudience_InformationTechonology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Legal Industry 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_IntendedAudience_LegalIndustry {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_IntendedAudience_LegalIndustry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Manufacturing 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_IntendedAudience_Manufacturing {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_IntendedAudience_Manufacturing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Other 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_IntendedAudience_OtherAudience {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_IntendedAudience_OtherAudience", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Religion 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_IntendedAudience_Religion {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_IntendedAudience_Religion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Science &amp; Research 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_IntendedAudience_ScienceResearch {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_IntendedAudience_ScienceResearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 System Administrators 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_IntendedAudience_SystemAdministrators {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_IntendedAudience_SystemAdministrators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Telecommunications Industry 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_IntendedAudience_TelecommunicationsIndustry {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_IntendedAudience_TelecommunicationsIndustry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Operating System 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_OperatingSystem {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_OperatingSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OS Independent 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_OperatingSystem_OSIndependent {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_OperatingSystem_OSIndependent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Programming Language 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_ProgrammingLanguage {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_ProgrammingLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Classifier 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_Title {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Topic 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Classifier_Topic {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Classifier_Topic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Author 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Contact_Author {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Contact_Author", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Email 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Contact_AuthorEmail {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Contact_AuthorEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Project Url 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Contact_ProjectUrl {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Contact_ProjectUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Contact 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Contact_Title {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Contact_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Details 的本地化字符串。
         /// </summary>
         public static string LibraryDetail_Header {
             get {
                 return ResourceManager.GetString("LibraryDetail_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Package 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Package {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Package", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Path 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Path {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Summary 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Summary {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Summary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Unknown 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Unknown {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Version 的本地化字符串。
+        /// </summary>
+        public static string LibraryDetail_Version {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Version", resourceCulture);
             }
         }
         

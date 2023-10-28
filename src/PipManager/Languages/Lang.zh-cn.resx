@@ -397,4 +397,100 @@
   <data name="LibraryDetail_Header" xml:space="preserve">
     <value>详情</value>
   </data>
+  <data name="LibraryDetail_Unknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="LibraryDetail_Classifier_Title" xml:space="preserve">
+    <value>分类</value>
+  </data>
+  <data name="LibraryDetail_Classifier_DevelopmentStatus" xml:space="preserve">
+    <value>开发状态</value>
+  </data>
+  <data name="LibraryDetail_Classifier_ProgrammingLanguage" xml:space="preserve">
+    <value>编程语言支持</value>
+  </data>
+  <data name="LibraryDetail_Classifier_OperatingSystem" xml:space="preserve">
+    <value>操作系统支持</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience" xml:space="preserve">
+    <value>受众</value>
+  </data>
+  <data name="LibraryDetail_Package" xml:space="preserve">
+    <value>包名</value>
+  </data>
+  <data name="LibraryDetail_Version" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="LibraryDetail_Path" xml:space="preserve">
+    <value>本地路径</value>
+  </data>
+  <data name="LibraryDetail_Summary" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_Developers" xml:space="preserve">
+    <value>开发者</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_Education" xml:space="preserve">
+    <value>教育</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_EndUsersDesktop" xml:space="preserve">
+    <value>最终用户和桌面端</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_FinancialAndInsuranceIndustry" xml:space="preserve">
+    <value>金融和保险业</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_HealthcareIndustry" xml:space="preserve">
+    <value>医疗保健行业</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_InformationTechonology" xml:space="preserve">
+    <value>信息技术</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_LegalIndustry" xml:space="preserve">
+    <value>法律行业</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_Manufacturing" xml:space="preserve">
+    <value>制造业</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_OtherAudience" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_Religion" xml:space="preserve">
+    <value>宗教</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_ScienceResearch" xml:space="preserve">
+    <value>科研</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_SystemAdministrators" xml:space="preserve">
+    <value>系统管理</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_TelecommunicationsIndustry" xml:space="preserve">
+    <value>通信行业</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_CustomerService" xml:space="preserve">
+    <value>客户服务</value>
+  </data>
+  <data name="LibraryDetail_Classifier_OperatingSystem_OSIndependent" xml:space="preserve">
+    <value>与操作系统无关</value>
+  </data>
+  <data name="Library_Operation_Details" xml:space="preserve">
+    <value>查看详情</value>
+  </data>
+  <data name="LibraryDetail_Classifier_Environment" xml:space="preserve">
+    <value>适用环境</value>
+  </data>
+  <data name="LibraryDetail_Classifier_Topic" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="LibraryDetail_Contact_Title" xml:space="preserve">
+    <value>联系</value>
+  </data>
+  <data name="LibraryDetail_Contact_Author" xml:space="preserve">
+    <value>作者</value>
+  </data>
+  <data name="LibraryDetail_Contact_AuthorEmail" xml:space="preserve">
+    <value>邮箱</value>
+  </data>
+  <data name="LibraryDetail_Contact_ProjectUrl" xml:space="preserve">
+    <value>项目地址</value>
+  </data>
 </root>

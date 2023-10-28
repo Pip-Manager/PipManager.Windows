@@ -25,23 +25,157 @@
             FontSize="26"
             FontWeight="Bold"
             Text="{x:Static lang:Lang.LibraryDetail_Header}" />
-        <Grid Margin="0,80,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="90"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0">
-                <ui:Badge Appearance="Primary" Content="Package" />
-                <ui:Badge Appearance="Primary" Content="Version" />
-                <ui:Badge Appearance="Primary" Content="Path" />
-                <ui:Badge Appearance="Primary" Content="Summary" />
-            </StackPanel>
-            <StackPanel Grid.Column="1">
-                <TextBlock Margin="7, 5, 0, 5" Text="{Binding ViewModel.Package.Name, Mode=TwoWay}" />
-                <TextBlock Margin="7, 5, 0, 5" Text="{Binding ViewModel.Package.Version, Mode=TwoWay}" />
-                <TextBlock Margin="7, 5, 0, 5" Text="{Binding ViewModel.Package.Path, Mode=TwoWay}" />
-                <TextBlock Margin="7, 5, 0, 5" Text="{Binding ViewModel.Package.Summary, Mode=TwoWay}" />
-            </StackPanel>
-        </Grid>
+        <StackPanel Margin="0,80,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <ui:Badge Appearance="Primary" Content="{x:Static lang:Lang.LibraryDetail_Package}" />
+                    <ui:Badge Appearance="Primary" Content="{x:Static lang:Lang.LibraryDetail_Version}" />
+                    <ui:Badge Appearance="Primary" Content="{x:Static lang:Lang.LibraryDetail_Path}" />
+                    <ui:Badge Appearance="Primary" Content="{x:Static lang:Lang.LibraryDetail_Summary}" />
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Margin="7,5,0,5" Text="{Binding ViewModel.Package.Name, Mode=TwoWay}" />
+                    <TextBlock Margin="7,5,0,5" Text="{Binding ViewModel.Package.Version, Mode=TwoWay}" />
+                    <TextBlock Margin="7,5,0,5" Text="{Binding ViewModel.Package.Path, Mode=TwoWay}" />
+                    <TextBlock Margin="7,5,0,5" Text="{Binding ViewModel.Package.Summary, Mode=TwoWay}" />
+                </StackPanel>
+            </Grid>
+            <TextBlock
+                Margin="0,10,0,0"
+                FontSize="20"
+                Text="{x:Static lang:Lang.LibraryDetail_Contact_Title}" />
+            <Border
+                Margin="0,3,0,0"
+                Padding="10"
+                BorderBrush="Gray"
+                BorderThickness="2"
+                CornerRadius="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <ui:Badge Appearance="Secondary" Content="{x:Static lang:Lang.LibraryDetail_Contact_Author}" />
+                        <ui:Badge Appearance="Secondary" Content="{x:Static lang:Lang.LibraryDetail_Contact_AuthorEmail}" />
+                        <ui:Badge Appearance="Secondary" Content="{x:Static lang:Lang.LibraryDetail_Contact_ProjectUrl}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Margin="7,5,0,5" Text="{Binding ViewModel.Author, Mode=TwoWay}" />
+                        <TextBlock Margin="7,5,0,5" Text="{Binding ViewModel.AuthorEmail, Mode=TwoWay}" />
+                        <ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding ViewModel.ProjectUrl}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <ui:Badge Appearance="Primary" Content="{Binding UrlType}"></ui:Badge>
+                                        <ui:HyperlinkButton Margin="5, 0, 0, 0" Icon="{ui:SymbolIcon Link24}" Content="{Binding Url}"></ui:HyperlinkButton>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <TextBlock
+                Margin="0,10,0,0"
+                FontSize="20"
+                Text="{x:Static lang:Lang.LibraryDetail_Classifier_Title}" />
+            <Border
+                Margin="0,3,0,0"
+                Padding="10"
+                BorderBrush="Gray"
+                BorderThickness="2"
+                CornerRadius="5">
+                <StackPanel>
+                    <TextBlock Text="{x:Static lang:Lang.LibraryDetail_Classifier_DevelopmentStatus}" />
+                    <ui:Badge
+                        HorizontalAlignment="Left"
+                        Appearance="{Binding ViewModel.DevelopmentStatusAppearance}"
+                        Content="{Binding ViewModel.DevelopmentStatus}" />
+                    <TextBlock Margin="0,5,0,5" Text="{x:Static lang:Lang.LibraryDetail_Classifier_ProgrammingLanguage}" />
+                    <ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding ViewModel.ProgrammingLanguage}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel HorizontalAlignment="Stretch" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ui:Badge Content="{Binding}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock Margin="0,5,0,5" Text="{x:Static lang:Lang.LibraryDetail_Classifier_IntendedAudience}" />
+                    <ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding ViewModel.IntendedAudience}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel HorizontalAlignment="Stretch" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:Badge Content="{Binding}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock Margin="0,5,0,5" Text="{x:Static lang:Lang.LibraryDetail_Classifier_OperatingSystem}" />
+                    <ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding ViewModel.OperatingSystem}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel HorizontalAlignment="Stretch" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:Badge Content="{Binding}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock Margin="0,5,0,5" Text="{x:Static lang:Lang.LibraryDetail_Classifier_Environment}" />
+                    <ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding ViewModel.Environment}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel HorizontalAlignment="Stretch" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:Badge Content="{Binding}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock Margin="0,5,0,5" Text="{x:Static lang:Lang.LibraryDetail_Classifier_Topic}" />
+                    <ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding ViewModel.Topic}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel HorizontalAlignment="Stretch" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:Badge Content="{Binding}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+        </StackPanel>
     </Grid>
 </Page>

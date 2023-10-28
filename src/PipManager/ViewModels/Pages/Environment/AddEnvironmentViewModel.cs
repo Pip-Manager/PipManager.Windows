@@ -121,12 +121,21 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
     [RelayCommand]
     private void BrowsePythonPath()
     {
+        var initialDirectory = @"C:\";
+        if (Directory.Exists(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile), @"AppData\Local\Programs\Python")))
+        {
+            initialDirectory =
+                Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile),
+                    @"AppData\Local\Programs\Python");
+        }
         var openFileDialog = new OpenFileDialog
         {
             Title = "Python",
             FileName = "python.exe",
             DefaultExt = ".exe",
-            Filter = "python|python.exe"
+            Filter = "python|python.exe",
+            InitialDirectory = initialDirectory,
+            RestoreDirectory = true
         };
         var result = openFileDialog.ShowDialog();
         if (result == true)

@@ -1,11 +1,9 @@
-﻿using Newtonsoft.Json;
-using PipManager.Models;
+﻿using PipManager.Models;
 using PipManager.Models.AppConfigModels;
+using PipManager.Models.Pages;
 using PipManager.Services.Configuration;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Packaging;
-using System.Windows.Shapes;
 using Path = System.IO.Path;
 
 namespace PipManager.Services.Environment;
@@ -25,8 +23,6 @@ public class EnvironmentService : IEnvironmentService
         return environmentItems.Any(item => item.PythonPath == environmentItem.PythonPath);
     }
 
-    
-
     public (bool, string) CheckEnvironmentAvailable(EnvironmentItem environmentItem)
     {
         var verify = _configurationService.GetEnvironmentItemFromCommand(environmentItem.PythonPath!, "-m pip -V");
@@ -43,18 +39,24 @@ public class EnvironmentService : IEnvironmentService
         var packageDirInfo = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(_configurationService.AppConfig.CurrentEnvironment!.PythonPath)!, @"Lib\site-packages"));
         var packages = new List<PackageItem>();
         var ioTaskList = new List<Task>();
-        foreach (var dir in packageDirInfo.GetDirectories().Where(path => path.Name.EndsWith(".dist-info")).ToList())
+        foreach (var distInfoDirectory in packageDirInfo.GetDirectories().Where(path => path.Name.EndsWith(".dist-info")).ToList())
         {
             var task = Task.Run(() =>
             {
-                var dirInfo = dir.Name.Replace(".dist-info", "").Split('-');
-                var dirPath = dir.FullName;
-                var packageName = dirInfo[0];
-                var packageVersion = dirInfo[1];
+                var distInfoDirectoryFullName = distInfoDirectory.FullName;
+                var distInfoDirectoryName = distInfoDirectory.Name;
+
+                // Basic
+                var packageBasicInfo = distInfoDirectoryName.Replace(".dist-info", "").Split('-');
+                var packageName = packageBasicInfo[0];
+                var packageVersion = packageBasicInfo[1];
+
+                // Metadata
                 var metadataDict = new Dictionary<string, List<string>>();
                 var lastValidKey = "";
                 var lastValidPos = 0;
-                foreach (var line in File.ReadLines(Path.Combine(dirPath, "METADATA")))
+                var classifiers = new Dictionary<string, List<string>>();
+                foreach (var line in File.ReadLines(Path.Combine(distInfoDirectoryFullName, "METADATA")))
                 {
                     if (line == "")
                     {
@@ -67,7 +69,7 @@ public class EnvironmentService : IEnvironmentService
                         key = key.ToLower();
                         if (!metadataDict.ContainsKey(key))
                         {
-                            metadataDict.Add(key, new());
+                            metadataDict.Add(key, new List<string>());
                             lastValidKey = key;
                             lastValidPos = 0;
                         }
@@ -82,17 +84,62 @@ public class EnvironmentService : IEnvironmentService
                         metadataDict[lastValidKey][lastValidPos] += '\n' + value; ;
                     }
                 }
-                
+                foreach (var item in metadataDict.GetValueOrDefault("classifier", new List<string>()))
+                {
+                    var key = item.Split(" :: ")[0];
+                    var value = string.Join(" :: ", item.Split(" :: ")[1..]);
+                    if (!classifiers.ContainsKey(key))
+                    {
+                        classifiers.Add(key, new List<string>());
+                    }
+                    classifiers[key].Add(value);
+                }
+
+                // Record
+                var record = new List<string>();
+                var actualPath = "";
+                foreach (var line in File.ReadLines(Path.Combine(distInfoDirectoryFullName, "RECORD")))
+                {
+                    var dirIdentifier = line.Split('/')[0];
+                    if (dirIdentifier == distInfoDirectoryName || dirIdentifier[0] == '.') continue;
+                    record.Add(line);
+                    if (actualPath == "")
+                    {
+                        actualPath = Path.Combine(packageDirInfo.FullName, dirIdentifier);
+                    }
+                }
+
+                // Extra
+                var projectUrl = metadataDict.GetValueOrDefault("project-url", new List<string>());
+                var projectUrlDictionary = new List<LibraryDetailProjectUrlModel>();
+                if (projectUrl.Count != 0)
+                {
+                    projectUrlDictionary.AddRange(projectUrl.Select(url => new LibraryDetailProjectUrlModel() { UrlType = url.Split(", ")[0], Url = url.Split(", ")[1] }));
+                }
+                else
+                {
+                    projectUrlDictionary.Add(new LibraryDetailProjectUrlModel
+                    {
+                        UrlType = "Unknown",
+                        Url = ""
+                    });
+                }
+
                 lock (packageLock)
                 {
                     packages.Add(new PackageItem
                     {
                         Name = packageName,
                         Version = packageVersion,
-                        Path = dirPath,
-                        Summary = metadataDict.GetValueOrDefault("summary", new List<string>{""})[0],
-                        Classifier = metadataDict.GetValueOrDefault("classifier", new List<string> ()),
-                        Metadata = metadataDict
+                        Path = actualPath,
+                        DistInfoPath = distInfoDirectoryFullName,
+                        Summary = metadataDict.GetValueOrDefault("summary", new List<string> { "" })[0],
+                        Author = metadataDict.GetValueOrDefault("author", new List<string>()),
+                        AuthorEmail = metadataDict.GetValueOrDefault("author-email", new List<string>{ "" })[0],
+                        ProjectUrl = projectUrlDictionary,
+                        Classifier = classifiers,
+                        Metadata = metadataDict,
+                        Record = record
                     });
                 }
             });
