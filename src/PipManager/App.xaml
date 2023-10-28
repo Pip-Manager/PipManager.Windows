@@ -26,6 +26,14 @@
                 <valueConverters:InverseBoolConverter />
                 <valueConverters:BoolToVisibilityConverter FalseValue="Collapsed" />
             </valueConverters:ValueConverterGroup>
+            <valueConverters:ValueConverterGroup x:Key="NullToVisibility">
+                <valueConverters:StringIsNotNullOrEmptyConverter />
+                <valueConverters:BoolToVisibilityConverter FalseValue="Collapsed" />
+            </valueConverters:ValueConverterGroup>
+            <valueConverters:ValueConverterGroup x:Key="NotNullToVisibility">
+                <valueConverters:StringIsNullOrEmptyConverter />
+                <valueConverters:BoolToVisibilityConverter FalseValue="Collapsed" />
+            </valueConverters:ValueConverterGroup>
             <valueConverters:BoolToVisibilityConverter x:Key="BoolToVisibility" FalseValue="Collapsed" />
             <valueConverters:InverseBoolConverter x:Key="InverseBool" />
             <valueConverters:StringIsNotNullOrEmptyConverter x:Key="StringIsNotNullOrEmpty" />

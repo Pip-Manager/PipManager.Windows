@@ -76,8 +76,9 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <ui:Badge Appearance="Primary" Content="{Binding UrlType}"></ui:Badge>
-                                        <ui:HyperlinkButton Margin="5, 0, 0, 0" Icon="{ui:SymbolIcon Link24}" Content="{Binding Url}"></ui:HyperlinkButton>
+                                        <ui:Badge Appearance="Primary" Content="{Binding UrlType}" Visibility="{Binding Url, Converter={StaticResource NullToVisibility}}"></ui:Badge>
+                                        <ui:HyperlinkButton Margin="5, 0, 0, 0" Icon="{ui:SymbolIcon Link24}" Content="{Binding Url}" Visibility="{Binding Url, Converter={StaticResource NullToVisibility}}"></ui:HyperlinkButton>
+                                        <TextBlock Margin="7,5,0,5" Text="{x:Static lang:Lang.LibraryDetail_Unknown}" Visibility="{Binding Url, Converter={StaticResource NotNullToVisibility}}"></TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
