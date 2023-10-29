@@ -505,4 +505,19 @@
   <data name="MsgBox_Message_PackageIsLatest" xml:space="preserve">
     <value>以下包均以是最新版本</value>
   </data>
+  <data name="Action_ConsoleOutput" xml:space="preserve">
+    <value>控制台</value>
+  </data>
+  <data name="Action_ConsoleError" xml:space="preserve">
+    <value>错误信息</value>
+  </data>
+  <data name="Action_ConsoleError_Empty" xml:space="preserve">
+    <value>暂未发现错误</value>
+  </data>
+  <data name="Action_Completed" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="Action_IssueDetected" xml:space="preserve">
+    <value>出错</value>
+  </data>
 </root>

@@ -1,4 +1,5 @@
-﻿using Wpf.Ui.Controls;
+﻿using PipManager.Languages;
+using Wpf.Ui.Controls;
 
 namespace PipManager.Models.Pages;
 
@@ -28,6 +29,8 @@ public class ActionListItem
             _ => "Primary",
         };
         ProgressBarValue = 0;
+        ConsoleError = Lang.Action_ConsoleError_Empty;
+        Completed = false;
     }
 
     public SymbolIcon OperationIcon { get; set; }
@@ -50,6 +53,10 @@ public class ActionListItem
         }
     }
 
+    public string ConsoleError { get; set; }
+
     public string BadgeAppearance { get; set; }
     public double ProgressBarValue { get; set; }
+    public bool Completed { get; set; }
 }
+

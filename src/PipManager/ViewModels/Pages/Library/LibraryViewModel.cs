@@ -12,6 +12,7 @@ using PipManager.Views.Pages.Environment;
 using PipManager.Views.Pages.Library;
 using Serilog;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows.Documents;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
@@ -97,6 +98,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     {
         _overlayLoadService.Show(Lang.Library_Operation_CheckUpdate);
         var msgList = new List<LibraryCheckUpdateMsgBoxContentListItem>();
+        var operationList = "";
         var ioTaskList = new List<Task>();
         var msgListLock = new object();
         await Task.Run(()=>
@@ -108,6 +110,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
                 if (latest == null || item.PackageVersion == latest.Last()) return;
                 lock (msgListLock)
                 {
+                    operationList += $"{item.PackageName}=={latest.Last()} ";
                     msgList.Add(new LibraryCheckUpdateMsgBoxContentListItem(item, latest.Last()));
                 }
             })));
@@ -116,10 +119,36 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         _overlayLoadService.Hide();
         var custom = new CheckUpdateMsgBox(msgList);
         if (custom.ShowAsync().Result != MessageBoxResult.Primary) return;
-        return;
+        _actionService.ActionList.Add(new ActionListItem
+        (
+            ActionType.Update,
+            Lang.Action_Operation_Update,
+            operationList.Trim(),
+            progressIntermediate: false,
+            totalSubTaskNumber: msgList.Count
+        ));
+        _navigationService.Navigate(typeof(ActionPage));
     }
 
     #endregion
+
+    [RelayCommand]
+    private async void Test()
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+            _actionService.ActionList.Add(new ActionListItem
+            (
+                ActionType.Update,
+                Lang.Action_Operation_Update,
+                "adawdasda==random",
+                progressIntermediate: false,
+                totalSubTaskNumber: 1
+            ));
+            await Task.Delay(5);
+        }
+        _navigationService.Navigate(typeof(ActionPage));
+    }
 
     #region Details
 

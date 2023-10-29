@@ -505,4 +505,19 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="MsgBox_Message_PackageIsLatest" xml:space="preserve">
     <value>Package(s) are up to date</value>
   </data>
+  <data name="Action_ConsoleOutput" xml:space="preserve">
+    <value>Console Output</value>
+  </data>
+  <data name="Action_ConsoleError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Action_ConsoleError_Empty" xml:space="preserve">
+    <value>No errors detected</value>
+  </data>
+  <data name="Action_Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Action_IssueDetected" xml:space="preserve">
+    <value>Issue</value>
+  </data>
 </root>

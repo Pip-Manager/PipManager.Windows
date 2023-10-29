@@ -47,6 +47,7 @@
                 <ui:Button
                     Margin="5,0,0,0"
                     Content="{x:Static lang:Lang.Library_Operation_CheckIntegrity}"
+                    Command="{Binding ViewModel.TestCommand }"
                     Icon="{ui:SymbolIcon SearchVisual24}"
                     IsEnabled="{Binding ElementName=LibraryList, Path=SelectedItems.Count, Converter={StaticResource IntegerToBool}}" />
             </StackPanel>

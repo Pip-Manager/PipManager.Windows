@@ -32,7 +32,7 @@ public partial class MainWindow
         contentDialogService.SetContentPresenter(RootContentDialog);
         var runnerThread = new Thread(actionService.Runner)
         {
-            IsBackground = true
+            IsBackground = true, Priority = ThreadPriority.AboveNormal
         };
         runnerThread.Start();
 

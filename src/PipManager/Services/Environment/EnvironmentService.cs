@@ -195,15 +195,22 @@ public partial class EnvironmentService : IEnvironmentService
 
     public async Task<string[]?> GetVersions(string packageName)
     {
-        var responseMessage =
-            await _httpClient.GetAsync($"{_configurationService.GetUrlFromPackageSourceType("pypi")}{packageName}/json");
-        var response = await responseMessage.Content.ReadAsStringAsync();
+        try
+        {
+            var responseMessage =
+                await _httpClient.GetAsync($"{_configurationService.GetUrlFromPackageSourceType("pypi")}{packageName}/json");
+            var response = await responseMessage.Content.ReadAsStringAsync();
 
-        var pypiPackageInfo = JsonConvert.DeserializeObject<PypiPackageInfo>(response)
-            ?.Releases
-            .Where(item => item.Value.Count != 0).OrderBy(e => e.Value[0].UploadTime)
-            .ThenBy(e => e.Value[0].UploadTime).ToDictionary(pair => pair.Key, pair => pair.Value);
-        return pypiPackageInfo?.Keys.ToArray();
+            var pypiPackageInfo = JsonConvert.DeserializeObject<PypiPackageInfo>(response)
+                ?.Releases
+                .Where(item => item.Value.Count != 0).OrderBy(e => e.Value[0].UploadTime)
+                .ThenBy(e => e.Value[0].UploadTime).ToDictionary(pair => pair.Key, pair => pair.Value);
+            return pypiPackageInfo?.Keys.ToArray();
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
     }
 
     public (bool, string) Update(string packageName)
@@ -221,10 +228,11 @@ public partial class EnvironmentService : IEnvironmentService
             }
         };
         process.Start();
-        var output = process.StandardError.ReadToEnd();
+        var error = process.StandardError.ReadToEnd();
         process.WaitForExit();
         process.Close();
-        return string.IsNullOrEmpty(output) ? (true, "") : (false, output);
+        process.Dispose();
+        return (string.IsNullOrEmpty(error), error);
     }
 
     public (bool, string) Uninstall(string packageName)

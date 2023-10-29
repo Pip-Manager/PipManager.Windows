@@ -9,8 +9,6 @@ public interface IConfigurationService
 
     public string GetUrlFromPackageSourceType(string index = "simple");
 
-    public string GetUrlFromPackageSourceType(PackageSourceType packageSourceType, string index="simple");
-
     public string GetTestingUrlFromPackageSourceType(PackageSourceType packageSourceType);
 
     public void Save();

@@ -160,11 +160,56 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Completed 的本地化字符串。
+        /// </summary>
+        public static string Action_Completed {
+            get {
+                return ResourceManager.GetString("Action_Completed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Error 的本地化字符串。
+        /// </summary>
+        public static string Action_ConsoleError {
+            get {
+                return ResourceManager.GetString("Action_ConsoleError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 No errors detected 的本地化字符串。
+        /// </summary>
+        public static string Action_ConsoleError_Empty {
+            get {
+                return ResourceManager.GetString("Action_ConsoleError_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Console Output 的本地化字符串。
+        /// </summary>
+        public static string Action_ConsoleOutput {
+            get {
+                return ResourceManager.GetString("Action_ConsoleOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Current Status 的本地化字符串。
         /// </summary>
         public static string Action_CurrentStatus {
             get {
                 return ResourceManager.GetString("Action_CurrentStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Issue 的本地化字符串。
+        /// </summary>
+        public static string Action_IssueDetected {
+            get {
+                return ResourceManager.GetString("Action_IssueDetected", resourceCulture);
             }
         }
         

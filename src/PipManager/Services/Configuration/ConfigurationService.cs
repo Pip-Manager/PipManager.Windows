@@ -138,22 +138,6 @@ public class ConfigurationService : IConfigurationService
         };
     }
 
-    public string GetUrlFromPackageSourceType(PackageSourceType packageSourceType, string index = "simple")
-    {
-        return packageSourceType switch
-        {
-            PackageSourceType.Official => $"https://pypi.org/{index}/",
-            PackageSourceType.Tsinghua => $"https://pypi.tuna.tsinghua.edu.cn/{index}/",
-            PackageSourceType.Aliyun => $"https://mirrors.aliyun.com/pypi/{index switch
-            {
-                "pypi" => "web/pypi",
-                _ => index
-            }}/",
-            PackageSourceType.Douban => $"https://pypi.doubanio.com/{index}/",
-            _ => throw new ArgumentOutOfRangeException(nameof(packageSourceType), packageSourceType, null)
-        };
-    }
-
     public string GetTestingUrlFromPackageSourceType(PackageSourceType packageSourceType)
     {
         return packageSourceType switch
