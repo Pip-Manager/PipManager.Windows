@@ -12,6 +12,7 @@ using PipManager.Views.Pages.Environment;
 using PipManager.Views.Pages.Library;
 using Serilog;
 using System.Collections.ObjectModel;
+using System.Windows.Documents;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -89,6 +90,39 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
 
     #endregion Delete Package
 
+    #region Check Update
+
+    [RelayCommand]
+    private async Task CheckUpdate()
+    {
+        _overlayLoadService.Show(Lang.Library_Operation_CheckUpdate);
+        var msgList = new List<LibraryCheckUpdateMsgBoxContentListItem>();
+        var ioTaskList = new List<Task>();
+        var msgListLock = new object();
+        await Task.Run(()=>
+        {
+            var selected = LibraryList.Where(libraryListItem => libraryListItem.IsSelected).ToList();
+            foreach (var item in selected)
+            {
+                var task = Task.Run(() =>
+                {
+                    lock (msgListLock)
+                    {
+                        msgList.Add(new LibraryCheckUpdateMsgBoxContentListItem(item, _environmentService.GetVersions(item.PackageName).Last().Trim()));
+                    }
+                });
+                ioTaskList.Add(task);
+            }
+            Task.WaitAll(ioTaskList.ToArray());
+        });
+        _overlayLoadService.Hide();
+        var custom = new CheckUpdateMsgBox(msgList);
+        if (custom.ShowAsync().Result != MessageBoxResult.Primary) return;
+        return;
+    }
+
+    #endregion
+
     #region Details
 
     [RelayCommand]
@@ -98,6 +132,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         _navigationService.Navigate(typeof(LibraryDetailPage));
         var current = _library.Where(libraryListItem => libraryListItem.Name == parameter as string).ToList()[0];
         WeakReferenceMessenger.Default.Send(new LibraryDetailMessage(current));
+        Log.Information($"[Library] Turn to detail page: {current.Name}");
     }
 
     #endregion Details
@@ -118,9 +153,9 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private async Task RefreshLibrary()
     {
+        LibraryList = new ObservableCollection<LibraryListItem>();
         EnvironmentFoundVisible = true;
         _overlayLoadService.Show(Lang.MainWindow_NavigationContent_Library);
-        ListVisible = false;
         _library = new List<PackageItem>();
         if (_configurationService.AppConfig.CurrentEnvironment == null)
         {
@@ -137,7 +172,6 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         });
         if (_library != null)
         {
-            LibraryList = new ObservableCollection<LibraryListItem>();
             foreach (var package in _library)
             {
                 LibraryList.Add(new LibraryListItem
@@ -146,7 +180,6 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
                 ));
             }
             LibraryListLength = _library.Count;
-            ListVisible = true;
             Log.Information("[Library] Package list refreshed successfully");
         }
     }

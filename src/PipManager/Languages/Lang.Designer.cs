@@ -358,6 +358,24 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Current: {0} 的本地化字符串。
+        /// </summary>
+        public static string Library_CheckUpdate_Current {
+            get {
+                return ResourceManager.GetString("Library_CheckUpdate_Current", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Latest: {0} 的本地化字符串。
+        /// </summary>
+        public static string Library_CheckUpdate_Latest {
+            get {
+                return ResourceManager.GetString("Library_CheckUpdate_Latest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 {0} package(s) found 的本地化字符串。
         /// </summary>
         public static string Library_Data_PackageFound {
@@ -390,6 +408,15 @@ namespace PipManager.Languages {
         public static string Library_Error_NoEnvironment {
             get {
                 return ResourceManager.GetString("Library_Error_NoEnvironment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Check Integrity 的本地化字符串。
+        /// </summary>
+        public static string Library_Operation_CheckIntegrity {
+            get {
+                return ResourceManager.GetString("Library_Operation_CheckIntegrity", resourceCulture);
             }
         }
         
@@ -867,6 +894,15 @@ namespace PipManager.Languages {
         public static string Msgbox_Message_LibraryDeletionWarning {
             get {
                 return ResourceManager.GetString("Msgbox_Message_LibraryDeletionWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 The package(s) are up to date 的本地化字符串。
+        /// </summary>
+        public static string MsgBox_Message_PackageIsLatest {
+            get {
+                return ResourceManager.GetString("MsgBox_Message_PackageIsLatest", resourceCulture);
             }
         }
         

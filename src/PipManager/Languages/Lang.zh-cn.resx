@@ -493,4 +493,16 @@
   <data name="LibraryDetail_Contact_ProjectUrl" xml:space="preserve">
     <value>项目地址</value>
   </data>
+  <data name="Library_Operation_CheckIntegrity" xml:space="preserve">
+    <value>检查完整性</value>
+  </data>
+  <data name="Library_CheckUpdate_Current" xml:space="preserve">
+    <value>当前版本: {0}</value>
+  </data>
+  <data name="Library_CheckUpdate_Latest" xml:space="preserve">
+    <value>最新版本: {0}</value>
+  </data>
+  <data name="MsgBox_Message_PackageIsLatest" xml:space="preserve">
+    <value>以下包均以是最新版本</value>
+  </data>
 </root>

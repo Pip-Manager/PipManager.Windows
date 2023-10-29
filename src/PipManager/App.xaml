@@ -20,10 +20,6 @@
 
             <!--  Value Converters  -->
 
-            <valueConverters:ValueConverterGroup x:Key="InverseBoolToVisibility">
-                <valueConverters:InverseBoolConverter />
-                <valueConverters:BoolToVisibilityConverter FalseValue="Collapsed" />
-            </valueConverters:ValueConverterGroup>
             <valueConverters:ValueConverterGroup x:Key="NullToVisibility">
                 <valueConverters:StringIsNotNullOrEmptyConverter />
                 <valueConverters:BoolToVisibilityConverter FalseValue="Collapsed" />
@@ -33,8 +29,13 @@
                 <valueConverters:BoolToVisibilityConverter FalseValue="Collapsed" />
             </valueConverters:ValueConverterGroup>
             <valueConverters:BoolToVisibilityConverter x:Key="BoolToVisibility" FalseValue="Collapsed" />
+            <valueConverters:ValueConverterGroup x:Key="InverseBoolToVisibility">
+                <valueConverters:InverseBoolConverter />
+                <valueConverters:BoolToVisibilityConverter FalseValue="Collapsed" />
+            </valueConverters:ValueConverterGroup>
             <valueConverters:InverseBoolConverter x:Key="InverseBool" />
             <valueConverters:StringIsNotNullOrEmptyConverter x:Key="StringIsNotNullOrEmpty" />
+            <valueConverters:StringIsNullOrEmptyConverter x:Key="StringIsNullOrEmpty" />
             <valueConverters:NullToBoolConverter x:Key="NullToBool" IsInverted="True" />
             <valueConverters:IntegerToBoolConverter x:Key="IntegerToBool" IsInverted="True" />
         </ResourceDictionary>

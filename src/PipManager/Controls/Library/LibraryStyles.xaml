@@ -1,9 +1,11 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:lang="clr-namespace:PipManager.Languages"
-    xmlns:pages="clr-namespace:PipManager.Models.Pages">
+    xmlns:library="clr-namespace:PipManager.Controls.Library"
+    xmlns:pages="clr-namespace:PipManager.Models.Pages"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:valueConverters="clr-namespace:ValueConverters;assembly=ValueConverters">
     <Grid x:Key="LibraryDeletionWarningMsgBoxContent" VerticalAlignment="Top">
         <TextBlock
             VerticalAlignment="Top"
@@ -27,6 +29,59 @@
                                         Content="{Binding PackageVersion}"
                                         FontSize="12" />
                                 </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+
+    <Grid x:Key="LibraryCheckUpdateMsgBoxContent" VerticalAlignment="Top">
+        <Grid.Resources>
+            <valueConverters:BoolToVisibilityConverter x:Key="BoolToVisibility" FalseValue="Collapsed" />
+            <valueConverters:ValueConverterGroup x:Key="InverseBoolToVisibility">
+                <valueConverters:InverseBoolConverter />
+                <valueConverters:BoolToVisibilityConverter FalseValue="Collapsed" />
+            </valueConverters:ValueConverterGroup>
+        </Grid.Resources>
+        <TextBlock
+            VerticalAlignment="Top"
+            FontSize="16"
+            Foreground="OrangeRed"
+            Visibility="Collapsed"
+            Text="{x:Static lang:Lang.MsgBox_Message_FindUpdate}" />
+        <TextBlock
+            VerticalAlignment="Top"
+            FontSize="16"
+            Visibility="Collapsed"
+            Text="{x:Static lang:Lang.MsgBox_Message_PackageIsLatest}" />
+        <ScrollViewer Margin="0, 30, 0, 0" VerticalAlignment="Top">
+            <ItemsControl x:Name="LibraryCheckUpdateMsgBoxContentListView">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type library:LibraryCheckUpdateMsgBoxContentListItem}">
+                        <Grid>
+                            <StackPanel Margin="7,0,0,0" Orientation="Horizontal">
+                                <ui:SymbolIcon Symbol="TabDesktopNewPage20" Visibility="{Binding NeedUpdate, Converter={StaticResource InverseBoolToVisibility}}" />
+                                <ui:SymbolIcon Symbol="ArrowCircleUp24" Visibility="{Binding NeedUpdate, Converter={StaticResource BoolToVisibility}}" Foreground="LimeGreen" />
+                                <TextBlock
+                                    Margin="3, 0, 0, 0"
+                                    VerticalAlignment="Center"
+                                    FontSize="14"
+                                    Text="{Binding PackageName}" />
+                                <TextBlock FontSize="14" Text=" " />
+                                
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <ui:Badge
+                                    Appearance="Primary"
+                                    Content="{Binding PackageVersion}"
+                                    FontSize="12" />
+                                <ui:Badge
+                                    Appearance="Success"
+                                    Visibility="{Binding NeedUpdate, Converter={StaticResource BoolToVisibility}}"
+                                    Content="{Binding NewVersion}"
+                                    FontSize="12" />
                             </StackPanel>
                         </Grid>
                     </DataTemplate>

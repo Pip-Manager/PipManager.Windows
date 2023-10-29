@@ -40,8 +40,14 @@
                     IsEnabled="{Binding ElementName=LibraryList, Path=SelectedItems.Count, Converter={StaticResource IntegerToBool}}" />
                 <ui:Button
                     Margin="5,0,0,0"
+                    Command="{Binding ViewModel.CheckUpdateCommand}"
                     Content="{x:Static lang:Lang.Library_Operation_CheckUpdate}"
                     Icon="{ui:SymbolIcon Check24}"
+                    IsEnabled="{Binding ElementName=LibraryList, Path=SelectedItems.Count, Converter={StaticResource IntegerToBool}}" />
+                <ui:Button
+                    Margin="5,0,0,0"
+                    Content="{x:Static lang:Lang.Library_Operation_CheckIntegrity}"
+                    Icon="{ui:SymbolIcon SearchVisual24}"
                     IsEnabled="{Binding ElementName=LibraryList, Path=SelectedItems.Count, Converter={StaticResource IntegerToBool}}" />
             </StackPanel>
             <StackPanel
@@ -83,7 +89,7 @@
             Margin="0,10,0,0"
             ItemsSource="{Binding ViewModel.LibraryList, Mode=TwoWay}"
             SelectionMode="Multiple"
-            Visibility="{Binding ViewModel.ListVisible, Converter={StaticResource BoolToVisibility}}">
+            Visibility="{Binding ViewModel.LibraryList, Converter={StaticResource NotNullToVisibility}}">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type pages:LibraryListItem}">
                     <Grid>

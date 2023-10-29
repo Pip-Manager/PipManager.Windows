@@ -116,8 +116,8 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
         {
             latest = _environmentService.GetVersions("pip").Last().Trim();
         });
-        _overlayLoadService.Hide();
         Task.WaitAll();
+        _overlayLoadService.Hide();
         var current = _configurationService.AppConfig.CurrentEnvironment!.PipVersion!.Trim();
         if (latest != current)
         {
