@@ -32,18 +32,18 @@ public partial class ActionViewModel : ObservableObject, INavigationAware
     {
     }
 
-    private async Task UpdateActionListTask()
-    {
-        while (true)
-        {
-            Actions = new ObservableCollection<ActionListItem>(_actionService.ActionList);
-            await Task.Delay(1);
-        }
-    }
-
     private void InitializeViewModel()
     {
         _isInitialized = true;
         Log.Information("[Action] Initialized");
+    }
+
+    public async Task UpdateActionListTask()
+    {
+        while (true)
+        {
+            Actions = new ObservableCollection<ActionListItem>(_actionService.ActionList);
+            await Task.Delay(500);
+        }
     }
 }
