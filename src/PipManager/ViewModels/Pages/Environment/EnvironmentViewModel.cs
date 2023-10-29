@@ -112,9 +112,10 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
     {
         _overlayLoadService.Show(Lang.Environment_Operation_CheckEnvironmentUpdate);
         var latest = "";
-        await Task.Run(() =>
+        await Task.Run(async () =>
         {
-            latest = _environmentService.GetVersions("pip").Last().Trim();
+            var versions = await _environmentService.GetVersions("pip");
+            latest = versions.Last();
         });
         Task.WaitAll();
         _overlayLoadService.Hide();

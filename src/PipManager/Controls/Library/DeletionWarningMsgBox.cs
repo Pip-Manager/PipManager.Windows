@@ -16,7 +16,7 @@ public class DeletionWarningMsgBox
         {
             PrimaryButtonText = Lang.MsgBox_PrimaryButton_Action,
             CloseButtonText = Lang.MsgBox_CloseButton_Cancel,
-            MinWidth = 500,
+            MinWidth = 600,
             MinHeight = 300,
             MaxHeight = 500,
             Title = Lang.MsgBox_Title_Warning,

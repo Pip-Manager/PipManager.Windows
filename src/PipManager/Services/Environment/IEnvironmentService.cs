@@ -11,7 +11,7 @@ public interface IEnvironmentService
 
     public List<PackageItem>? GetLibraries();
 
-    public string[] GetVersions(string packageName);
+    public Task<string[]?> GetVersions(string packageName);
 
     public (bool, string) Update(string packageName);
 

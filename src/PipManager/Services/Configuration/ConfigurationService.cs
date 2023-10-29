@@ -122,26 +122,34 @@ public class ConfigurationService : IConfigurationService
 
     #region Settings - Package Source
 
-    public string GetUrlFromPackageSourceType()
+    public string GetUrlFromPackageSourceType(string index="simple")
     {
         return AppConfig.PackageSource.PackageSourceType switch
         {
-            PackageSourceType.Official => "https://pypi.org/simple",
-            PackageSourceType.Tsinghua => "https://pypi.tuna.tsinghua.edu.cn/simple",
-            PackageSourceType.Aliyun => "https://mirrors.aliyun.com/pypi/simple/",
-            PackageSourceType.Douban => "https://pypi.doubanio.com/simple/",
+            PackageSourceType.Official => $"https://pypi.org/{index}/",
+            PackageSourceType.Tsinghua => $"https://pypi.tuna.tsinghua.edu.cn/{index}/",
+            PackageSourceType.Aliyun => $"https://mirrors.aliyun.com/pypi/{index switch
+            {
+                "pypi" => "web/pypi/",
+                _ => index
+            }}/",
+            PackageSourceType.Douban => $"https://pypi.doubanio.com/{index}/",
             _ => throw new ArgumentOutOfRangeException(nameof(AppConfig.PackageSource.PackageSourceType), AppConfig.PackageSource.PackageSourceType, null)
         };
     }
 
-    public string GetUrlFromPackageSourceType(PackageSourceType packageSourceType)
+    public string GetUrlFromPackageSourceType(PackageSourceType packageSourceType, string index = "simple")
     {
         return packageSourceType switch
         {
-            PackageSourceType.Official => "https://pypi.org/simple",
-            PackageSourceType.Tsinghua => "https://pypi.tuna.tsinghua.edu.cn/simple",
-            PackageSourceType.Aliyun => "https://mirrors.aliyun.com/pypi/simple/",
-            PackageSourceType.Douban => "https://pypi.doubanio.com/simple/",
+            PackageSourceType.Official => $"https://pypi.org/{index}/",
+            PackageSourceType.Tsinghua => $"https://pypi.tuna.tsinghua.edu.cn/{index}/",
+            PackageSourceType.Aliyun => $"https://mirrors.aliyun.com/pypi/{index switch
+            {
+                "pypi" => "web/pypi",
+                _ => index
+            }}/",
+            PackageSourceType.Douban => $"https://pypi.doubanio.com/{index}/",
             _ => throw new ArgumentOutOfRangeException(nameof(packageSourceType), packageSourceType, null)
         };
     }

@@ -102,17 +102,15 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         await Task.Run(()=>
         {
             var selected = LibraryList.Where(libraryListItem => libraryListItem.IsSelected).ToList();
-            foreach (var item in selected)
+            ioTaskList.AddRange(selected.Select(item => Task.Run(() =>
             {
-                var task = Task.Run(() =>
+                var latest = _environmentService.GetVersions(item.PackageName.ToLower().Replace('_', '-')).Result;
+                if (latest == null || item.PackageVersion == latest.Last()) return;
+                lock (msgListLock)
                 {
-                    lock (msgListLock)
-                    {
-                        msgList.Add(new LibraryCheckUpdateMsgBoxContentListItem(item, _environmentService.GetVersions(item.PackageName).Last().Trim()));
-                    }
-                });
-                ioTaskList.Add(task);
-            }
+                    msgList.Add(new LibraryCheckUpdateMsgBoxContentListItem(item, latest.Last()));
+                }
+            })));
             Task.WaitAll(ioTaskList.ToArray());
         });
         _overlayLoadService.Hide();

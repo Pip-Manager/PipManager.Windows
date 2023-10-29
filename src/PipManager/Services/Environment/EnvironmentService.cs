@@ -1,21 +1,26 @@
-﻿using PipManager.Models;
+﻿using Newtonsoft.Json;
+using PipManager.Models;
 using PipManager.Models.AppConfigModels;
 using PipManager.Models.Pages;
 using PipManager.Services.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
+using System.Text.RegularExpressions;
 using Wpf.Ui.Controls;
 using Path = System.IO.Path;
 
 namespace PipManager.Services.Environment;
 
-public class EnvironmentService : IEnvironmentService
+public partial class EnvironmentService : IEnvironmentService
 {
     private readonly IConfigurationService _configurationService;
+    private readonly HttpClient _httpClient;
 
     public EnvironmentService(IConfigurationService configurationService)
     {
         _configurationService = configurationService;
+        _httpClient = App.GetService<HttpClient>();
     }
 
     public bool CheckEnvironmentExists(EnvironmentItem environmentItem)
@@ -27,7 +32,9 @@ public class EnvironmentService : IEnvironmentService
     public (bool, string) CheckEnvironmentAvailable(EnvironmentItem environmentItem)
     {
         var verify = _configurationService.GetEnvironmentItemFromCommand(environmentItem.PythonPath!, "-m pip -V");
-        return verify != null && environmentItem.PythonPath != string.Empty ? (true, "") : (false, "Broken Environment");
+        return verify != null && environmentItem.PythonPath != string.Empty
+            ? (true, "")
+            : (false, "Broken Environment");
     }
 
     public List<PackageItem>? GetLibraries()
@@ -36,11 +43,15 @@ public class EnvironmentService : IEnvironmentService
         {
             return null;
         }
+
         var packageLock = new object();
-        var packageDirInfo = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(_configurationService.AppConfig.CurrentEnvironment!.PythonPath)!, @"Lib\site-packages"));
+        var packageDirInfo = new DirectoryInfo(Path.Combine(
+            Path.GetDirectoryName(_configurationService.AppConfig.CurrentEnvironment!.PythonPath)!,
+            @"Lib\site-packages"));
         var packages = new List<PackageItem>();
         var ioTaskList = new List<Task>();
-        foreach (var distInfoDirectory in packageDirInfo.GetDirectories().Where(path => path.Name.EndsWith(".dist-info")).ToList())
+        foreach (var distInfoDirectory in packageDirInfo.GetDirectories()
+                     .Where(path => path.Name.EndsWith(".dist-info")).ToList())
         {
             var task = Task.Run(() =>
             {
@@ -64,6 +75,7 @@ public class EnvironmentService : IEnvironmentService
                     {
                         break;
                     }
+
                     var key = line.Split(": ")[0];
                     var value = line.Replace(key + ": ", "");
                     if (!string.IsNullOrWhiteSpace(key) && !key.StartsWith(' '))
@@ -79,13 +91,16 @@ public class EnvironmentService : IEnvironmentService
                         {
                             lastValidPos++;
                         }
+
                         metadataDict[key].Add(value);
                     }
                     else
                     {
-                        metadataDict[lastValidKey][lastValidPos] += '\n' + value; ;
+                        metadataDict[lastValidKey][lastValidPos] += '\n' + value;
+                        ;
                     }
                 }
+
                 foreach (var item in metadataDict.GetValueOrDefault("classifier", new List<string>()))
                 {
                     var key = item.Split(" :: ")[0];
@@ -94,6 +109,7 @@ public class EnvironmentService : IEnvironmentService
                     {
                         classifiers.Add(key, new List<string>());
                     }
+
                     classifiers[key].Add(value);
                 }
 
@@ -124,9 +140,12 @@ public class EnvironmentService : IEnvironmentService
                             {
                                 "homepage" or "home" => new SymbolIcon(SymbolRegular.Home24),
                                 "download" => new SymbolIcon(SymbolRegular.ArrowDownload24),
-                                "changelog" or "changes" or "release notes" => new SymbolIcon(SymbolRegular.ClipboardTextEdit24),
-                                "bug tracker" or "issue tracker" or "bug reports" or "issues" or "tracker" => new SymbolIcon(SymbolRegular.Bug24),
-                                "source code" or "source" or "repository" or "code" => new SymbolIcon(SymbolRegular.Code24),
+                                "changelog" or "changes" or "release notes" => new SymbolIcon(SymbolRegular
+                                    .ClipboardTextEdit24),
+                                "bug tracker" or "issue tracker" or "bug reports" or "issues" or "tracker" =>
+                                    new SymbolIcon(SymbolRegular.Bug24),
+                                "source code" or "source" or "repository" or "code" => new SymbolIcon(SymbolRegular
+                                    .Code24),
                                 "funding" or "donate" or "donations" => new SymbolIcon(SymbolRegular.Money24),
                                 "documentation" => new SymbolIcon(SymbolRegular.Document24),
                                 "commercial" => new SymbolIcon(SymbolRegular.PeopleMoney24),
@@ -169,28 +188,22 @@ public class EnvironmentService : IEnvironmentService
             });
             ioTaskList.Add(task);
         }
+
         Task.WaitAll(ioTaskList.ToArray());
         return packages.OrderBy(x => x.Name).ToList();
     }
 
-    public string[] GetVersions(string packageName)
+    public async Task<string[]?> GetVersions(string packageName)
     {
-        var process = new Process
-        {
-            StartInfo = new ProcessStartInfo
-            {
-                FileName = _configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
-                Arguments = $"-m pip install \"{packageName}\"==random -i {_configurationService.GetUrlFromPackageSourceType()}",
-                UseShellExecute = false,
-                RedirectStandardError = true,
-                CreateNoWindow = true
-            }
-        };
-        process.Start();
-        var output = process.StandardError.ReadToEnd();
-        process.WaitForExit();
-        process.Close();
-        return output.Split("ERROR: No m")[0].Split("from versions: ")[1].Replace(")", "").Split(", ");
+        var responseMessage =
+            await _httpClient.GetAsync($"{_configurationService.GetUrlFromPackageSourceType("pypi")}{packageName}/json");
+        var response = await responseMessage.Content.ReadAsStringAsync();
+
+        var pypiPackageInfo = JsonConvert.DeserializeObject<PypiPackageInfo>(response)
+            ?.Releases
+            .Where(item => item.Value.Count != 0).OrderBy(e => e.Value[0].UploadTime)
+            .ThenBy(e => e.Value[0].UploadTime).ToDictionary(pair => pair.Key, pair => pair.Value);
+        return pypiPackageInfo?.Keys.ToArray();
     }
 
     public (bool, string) Update(string packageName)
@@ -200,7 +213,8 @@ public class EnvironmentService : IEnvironmentService
             StartInfo = new ProcessStartInfo
             {
                 FileName = _configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
-                Arguments = $"-m pip install --upgrade \"{packageName}\" -i {_configurationService.GetUrlFromPackageSourceType()}",
+                Arguments =
+                    $"-m pip install --upgrade \"{packageName}\" -i {_configurationService.GetUrlFromPackageSourceType()}",
                 UseShellExecute = false,
                 RedirectStandardError = true,
                 CreateNoWindow = true

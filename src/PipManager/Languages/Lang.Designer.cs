@@ -880,7 +880,7 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   查找类似 New version detected. Update? 的本地化字符串。
+        ///   查找类似 New version detected. Update now? 的本地化字符串。
         /// </summary>
         public static string MsgBox_Message_FindUpdate {
             get {
@@ -889,7 +889,7 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   查找类似 The following packages will be removed from the environment: 的本地化字符串。
+        ///   查找类似 Following packages will be removed from the environment: 的本地化字符串。
         /// </summary>
         public static string Msgbox_Message_LibraryDeletionWarning {
             get {
@@ -898,7 +898,7 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   查找类似 The package(s) are up to date 的本地化字符串。
+        ///   查找类似 Package(s) are up to date 的本地化字符串。
         /// </summary>
         public static string MsgBox_Message_PackageIsLatest {
             get {

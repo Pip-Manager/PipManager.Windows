@@ -21,22 +21,21 @@ public class CheckUpdateMsgBox
             CloseButtonText = Lang.MsgBox_CloseButton_Cancel,
             IsPrimaryButtonEnabled = false,
             MinWidth = 500,
-            MinHeight = 300,
+            MinHeight = 100,
             MaxHeight = 500,
             Title = Lang.MsgBox_Title_Notice,
             Content = Application.Current.TryFindResource("LibraryCheckUpdateMsgBoxContent")
         };
         (((_messageBox.Content as Grid)!.Children[2] as ScrollViewer)!.Content as ItemsControl)!.ItemsSource = LibraryList;
 
-        if (LibraryList.Any(item => item.NeedUpdate))
-        {
-            ((_messageBox.Content as Grid)!.Children[0] as TextBlock)!.Visibility = Visibility.Visible;
-            _messageBox.IsPrimaryButtonEnabled = true;
-        }
-        else
-        {
-            ((_messageBox.Content as Grid)!.Children[1] as TextBlock)!.Visibility = Visibility.Visible;
-        }
+        var needUpdate = LibraryList.Any(item => item.NeedUpdate);
+        ((_messageBox.Content as Grid)!.Children[0] as TextBlock)!.Visibility =
+            needUpdate ? Visibility.Visible : Visibility.Collapsed;
+        (((_messageBox.Content as Grid)!.Children[2] as ScrollViewer)!.Content as ItemsControl)!.Visibility =
+            needUpdate ? Visibility.Visible : Visibility.Collapsed;
+        ((_messageBox.Content as Grid)!.Children[1] as TextBlock)!.Visibility =
+            needUpdate ? Visibility.Collapsed : Visibility.Visible;
+        _messageBox.IsPrimaryButtonEnabled = needUpdate;
     }
 
     public async Task<MessageBoxResult> ShowAsync()

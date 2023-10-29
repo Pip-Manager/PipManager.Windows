@@ -359,7 +359,7 @@ Other sources are faster to connect to, but may be incomplete.</value>
     <value>{0} item(s) selected</value>
   </data>
   <data name="Msgbox_Message_LibraryDeletionWarning" xml:space="preserve">
-    <value>The following packages will be removed from the environment:</value>
+    <value>Following packages will be removed from the environment:</value>
   </data>
   <data name="MainWindow_NavigationContent_Action" xml:space="preserve">
     <value>Action</value>
@@ -377,7 +377,7 @@ Other sources are faster to connect to, but may be incomplete.</value>
     <value>Check Update</value>
   </data>
   <data name="MsgBox_Message_FindUpdate" xml:space="preserve">
-    <value>New version detected. Update?</value>
+    <value>New version detected. Update now?</value>
   </data>
   <data name="MsgBox_Title_Notice" xml:space="preserve">
     <value>Notice</value>
@@ -503,6 +503,6 @@ Other sources are faster to connect to, but may be incomplete.</value>
     <value>Latest: {0}</value>
   </data>
   <data name="MsgBox_Message_PackageIsLatest" xml:space="preserve">
-    <value>The package(s) are up to date</value>
+    <value>Package(s) are up to date</value>
   </data>
 </root>
