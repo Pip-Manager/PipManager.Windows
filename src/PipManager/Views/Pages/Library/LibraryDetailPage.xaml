@@ -41,7 +41,7 @@
                     <TextBlock Margin="7,5,0,5" Text="{Binding ViewModel.Package.Name, Mode=TwoWay}" />
                     <TextBlock Margin="7,5,0,5" Text="{Binding ViewModel.Package.Version, Mode=TwoWay}" />
                     <TextBlock Margin="7,5,0,5" Text="{Binding ViewModel.Package.Path, Mode=TwoWay}" />
-                    <TextBlock Margin="7,5,0,5" Text="{Binding ViewModel.Package.Summary, Mode=TwoWay}" />
+                    <TextBlock Margin="7,5,0,5" Text="{Binding ViewModel.Package.Summary, Mode=TwoWay}" TextWrapping="WrapWithOverflow" />
                 </StackPanel>
             </Grid>
             <TextBlock
