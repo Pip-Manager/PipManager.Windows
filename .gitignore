@@ -399,5 +399,4 @@ FodyWeavers.xsd
 .idea
 
 # Build
-build.ps1
 build/
