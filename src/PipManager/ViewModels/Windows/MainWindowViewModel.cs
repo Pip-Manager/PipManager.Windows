@@ -1,15 +1,5 @@
-﻿using PipManager.Languages;
-using PipManager.Services.Configuration;
-using PipManager.Views.Pages.About;
-using PipManager.Views.Pages.Action;
-using PipManager.Views.Pages.Environment;
-using PipManager.Views.Pages.Library;
-using PipManager.Views.Pages.Search;
-using PipManager.Views.Pages.Settings;
-using PipManager.Views.Pages.Tools;
+﻿using PipManager.Services.Configuration;
 using Serilog;
-using System.Collections.ObjectModel;
-using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Windows;
 

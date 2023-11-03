@@ -59,4 +59,3 @@ public class ActionListItem
     public double ProgressBarValue { get; set; }
     public bool Completed { get; set; }
 }
-

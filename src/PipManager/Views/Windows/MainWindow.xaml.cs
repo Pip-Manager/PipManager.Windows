@@ -1,11 +1,9 @@
-﻿using System.ComponentModel;
-using Microsoft.Extensions.Hosting;
-using PipManager.Controls;
+﻿using PipManager.Controls;
 using PipManager.Languages;
 using PipManager.Services.Action;
-using PipManager.Services.OverlayLoad;
+using PipManager.Services.Mask;
 using PipManager.ViewModels.Windows;
-using Serilog;
+using System.ComponentModel;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 
@@ -21,7 +19,7 @@ public partial class MainWindow
         IServiceProvider serviceProvider,
         ISnackbarService snackbarService,
         IContentDialogService contentDialogService,
-        IOverlayLoadService overlayLoadPresenter,
+        IMaskService maskPresenter,
         IActionService actionService
     )
     {
@@ -33,11 +31,12 @@ public partial class MainWindow
         InitializeComponent();
         navigationService.SetNavigationControl(NavigationView);
         snackbarService.SetSnackbarPresenter(SnackbarPresenter);
-        overlayLoadPresenter.SetOverlayLoadPresenter(OverlayLoadPresenter);
+        maskPresenter.SetMaskPresenter(MaskPresenter);
         contentDialogService.SetContentPresenter(RootContentDialog);
         var runnerThread = new Thread(actionService.Runner)
         {
-            IsBackground = true, Priority = ThreadPriority.AboveNormal
+            IsBackground = true,
+            Priority = ThreadPriority.AboveNormal
         };
         runnerThread.Start();
 

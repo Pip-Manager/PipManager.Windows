@@ -47,7 +47,6 @@
                 <ui:Button
                     Margin="5,0,0,0"
                     Content="{I18N {x:Static lang:LangKeys.Library_Operation_CheckIntegrity}}"
-                    Command="{Binding ViewModel.TestCommand }"
                     Icon="{ui:SymbolIcon SearchVisual24}"
                     IsEnabled="{Binding ElementName=LibraryList, Path=SelectedItems.Count, Converter={StaticResource IntegerToBool}}" />
             </StackPanel>
@@ -66,7 +65,7 @@
                         <TextBlock VerticalAlignment="Center">
                             <TextBlock.Text>
                                 <I18N Key="{x:Static lang:LangKeys.Library_Data_SelectedItemsCount}">
-                                    <Binding ElementName="LibraryList" Path="SelectedItems.Count"></Binding>
+                                    <Binding ElementName="LibraryList" Path="SelectedItems.Count" />
                                 </I18N>
                             </TextBlock.Text>
                         </TextBlock>
@@ -83,7 +82,7 @@
                         <TextBlock VerticalAlignment="Center">
                             <TextBlock.Text>
                                 <I18N Key="{x:Static lang:LangKeys.Library_Data_PackageFound}">
-                                    <Binding ElementName="LibraryList" Path="Items.Count"></Binding>
+                                    <Binding ElementName="LibraryList" Path="Items.Count" />
                                 </I18N>
                             </TextBlock.Text>
                         </TextBlock>
@@ -115,7 +114,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
                                     VerticalAlignment="Center"
-                                    FontSize="16"
+                                    FontSize="15"
                                     Text="{Binding PackageName}" />
                                 <TextBlock FontSize="14" Text=" " />
                                 <ui:Badge
@@ -125,18 +124,18 @@
                                 <ui:Badge
                                     Appearance="Caution"
                                     Content="{I18N {x:Static lang:LangKeys.Library_Version_Pre}}"
-                                    Visibility="{Binding PackageDetailedVersion.PreL, Converter={StaticResource NullToVisibility}}"
-                                    FontSize="12" />
+                                    FontSize="12"
+                                    Visibility="{Binding PackageDetailedVersion.PreL, Converter={StaticResource NullToVisibility}}" />
                                 <ui:Badge
                                     Appearance="Primary"
                                     Content="{I18N {x:Static lang:LangKeys.Library_Version_Post}}"
-                                    Visibility="{Binding PackageDetailedVersion.PostL, Converter={StaticResource NullToVisibility}}"
-                                    FontSize="12" />
+                                    FontSize="12"
+                                    Visibility="{Binding PackageDetailedVersion.PostL, Converter={StaticResource NullToVisibility}}" />
                                 <ui:Badge
                                     Appearance="Danger"
                                     Content="{I18N {x:Static lang:LangKeys.Library_Version_Dev}}"
-                                    Visibility="{Binding PackageDetailedVersion.DevL, Converter={StaticResource NullToVisibility}}"
-                                    FontSize="12" />
+                                    FontSize="12"
+                                    Visibility="{Binding PackageDetailedVersion.DevL, Converter={StaticResource NullToVisibility}}" />
                             </StackPanel>
 
                             <TextBlock

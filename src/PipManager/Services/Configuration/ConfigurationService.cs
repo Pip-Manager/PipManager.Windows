@@ -8,12 +8,7 @@ namespace PipManager.Services.Configuration;
 
 public class ConfigurationService : IConfigurationService
 {
-    public AppConfig AppConfig { get; set; }
-
-    public ConfigurationService()
-    {
-        AppConfig = LoadConfiguration();
-    }
+    public AppConfig AppConfig { get; set; } = LoadConfiguration();
 
     public static AppConfig LoadConfiguration()
     {
@@ -109,7 +104,11 @@ public class ConfigurationService : IConfigurationService
         {
             Task.Run(() =>
             {
-                item.PipVersion = GetEnvironmentItemFromCommand(item.PythonPath!, "-m pip -V").PipVersion;
+                var environmentItem = GetEnvironmentItemFromCommand(item.PythonPath!, "-m pip -V");
+                if (environmentItem != null)
+                {
+                    item.PipVersion = environmentItem.PipVersion;
+                }
             });
         }
 
@@ -122,7 +121,7 @@ public class ConfigurationService : IConfigurationService
 
     #region Settings - Package Source
 
-    public string GetUrlFromPackageSourceType(string index="simple")
+    public string GetUrlFromPackageSourceType(string index = "simple")
     {
         return AppConfig.PackageSource.PackageSourceType switch
         {

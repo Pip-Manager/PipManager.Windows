@@ -1,8 +1,6 @@
-﻿using System.Net.Mime;
-using PipManager.Languages;
+﻿using PipManager.Languages;
 using PipManager.Models.Pages;
 using System.Windows.Controls;
-using Wpf.Ui.Controls;
 using TextBlock = System.Windows.Controls.TextBlock;
 
 namespace PipManager.Controls.Library;
@@ -53,9 +51,9 @@ public class LibraryCheckUpdateMsgBoxContentListItem
         NewVersion = string.Format(Lang.Library_CheckUpdate_Latest, newVersion);
         NeedUpdate = newVersion != libraryListItem.PackageVersion;
     }
+
     public string PackageName { get; set; }
     public string PackageVersion { get; set; }
     public string NewVersion { get; set; }
     public bool NeedUpdate { get; set; }
-
 }

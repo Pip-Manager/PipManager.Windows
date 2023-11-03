@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PipManager": {
+      "commandName": "Project",
+      "commandLineArgs": "/console"
+    }
+  }
+}

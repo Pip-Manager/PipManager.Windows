@@ -5,12 +5,11 @@ using PipManager.Models.Pages;
 using PipManager.Services.Action;
 using PipManager.Services.Configuration;
 using PipManager.Services.Environment;
-using PipManager.Services.OverlayLoad;
+using PipManager.Services.Mask;
 using PipManager.ViewModels.Windows;
 using PipManager.Views.Pages.Action;
 using PipManager.Views.Pages.Environment;
 using Serilog;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Wpf.Ui;
@@ -25,15 +24,15 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
     private readonly IConfigurationService _configurationService;
     private readonly IEnvironmentService _environmentService;
     private readonly IActionService _actionService;
-    private readonly IOverlayLoadService _overlayLoadService;
+    private readonly IMaskService _maskService;
 
-    public EnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService, IEnvironmentService environmentService, IActionService actionService, IOverlayLoadService overlayLoadService)
+    public EnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService, IEnvironmentService environmentService, IActionService actionService, IMaskService maskService)
     {
         _navigationService = navigationService;
         _configurationService = configurationService;
         _environmentService = environmentService;
         _actionService = actionService;
-        _overlayLoadService = overlayLoadService;
+        _maskService = maskService;
     }
 
     public async void OnNavigatedTo()
@@ -111,7 +110,7 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private async Task CheckEnvironmentUpdate()
     {
-        _overlayLoadService.Show(Lang.Environment_Operation_CheckEnvironmentUpdate);
+        _maskService.Show(Lang.Environment_Operation_CheckEnvironmentUpdate);
         var latest = "";
         await Task.Run(async () =>
         {
@@ -122,7 +121,7 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
             }
         });
         Task.WaitAll();
-        _overlayLoadService.Hide();
+        _maskService.Hide();
         var current = _configurationService.AppConfig.CurrentEnvironment!.PipVersion!.Trim();
         if (latest != current && latest != string.Empty)
         {

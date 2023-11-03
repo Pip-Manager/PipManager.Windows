@@ -5,5 +5,4 @@ namespace PipManager.Languages;
 [ResourceKeysOf(typeof(Lang))]
 public static partial class LangKeys
 {
-    
 }

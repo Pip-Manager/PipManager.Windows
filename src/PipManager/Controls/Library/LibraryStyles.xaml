@@ -1,10 +1,10 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:lang="clr-namespace:PipManager.Languages"
-    xmlns:library="clr-namespace:PipManager.Controls.Library"
-    xmlns:pages="clr-namespace:PipManager.Models.Pages"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:library="clr-namespace:PipManager.Controls.Library"
+    xmlns:lang="clr-namespace:PipManager.Languages"
+    xmlns:pages="clr-namespace:PipManager.Models.Pages"
     xmlns:valueConverters="clr-namespace:ValueConverters;assembly=ValueConverters">
     <Grid x:Key="LibraryDeletionWarningMsgBoxContent" VerticalAlignment="Top">
         <TextBlock
@@ -49,39 +49,41 @@
             VerticalAlignment="Top"
             FontSize="16"
             Foreground="OrangeRed"
-            Visibility="Collapsed"
-            Text="{I18N {x:Static lang:LangKeys.MsgBox_Message_FindUpdate}}" />
+            Text="{I18N {x:Static lang:LangKeys.MsgBox_Message_FindUpdate}}"
+            Visibility="Collapsed" />
         <TextBlock
             VerticalAlignment="Top"
             FontSize="16"
-            Visibility="Collapsed"
-            Text="{I18N {x:Static lang:LangKeys.MsgBox_Message_PackageIsLatest}}" />
-        <ScrollViewer Margin="0, 30, 0, 0" VerticalAlignment="Top">
+            Text="{I18N {x:Static lang:LangKeys.MsgBox_Message_PackageIsLatest}}"
+            Visibility="Collapsed" />
+        <ScrollViewer Margin="0,30,0,0" VerticalAlignment="Top">
             <ItemsControl x:Name="LibraryCheckUpdateMsgBoxContentListView">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type library:LibraryCheckUpdateMsgBoxContentListItem}">
                         <Grid>
                             <StackPanel Margin="7,0,0,0" Orientation="Horizontal">
                                 <ui:SymbolIcon Symbol="TabDesktopNewPage20" Visibility="{Binding NeedUpdate, Converter={StaticResource InverseBoolToVisibility}}" />
-                                <ui:SymbolIcon Symbol="ArrowCircleUp24" Visibility="{Binding NeedUpdate, Converter={StaticResource BoolToVisibility}}" Foreground="LimeGreen" />
+                                <ui:SymbolIcon
+                                    Foreground="LimeGreen"
+                                    Symbol="ArrowCircleUp24"
+                                    Visibility="{Binding NeedUpdate, Converter={StaticResource BoolToVisibility}}" />
                                 <TextBlock
-                                    Margin="3, 0, 0, 0"
+                                    Margin="3,0,0,0"
                                     VerticalAlignment="Center"
                                     FontSize="14"
                                     Text="{Binding PackageName}" />
                                 <TextBlock FontSize="14" Text=" " />
-                                
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                                 <ui:Badge
                                     Appearance="Primary"
                                     Content="{Binding PackageVersion}"
                                     FontSize="12" />
                                 <ui:Badge
                                     Appearance="Success"
-                                    Visibility="{Binding NeedUpdate, Converter={StaticResource BoolToVisibility}}"
                                     Content="{Binding NewVersion}"
-                                    FontSize="12" />
+                                    FontSize="12"
+                                    Visibility="{Binding NeedUpdate, Converter={StaticResource BoolToVisibility}}" />
                             </StackPanel>
                         </Grid>
                     </DataTemplate>

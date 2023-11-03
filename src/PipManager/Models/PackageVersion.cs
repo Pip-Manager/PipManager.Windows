@@ -5,6 +5,7 @@ public class PackageVersion
     public PackageVersion()
     {
     }
+
     public PackageVersion(string epoch, string release, string preL, string preN, string postN1, string postL, string postN2, string devL, string devN, string local)
     {
         Epoch = epoch;

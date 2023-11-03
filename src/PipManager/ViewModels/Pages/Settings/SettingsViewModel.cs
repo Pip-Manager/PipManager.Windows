@@ -2,13 +2,13 @@
 using PipManager.Languages;
 using PipManager.Models;
 using PipManager.Services.Configuration;
+using PipManager.Views.Pages.About;
+using PipManager.Views.Pages.Settings;
 using Serilog;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net.Http;
-using PipManager.Views.Pages.About;
-using PipManager.Views.Pages.Settings;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;

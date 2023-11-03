@@ -1,14 +1,14 @@
 ﻿<Page
     x:Class="PipManager.Views.Pages.Settings.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:helpers="clr-namespace:PipManager.Helpers"
     xmlns:lang="clr-namespace:PipManager.Languages"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:settings="clr-namespace:PipManager.Views.Pages.Settings"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="SettingsPage"
     d:DataContext="{d:DesignInstance settings:SettingsPage,
                                      IsDesignTimeCreatable=False}"
@@ -120,8 +120,8 @@
         <ComboBox
             x:Name="LanguageComboBox"
             Margin="0,10,900,0"
-            Focusable="False"
             HorizontalAlignment="Stretch"
+            Focusable="False"
             ItemsSource="{Binding ViewModel.Languages}"
             SelectedItem="{Binding ViewModel.Language, Mode=TwoWay}">
             <behaviors:Interaction.Triggers>
@@ -172,11 +172,10 @@
                 Visibility="{Binding ElementName=LogAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
                 <TextBlock.Text>
                     <I18N Key="{x:Static lang:LangKeys.Settings_PersonalizationLogAutoDeletion_Tip}">
-                        <Binding ElementName="LogAutoDeletionSlider" Path="Value"></Binding>
+                        <Binding ElementName="LogAutoDeletionSlider" Path="Value" />
                     </I18N>
                 </TextBlock.Text>
             </TextBlock>
-            
         </StackPanel>
         <TextBlock Margin="0,12,0,0" Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_CrushesAutoDeletion}}" />
         <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
@@ -205,7 +204,7 @@
                 Visibility="{Binding ElementName=CrushesAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
                 <TextBlock.Text>
                     <I18N Key="{x:Static lang:LangKeys.Settings_PersonalizationCrushesAutoDeletion_Tip}">
-                        <Binding ElementName="CrushesAutoDeletionSlider" Path="Value"></Binding>
+                        <Binding ElementName="CrushesAutoDeletionSlider" Path="Value" />
                     </I18N>
                 </TextBlock.Text>
             </TextBlock>

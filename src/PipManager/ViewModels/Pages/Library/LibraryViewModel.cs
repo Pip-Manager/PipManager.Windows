@@ -6,7 +6,7 @@ using PipManager.Models.Pages;
 using PipManager.Services.Action;
 using PipManager.Services.Configuration;
 using PipManager.Services.Environment;
-using PipManager.Services.OverlayLoad;
+using PipManager.Services.Mask;
 using PipManager.Views.Pages.Action;
 using PipManager.Views.Pages.Environment;
 using PipManager.Views.Pages.Library;
@@ -28,17 +28,17 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private readonly IConfigurationService _configurationService;
     private readonly IActionService _actionService;
     private readonly IThemeService _themeService;
-    private readonly IOverlayLoadService _overlayLoadService;
+    private readonly IMaskService _maskService;
 
     public LibraryViewModel(INavigationService navigationService, IEnvironmentService environmentService,
-        IConfigurationService configurationService, IActionService actionService, IThemeService themeService, IOverlayLoadService overlayLoadService)
+        IConfigurationService configurationService, IActionService actionService, IThemeService themeService, IMaskService maskService)
     {
         _navigationService = navigationService;
         _environmentService = environmentService;
         _configurationService = configurationService;
         _actionService = actionService;
         _themeService = themeService;
-        _overlayLoadService = overlayLoadService;
+        _maskService = maskService;
 
         _themeService.SetTheme(_configurationService.AppConfig.Personalization.Theme switch
         {
@@ -94,12 +94,12 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private async Task CheckUpdate()
     {
-        _overlayLoadService.Show(Lang.Library_Operation_CheckUpdate);
+        _maskService.Show(Lang.Library_Operation_CheckUpdate);
         var msgList = new List<LibraryCheckUpdateMsgBoxContentListItem>();
         var operationList = "";
         var ioTaskList = new List<Task>();
         var msgListLock = new object();
-        await Task.Run(()=>
+        await Task.Run(() =>
         {
             var selected = LibraryList.Where(libraryListItem => libraryListItem.IsSelected).ToList();
             ioTaskList.AddRange(selected.Select(item => Task.Run(() =>
@@ -114,7 +114,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             })));
             Task.WaitAll(ioTaskList.ToArray());
         });
-        _overlayLoadService.Hide();
+        _maskService.Hide();
         var custom = new CheckUpdateMsgBox(msgList);
         if (custom.ShowAsync().Result != MessageBoxResult.Primary) return;
         _actionService.ActionList.Add(new ActionListItem
@@ -128,25 +128,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         _navigationService.Navigate(typeof(ActionPage));
     }
 
-    #endregion
-
-    [RelayCommand]
-    private async void Test()
-    {
-        for (int i = 0; i < 5; ++i)
-        {
-            _actionService.ActionList.Add(new ActionListItem
-            (
-                ActionType.Update,
-                Lang.Action_Operation_Update,
-                "adawdasda==random",
-                progressIntermediate: false,
-                totalSubTaskNumber: 1
-            ));
-            await Task.Delay(5);
-        }
-        _navigationService.Navigate(typeof(ActionPage));
-    }
+    #endregion Check Update
 
     #region Details
 
@@ -180,11 +162,11 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     {
         LibraryList = new ObservableCollection<LibraryListItem>();
         EnvironmentFoundVisible = true;
-        _overlayLoadService.Show(Lang.MainWindow_NavigationContent_Library);
+        _maskService.Show(Lang.MainWindow_NavigationContent_Library);
         _library = new List<PackageItem>();
         if (_configurationService.AppConfig.CurrentEnvironment == null)
         {
-            _overlayLoadService.Hide();
+            _maskService.Hide();
             EnvironmentFoundVisible = false;
             return;
         }
@@ -193,7 +175,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             _library = _environmentService.GetLibraries();
         }).ContinueWith(_ =>
         {
-            _overlayLoadService.Hide();
+            _maskService.Hide();
         });
         if (_library != null)
         {

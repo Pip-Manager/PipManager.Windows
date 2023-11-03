@@ -41,6 +41,9 @@
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#arguments">Arguments</a></li>
+      </ul>
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
@@ -73,8 +76,11 @@ Pip Manager is based on the following technology stacks:
 
 _Get `PipManager-XXX.zip` from Github Releases._
 
-1. decompression
-2. Double click `PipManager.exe`
+Double click `PipManager-XXX.exe`
+
+### Arguments
+
+- `/console`: Show console while program running
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -94,10 +100,10 @@ _Get `PipManager-XXX.zip` from Github Releases._
 ### Features
 
 - [ ] Install Package
-- [ ] Update Package
-- [ ] Delete Package
+- [x] Update Package
+- [x] Delete Package
 - [ ] Search Package
-- [ ] Show Packages in data grid
+- [x] Show Packages in list
 
 ### Long-term
 

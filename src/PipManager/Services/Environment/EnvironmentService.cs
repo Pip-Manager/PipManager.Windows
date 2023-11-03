@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PipManager.Helpers;
 using PipManager.Models;
 using PipManager.Models.AppConfigModels;
 using PipManager.Models.Pages;
@@ -6,8 +7,6 @@ using PipManager.Services.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
-using System.Text.RegularExpressions;
-using PipManager.Helpers;
 using Wpf.Ui.Controls;
 using Path = System.IO.Path;
 
@@ -209,7 +208,7 @@ public partial class EnvironmentService : IEnvironmentService
                 .ThenBy(e => e.Value[0].UploadTime).ToDictionary(pair => pair.Key, pair => pair.Value);
             return pypiPackageInfo?.Keys.ToArray();
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return null;
         }
