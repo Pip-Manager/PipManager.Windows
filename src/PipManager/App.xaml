@@ -18,6 +18,27 @@
                 <ResourceDictionary Source="/PipManager;component/Controls/Library/LibraryStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <!--  Mask  -->
+            <Grid x:Key="MaskGrid">
+                <Grid.Background>
+                    <SolidColorBrush Opacity="0.5" Color="Black" />
+                </Grid.Background>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ui:ProgressRing
+                        Width="100"
+                        Height="100"
+                        IsIndeterminate="True" />
+                    <TextBlock
+                        Margin="0,15,0,0"
+                        HorizontalAlignment="Center"
+                        FontSize="22" />
+                    <TextBlock
+                        Margin="0,7,0,0"
+                        HorizontalAlignment="Center"
+                        FontSize="16" />
+                </StackPanel>
+            </Grid>
+
             <!--  Value Converters  -->
 
             <valueConverters:ValueConverterGroup x:Key="NullToVisibility">

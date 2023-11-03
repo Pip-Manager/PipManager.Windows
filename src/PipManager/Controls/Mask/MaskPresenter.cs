@@ -1,8 +1,8 @@
 ﻿using System.Windows.Controls;
 
-namespace PipManager.Controls;
+namespace PipManager.Controls.Mask;
 
-public class OverlayLoadPresenter : ContentPresenter
+public class MaskPresenter : ContentPresenter
 {
     public new Grid? Content
     {

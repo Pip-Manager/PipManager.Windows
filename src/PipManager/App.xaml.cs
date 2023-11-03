@@ -5,7 +5,7 @@ using PipManager.Services;
 using PipManager.Services.Action;
 using PipManager.Services.Configuration;
 using PipManager.Services.Environment;
-using PipManager.Services.OverlayLoad;
+using PipManager.Services.Mask;
 using PipManager.ViewModels.Pages.Environment;
 using PipManager.ViewModels.Pages.Library;
 using PipManager.ViewModels.Pages.Tools;
@@ -60,7 +60,7 @@ public partial class App
             // Services
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<ISnackbarService, SnackbarService>();
-            services.AddSingleton<IOverlayLoadService, OverlayLoadService>();
+            services.AddSingleton<IMaskService, MaskService>();
             services.AddSingleton<IContentDialogService, ContentDialogService>();
             services.AddSingleton<IConfigurationService, ConfigurationService>();
             services.AddSingleton<IEnvironmentService, EnvironmentService>();
@@ -102,8 +102,9 @@ public partial class App
         return Host.Services.GetService(typeof(T)) as T ?? throw new InvalidOperationException("Service not found.");
     }
 
-    [DllImport("kernel32.dll")]
-    static extern bool FreeConsole();
+    [LibraryImport("kernel32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool FreeConsole();
 
     private bool _showConsoleWindow;
 

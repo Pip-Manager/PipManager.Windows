@@ -880,6 +880,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Loading... 的本地化字符串。
+        /// </summary>
+        public static string Mask_Loading {
+            get {
+                return ResourceManager.GetString("Mask_Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Cancel 的本地化字符串。
         /// </summary>
         public static string MsgBox_CloseButton_Cancel {
@@ -1056,15 +1065,6 @@ namespace PipManager.Languages {
         public static string MsgBox_Title_Warning {
             get {
                 return ResourceManager.GetString("MsgBox_Title_Warning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Loading... 的本地化字符串。
-        /// </summary>
-        public static string OverlayLoad_Loading {
-            get {
-                return ResourceManager.GetString("OverlayLoad_Loading", resourceCulture);
             }
         }
         

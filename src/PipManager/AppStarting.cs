@@ -7,10 +7,11 @@ using System.Runtime.InteropServices;
 
 namespace PipManager;
 
-public class AppStarting
+public partial class AppStarting
 {
-    [DllImport("kernel32.dll")]
-    public static extern bool AllocConsole();
+    [LibraryImport("kernel32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool AllocConsole();
 
     public readonly AppConfig Config;
     public bool ShowConsoleWindow = false;
