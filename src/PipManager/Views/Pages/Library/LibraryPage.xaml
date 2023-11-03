@@ -103,7 +103,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
                                     VerticalAlignment="Center"
-                                    FontSize="14"
+                                    FontSize="16"
                                     Text="{Binding PackageName}" />
                                 <TextBlock FontSize="14" Text=" " />
                                 <ui:Badge
