@@ -11,19 +11,19 @@ public class PypiPackageInfo
 public class PypiPackageRelease
 {
     [JsonProperty("filename")]
-    public required string Filename;
+    public string Filename;
     [JsonProperty("upload_time")]
-    public required string UploadTime;
+    public string UploadTime;
     [JsonProperty("digests")]
-    public required PypiPackageDigest Digests;
+    public PypiPackageDigest Digests;
 }
 
 public class PypiPackageDigest
 {
     [JsonProperty("blake2b_256")]
-    public required string Blake2B256;
+    public string Blake2B256;
     [JsonProperty("md5")]
-    public required string Md5;
+    public string Md5;
     [JsonProperty("sha256")]
-    public required string Sha256;
+    public string Sha256;
 }

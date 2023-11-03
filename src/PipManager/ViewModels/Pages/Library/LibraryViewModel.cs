@@ -12,8 +12,6 @@ using PipManager.Views.Pages.Environment;
 using PipManager.Views.Pages.Library;
 using Serilog;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Windows.Documents;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -203,7 +201,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             {
                 LibraryList.Add(new LibraryListItem
                 (
-                    new SymbolIcon(SymbolRegular.Box24), package.Name, package.Version, package.Summary, false
+                    new SymbolIcon(SymbolRegular.Box24), package.Name, package.Version, package.DetailedVersion, package.Summary, false
                 ));
             }
             LibraryListLength = _library.Count;

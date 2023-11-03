@@ -110,6 +110,21 @@
                                     Appearance="Primary"
                                     Content="{Binding PackageVersion}"
                                     FontSize="12" />
+                                <ui:Badge
+                                    Appearance="Caution"
+                                    Content="{x:Static lang:Lang.Library_Version_Pre}"
+                                    Visibility="{Binding PackageDetailedVersion.PreL, Converter={StaticResource NullToVisibility}}"
+                                    FontSize="12" />
+                                <ui:Badge
+                                    Appearance="Primary"
+                                    Content="{x:Static lang:Lang.Library_Version_Post}"
+                                    Visibility="{Binding PackageDetailedVersion.PostL, Converter={StaticResource NullToVisibility}}"
+                                    FontSize="12" />
+                                <ui:Badge
+                                    Appearance="Danger"
+                                    Content="{x:Static lang:Lang.Library_Version_Dev}"
+                                    Visibility="{Binding PackageDetailedVersion.DevL, Converter={StaticResource NullToVisibility}}"
+                                    FontSize="12" />
                             </StackPanel>
 
                             <TextBlock

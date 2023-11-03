@@ -502,6 +502,33 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Dev 的本地化字符串。
+        /// </summary>
+        public static string Library_Version_Dev {
+            get {
+                return ResourceManager.GetString("Library_Version_Dev", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Post 的本地化字符串。
+        /// </summary>
+        public static string Library_Version_Post {
+            get {
+                return ResourceManager.GetString("Library_Version_Post", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Unstable 的本地化字符串。
+        /// </summary>
+        public static string Library_Version_Pre {
+            get {
+                return ResourceManager.GetString("Library_Version_Pre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Development Status 的本地化字符串。
         /// </summary>
         public static string LibraryDetail_Classifier_DevelopmentStatus {

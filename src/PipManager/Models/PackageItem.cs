@@ -1,4 +1,5 @@
-﻿using PipManager.Models.Pages;
+﻿using PipManager.Helpers;
+using PipManager.Models.Pages;
 
 namespace PipManager.Models;
 
@@ -6,6 +7,7 @@ public class PackageItem
 {
     public string Name { get; set; }
     public string Version { get; set; }
+    public PackageVersion DetailedVersion { get; set; }
     public string Path { get; set; }
     public string DistInfoPath { get; set; }
     public string Summary { get; set; }

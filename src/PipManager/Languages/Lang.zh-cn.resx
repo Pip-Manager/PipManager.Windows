@@ -526,4 +526,13 @@
   <data name="MsgBox_Message_ActionStillRunning" xml:space="preserve">
     <value>后台任务仍在运行。您确认退出软件吗？</value>
   </data>
+  <data name="Library_Version_Pre" xml:space="preserve">
+    <value>不稳定</value>
+  </data>
+  <data name="Library_Version_Post" xml:space="preserve">
+    <value>发布后修补</value>
+  </data>
+  <data name="Library_Version_Dev" xml:space="preserve">
+    <value>开发版</value>
+  </data>
 </root>

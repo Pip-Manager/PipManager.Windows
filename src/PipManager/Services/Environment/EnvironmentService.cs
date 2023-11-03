@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Text.RegularExpressions;
+using PipManager.Helpers;
 using Wpf.Ui.Controls;
 using Path = System.IO.Path;
 
@@ -174,6 +175,7 @@ public partial class EnvironmentService : IEnvironmentService
                     {
                         Name = packageName,
                         Version = packageVersion,
+                        DetailedVersion = PackageValidator.CheckVersion(packageVersion),
                         Path = actualPath,
                         DistInfoPath = distInfoDirectoryFullName,
                         Summary = metadataDict.GetValueOrDefault("summary", new List<string> { "" })[0],
