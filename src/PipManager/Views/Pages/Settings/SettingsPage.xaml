@@ -32,13 +32,13 @@
         <TextBlock
             FontSize="20"
             FontWeight="Medium"
-            Text="{x:Static lang:Lang.Settings_Category_PackageSource}" />
+            Text="{I18N {x:Static lang:LangKeys.Settings_Category_PackageSource}}" />
         <ui:InfoBar
-            Title="{x:Static lang:Lang.Common_NoticeTitle_Notice}"
+            Title="{I18N {x:Static lang:LangKeys.Common_NoticeTitle_Notice}}"
             Margin="0,8,0,0"
             IsClosable="False"
             IsOpen="True"
-            Message="{x:Static lang:Lang.Settings_PackageSource_Notice}" />
+            Message="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Notice}}" />
         <Grid Margin="0,8,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="130" />
@@ -55,7 +55,7 @@
                 Grid.Column="0"
                 Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
                 CommandParameter="official"
-                Content="{x:Static lang:Lang.Settings_PackageSource_Official}"
+                Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Official}}"
                 Cursor="Hand"
                 GroupName="packageSourceSelect"
                 IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Official, Mode=TwoWay}" />
@@ -69,7 +69,7 @@
                 Grid.Column="0"
                 Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
                 CommandParameter="tsinghua"
-                Content="{x:Static lang:Lang.Settings_PackageSource_Tsinghua}"
+                Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Tsinghua}}"
                 GroupName="packageSourceSelect"
                 IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Tsinghua, Mode=TwoWay}" />
             <TextBlock
@@ -82,7 +82,7 @@
                 Grid.Column="0"
                 Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
                 CommandParameter="aliyun"
-                Content="{x:Static lang:Lang.Settings_PackageSource_Aliyun}"
+                Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Aliyun}}"
                 GroupName="packageSourceSelect"
                 IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Aliyun, Mode=TwoWay}" />
             <TextBlock
@@ -95,7 +95,7 @@
                 Grid.Column="0"
                 Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
                 CommandParameter="douban"
-                Content="{x:Static lang:Lang.Settings_PackageSource_Douban}"
+                Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Douban}}"
                 Cursor="Hand"
                 GroupName="packageSourceSelect"
                 IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Douban, Mode=TwoWay}" />
@@ -108,18 +108,19 @@
         <ui:Button
             Margin="0,10,0,0"
             Command="{Binding ViewModel.TestNetworkCommand}"
-            Content="{x:Static lang:Lang.Settings_PackageSource_NetworkTest}"
+            Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_NetworkTest}}"
             Icon="{ui:SymbolIcon NetworkCheck20}" />
 
         <TextBlock
             Margin="0,12,0,0"
             FontSize="20"
             FontWeight="Medium"
-            Text="{x:Static lang:Lang.Settings_Category_Personalization}" />
-        <TextBlock Margin="0,12,0,0" Text="{x:Static lang:Lang.Settings_PersonalizationTitle_Language}" />
+            Text="{I18N {x:Static lang:LangKeys.Settings_Category_Personalization}}" />
+        <TextBlock Margin="0,12,0,0" Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_Language}}" />
         <ComboBox
             x:Name="LanguageComboBox"
             Margin="0,10,900,0"
+            Focusable="False"
             HorizontalAlignment="Stretch"
             ItemsSource="{Binding ViewModel.Languages}"
             SelectedItem="{Binding ViewModel.Language, Mode=TwoWay}">
@@ -129,22 +130,22 @@
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </ComboBox>
-        <TextBlock Margin="0,12,0,0" Text="{x:Static lang:Lang.Settings_PersonalizationTitle_Theme}" />
+        <TextBlock Margin="0,12,0,0" Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_Theme}}" />
         <RadioButton
             Margin="0,12,0,0"
             Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
             CommandParameter="light"
-            Content="{x:Static lang:Lang.Settings_PersonalizationTheme_Light}"
+            Content="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTheme_Light}}"
             GroupName="themeSelect"
             IsChecked="{Binding ViewModel.CurrentTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=TwoWay}" />
         <RadioButton
             Margin="0,8,0,0"
             Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
             CommandParameter="dark"
-            Content="{x:Static lang:Lang.Settings_PersonalizationTheme_Dark}"
+            Content="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTheme_Dark}}"
             GroupName="themeSelect"
             IsChecked="{Binding ViewModel.CurrentTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=TwoWay}" />
-        <TextBlock Margin="0,12,0,0" Text="{x:Static lang:Lang.Settings_PersonalizationTitle_LogAutoDeletion}" />
+        <TextBlock Margin="0,12,0,0" Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_LogAutoDeletion}}" />
         <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
             <ui:ToggleSwitch
                 x:Name="LogAutoDeletionToggleSwitch"
@@ -168,10 +169,16 @@
             <TextBlock
                 Margin="10,0,0,0"
                 Foreground="Gray"
-                Text="{Binding ElementName=LogAutoDeletionSlider, Path=Value, StringFormat={x:Static lang:Lang.Settings_PersonalizationLogAutoDeletion_Tip}}"
-                Visibility="{Binding ElementName=LogAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}" />
+                Visibility="{Binding ElementName=LogAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
+                <TextBlock.Text>
+                    <I18N Key="{x:Static lang:LangKeys.Settings_PersonalizationLogAutoDeletion_Tip}">
+                        <Binding ElementName="LogAutoDeletionSlider" Path="Value"></Binding>
+                    </I18N>
+                </TextBlock.Text>
+            </TextBlock>
+            
         </StackPanel>
-        <TextBlock Margin="0,12,0,0" Text="{x:Static lang:Lang.Settings_PersonalizationTitle_CrushesAutoDeletion}" />
+        <TextBlock Margin="0,12,0,0" Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_CrushesAutoDeletion}}" />
         <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
             <ui:ToggleSwitch
                 x:Name="CrushesAutoDeletionToggleSwitch"
@@ -195,34 +202,39 @@
             <TextBlock
                 Margin="10,0,0,0"
                 Foreground="Gray"
-                Text="{Binding ElementName=CrushesAutoDeletionSlider, Path=Value, StringFormat={x:Static lang:Lang.Settings_PersonalizationCrushesAutoDeletion_Tip}}"
-                Visibility="{Binding ElementName=CrushesAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}" />
+                Visibility="{Binding ElementName=CrushesAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
+                <TextBlock.Text>
+                    <I18N Key="{x:Static lang:LangKeys.Settings_PersonalizationCrushesAutoDeletion_Tip}">
+                        <Binding ElementName="CrushesAutoDeletionSlider" Path="Value"></Binding>
+                    </I18N>
+                </TextBlock.Text>
+            </TextBlock>
         </StackPanel>
         <TextBlock
             Margin="0,12,0,0"
             FontSize="20"
             FontWeight="Medium"
-            Text="{x:Static lang:Lang.Settings_Category_FileManagement}" />
+            Text="{I18N {x:Static lang:LangKeys.Settings_Category_FileManagement}}" />
         <StackPanel Margin="0,12,0,0">
             <ui:Button
                 Command="{Binding ViewModel.OpenAppFolderCommand}"
-                Content="{x:Static lang:Lang.Settings_FileManagement_OpenAppDir}"
+                Content="{I18N {x:Static lang:LangKeys.Settings_FileManagement_OpenAppDir}}"
                 Icon="{ui:SymbolIcon AppFolder20}" />
             <ui:Button
                 Margin="0,10,0,0"
                 Command="{Binding ViewModel.OpenLogFolderCommand}"
-                Content="{x:Static lang:Lang.Settings_FileManagement_OpenLogDir}"
+                Content="{I18N {x:Static lang:LangKeys.Settings_FileManagement_OpenLogDir}}"
                 Icon="{ui:SymbolIcon Record20}" />
             <ui:Button
                 Margin="0,10,0,0"
                 Command="{Binding ViewModel.OpenCrushesFolderCommand}"
-                Content="{x:Static lang:Lang.Settings_FileManagement_OpenCrushesDir}"
+                Content="{I18N {x:Static lang:LangKeys.Settings_FileManagement_OpenCrushesDir}}"
                 Icon="{ui:SymbolIcon CircleOff20}" />
             <ui:Button
                 Margin="0,10,0,0"
                 Appearance="Danger"
                 Command="{Binding ViewModel.ResetConfigurationCommand}"
-                Content="{x:Static lang:Lang.Settings_FileManagement_ResetConfig}"
+                Content="{I18N {x:Static lang:LangKeys.Settings_FileManagement_ResetConfig}}"
                 Icon="{ui:SymbolIcon ArrowReset20}" />
         </StackPanel>
     </StackPanel>

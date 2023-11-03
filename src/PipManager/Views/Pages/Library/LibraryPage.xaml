@@ -29,24 +29,24 @@
             <StackPanel Orientation="Horizontal">
                 <ui:Button
                     Appearance="Primary"
-                    Content="{x:Static lang:Lang.Library_Operation_Install}"
+                    Content="{I18N {x:Static lang:LangKeys.Library_Operation_Install}}"
                     Icon="{ui:SymbolIcon Add24}"
                     IsEnabled="{Binding ViewModel.EnvironmentFoundVisible}" />
                 <ui:Button
                     Margin="5,0,0,0"
                     Command="{Binding ViewModel.DeletePackageCommand}"
-                    Content="{x:Static lang:Lang.Library_Operation_Delete}"
+                    Content="{I18N {x:Static lang:LangKeys.Library_Operation_Delete}}"
                     Icon="{ui:SymbolIcon Delete24}"
                     IsEnabled="{Binding ElementName=LibraryList, Path=SelectedItems.Count, Converter={StaticResource IntegerToBool}}" />
                 <ui:Button
                     Margin="5,0,0,0"
                     Command="{Binding ViewModel.CheckUpdateCommand}"
-                    Content="{x:Static lang:Lang.Library_Operation_CheckUpdate}"
+                    Content="{I18N {x:Static lang:LangKeys.Library_Operation_CheckUpdate}}"
                     Icon="{ui:SymbolIcon Check24}"
                     IsEnabled="{Binding ElementName=LibraryList, Path=SelectedItems.Count, Converter={StaticResource IntegerToBool}}" />
                 <ui:Button
                     Margin="5,0,0,0"
-                    Content="{x:Static lang:Lang.Library_Operation_CheckIntegrity}"
+                    Content="{I18N {x:Static lang:LangKeys.Library_Operation_CheckIntegrity}}"
                     Command="{Binding ViewModel.TestCommand }"
                     Icon="{ui:SymbolIcon SearchVisual24}"
                     IsEnabled="{Binding ElementName=LibraryList, Path=SelectedItems.Count, Converter={StaticResource IntegerToBool}}" />
@@ -63,7 +63,13 @@
                     CornerRadius="5"
                     Visibility="{Binding ViewModel.ListVisible, Converter={StaticResource BoolToVisibility}}">
                     <StackPanel Margin="7,0,7,0" Orientation="Horizontal">
-                        <TextBlock VerticalAlignment="Center" Text="{Binding ElementName=LibraryList, Path=SelectedItems.Count, StringFormat={x:Static lang:Lang.Library_Data_SelectedItemsCount}}" />
+                        <TextBlock VerticalAlignment="Center">
+                            <TextBlock.Text>
+                                <I18N Key="{x:Static lang:LangKeys.Library_Data_SelectedItemsCount}">
+                                    <Binding ElementName="LibraryList" Path="SelectedItems.Count"></Binding>
+                                </I18N>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </StackPanel>
                 </Border>
                 <Border
@@ -74,12 +80,18 @@
                     CornerRadius="5"
                     Visibility="{Binding ViewModel.ListVisible, Converter={StaticResource BoolToVisibility}}">
                     <StackPanel Margin="7,0,7,0" Orientation="Horizontal">
-                        <TextBlock VerticalAlignment="Center" Text="{Binding ElementName=LibraryList, Path=Items.Count, StringFormat={x:Static lang:Lang.Library_Data_PackageFound}}" />
+                        <TextBlock VerticalAlignment="Center">
+                            <TextBlock.Text>
+                                <I18N Key="{x:Static lang:LangKeys.Library_Data_PackageFound}">
+                                    <Binding ElementName="LibraryList" Path="Items.Count"></Binding>
+                                </I18N>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </StackPanel>
                 </Border>
                 <ui:Button
                     Command="{Binding ViewModel.RefreshLibraryCommand}"
-                    Content="{x:Static lang:Lang.Common_Button_Refresh}"
+                    Content="{I18N {x:Static lang:LangKeys.Common_Button_Refresh}}"
                     Icon="{ui:SymbolIcon ArrowClockwise20}" />
             </StackPanel>
         </Grid>
@@ -112,17 +124,17 @@
                                     FontSize="12" />
                                 <ui:Badge
                                     Appearance="Caution"
-                                    Content="{x:Static lang:Lang.Library_Version_Pre}"
+                                    Content="{I18N {x:Static lang:LangKeys.Library_Version_Pre}}"
                                     Visibility="{Binding PackageDetailedVersion.PreL, Converter={StaticResource NullToVisibility}}"
                                     FontSize="12" />
                                 <ui:Badge
                                     Appearance="Primary"
-                                    Content="{x:Static lang:Lang.Library_Version_Post}"
+                                    Content="{I18N {x:Static lang:LangKeys.Library_Version_Post}}"
                                     Visibility="{Binding PackageDetailedVersion.PostL, Converter={StaticResource NullToVisibility}}"
                                     FontSize="12" />
                                 <ui:Badge
                                     Appearance="Danger"
-                                    Content="{x:Static lang:Lang.Library_Version_Dev}"
+                                    Content="{I18N {x:Static lang:LangKeys.Library_Version_Dev}}"
                                     Visibility="{Binding PackageDetailedVersion.DevL, Converter={StaticResource NullToVisibility}}"
                                     FontSize="12" />
                             </StackPanel>
@@ -140,7 +152,7 @@
                             HorizontalAlignment="Right"
                             Command="{Binding ElementName=Library, Path=ViewModel.ToDetailPageCommand}"
                             CommandParameter="{Binding PackageName}"
-                            Content="{x:Static lang:Lang.Library_Operation_Details}"
+                            Content="{I18N {x:Static lang:LangKeys.Library_Operation_Details}}"
                             Icon="{ui:SymbolIcon ChevronRight24}" />
                     </Grid>
                 </DataTemplate>
@@ -158,12 +170,12 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Visibility="{Binding ViewModel.EnvironmentFoundVisible, Converter={StaticResource InverseBoolToVisibility}}">
-            <TextBlock FontSize="32" Text="{x:Static lang:Lang.Library_Error_NoEnvironment}" />
+            <TextBlock FontSize="32" Text="{I18N {x:Static lang:LangKeys.Library_Error_NoEnvironment}}" />
             <ui:HyperlinkButton
                 Margin="0,5,0,0"
                 HorizontalAlignment="Center"
                 Command="{Binding ViewModel.NavigateToAddEnvironmentCommand}"
-                Content="{x:Static lang:Lang.Library_Error_AddEnvironment}"
+                Content="{I18N {x:Static lang:LangKeys.Library_Error_AddEnvironment}}"
                 FontSize="16" />
         </StackPanel>
     </Grid>

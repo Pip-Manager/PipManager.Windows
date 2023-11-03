@@ -11,7 +11,7 @@
             VerticalAlignment="Top"
             FontSize="16"
             Foreground="Red"
-            Text="{x:Static lang:Lang.Msgbox_Message_LibraryDeletionWarning}" />
+            Text="{I18N {x:Static lang:LangKeys.Msgbox_Message_LibraryDeletionWarning}}" />
         <ScrollViewer Margin="0,30,0,0" VerticalAlignment="Top">
             <ItemsControl x:Name="LibraryDeletionWarningMsgBoxContentListView">
                 <ItemsControl.ItemTemplate>
@@ -50,12 +50,12 @@
             FontSize="16"
             Foreground="OrangeRed"
             Visibility="Collapsed"
-            Text="{x:Static lang:Lang.MsgBox_Message_FindUpdate}" />
+            Text="{I18N {x:Static lang:LangKeys.MsgBox_Message_FindUpdate}}" />
         <TextBlock
             VerticalAlignment="Top"
             FontSize="16"
             Visibility="Collapsed"
-            Text="{x:Static lang:Lang.MsgBox_Message_PackageIsLatest}" />
+            Text="{I18N {x:Static lang:LangKeys.MsgBox_Message_PackageIsLatest}}" />
         <ScrollViewer Margin="0, 30, 0, 0" VerticalAlignment="Top">
             <ItemsControl x:Name="LibraryCheckUpdateMsgBoxContentListView">
                 <ItemsControl.ItemTemplate>

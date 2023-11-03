@@ -26,7 +26,7 @@
             Margin="0,32,0,0"
             FontSize="26"
             FontWeight="Bold"
-            Text="{x:Static lang:Lang.EnvironmentAdd_Header}" />
+            Text="{I18N {x:Static lang:LangKeys.EnvironmentAdd_Header}}" />
         <Grid Margin="0,80,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.22*" />
@@ -88,12 +88,12 @@
                             VerticalAlignment="Center"
                             FontSize="18"
                             FontWeight="Medium"
-                            Text="{x:Static lang:Lang.EnvironmentAdd_EnvironmentVariable_Header}" />
+                            Text="{I18N {x:Static lang:LangKeys.EnvironmentAdd_EnvironmentVariable_Header}}" />
                         <ui:Button
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             Command="{Binding ViewModel.RefreshPipListCommand}"
-                            Content="{x:Static lang:Lang.Common_Button_Refresh}"
+                            Content="{I18N {x:Static lang:LangKeys.Common_Button_Refresh}}"
                             Icon="{ui:SymbolIcon ArrowClockwise20}" />
                     </Grid>
                     <ui:ProgressRing
@@ -111,7 +111,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontSize="22"
-                        Text="{x:Static lang:Lang.EnvironmentAdd_EnvironmentVariable_NotFound}"
+                        Text="{I18N {x:Static lang:LangKeys.EnvironmentAdd_EnvironmentVariable_NotFound}}"
                         Visibility="{Binding ViewModel.Found, Converter={StaticResource BoolToVisibility}}" />
                     <ListView
                         x:Name="ByEnvironmentVariablesList"
@@ -160,7 +160,7 @@
                     VerticalAlignment="Bottom"
                     Appearance="Primary"
                     Command="{Binding ViewModel.AddEnvironmentCommand}"
-                    Content="{x:Static lang:Lang.Common_Button_Add}"
+                    Content="{I18N {x:Static lang:LangKeys.Common_Button_Add}}"
                     Icon="{ui:SymbolIcon Add20}" />
             </Grid>
             <Grid
@@ -169,7 +169,7 @@
                 Margin="7,0,0,0"
                 Visibility="{Binding ViewModel.ByPipCommandGridVisibility, Converter={StaticResource BoolToVisibility}}">
                 <StackPanel>
-                    <TextBlock Text="{x:Static lang:Lang.EnvironmentAdd_PipCommand_Label}" />
+                    <TextBlock Text="{I18N {x:Static lang:LangKeys.EnvironmentAdd_PipCommand_Label}}" />
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -183,11 +183,11 @@
                     </Grid>
 
                     <ui:InfoBar
-                        Title="{x:Static lang:Lang.Common_NoticeTitle_Notice}"
+                        Title="{I18N {x:Static lang:LangKeys.Common_NoticeTitle_Notice}}"
                         Margin="0,10,0,0"
                         IsClosable="False"
                         IsOpen="True"
-                        Message="{x:Static lang:Lang.EnvironmentAdd_PipCommand_Notice}" />
+                        Message="{I18N {x:Static lang:LangKeys.EnvironmentAdd_PipCommand_Notice}}" />
                 </StackPanel>
                 <ui:Button
                     Margin="0,0,0,13"
@@ -195,7 +195,7 @@
                     VerticalAlignment="Bottom"
                     Appearance="Primary"
                     Command="{Binding ViewModel.AddEnvironmentCommand}"
-                    Content="{x:Static lang:Lang.Common_Button_Add}"
+                    Content="{I18N {x:Static lang:LangKeys.Common_Button_Add}}"
                     Icon="{ui:SymbolIcon Add20}"
                     IsEnabled="{Binding ElementName=ByPipCommandTextBox, Path=Text, Converter={StaticResource StringIsNotNullOrEmpty}}" />
             </Grid>
@@ -206,7 +206,7 @@
                 Visibility="{Binding ViewModel.ByPythonPathGridVisibility, Converter={StaticResource BoolToVisibility}}">
                 <StackPanel>
                     <StackPanel>
-                        <TextBlock Text="{x:Static lang:Lang.EnvironmentAdd_PythonPath_Label}" />
+                        <TextBlock Text="{I18N {x:Static lang:LangKeys.EnvironmentAdd_PythonPath_Label}}" />
 
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -225,7 +225,7 @@
                                 Grid.Column="2"
                                 Margin="3,0,0,0"
                                 Command="{Binding ViewModel.BrowsePythonPathCommand}"
-                                Content="{x:Static lang:Lang.Common_Button_Browse}"
+                                Content="{I18N {x:Static lang:LangKeys.Common_Button_Browse}}"
                                 Icon="{ui:SymbolIcon FolderOpen20}" />
                         </Grid>
                     </StackPanel>
@@ -237,7 +237,7 @@
                     VerticalAlignment="Bottom"
                     Appearance="Primary"
                     Command="{Binding ViewModel.AddEnvironmentCommand}"
-                    Content="{x:Static lang:Lang.Common_Button_Add}"
+                    Content="{I18N {x:Static lang:LangKeys.Common_Button_Add}}"
                     Icon="{ui:SymbolIcon Add20}"
                     IsEnabled="{Binding ElementName=ByPythonPathTextBox, Path=Text, Converter={StaticResource StringIsNotNullOrEmpty}}" />
             </Grid>

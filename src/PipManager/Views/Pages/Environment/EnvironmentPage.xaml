@@ -25,24 +25,24 @@
             <ui:Button
                 Appearance="Primary"
                 Command="{Binding ViewModel.AddEnvironmentCommand}"
-                Content="{x:Static lang:Lang.Environment_Operation_AddEnvironment}"
+                Content="{I18N {x:Static lang:LangKeys.Environment_Operation_AddEnvironment}}"
                 Icon="{ui:SymbolIcon Add24}" />
             <ui:Button
                 Margin="5,0,0,0"
                 Command="{Binding ViewModel.DeleteEnvironmentCommand}"
-                Content="{x:Static lang:Lang.Environment_Operation_RemoveEnvironment}"
+                Content="{I18N {x:Static lang:LangKeys.Environment_Operation_RemoveEnvironment}}"
                 Icon="{ui:SymbolIcon Delete24}"
                 IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}" />
             <ui:Button
                 Margin="5,0,0,0"
                 Command="{Binding ViewModel.CheckEnvironmentCommand}"
-                Content="{x:Static lang:Lang.Environment_Operation_VerifyEnvironment}"
+                Content="{I18N {x:Static lang:LangKeys.Environment_Operation_VerifyEnvironment}}"
                 Icon="{ui:SymbolIcon Check24}"
                 IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}" />
             <ui:Button
                 Margin="5,0,0,0"
                 Command="{Binding ViewModel.CheckEnvironmentUpdateCommand}"
-                Content="{x:Static lang:Lang.Environment_Operation_CheckEnvironmentUpdate}"
+                Content="{I18N {x:Static lang:LangKeys.Environment_Operation_CheckEnvironmentUpdate}}"
                 Icon="{ui:SymbolIcon ArrowUp24}"
                 IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}" />
         </StackPanel>

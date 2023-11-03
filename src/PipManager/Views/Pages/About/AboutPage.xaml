@@ -48,25 +48,25 @@
                                 <ui:HyperlinkButton
                                     Grid.Row="0"
                                     Grid.Column="0"
-                                    Content="{x:Static lang:Lang.About_GithubRepo}"
+                                    Content="{I18N {x:Static lang:LangKeys.About_GithubRepo}}"
                                     Icon="{ui:SymbolIcon Link24}"
                                     NavigateUri="https://github.com/Pip-Manager/PipManager" />
                                 <ui:HyperlinkButton
                                     Grid.Row="1"
                                     Grid.Column="0"
-                                    Content="{x:Static lang:Lang.About_GithubIssue}"
+                                    Content="{I18N {x:Static lang:LangKeys.About_GithubIssue}}"
                                     Icon="{ui:SymbolIcon Bug24}"
                                     NavigateUri="https://github.com/Pip-Manager/PipManager/issues" />
                                 <ui:HyperlinkButton
                                     Grid.Row="0"
                                     Grid.Column="1"
-                                    Content="{x:Static lang:Lang.About_Document}"
+                                    Content="{I18N {x:Static lang:LangKeys.About_Document}}"
                                     Icon="{ui:SymbolIcon Document24}"
                                     NavigateUri="http://pipmanager.ziling.space/" />
                                 <ui:HyperlinkButton
                                     Grid.Row="1"
                                     Grid.Column="1"
-                                    Content="{x:Static lang:Lang.About_GithubDiscussion}"
+                                    Content="{I18N {x:Static lang:LangKeys.About_GithubDiscussion}}"
                                     Icon="{ui:SymbolIcon ArrowUpload24}"
                                     NavigateUri="https://github.com/Pip-Manager/PipManager/discussions" />
                             </Grid>
@@ -90,25 +90,25 @@
             </Border>
 
             <StackPanel Margin="0,20,0,0">
-                <TextBlock FontSize="22" Text="{x:Static lang:Lang.About_MoreInformation}" />
+                <TextBlock FontSize="22" Text="{I18N {x:Static lang:LangKeys.About_MoreInformation}}" />
                 <TextBlock
                     Margin="0,10,0,0"
                     FontSize="20"
-                    Text="{x:Static lang:Lang.About_MoreInformation_Privacy}" />
+                    Text="{I18N {x:Static lang:LangKeys.About_MoreInformation_Privacy}}" />
                 <TextBlock
                     Margin="0,5,0,0"
                     FontSize="18"
                     Foreground="OrangeRed">
-                    <Run Text="{x:Static lang:Lang.About_MoreInformation_PrivacyLine1}" />
+                    <Run Text="{I18N {x:Static lang:LangKeys.About_MoreInformation_PrivacyLine1}}" />
                     <LineBreak />
-                    <Run Text="{x:Static lang:Lang.About_MoreInformation_PrivacyLine2}" />
+                    <Run Text="{I18N {x:Static lang:LangKeys.About_MoreInformation_PrivacyLine2}}" />
                     <LineBreak />
-                    <Run Text="{x:Static lang:Lang.About_MoreInformation_PrivacyLine3}" />
+                    <Run Text="{I18N {x:Static lang:LangKeys.About_MoreInformation_PrivacyLine3}}" />
                 </TextBlock>
                 <TextBlock
                     Margin="0,10,0,0"
                     FontSize="20"
-                    Text="{x:Static lang:Lang.About_MoreInformation_OpenSourceLicense}" />
+                    Text="{I18N {x:Static lang:LangKeys.About_MoreInformation_OpenSourceLicense}}" />
                 <ItemsControl
                     Margin="0,10,0,0"
                     VerticalAlignment="Stretch"

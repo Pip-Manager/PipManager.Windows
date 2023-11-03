@@ -4,8 +4,11 @@ using PipManager.Models;
 using PipManager.Services.Configuration;
 using Serilog;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Net.Http;
+using PipManager.Views.Pages.About;
+using PipManager.Views.Pages.Settings;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -19,13 +22,15 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     private readonly ISnackbarService _snackbarService;
     private readonly IConfigurationService _configurationService;
     private readonly IThemeService _themeService;
+    private readonly INavigationService _navigationService;
 
-    public SettingsViewModel(ISnackbarService snackbarService, IConfigurationService configurationService, IThemeService themeService)
+    public SettingsViewModel(ISnackbarService snackbarService, IConfigurationService configurationService, IThemeService themeService, INavigationService navigationService)
     {
         _httpClient = App.GetService<HttpClient>();
         _snackbarService = snackbarService;
         _configurationService = configurationService;
         _themeService = themeService;
+        _navigationService = navigationService;
 
         foreach (var languagePair in GetLanguage.LanguageList)
         {
@@ -164,12 +169,15 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private void OnChangeLanguage()
     {
-        if (_isInitialized)
-        {
-            _snackbarService.Show(Lang.Common_NoticeTitle_Caution, Lang.Snackbar_effectAfterRestart, ControlAppearance.Caution);
-        }
+        var language = Language != "Auto" ? GetLanguage.LanguageList[Language] : "Auto";
+        I18NExtension.Culture = language != "Auto" ? new CultureInfo(language) : CultureInfo.CurrentUICulture;
         _configurationService.AppConfig.Personalization.Language = Language != "Auto" ? GetLanguage.LanguageList[Language] : "Auto";
         _configurationService.Save();
+        if (_isInitialized)
+        {
+            _navigationService.Navigate(typeof(AboutPage));
+            _navigationService.Navigate(typeof(SettingsPage));
+        }
         Log.Information($"[Settings] Language changes to {Language}");
     }
 

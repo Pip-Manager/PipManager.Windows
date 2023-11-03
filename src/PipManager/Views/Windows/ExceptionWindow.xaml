@@ -27,7 +27,7 @@
         </Grid.RowDefinitions>
         <ui:TitleBar
             x:Name="TitleBar"
-            Title="{x:Static lang:Lang.ExceptionWindow_Title}"
+            Title="{I18N {x:Static lang:LangKeys.ExceptionWindow_Title}}"
             Grid.Row="0"
             CloseWindowByDoubleClickOnIcon="True"
             FontSize="14"
