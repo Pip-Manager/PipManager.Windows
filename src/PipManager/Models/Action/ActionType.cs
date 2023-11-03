@@ -1,4 +1,4 @@
-﻿namespace PipManager.Models.Pages;
+﻿namespace PipManager.Models.Action;
 
 public enum ActionType
 {

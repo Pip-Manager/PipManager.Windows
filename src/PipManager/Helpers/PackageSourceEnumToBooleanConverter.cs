@@ -1,6 +1,7 @@
 ﻿using PipManager.Models;
 using System.Globalization;
 using System.Windows.Data;
+using PipManager.Models.Package;
 
 namespace PipManager.Helpers;
 

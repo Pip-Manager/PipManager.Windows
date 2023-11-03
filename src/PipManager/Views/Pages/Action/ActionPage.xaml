@@ -1,13 +1,13 @@
 <Page
     x:Class="PipManager.Views.Pages.Action.ActionPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Lang="clr-namespace:PipManager.Languages"
-    xmlns:pages="clr-namespace:PipManager.Models.Pages"
     xmlns:action="clr-namespace:PipManager.Views.Pages.Action"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:PipManager.Languages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages1="clr-namespace:PipManager.Models.Action"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="SearchPage"
     d:DataContext="{d:DesignInstance action:ActionPage,
                                      IsDesignTimeCreatable=False}"
@@ -21,7 +21,7 @@
     <Grid>
         <ItemsControl ItemsSource="{Binding ViewModel.Actions, UpdateSourceTrigger=PropertyChanged}">
             <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type pages:ActionListItem}">
+                <DataTemplate DataType="{x:Type pages1:ActionListItem}">
                     <Border
                         Margin="0,5,0,0"
                         Padding="15"
@@ -56,7 +56,7 @@
                                 <ui:Badge
                                     VerticalAlignment="Center"
                                     Appearance="Info"
-                                    Content="{I18N {x:Static Lang:LangKeys.Action_Command}}"
+                                    Content="{I18N {x:Static lang:LangKeys.Action_Command}}"
                                     FontSize="12" />
                                 <TextBlock
                                     Margin="5,0,0,0"
@@ -69,7 +69,7 @@
                                 <ui:Badge
                                     VerticalAlignment="Center"
                                     Appearance="Caution"
-                                    Content="{I18N {x:Static Lang:LangKeys.Action_CurrentStatus}}"
+                                    Content="{I18N {x:Static lang:LangKeys.Action_CurrentStatus}}"
                                     FontSize="12" />
                                 <TextBlock
                                     Margin="5,0,0,0"

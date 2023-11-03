@@ -1,7 +1,7 @@
 ﻿using PipManager.Languages;
 using Wpf.Ui.Controls;
 
-namespace PipManager.Models.Pages;
+namespace PipManager.Models.Action;
 
 public class ActionListItem
 {

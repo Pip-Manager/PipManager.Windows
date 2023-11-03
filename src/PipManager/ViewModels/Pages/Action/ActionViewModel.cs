@@ -2,6 +2,7 @@
 using PipManager.Services.Action;
 using Serilog;
 using System.Collections.ObjectModel;
+using PipManager.Models.Action;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Action;

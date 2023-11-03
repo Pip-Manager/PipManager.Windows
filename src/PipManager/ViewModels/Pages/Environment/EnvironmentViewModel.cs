@@ -12,6 +12,7 @@ using PipManager.Views.Pages.Environment;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using PipManager.Models.Action;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 

@@ -3,6 +3,7 @@ using PipManager.Models;
 using PipManager.Models.AppConfigModels;
 using System.Diagnostics;
 using System.IO;
+using PipManager.Models.Package;
 
 namespace PipManager.Services.Configuration;
 

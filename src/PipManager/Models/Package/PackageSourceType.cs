@@ -1,4 +1,4 @@
-﻿namespace PipManager.Models;
+﻿namespace PipManager.Models.Package;
 
 public enum PackageSourceType
 {

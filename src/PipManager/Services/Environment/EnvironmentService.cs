@@ -7,6 +7,8 @@ using PipManager.Services.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using PipManager.Models.Package;
+using PipManager.Models.Pypi;
 using Wpf.Ui.Controls;
 using Path = System.IO.Path;
 
