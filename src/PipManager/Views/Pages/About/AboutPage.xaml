@@ -97,7 +97,7 @@
                     Text="{I18N {x:Static lang:LangKeys.About_MoreInformation_Privacy}}" />
                 <TextBlock
                     Margin="0,5,0,0"
-                    FontSize="18"
+                    FontSize="16"
                     Foreground="OrangeRed">
                     <Run Text="{I18N {x:Static lang:LangKeys.About_MoreInformation_PrivacyLine1}}" />
                     <LineBreak />

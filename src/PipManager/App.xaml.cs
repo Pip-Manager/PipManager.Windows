@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PipManager.Controls;
-using PipManager.Languages;
 using PipManager.Services;
 using PipManager.Services.Action;
 using PipManager.Services.Configuration;
@@ -24,6 +22,7 @@ using Serilog;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Windows.Threading;
 using Wpf.Ui;
 using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
@@ -103,13 +102,28 @@ public partial class App
         return Host.Services.GetService(typeof(T)) as T ?? throw new InvalidOperationException("Service not found.");
     }
 
+    [DllImport("kernel32.dll")]
+    static extern bool FreeConsole();
+
+    private bool _showConsoleWindow;
+
     /// <summary>
     /// Occurs when the application is loading.
     /// </summary>
     private void OnStartup(object sender, StartupEventArgs e)
     {
-        AppStarting.StartLogging();
-        var appStarting = new AppStarting();
+        for (var i = 0; i != e.Args.Length; ++i)
+        {
+            if (e.Args[i] == "/console")
+            {
+                _showConsoleWindow = true;
+            }
+        }
+        var appStarting = new AppStarting
+        {
+            ShowConsoleWindow = _showConsoleWindow
+        };
+        appStarting.StartLogging();
         appStarting.LoadLanguage();
         appStarting.LogDeletion();
         appStarting.CrushesDeletion();
@@ -121,6 +135,10 @@ public partial class App
     /// </summary>
     private async void OnExit(object sender, ExitEventArgs e)
     {
+        if (_showConsoleWindow)
+        {
+            FreeConsole();
+        }
         await Host.StopAsync();
         Host.Dispose();
         Log.Information("Logging ended");

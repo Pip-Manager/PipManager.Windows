@@ -170,7 +170,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     private void OnChangeLanguage()
     {
         var language = Language != "Auto" ? GetLanguage.LanguageList[Language] : "Auto";
-        I18NExtension.Culture = language != "Auto" ? new CultureInfo(language) : CultureInfo.CurrentUICulture;
+        I18NExtension.Culture = language != "Auto" ? new CultureInfo(language) : CultureInfo.CurrentCulture;
         _configurationService.AppConfig.Personalization.Language = Language != "Auto" ? GetLanguage.LanguageList[Language] : "Auto";
         _configurationService.Save();
         if (_isInitialized)

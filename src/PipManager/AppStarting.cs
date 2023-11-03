@@ -3,23 +3,28 @@ using PipManager.Services.Configuration;
 using Serilog;
 using System.Globalization;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace PipManager;
 
 public class AppStarting
 {
-    public readonly AppConfig config;
+    [DllImport("kernel32.dll")]
+    public static extern bool AllocConsole();
+
+    public readonly AppConfig Config;
+    public bool ShowConsoleWindow = false;
 
     public AppStarting()
     {
-        config = ConfigurationService.LoadConfiguration();
+        Config = ConfigurationService.LoadConfiguration();
         Directory.CreateDirectory(AppInfo.CrushesDir);
         Directory.CreateDirectory(AppInfo.LogDir);
     }
 
     public void LoadLanguage()
     {
-        var language = config.Personalization.Language;
+        var language = Config.Personalization.Language;
         if (language != "Auto")
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
@@ -28,23 +33,37 @@ public class AppStarting
         Log.Information($"Language sets to {language}");
     }
 
-    public static void StartLogging()
+    public void StartLogging()
     {
-        Log.Logger = new LoggerConfiguration()
-            .Enrich.WithProperty("Version", AppInfo.AppVersion)
-            .MinimumLevel.Debug()
-            .Enrich.With(new ThreadIdEnricher())
-            .WriteTo.File(Path.Combine(AppInfo.LogDir, $"log_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.txt"), outputTemplate: "{Timestamp:HH:mm:ss} [{Level}] (Thread: {ThreadId}) {Message}{NewLine}{Exception}")
-            .CreateLogger();
+        if (ShowConsoleWindow)
+        {
+            AllocConsole();
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.WithProperty("Version", AppInfo.AppVersion)
+                .MinimumLevel.Debug()
+                .WriteTo.Console(outputTemplate: "{Timestamp:HH:mm:ss} [{Level}] (Thread: {ThreadId}) {Message}{NewLine}{Exception}")
+                .Enrich.With(new ThreadIdEnricher())
+                .WriteTo.File(Path.Combine(AppInfo.LogDir, $"log_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.txt"), outputTemplate: "{Timestamp:HH:mm:ss} [{Level}] (Thread: {ThreadId}) {Message}{NewLine}{Exception}")
+                .CreateLogger();
+        }
+        else
+        {
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.WithProperty("Version", AppInfo.AppVersion)
+                .MinimumLevel.Debug()
+                .Enrich.With(new ThreadIdEnricher())
+                .WriteTo.File(Path.Combine(AppInfo.LogDir, $"log_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.txt"), outputTemplate: "{Timestamp:HH:mm:ss} [{Level}] (Thread: {ThreadId}) {Message}{NewLine}{Exception}")
+                .CreateLogger();
+        }
         Log.Information("Logging started");
     }
 
     public void LogDeletion()
     {
-        if (!config.Personalization.LogAutoDeletion || !Directory.Exists(AppInfo.LogDir)) return;
+        if (!Config.Personalization.LogAutoDeletion || !Directory.Exists(AppInfo.LogDir)) return;
         var fileList = Directory.GetFileSystemEntries(AppInfo.LogDir);
         var logFileAmount = fileList.Count(file => File.Exists(file) && file.EndsWith(".txt"));
-        if (logFileAmount >= config.Personalization.LogAutoDeletionTimes)
+        if (logFileAmount >= Config.Personalization.LogAutoDeletionTimes)
         {
             var directoryInfo = new DirectoryInfo(AppInfo.LogDir);
             var filesInfo = directoryInfo.GetFileSystemInfos();
@@ -66,10 +85,10 @@ public class AppStarting
 
     public void CrushesDeletion()
     {
-        if (!config.Personalization.CrushesAutoDeletion || !Directory.Exists(AppInfo.CrushesDir)) return;
+        if (!Config.Personalization.CrushesAutoDeletion || !Directory.Exists(AppInfo.CrushesDir)) return;
         var fileList = Directory.GetFileSystemEntries(AppInfo.CrushesDir);
         var crushFileAmount = fileList.Count(file => File.Exists(file) && file.EndsWith(".txt"));
-        if (crushFileAmount >= config.Personalization.CrushesAutoDeletionTimes)
+        if (crushFileAmount >= Config.Personalization.CrushesAutoDeletionTimes)
         {
             var directoryInfo = new DirectoryInfo(AppInfo.CrushesDir);
             var filesInfo = directoryInfo.GetFileSystemInfos();
