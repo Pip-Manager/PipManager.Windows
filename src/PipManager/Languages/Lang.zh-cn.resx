@@ -520,4 +520,7 @@
   <data name="Action_IssueDetected" xml:space="preserve">
     <value>出错</value>
   </data>
+  <data name="MsgBox_Message_NetworkError" xml:space="preserve">
+    <value>网络异常</value>
+  </data>
 </root>

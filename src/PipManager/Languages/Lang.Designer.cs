@@ -943,6 +943,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Network Error 的本地化字符串。
+        /// </summary>
+        public static string MsgBox_Message_NetworkError {
+            get {
+                return ResourceManager.GetString("MsgBox_Message_NetworkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Package(s) are up to date 的本地化字符串。
         /// </summary>
         public static string MsgBox_Message_PackageIsLatest {

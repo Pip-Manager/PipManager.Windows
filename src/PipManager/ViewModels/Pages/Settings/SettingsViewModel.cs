@@ -105,7 +105,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
                 await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Official));
                 OfficialPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
             }
-            catch (Exception exception) when (exception is HttpRequestException)
+            catch (Exception exception) when (exception is HttpRequestException or TaskCanceledException)
             {
                 OfficialPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTestFailed;
             }
@@ -144,7 +144,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
                 await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Douban));
                 DoubanPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
             }
-            catch (HttpRequestException)
+            catch (Exception exception) when (exception is HttpRequestException or TaskCanceledException)
             {
                 DoubanPackageSourceNetwork = Lang.Settings_PackageSource_NetworkTestFailed;
             }

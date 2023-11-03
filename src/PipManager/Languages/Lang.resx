@@ -520,4 +520,7 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="Action_IssueDetected" xml:space="preserve">
     <value>Issue</value>
   </data>
+  <data name="MsgBox_Message_NetworkError" xml:space="preserve">
+    <value>Network Error</value>
+  </data>
 </root>

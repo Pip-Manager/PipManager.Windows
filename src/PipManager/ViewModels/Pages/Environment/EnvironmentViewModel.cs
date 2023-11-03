@@ -10,6 +10,7 @@ using PipManager.ViewModels.Windows;
 using PipManager.Views.Pages.Action;
 using PipManager.Views.Pages.Environment;
 using Serilog;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Wpf.Ui;
@@ -115,12 +116,15 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
         await Task.Run(async () =>
         {
             var versions = await _environmentService.GetVersions("pip");
-            latest = versions.Last();
+            if (versions is not null)
+            {
+                latest = versions.Last();
+            }
         });
         Task.WaitAll();
         _overlayLoadService.Hide();
         var current = _configurationService.AppConfig.CurrentEnvironment!.PipVersion!.Trim();
-        if (latest != current)
+        if (latest != current && latest != string.Empty)
         {
             Log.Information($"[Environment] Environment update available ({current} => {latest})");
             var message = $"{Lang.MsgBox_Message_FindUpdate}\n\n{current} => {latest}";
@@ -137,6 +141,10 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
                 _navigationService.Navigate(typeof(ActionPage));
                 await _configurationService.RefreshAllEnvironmentVersions();
             }
+        }
+        else if (latest == string.Empty)
+        {
+            await MsgBox.Error(Lang.MsgBox_Message_NetworkError);
         }
         else
         {

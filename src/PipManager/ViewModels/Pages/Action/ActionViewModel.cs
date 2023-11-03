@@ -43,7 +43,7 @@ public partial class ActionViewModel : ObservableObject, INavigationAware
         while (true)
         {
             Actions = new ObservableCollection<ActionListItem>(_actionService.ActionList);
-            await Task.Delay(500);
+            await Task.Delay(100);
         }
     }
 }
