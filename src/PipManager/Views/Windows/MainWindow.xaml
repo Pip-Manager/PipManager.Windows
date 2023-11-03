@@ -23,6 +23,7 @@
     WindowBackdropType="Mica"
     WindowCornerPreference="Round"
     WindowStartupLocation="CenterScreen"
+    Closing="MainWindow_OnClosing"
     mc:Ignorable="d">
 
     <Grid>

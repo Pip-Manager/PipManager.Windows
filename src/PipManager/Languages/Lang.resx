@@ -523,4 +523,7 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="MsgBox_Message_NetworkError" xml:space="preserve">
     <value>Network Error</value>
   </data>
+  <data name="MsgBox_Message_ActionStillRunning" xml:space="preserve">
+    <value>There are still running background tasks. Do you confirm to exit the software?</value>
+  </data>
 </root>

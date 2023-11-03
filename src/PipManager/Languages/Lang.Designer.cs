@@ -862,6 +862,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 There are still running background tasks. Do you confirm to exit the software? 的本地化字符串。
+        /// </summary>
+        public static string MsgBox_Message_ActionStillRunning {
+            get {
+                return ResourceManager.GetString("MsgBox_Message_ActionStillRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Environment already exists 的本地化字符串。
         /// </summary>
         public static string MsgBox_Message_EnvironmentAlreadyExists {

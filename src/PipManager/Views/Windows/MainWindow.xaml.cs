@@ -1,6 +1,11 @@
-﻿using PipManager.Services.Action;
+﻿using System.ComponentModel;
+using Microsoft.Extensions.Hosting;
+using PipManager.Controls;
+using PipManager.Languages;
+using PipManager.Services.Action;
 using PipManager.Services.OverlayLoad;
 using PipManager.ViewModels.Windows;
+using Serilog;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 
@@ -37,5 +42,19 @@ public partial class MainWindow
         runnerThread.Start();
 
         NavigationView.SetServiceProvider(serviceProvider);
+    }
+
+    private void MainWindow_OnClosing(object? sender, CancelEventArgs e)
+    {
+        var actionList = App.GetService<IActionService>().ActionList;
+        if (actionList.Count > 0)
+        {
+            e.Cancel =
+               MsgBox.Warning(Lang.MsgBox_Message_ActionStillRunning, Lang.MsgBox_PrimaryButton_Action).Result != MessageBoxResult.Primary;
+        }
+        else
+        {
+            e.Cancel = false;
+        }
     }
 }

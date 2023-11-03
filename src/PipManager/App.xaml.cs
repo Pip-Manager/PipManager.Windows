@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PipManager.Controls;
+using PipManager.Languages;
 using PipManager.Services;
 using PipManager.Services.Action;
 using PipManager.Services.Configuration;
