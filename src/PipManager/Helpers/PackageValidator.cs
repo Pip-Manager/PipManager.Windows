@@ -1,6 +1,5 @@
-﻿using PipManager.Models;
+﻿using PipManager.Models.Package;
 using System.Text.RegularExpressions;
-using PipManager.Models.Package;
 
 namespace PipManager.Helpers;
 

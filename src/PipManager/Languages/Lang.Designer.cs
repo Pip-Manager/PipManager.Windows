@@ -799,15 +799,6 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   查找类似 Check Integrity 的本地化字符串。
-        /// </summary>
-        public static string Library_Operation_CheckIntegrity {
-            get {
-                return ResourceManager.GetString("Library_Operation_CheckIntegrity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Check Update 的本地化字符串。
         /// </summary>
         public static string Library_Operation_CheckUpdate {

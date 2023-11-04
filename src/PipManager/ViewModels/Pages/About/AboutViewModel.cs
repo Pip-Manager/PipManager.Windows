@@ -1,7 +1,7 @@
 ﻿using PipManager.Models.Pages;
+using PipManager.Services.Configuration;
 using Serilog;
 using System.Collections.ObjectModel;
-using PipManager.Services.Configuration;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.About;

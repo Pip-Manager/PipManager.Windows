@@ -1,12 +1,10 @@
 ﻿<UserControl
     x:Class="PipManager.Controls.Toast"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-    xmlns:local="clr-namespace:PipManager.Controls"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="Auto"
     Height="Auto"
     MinWidth="100"
@@ -31,8 +29,11 @@
             x:Name="Grid"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch">
-            
-            <StackPanel Margin="10, 0, 10, 0" Orientation="Horizontal" HorizontalAlignment="Left">
+
+            <StackPanel
+                Margin="10,0,10,0"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal">
                 <ui:SymbolIcon
                     x:Name="IconToast"
                     HorizontalAlignment="Center"
@@ -43,8 +44,8 @@
                     Symbol="{Binding Icon}" />
                 <TextBlock
                     x:Name="ToastTitle"
-                    Margin="12, 0, 0 ,0"
                     MaxWidth="{Binding TextWidth}"
+                    Margin="12,0,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     FontFamily="{Binding FontFamily}"
@@ -56,8 +57,8 @@
 
                 <TextBlock
                     x:Name="ToastMessage"
-                    Margin="14, 0, 0, 0"
                     MaxWidth="{Binding TextWidth}"
+                    Margin="14,0,0,0"
                     HorizontalAlignment="{Binding HorizontalContentAlignment}"
                     VerticalAlignment="Center"
                     FontFamily="{Binding FontFamily}"

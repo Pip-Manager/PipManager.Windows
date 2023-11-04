@@ -1,22 +1,21 @@
 ﻿<ui:FluentWindow
     x:Class="PipManager.Views.Windows.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mask="clr-namespace:PipManager.Controls.Mask"
+    xmlns:lang="clr-namespace:PipManager.Languages"
     xmlns:about="clr-namespace:PipManager.Views.Pages.About"
     xmlns:action="clr-namespace:PipManager.Views.Pages.Action"
-    xmlns:controls="clr-namespace:PipManager.Controls"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:environment="clr-namespace:PipManager.Views.Pages.Environment"
-    xmlns:lang="clr-namespace:PipManager.Languages"
+    xmlns:lab="clr-namespace:PipManager.Views.Pages.Lab"
     xmlns:library="clr-namespace:PipManager.Views.Pages.Library"
-    xmlns:local="clr-namespace:PipManager.Views.Windows"
-    xmlns:mask="clr-namespace:PipManager.Controls.Mask"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:search="clr-namespace:PipManager.Views.Pages.Search"
     xmlns:settings="clr-namespace:PipManager.Views.Pages.Settings"
     xmlns:tools="clr-namespace:PipManager.Views.Pages.Tools"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:lab="clr-namespace:PipManager.Views.Pages.Lab"
+    xmlns:local="clr-namespace:PipManager.Views.Windows"
     Title="{Binding ViewModel.ApplicationTitle, Mode=OneWay}"
     MinWidth="1200"
     MinHeight="740"
@@ -77,9 +76,9 @@
                     TargetPageType="{x:Type tools:ToolsPage}" />
                 <ui:NavigationViewItem
                     Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_Lab}}"
-                    Visibility="{Binding ViewModel.ExperimentMode, Converter={StaticResource BoolToVisibility}}"
                     Icon="{ui:SymbolIcon FormNew24}"
-                    TargetPageType="{x:Type lab:LabPage}" />
+                    TargetPageType="{x:Type lab:LabPage}"
+                    Visibility="{Binding ViewModel.ExperimentMode, Converter={StaticResource BoolToVisibility}}" />
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem

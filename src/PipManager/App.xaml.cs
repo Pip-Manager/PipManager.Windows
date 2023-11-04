@@ -6,35 +6,35 @@ using PipManager.Services.Action;
 using PipManager.Services.Configuration;
 using PipManager.Services.Environment;
 using PipManager.Services.Mask;
+using PipManager.Services.Toast;
+using PipManager.ViewModels.Pages.Action;
 using PipManager.ViewModels.Pages.Environment;
+using PipManager.ViewModels.Pages.Lab;
 using PipManager.ViewModels.Pages.Library;
 using PipManager.ViewModels.Pages.Tools;
 using PipManager.ViewModels.Windows;
 using PipManager.Views.Pages.About;
 using PipManager.Views.Pages.Action;
 using PipManager.Views.Pages.Environment;
+using PipManager.Views.Pages.Lab;
 using PipManager.Views.Pages.Library;
 using PipManager.Views.Pages.Search;
 using PipManager.Views.Pages.Settings;
 using PipManager.Views.Pages.Tools;
 using PipManager.Views.Windows;
+using PipManager.Views.Windows.Action;
 using Serilog;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
-using PipManager.Services.Toast;
-using PipManager.Views.Pages.Lab;
 using Wpf.Ui;
 using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
 using ActionViewModel = PipManager.ViewModels.Pages.Action.ActionViewModel;
 using LibraryViewModel = PipManager.ViewModels.Pages.Library.LibraryViewModel;
 using SearchViewModel = PipManager.ViewModels.Pages.Search.SearchViewModel;
 using SettingsViewModel = PipManager.ViewModels.Pages.Settings.SettingsViewModel;
-using PipManager.ViewModels.Pages.Lab;
-using PipManager.ViewModels.Pages.Action;
-using PipManager.Views.Windows.Action;
 
 namespace PipManager;
 
@@ -134,6 +134,7 @@ public partial class App
                 case "/console":
                     _showConsoleWindow = true;
                     break;
+
                 case "/experiment":
                     _experimentMode = true;
                     break;

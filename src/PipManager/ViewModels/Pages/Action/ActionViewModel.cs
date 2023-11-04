@@ -1,9 +1,8 @@
-﻿using PipManager.Models.Pages;
+﻿using PipManager.Models.Action;
 using PipManager.Services.Action;
+using PipManager.Views.Pages.Action;
 using Serilog;
 using System.Collections.ObjectModel;
-using PipManager.Models.Action;
-using PipManager.Views.Pages.Action;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 

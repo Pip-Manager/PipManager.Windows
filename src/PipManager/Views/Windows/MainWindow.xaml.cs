@@ -1,5 +1,4 @@
-﻿using PipManager.Controls;
-using PipManager.Languages;
+﻿using PipManager.Languages;
 using PipManager.Services.Action;
 using PipManager.Services.Mask;
 using PipManager.ViewModels.Windows;

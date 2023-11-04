@@ -21,7 +21,7 @@ public static class ContentDialogCreateOptions
         CloseButtonText = Lang.ContentDialog_CloseButton_Cancel
     };
 
-    public static SimpleContentDialogCreateOptions Notice(string message) => new ()
+    public static SimpleContentDialogCreateOptions Notice(string message) => new()
     {
         Title = Lang.ContentDialog_Title_Notice,
         Content = message,

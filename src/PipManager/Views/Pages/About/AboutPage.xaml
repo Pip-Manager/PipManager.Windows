@@ -32,14 +32,21 @@
                             Source="pack://application:,,,/Assets/icon.png" />
                         <StackPanel Margin="15,30,0,0">
                             <TextBlock FontSize="42" Text="Pip Manager" />
-                            <StackPanel Orientation="Horizontal"
-                                        Margin="3,10,0,0">
+                            <StackPanel Margin="3,10,0,0" Orientation="Horizontal">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     FontSize="16"
                                     Text="{Binding ViewModel.AppVersion, StringFormat=Version: {0}}" />
-                                <ui:Badge Margin="7, 0, 0, 0" Appearance="Caution" Content="Debug Mode" Visibility="{Binding ViewModel.DebugMode, Converter={StaticResource BoolToVisibility}}"></ui:Badge>
-                                <ui:Badge Margin="7, 0, 0, 0" Appearance="Danger" Content="Experiment" Visibility="{Binding ViewModel.ExperimentMode, Converter={StaticResource BoolToVisibility}}"></ui:Badge>
+                                <ui:Badge
+                                    Margin="7,0,0,0"
+                                    Appearance="Caution"
+                                    Content="Debug Mode"
+                                    Visibility="{Binding ViewModel.DebugMode, Converter={StaticResource BoolToVisibility}}" />
+                                <ui:Badge
+                                    Margin="7,0,0,0"
+                                    Appearance="Danger"
+                                    Content="Experiment"
+                                    Visibility="{Binding ViewModel.ExperimentMode, Converter={StaticResource BoolToVisibility}}" />
                             </StackPanel>
                             <Grid Margin="-3,10,0,0">
                                 <Grid.RowDefinitions>

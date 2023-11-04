@@ -493,9 +493,6 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="LibraryDetail_Contact_ProjectUrl" xml:space="preserve">
     <value>Project Url</value>
   </data>
-  <data name="Library_Operation_CheckIntegrity" xml:space="preserve">
-    <value>Check Integrity</value>
-  </data>
   <data name="Library_CheckUpdate_Current" xml:space="preserve">
     <value>Current: {0}</value>
   </data>

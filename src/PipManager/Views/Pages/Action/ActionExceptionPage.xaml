@@ -1,21 +1,21 @@
 <Page
     x:Class="PipManager.Views.Pages.Action.ActionExceptionPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:action="clr-namespace:PipManager.Views.Pages.Action"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:lang="clr-namespace:PipManager.Languages"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:lang="clr-namespace:PipManager.Languages"
     xmlns:action1="clr-namespace:PipManager.Models.Action"
+    xmlns:action="clr-namespace:PipManager.Views.Pages.Action"
     Title="ActionExceptionPage"
-    ui:NavigationView.HeaderContent="{I18N {x:Static lang:LangKeys.ActionException_Header}}"
     d:DataContext="{d:DesignInstance action:ActionExceptionPage,
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="700"
     d:DesignWidth="1200"
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    ui:NavigationView.HeaderContent="{I18N {x:Static lang:LangKeys.ActionException_Header}}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
 
@@ -31,8 +31,12 @@
                         CornerRadius="5">
                         <Grid>
                             <StackPanel>
-                                <TextBlock Text="{Binding OperationId, StringFormat=#{0}}" Foreground="Gray" FontSize="12" HorizontalAlignment="Left"></TextBlock>
-                                <StackPanel Margin="0, 10, 0, 0" Orientation="Horizontal">
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    FontSize="12"
+                                    Foreground="Gray"
+                                    Text="{Binding OperationId, StringFormat=#{0}}" />
+                                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                                     <ui:SymbolIcon VerticalAlignment="Center" Symbol="{Binding Path=OperationIcon.Symbol}" />
                                     <TextBlock
                                         Margin="5,0,0,0"
@@ -73,12 +77,12 @@
                                 </StackPanel>
                                 <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
                                     <ui:Button
-                                        Icon="{ui:SymbolIcon Bug24}"
-                                        Appearance="Danger"
                                         VerticalAlignment="Center"
+                                        Appearance="Danger"
                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Page}, Path=DataContext.ViewModel.ShowExceptionCommand}"
                                         CommandParameter="{Binding}"
-                                        Content="{I18N {x:Static lang:LangKeys.Action_Button_Exceptions}}" />
+                                        Content="{I18N {x:Static lang:LangKeys.Action_Button_Exceptions}}"
+                                        Icon="{ui:SymbolIcon Bug24}" />
                                 </StackPanel>
                             </StackPanel>
                         </Grid>

@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using PipManager.Languages;
+﻿using PipManager.Languages;
 using Wpf.Ui.Controls;
 
 namespace PipManager.Models.Action;
@@ -70,5 +69,4 @@ public class ActionListItem
     public double ProgressBarValue { get; set; }
     public bool Completed { get; set; }
     public bool DetectIssue { get; set; }
-
 }

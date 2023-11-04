@@ -1,9 +1,8 @@
 ﻿using PipManager.Controls;
-using System.Windows.Media;
 using PipManager.Languages;
+using System.Windows.Media;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
-using Wpf.Ui.Controls;
 
 namespace PipManager.Services.Toast;
 
@@ -57,7 +56,7 @@ public class ToastService : IToastService
 
     public void Info(string message)
     {
-        Controls.Toast.Show(Lang.ContentDialog_Title_Notice, message, new ToastOptions { Time = 2000, Theme = _themeService.GetTheme(), ToastType = ToastType.Info});
+        Controls.Toast.Show(Lang.ContentDialog_Title_Notice, message, new ToastOptions { Time = 2000, Theme = _themeService.GetTheme(), ToastType = ToastType.Info });
     }
 
     public void Warning(string message)

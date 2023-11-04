@@ -218,7 +218,7 @@ namespace PipManager.Controls
             toast._timer.Interval = new TimeSpan(0, 0, 0, 0, time);
             toast._timer.Start();
             return;
-            
+
             void OnTimerTick(object? sender, EventArgs e)
             {
                 if (toast._popup != null) toast._popup.IsOpen = false;
@@ -294,12 +294,14 @@ namespace PipManager.Controls
         }
 
         private event EventHandler<EventArgs>? Closed;
+
         private void RaiseClosed(EventArgs e)
         {
             Closed?.Invoke(this, e);
         }
 
         private event EventHandler<EventArgs>? Click;
+
         private void RaiseClick(EventArgs e)
         {
             Click?.Invoke(this, e);
@@ -312,22 +314,25 @@ namespace PipManager.Controls
             get => (string)GetValue(TitleProperty);
             set => SetValue(TitleProperty, value);
         }
+
         private static readonly DependencyProperty TitleProperty =
             DependencyProperty.Register(nameof(Title), typeof(string), typeof(Toast), new PropertyMetadata(string.Empty));
-
 
         private string Message
         {
             get => (string)GetValue(MessageProperty);
             set => SetValue(MessageProperty, value);
         }
+
         private static readonly DependencyProperty MessageProperty =
             DependencyProperty.Register(nameof(Message), typeof(string), typeof(Toast), new PropertyMetadata(string.Empty));
+
         private new Brush BorderBrush
         {
             get => (Brush)GetValue(BorderBrushProperty);
             set => SetValue(BorderBrushProperty, value);
         }
+
         private new static readonly DependencyProperty BorderBrushProperty =
             DependencyProperty.Register(nameof(BorderBrush), typeof(Brush), typeof(Toast), new PropertyMetadata(new SolidColorBrush(Color.FromRgb(229, 229, 229))));
 
@@ -336,6 +341,7 @@ namespace PipManager.Controls
             get => (Thickness)GetValue(BorderThicknessProperty);
             set => SetValue(BorderThicknessProperty, value);
         }
+
         private new static readonly DependencyProperty BorderThicknessProperty =
             DependencyProperty.Register(nameof(BorderThickness), typeof(Thickness), typeof(Toast), new PropertyMetadata(new Thickness(0)));
 
@@ -344,13 +350,16 @@ namespace PipManager.Controls
             get => (Brush)GetValue(BackgroundProperty);
             set => SetValue(BackgroundProperty, value);
         }
+
         private new static readonly DependencyProperty BackgroundProperty =
             DependencyProperty.Register(nameof(Background), typeof(Brush), typeof(Toast), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(40, 0, 255, 0))));
+
         private double ToastWidth
         {
             get => (double)GetValue(ToastWidthProperty);
             set => SetValue(ToastWidthProperty, value);
         }
+
         private static readonly DependencyProperty ToastWidthProperty =
             DependencyProperty.Register(nameof(ToastWidth), typeof(double), typeof(Toast), new PropertyMetadata(0.0));
 
@@ -359,6 +368,7 @@ namespace PipManager.Controls
             get => (double)GetValue(ToastHeightProperty);
             set => SetValue(ToastHeightProperty, value);
         }
+
         private static readonly DependencyProperty ToastHeightProperty =
             DependencyProperty.Register(nameof(ToastHeight), typeof(double), typeof(Toast), new PropertyMetadata(0.0));
 
@@ -367,6 +377,7 @@ namespace PipManager.Controls
             get => (SymbolRegular)GetValue(IconProperty);
             set => SetValue(IconProperty, value);
         }
+
         private static readonly DependencyProperty IconProperty =
             DependencyProperty.Register(nameof(Icon), typeof(SymbolRegular), typeof(Toast), new PropertyMetadata(SymbolRegular.Info20));
 
@@ -375,13 +386,16 @@ namespace PipManager.Controls
             get => (int)GetValue(TimeProperty);
             set => SetValue(TimeProperty, value);
         }
+
         private static readonly DependencyProperty TimeProperty =
             DependencyProperty.Register(nameof(Time), typeof(int), typeof(Toast), new PropertyMetadata(2000));
+
         public double TextWidth
         {
             get => (double)GetValue(TextWidthProperty);
             set => SetValue(TextWidthProperty, value);
         }
+
         public static readonly DependencyProperty TextWidthProperty =
             DependencyProperty.Register(nameof(TextWidth), typeof(double), typeof(Toast), new PropertyMetadata(double.MaxValue));
 
@@ -390,6 +404,7 @@ namespace PipManager.Controls
             get => (Thickness)GetValue(ToastMarginProperty);
             set => SetValue(ToastMarginProperty, value);
         }
+
         public static readonly DependencyProperty ToastMarginProperty =
             DependencyProperty.Register(nameof(ToastMargin), typeof(Thickness), typeof(Toast), new PropertyMetadata(new Thickness(0)));
 
@@ -398,9 +413,10 @@ namespace PipManager.Controls
             get => (Brush)GetValue(IconForegroundProperty);
             set => SetValue(IconForegroundProperty, value);
         }
+
         private static readonly DependencyProperty IconForegroundProperty =
             DependencyProperty.Register(nameof(IconForeground), typeof(Brush), typeof(Toast), new PropertyMetadata(new SolidColorBrush(Colors.Black)));
 
-        #endregion
+        #endregion Dependency Properties
     }
 }

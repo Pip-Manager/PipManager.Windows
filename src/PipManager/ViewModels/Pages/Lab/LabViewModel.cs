@@ -1,10 +1,6 @@
-﻿using PipManager.Models;
-using Serilog;
-using System.Windows.Media;
-using PipManager.Languages;
-using PipManager.Models.Action;
+﻿using PipManager.Models.Action;
 using PipManager.Services.Action;
-using PipManager.Views.Pages.Action;
+using Serilog;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 

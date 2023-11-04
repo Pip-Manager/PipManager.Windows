@@ -33,11 +33,11 @@ public class CheckUpdateContentDialog
             needUpdate ? Visibility.Collapsed : Visibility.Visible;
         _contentDialog.IsPrimaryButtonEnabled = needUpdate;
     }
+
     public async Task<ContentDialogResult> ShowAsync()
     {
         return await _contentDialog.ShowAsync();
     }
-
 }
 
 public class LibraryCheckUpdateContentDialogContentListItem

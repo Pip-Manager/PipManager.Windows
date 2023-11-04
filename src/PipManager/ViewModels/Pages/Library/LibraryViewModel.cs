@@ -1,19 +1,19 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using PipManager.Controls.Library;
 using PipManager.Languages;
+using PipManager.Models.Action;
+using PipManager.Models.Package;
 using PipManager.Models.Pages;
 using PipManager.Services.Action;
 using PipManager.Services.Configuration;
 using PipManager.Services.Environment;
 using PipManager.Services.Mask;
+using PipManager.Services.Toast;
 using PipManager.Views.Pages.Action;
 using PipManager.Views.Pages.Environment;
 using PipManager.Views.Pages.Library;
 using Serilog;
 using System.Collections.ObjectModel;
-using PipManager.Models.Action;
-using PipManager.Models.Package;
-using PipManager.Services.Toast;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -87,8 +87,6 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             totalSubTaskNumber: selected.Count
         ));
         _navigationService.Navigate(typeof(ActionPage));
-
-        return;
     }
 
     #endregion Delete Package

@@ -44,11 +44,6 @@
                     Content="{I18N {x:Static lang:LangKeys.Library_Operation_CheckUpdate}}"
                     Icon="{ui:SymbolIcon Check24}"
                     IsEnabled="{Binding ElementName=LibraryList, Path=SelectedItems.Count, Converter={StaticResource IntegerToBool}}" />
-                <ui:Button
-                    Margin="5,0,0,0"
-                    Content="{I18N {x:Static lang:LangKeys.Library_Operation_CheckIntegrity}}"
-                    Icon="{ui:SymbolIcon SearchVisual24}"
-                    IsEnabled="{Binding ElementName=LibraryList, Path=SelectedItems.Count, Converter={StaticResource IntegerToBool}}" />
             </StackPanel>
             <StackPanel
                 HorizontalAlignment="Right"

@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 using PipManager.Languages;
 using PipManager.Models;
+using PipManager.Models.Package;
 using PipManager.Services.Configuration;
+using PipManager.Services.Toast;
 using PipManager.Views.Pages.About;
 using PipManager.Views.Pages.Settings;
 using Serilog;
@@ -9,13 +11,10 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net.Http;
-using PipManager.Models.Package;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
-using PipManager.Controls;
-using PipManager.Services.Toast;
 
 namespace PipManager.ViewModels.Pages.Settings;
 
@@ -27,7 +26,6 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     private readonly IThemeService _themeService;
     private readonly INavigationService _navigationService;
     private readonly IToastService _toastService;
-
 
     public SettingsViewModel(ISnackbarService snackbarService, IConfigurationService configurationService, IThemeService themeService, INavigationService navigationService, IToastService toastService)
     {
@@ -217,10 +215,10 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
 
     #region Log and Crushes Auto Deletion
 
-    [ObservableProperty] private bool _logAutoDeletion = false;
-    [ObservableProperty] private bool _crushesAutoDeletion = false;
-    [ObservableProperty] private int _logAutoDeletionTimes = 0;
-    [ObservableProperty] private int _crushesAutoDeletionTimes = 0;
+    [ObservableProperty] private bool _logAutoDeletion;
+    [ObservableProperty] private bool _crushesAutoDeletion;
+    [ObservableProperty] private int _logAutoDeletionTimes;
+    [ObservableProperty] private int _crushesAutoDeletionTimes;
 
     [RelayCommand]
     private void OnChangeLogAutoDeletion()
