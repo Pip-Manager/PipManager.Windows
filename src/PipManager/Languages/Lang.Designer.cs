@@ -151,6 +151,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Added {0} new operation(s) 的本地化字符串。
+        /// </summary>
+        public static string Action_AddOperation_Toast {
+            get {
+                return ResourceManager.GetString("Action_AddOperation_Toast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Exceptions 的本地化字符串。
         /// </summary>
         public static string Action_Button_Exceptions {
@@ -237,6 +246,15 @@ namespace PipManager.Languages {
         public static string Action_NoCurrentOperations {
             get {
                 return ResourceManager.GetString("Action_NoCurrentOperations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Package Install 的本地化字符串。
+        /// </summary>
+        public static string Action_Operation_Install {
+            get {
+                return ResourceManager.GetString("Action_Operation_Install", resourceCulture);
             }
         }
         
@@ -340,11 +358,29 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Exception 的本地化字符串。
+        /// </summary>
+        public static string ActionExceptionWindow_Exception {
+            get {
+                return ResourceManager.GetString("ActionExceptionWindow_Exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Error Message: 的本地化字符串。
         /// </summary>
         public static string ActionExceptionWindow_OriginalException {
             get {
                 return ResourceManager.GetString("ActionExceptionWindow_OriginalException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Speculation 的本地化字符串。
+        /// </summary>
+        public static string ActionExceptionWindow_Speculation {
+            get {
+                return ResourceManager.GetString("ActionExceptionWindow_Speculation", resourceCulture);
             }
         }
         

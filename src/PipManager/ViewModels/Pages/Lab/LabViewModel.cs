@@ -25,15 +25,13 @@ public partial class LabViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private void ActionTest()
     {
-        _actionService.ActionList.Add(new ActionListItem
+        _actionService.AddOperation(new ActionListItem
         (
             ActionType.Update,
-            Lang.Action_Operation_Update,
             "114510==114514 114511==114514",
             progressIntermediate: false,
             totalSubTaskNumber: 2
         ));
-        ///_navigationService.Navigate(typeof(ActionPage));
     }
 
     public void OnNavigatedTo()

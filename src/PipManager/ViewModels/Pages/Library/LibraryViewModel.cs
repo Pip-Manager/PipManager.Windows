@@ -73,10 +73,9 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         var custom = new DeletionWarningContentDialog(selected);
         var command = selected.Aggregate("", (current, item) => current + (item.PackageName + ' '));
         if (custom.ShowAsync().Result != MessageBoxResult.Primary) return Task.CompletedTask;
-        _actionService.ActionList.Add(new ActionListItem
+        _actionService.AddOperation(new ActionListItem
         (
             ActionType.Uninstall,
-            Lang.Action_Operation_Uninstall,
             command.Trim(),
             progressIntermediate: false,
             totalSubTaskNumber: selected.Count
@@ -116,10 +115,9 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         _maskService.Hide();
         var custom = new CheckUpdateContentDialog(msgList);
         if (custom.ShowAsync().Result != MessageBoxResult.Primary) return;
-        _actionService.ActionList.Add(new ActionListItem
+        _actionService.AddOperation(new ActionListItem
         (
             ActionType.Update,
-            Lang.Action_Operation_Update,
             operationList.Trim(),
             progressIntermediate: false,
             totalSubTaskNumber: msgList.Count

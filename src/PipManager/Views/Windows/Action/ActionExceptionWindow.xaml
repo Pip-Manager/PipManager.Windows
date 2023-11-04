@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:action="clr-namespace:PipManager.Views.Windows.Action"
-    Title="ActionExceptionWindow"
+    Title="{I18N {x:Static lang:LangKeys.ActionExceptionWindow_Title}}"
     MinWidth="700"
     MinHeight="540"
     d:DataContext="{d:DesignInstance action:ActionExceptionWindow,
@@ -41,7 +41,7 @@
             </ui:TitleBar.Icon>
         </ui:TitleBar>
         <Grid Grid.Row="1" Margin="10">
-            <ui:Badge Appearance="Primary" Content="Speculation" VerticalAlignment="Top" />
+            <ui:Badge Appearance="Primary" Content="{I18N {x:Static lang:Lang.ActionExceptionWindow_Speculation}}" VerticalAlignment="Top" />
             <TextBox
                 x:Name="SpeculationTextBox"
                 HorizontalAlignment="Stretch"
@@ -51,7 +51,7 @@
                 IsReadOnly="True" />
         </Grid>
         <Grid Grid.Row="2" Margin="10" >
-            <ui:Badge Appearance="Caution" Content="Exception" VerticalAlignment="Top"/>
+            <ui:Badge Appearance="Caution" Content="{I18N {x:Static lang:Lang.ActionExceptionWindow_Exception}}" VerticalAlignment="Top"/>
 
             <TextBox
                 x:Name="OriginalExceptionTextBox"

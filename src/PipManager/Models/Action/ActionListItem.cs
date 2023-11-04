@@ -6,15 +6,22 @@ namespace PipManager.Models.Action;
 
 public class ActionListItem
 {
-    public ActionListItem(ActionType operationType, string operationDescription, string operationCommand, string operationStatus = "Waiting in queue", bool progressIntermediate = false, int totalSubTaskNumber = 0, int completedSubTaskNumber = 0)
+    public ActionListItem(ActionType operationType, string operationCommand, string operationStatus = "Waiting in queue", bool progressIntermediate = false, int totalSubTaskNumber = 0, int completedSubTaskNumber = 0)
     {
         OperationType = operationType;
-        OperationDescription = operationDescription;
         OperationCommand = operationCommand;
         OperationStatus = operationStatus;
         ProgressIntermediate = progressIntermediate;
         TotalSubTaskNumber = totalSubTaskNumber;
         CompletedSubTaskNumber = completedSubTaskNumber;
+        OperationDescription = operationType switch
+        {
+            ActionType.Uninstall => Lang.Action_Operation_Uninstall,
+            ActionType.Install => Lang.Action_Operation_Install,
+            ActionType.Update => Lang.Action_Operation_Update,
+            _ => "Unknown",
+        };
+
         OperationIcon = operationType switch
         {
             ActionType.Uninstall => new SymbolIcon(SymbolRegular.Delete24),

@@ -580,4 +580,16 @@
   <data name="ActionExceptionAnalyze_NoMatchingDistFound_ArbitraryEquality" xml:space="preserve">
     <value>没有找到版本严格等于{1}的包{0}，请检查包名的拼写是否正确，且确认该包(以及其版本)存在。</value>
   </data>
+  <data name="ActionExceptionWindow_Speculation" xml:space="preserve">
+    <value>猜测原因</value>
+  </data>
+  <data name="ActionExceptionWindow_Exception" xml:space="preserve">
+    <value>异常信息</value>
+  </data>
+  <data name="Action_Operation_Install" xml:space="preserve">
+    <value>安装操作</value>
+  </data>
+  <data name="Action_AddOperation_Toast" xml:space="preserve">
+    <value>新增了{0}个任务</value>
+  </data>
 </root>

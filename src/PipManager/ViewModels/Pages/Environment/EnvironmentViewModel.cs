@@ -140,10 +140,9 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
             var result = await _contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.Notice(message));
             if (result == ContentDialogResult.Primary)
             {
-                _actionService.ActionList.Add(new ActionListItem
+                _actionService.AddOperation(new ActionListItem
                 (
                     ActionType.Update,
-                    Lang.Action_Operation_Update,
                     "pip",
                     progressIntermediate: false,
                     totalSubTaskNumber: 1

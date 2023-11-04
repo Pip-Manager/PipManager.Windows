@@ -580,4 +580,16 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="ActionExceptionAnalyze_NoMatchingDistFound_ArbitraryEquality" xml:space="preserve">
     <value>No package {0} with version strictly equal to {1} was found, please check that the package name is spelled correctly and that the package (and its version) exists.</value>
   </data>
+  <data name="ActionExceptionWindow_Speculation" xml:space="preserve">
+    <value>Speculation</value>
+  </data>
+  <data name="ActionExceptionWindow_Exception" xml:space="preserve">
+    <value>Exception</value>
+  </data>
+  <data name="Action_Operation_Install" xml:space="preserve">
+    <value>Package Install</value>
+  </data>
+  <data name="Action_AddOperation_Toast" xml:space="preserve">
+    <value>Added {0} new operation(s)</value>
+  </data>
 </root>

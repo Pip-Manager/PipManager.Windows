@@ -1,11 +1,8 @@
 ﻿using PipManager.Languages;
 using PipManager.Models.Action;
-using PipManager.Models.Pages;
 using PipManager.Services.Environment;
 using PipManager.Services.Toast;
-using PipManager.ViewModels.Pages.Action;
 using Serilog;
-using Wpf.Ui;
 
 namespace PipManager.Services.Action;
 
@@ -22,6 +19,12 @@ public class ActionService : IActionService
 
     public List<ActionListItem> ActionList { get; set; } = new();
     public List<ActionListItem> ExceptionList { get; set; } = new();
+
+    public void AddOperation(ActionListItem actionListItem)
+    {
+        _toastService.Info(string.Format(Lang.Action_AddOperation_Toast, actionListItem.TotalSubTaskNumber));
+        ActionList.Add(actionListItem);
+    }
 
     public void Runner()
     {
