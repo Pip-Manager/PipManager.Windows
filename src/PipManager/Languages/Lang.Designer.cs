@@ -529,6 +529,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Following packages will be removed from the environment: 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_Message_LibraryDeletionWarning {
+            get {
+                return ResourceManager.GetString("ContentDialog_Message_LibraryDeletionWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Network Error 的本地化字符串。
         /// </summary>
         public static string ContentDialog_Message_NetworkError {
@@ -1227,15 +1236,6 @@ namespace PipManager.Languages {
         public static string Mask_Loading {
             get {
                 return ResourceManager.GetString("Mask_Loading", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Following packages will be removed from the environment: 的本地化字符串。
-        /// </summary>
-        public static string Msgbox_Message_LibraryDeletionWarning {
-            get {
-                return ResourceManager.GetString("Msgbox_Message_LibraryDeletionWarning", resourceCulture);
             }
         }
         

@@ -10,7 +10,7 @@
         <TextBlock
             VerticalAlignment="Top"
             FontSize="16"
-            Text="{I18N {x:Static lang:LangKeys.Msgbox_Message_LibraryDeletionWarning}}" />
+            Text="{I18N {x:Static lang:LangKeys.ContentDialog_Message_LibraryDeletionWarning}}" />
         <ScrollViewer Margin="0,30,0,0" VerticalAlignment="Top">
             <ItemsControl x:Name="LibraryDeletionWarningContentDialogContentListView">
                 <ItemsControl.ItemTemplate>
