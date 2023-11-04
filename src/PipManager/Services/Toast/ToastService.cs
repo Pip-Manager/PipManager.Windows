@@ -11,9 +11,9 @@ public class ToastService : IToastService
 {
     private readonly IThemeService _themeService;
 
-    private readonly SolidColorBrush _infoIconSolidColorBrush = new(Color.FromRgb(0, 159, 170));
-    private readonly SolidColorBrush _warningIconSolidColorBrush = new(Color.FromRgb(157, 93, 0));
-    private readonly SolidColorBrush _errorIconSolidColorBrush = new(Color.FromRgb(196, 43, 28));
+    private readonly SolidColorBrush _infoIconSolidColorBrush = new(Color.FromRgb(76, 194, 255));
+    private readonly SolidColorBrush _warningIconSolidColorBrush = new(Color.FromRgb(252, 225, 0));
+    private readonly SolidColorBrush _errorIconSolidColorBrush = new(Color.FromRgb(255, 153, 164));
 
     public ToastService(IThemeService themeService)
     {
@@ -57,16 +57,21 @@ public class ToastService : IToastService
 
     public void Info(string message)
     {
-        Controls.Toast.Show(Lang.ContentDialog_Title_Notice, message, new ToastOptions { Icon = SymbolRegular.Info24, Time = 2000, Background = GetInfoBackgroundColorFromTheme(), IconForeground = _infoIconSolidColorBrush, Foreground = GetForegroundColorFromTheme(), BorderBrush = GetBorderBrushFromTheme() });
+        Controls.Toast.Show(Lang.ContentDialog_Title_Notice, message, new ToastOptions { Time = 2000, Theme = _themeService.GetTheme(), ToastType = ToastType.Info});
     }
 
     public void Warning(string message)
     {
-        Controls.Toast.Show(Lang.ContentDialog_Title_Warning, message, new ToastOptions { Icon = SymbolRegular.Warning24, Time = 2000, Background = GetWarningBackgroundColorFromTheme(), IconForeground = _warningIconSolidColorBrush, Foreground = GetForegroundColorFromTheme(), BorderBrush = GetBorderBrushFromTheme() });
+        Controls.Toast.Show(Lang.ContentDialog_Title_Warning, message, new ToastOptions { Time = 2000, Theme = _themeService.GetTheme(), ToastType = ToastType.Warning });
     }
 
     public void Error(string message)
     {
-        Controls.Toast.Show(Lang.ContentDialog_Title_Error, message, new ToastOptions { Icon = SymbolRegular.ShieldError24, Time = 2000, Background = GetBorderBrushFromTheme(), IconForeground = _errorIconSolidColorBrush, Foreground = GetForegroundColorFromTheme(), BorderBrush = GetBorderBrushFromTheme() });
+        Controls.Toast.Show(Lang.ContentDialog_Title_Error, message, new ToastOptions { Time = 2000, Theme = _themeService.GetTheme(), ToastType = ToastType.Error });
+    }
+
+    public void Success(string message)
+    {
+        Controls.Toast.Show(Lang.ContentDialog_Title_Success, message, new ToastOptions { Time = 2000, Theme = _themeService.GetTheme(), ToastType = ToastType.Success });
     }
 }

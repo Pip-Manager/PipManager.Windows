@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 
 namespace PipManager.Controls
@@ -16,13 +17,22 @@ namespace PipManager.Controls
         public Brush IconForeground { get; set; } = new SolidColorBrush(Colors.Black);
         public FontFamily FontFamily { get; set; } = new("Microsoft YaHei");
         public FontWeight FontWeight { get; set; } = SystemFonts.MenuFontWeight;
-        public CornerRadius CornerRadius { get; set; } = new(5);
         public Brush BorderBrush { get; set; } = new SolidColorBrush(Color.FromRgb(229, 229, 229));
         public Thickness BorderThickness { get; set; } = new(2);
         public Brush Background { get; set; } = new SolidColorBrush(Color.FromArgb(40, 0, 255, 0));
+        public ApplicationTheme Theme { get; set; } = ApplicationTheme.Light;
+        public ToastType ToastType { get; set; } = ToastType.Info;
         public EventHandler<EventArgs>? Closed { get; internal set; }
         public EventHandler<EventArgs>? Click { get; internal set; }
         public Thickness ToastMargin { get; set; } = new(0, 60, 0, 0);
+    }
+
+    public enum ToastType
+    {
+        Info,
+        Warning,
+        Error,
+        Success
     }
 
     /// <summary>
@@ -51,18 +61,95 @@ namespace PipManager.Controls
                 if (options.ToastHeight != 0) ToastHeight = options.ToastHeight;
                 if (options.TextWidth != 0) TextWidth = options.TextWidth;
 
-                Icon = options.Icon;
                 Time = options.Time;
                 Closed += options.Closed;
                 Click += options.Click;
-                Background = options.Background;
-                Foreground = options.Foreground;
                 FontFamily = options.FontFamily;
                 FontWeight = options.FontWeight;
-                BorderBrush = options.BorderBrush;
                 BorderThickness = options.BorderThickness;
                 ToastMargin = options.ToastMargin;
-                IconForeground = options.IconForeground;
+
+                // Theme
+
+                Icon = options.ToastType switch
+                {
+                    ToastType.Info or ToastType.Warning => SymbolRegular.Info24,
+                    ToastType.Error => SymbolRegular.DismissCircle24,
+                    ToastType.Success => SymbolRegular.Checkmark24,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+
+                IconForeground = options.ToastType switch
+                {
+                    ToastType.Info => options.Theme switch
+                    {
+                        ApplicationTheme.Light => new SolidColorBrush(Color.FromRgb(0, 120, 212)),
+                        ApplicationTheme.Dark => new SolidColorBrush(Color.FromRgb(76, 194, 255)),
+                        _ => throw new ArgumentOutOfRangeException()
+                    },
+                    ToastType.Warning => options.Theme switch
+                    {
+                        ApplicationTheme.Light => new SolidColorBrush(Color.FromRgb(157, 93, 0)),
+                        ApplicationTheme.Dark => new SolidColorBrush(Color.FromRgb(252, 225, 0)),
+                        _ => throw new ArgumentOutOfRangeException()
+                    },
+                    ToastType.Error => options.Theme switch
+                    {
+                        ApplicationTheme.Light => new SolidColorBrush(Color.FromRgb(196, 43, 28)),
+                        ApplicationTheme.Dark => new SolidColorBrush(Color.FromRgb(255, 153, 164)),
+                        _ => throw new ArgumentOutOfRangeException()
+                    },
+                    ToastType.Success => options.Theme switch
+                    {
+                        ApplicationTheme.Light => new SolidColorBrush(Color.FromRgb(15, 123, 15)),
+                        ApplicationTheme.Dark => new SolidColorBrush(Color.FromRgb(108, 203, 95)),
+                        _ => throw new ArgumentOutOfRangeException()
+                    },
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+
+                Background = options.ToastType switch
+                {
+                    ToastType.Info => options.Theme switch
+                    {
+                        ApplicationTheme.Light => new SolidColorBrush(Color.FromRgb(244, 244, 244)),
+                        ApplicationTheme.Dark => new SolidColorBrush(Color.FromRgb(39, 39, 39)),
+                        _ => throw new ArgumentOutOfRangeException()
+                    },
+                    ToastType.Warning => options.Theme switch
+                    {
+                        ApplicationTheme.Light => new SolidColorBrush(Color.FromRgb(255, 244, 206)),
+                        ApplicationTheme.Dark => new SolidColorBrush(Color.FromRgb(67, 53, 25)),
+                        _ => throw new ArgumentOutOfRangeException()
+                    },
+                    ToastType.Error => options.Theme switch
+                    {
+                        ApplicationTheme.Light => new SolidColorBrush(Color.FromRgb(253, 231, 233)),
+                        ApplicationTheme.Dark => new SolidColorBrush(Color.FromRgb(68, 39, 38)),
+                        _ => throw new ArgumentOutOfRangeException()
+                    },
+                    ToastType.Success => options.Theme switch
+                    {
+                        ApplicationTheme.Light => new SolidColorBrush(Color.FromRgb(223, 246, 221)),
+                        ApplicationTheme.Dark => new SolidColorBrush(Color.FromRgb(57, 61, 27)),
+                        _ => throw new ArgumentOutOfRangeException()
+                    },
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+
+                BorderBrush = options.Theme switch
+                {
+                    ApplicationTheme.Light => new SolidColorBrush(Color.FromRgb(240, 240, 240)),
+                    ApplicationTheme.Dark => new SolidColorBrush(Color.FromRgb(40, 40, 40)),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+
+                Foreground = options.Theme switch
+                {
+                    ApplicationTheme.Light => new SolidColorBrush(Colors.Black),
+                    ApplicationTheme.Dark => new SolidColorBrush(Colors.White),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
             }
 
             DataContext = this;
