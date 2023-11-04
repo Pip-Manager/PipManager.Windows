@@ -1,32 +1,30 @@
 ﻿using PipManager.Languages;
 using PipManager.Models.Pages;
 using System.Windows.Controls;
+using Wpf.Ui.Controls;
 
 namespace PipManager.Controls.Library;
 
 public class DeletionWarningContentDialog
 {
-    private readonly MessageBox _messageBox;
+    private readonly ContentDialog _contentDialog;
     public List<LibraryListItem> LibraryList { get; set; }
 
-    public DeletionWarningContentDialog(List<LibraryListItem> libraryList)
+    public DeletionWarningContentDialog(ContentPresenter contentPresenter, List<LibraryListItem> libraryList)
     {
         LibraryList = libraryList;
-        _messageBox = new MessageBox
+        _contentDialog = new ContentDialog(contentPresenter)
         {
             PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Action,
             CloseButtonText = Lang.ContentDialog_CloseButton_Cancel,
-            MinWidth = 600,
-            MinHeight = 300,
-            MaxHeight = 500,
             Title = Lang.ContentDialog_Title_Warning,
             Content = Application.Current.TryFindResource("LibraryDeletionWarningContentDialogContent")
         };
-        (((_messageBox.Content as Grid)!.Children[1] as ScrollViewer)!.Content as ItemsControl)!.ItemsSource = LibraryList;
+        (((_contentDialog.Content as Grid)!.Children[1] as ScrollViewer)!.Content as ItemsControl)!.ItemsSource = LibraryList;
     }
 
-    public async Task<MessageBoxResult> ShowAsync()
+    public async Task<ContentDialogResult> ShowAsync()
     {
-        return await _messageBox.ShowDialogAsync();
+        return await _contentDialog.ShowAsync();
     }
 }

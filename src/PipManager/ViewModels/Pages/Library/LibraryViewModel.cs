@@ -13,6 +13,7 @@ using Serilog;
 using System.Collections.ObjectModel;
 using PipManager.Models.Action;
 using PipManager.Models.Package;
+using PipManager.Services.Toast;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -29,15 +30,19 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private readonly IConfigurationService _configurationService;
     private readonly IActionService _actionService;
     private readonly IMaskService _maskService;
+    private readonly IToastService _toastService;
+    private readonly IContentDialogService _contentDialogService;
 
     public LibraryViewModel(INavigationService navigationService, IEnvironmentService environmentService,
-        IConfigurationService configurationService, IActionService actionService, IThemeService themeService, IMaskService maskService)
+        IConfigurationService configurationService, IActionService actionService, IThemeService themeService, IMaskService maskService, IToastService toastService, IContentDialogService contentDialogService)
     {
         _navigationService = navigationService;
         _environmentService = environmentService;
         _configurationService = configurationService;
         _actionService = actionService;
         _maskService = maskService;
+        _toastService = toastService;
+        _contentDialogService = contentDialogService;
 
         themeService.SetTheme(_configurationService.AppConfig.Personalization.Theme switch
         {
@@ -67,12 +72,13 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     #region Delete Package
 
     [RelayCommand]
-    private Task DeletePackageAsync()
+    private async Task DeletePackageAsync()
     {
         var selected = LibraryList.Where(libraryListItem => libraryListItem.IsSelected).ToList();
-        var custom = new DeletionWarningContentDialog(selected);
+        var custom = new DeletionWarningContentDialog(_contentDialogService.GetContentPresenter(), selected);
+        var result = await custom.ShowAsync();
         var command = selected.Aggregate("", (current, item) => current + (item.PackageName + ' '));
-        if (custom.ShowAsync().Result != MessageBoxResult.Primary) return Task.CompletedTask;
+        if (result != ContentDialogResult.Primary) return;
         _actionService.AddOperation(new ActionListItem
         (
             ActionType.Uninstall,
@@ -82,7 +88,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         ));
         _navigationService.Navigate(typeof(ActionPage));
 
-        return Task.CompletedTask;
+        return;
     }
 
     #endregion Delete Package
@@ -113,16 +119,24 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             Task.WaitAll(ioTaskList.ToArray());
         });
         _maskService.Hide();
-        var custom = new CheckUpdateContentDialog(msgList);
-        if (custom.ShowAsync().Result != MessageBoxResult.Primary) return;
-        _actionService.AddOperation(new ActionListItem
-        (
-            ActionType.Update,
-            operationList.Trim(),
-            progressIntermediate: false,
-            totalSubTaskNumber: msgList.Count
-        ));
-        _navigationService.Navigate(typeof(ActionPage));
+        if (msgList.Count == 0)
+        {
+            _toastService.Info(Lang.ContentDialog_Message_PackageIsLatest);
+        }
+        else
+        {
+            var custom = new CheckUpdateContentDialog(_contentDialogService.GetContentPresenter(), msgList);
+            var result = await custom.ShowAsync();
+            if (result != ContentDialogResult.Primary) return;
+            _actionService.AddOperation(new ActionListItem
+            (
+                ActionType.Update,
+                operationList.Trim(),
+                progressIntermediate: false,
+                totalSubTaskNumber: msgList.Count
+            ));
+            _navigationService.Navigate(typeof(ActionPage));
+        }
     }
 
     #endregion Check Update
