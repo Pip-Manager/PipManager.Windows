@@ -1,6 +1,11 @@
 ﻿using PipManager.Models;
 using Serilog;
 using System.Windows.Media;
+using PipManager.Languages;
+using PipManager.Models.Action;
+using PipManager.Services.Action;
+using PipManager.Views.Pages.Action;
+using Wpf.Ui;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Lab;
@@ -8,9 +13,28 @@ namespace PipManager.ViewModels.Pages.Lab;
 public partial class LabViewModel : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
+    private readonly IActionService _actionService;
+    private readonly INavigationService _navigationService;
 
-    [ObservableProperty]
-    private IEnumerable<DataColor> _colors = null!;
+    public LabViewModel(INavigationService navigationService, IActionService actionService)
+    {
+        _navigationService = navigationService;
+        _actionService = actionService;
+    }
+
+    [RelayCommand]
+    private void ActionTest()
+    {
+        _actionService.ActionList.Add(new ActionListItem
+        (
+            ActionType.Update,
+            Lang.Action_Operation_Update,
+            "114510==114514 114511==114514",
+            progressIntermediate: false,
+            totalSubTaskNumber: 2
+        ));
+        ///_navigationService.Navigate(typeof(ActionPage));
+    }
 
     public void OnNavigatedTo()
     {
@@ -24,26 +48,6 @@ public partial class LabViewModel : ObservableObject, INavigationAware
 
     private void InitializeViewModel()
     {
-        var random = new Random();
-        var colorCollection = new List<DataColor>();
-
-        for (int i = 0; i < 8192; i++)
-            colorCollection.Add(
-                new DataColor
-                {
-                    Color = new SolidColorBrush(
-                        Color.FromArgb(
-                            (byte)200,
-                            (byte)random.Next(0, 250),
-                            (byte)random.Next(0, 250),
-                            (byte)random.Next(0, 250)
-                        )
-                    )
-                }
-            );
-
-        Colors = colorCollection;
-
         _isInitialized = true;
         Log.Information("[Lab] Initialized");
     }

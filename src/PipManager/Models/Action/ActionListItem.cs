@@ -1,4 +1,5 @@
-﻿using PipManager.Languages;
+﻿using System.Globalization;
+using PipManager.Languages;
 using Wpf.Ui.Controls;
 
 namespace PipManager.Models.Action;
@@ -33,9 +34,12 @@ public class ActionListItem
         Completed = false;
     }
 
+    public string OperationId { get; } = Guid.NewGuid().ToString();
+
     public SymbolIcon OperationIcon { get; set; }
     public ActionType OperationType { get; set; }
     public string OperationDescription { get; set; }
+    public string OperationTimestamp { get; } = DateTime.Now.ToLocalTime().ToString("yyyy-M-d HH:mm:ss");
     public string OperationCommand { get; set; }
     public string OperationStatus { get; set; }
     public bool ProgressIntermediate { get; set; }
@@ -58,4 +62,6 @@ public class ActionListItem
     public string BadgeAppearance { get; set; }
     public double ProgressBarValue { get; set; }
     public bool Completed { get; set; }
+    public bool DetectIssue { get; set; }
+
 }

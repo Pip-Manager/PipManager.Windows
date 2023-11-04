@@ -538,4 +538,46 @@
   <data name="MainWindow_NavigationContent_Lab" xml:space="preserve">
     <value>实验室</value>
   </data>
+  <data name="ActionException_Header" xml:space="preserve">
+    <value>异常</value>
+  </data>
+  <data name="Action_Button_Exceptions" xml:space="preserve">
+    <value>查看异常</value>
+  </data>
+  <data name="Action_NoCurrentOperations" xml:space="preserve">
+    <value>暂无任务</value>
+  </data>
+  <data name="ActionException_Badge_Timestamp" xml:space="preserve">
+    <value>执行时间</value>
+  </data>
+  <data name="Action_IssueDetectedToast" xml:space="preserve">
+    <value>在执行任务中发现异常</value>
+  </data>
+  <data name="ActionExceptionWindow_Title" xml:space="preserve">
+    <value>任务执行异常</value>
+  </data>
+  <data name="ActionExceptionWindow_OriginalException" xml:space="preserve">
+    <value>报错信息：</value>
+  </data>
+  <data name="ActionExceptionAnalyze_NoMatchingDistFound_VersionMatching" xml:space="preserve">
+    <value>没有找到版本为{1}的包{0}，请检查包名的拼写是否正确，且确认该包(以及其版本)存在。</value>
+  </data>
+  <data name="ActionExceptionAnalyze_NoMatchingDistFound_Compatible" xml:space="preserve">
+    <value>没有找到兼容的至少版本为{1}的包{0}，请检查包名的拼写是否正确，且确认该包(以及其版本)存在。</value>
+  </data>
+  <data name="ActionExceptionAnalyze_NoMatchingDistFound_InclusiveOrderedMore" xml:space="preserve">
+    <value>没有找到版本大于等于{1}的包{0}，请检查包名的拼写是否正确，且确认该包(以及其版本)存在。</value>
+  </data>
+  <data name="ActionExceptionAnalyze_NoMatchingDistFound_ExclusiveOrderedMore" xml:space="preserve">
+    <value>没有找到版本大于{1}的包{0}，请检查包名的拼写是否正确，且确认该包(以及其版本)存在。</value>
+  </data>
+  <data name="ActionExceptionAnalyze_NoMatchingDistFound_ExclusiveOrderedLess" xml:space="preserve">
+    <value>没有找到版本小于{1}的包{0}，请检查包名的拼写是否正确，且确认该包(以及其版本)存在。</value>
+  </data>
+  <data name="ActionExceptionAnalyze_NoMatchingDistFound_InclusiveOrderedLess" xml:space="preserve">
+    <value>没有找到版本小于等于{1}的包{0}，请检查包名的拼写是否正确，且确认该包(以及其版本)存在。</value>
+  </data>
+  <data name="ActionExceptionAnalyze_NoMatchingDistFound_ArbitraryEquality" xml:space="preserve">
+    <value>没有找到版本严格等于{1}的包{0}，请检查包名的拼写是否正确，且确认该包(以及其版本)存在。</value>
+  </data>
 </root>

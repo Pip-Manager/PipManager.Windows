@@ -151,6 +151,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Exceptions 的本地化字符串。
+        /// </summary>
+        public static string Action_Button_Exceptions {
+            get {
+                return ResourceManager.GetString("Action_Button_Exceptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Command 的本地化字符串。
         /// </summary>
         public static string Action_Command {
@@ -214,6 +223,24 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Issue detected in Action 的本地化字符串。
+        /// </summary>
+        public static string Action_IssueDetectedToast {
+            get {
+                return ResourceManager.GetString("Action_IssueDetectedToast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 No Current Operations 的本地化字符串。
+        /// </summary>
+        public static string Action_NoCurrentOperations {
+            get {
+                return ResourceManager.GetString("Action_NoCurrentOperations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Package Uninstallation 的本地化字符串。
         /// </summary>
         public static string Action_Operation_Uninstall {
@@ -228,6 +255,105 @@ namespace PipManager.Languages {
         public static string Action_Operation_Update {
             get {
                 return ResourceManager.GetString("Action_Operation_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Time 的本地化字符串。
+        /// </summary>
+        public static string ActionException_Badge_Timestamp {
+            get {
+                return ResourceManager.GetString("ActionException_Badge_Timestamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Exceptions 的本地化字符串。
+        /// </summary>
+        public static string ActionException_Header {
+            get {
+                return ResourceManager.GetString("ActionException_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 No package {0} with version strictly equal to {1} was found, please check that the package name is spelled correctly and that the package (and its version) exists. 的本地化字符串。
+        /// </summary>
+        public static string ActionExceptionAnalyze_NoMatchingDistFound_ArbitraryEquality {
+            get {
+                return ResourceManager.GetString("ActionExceptionAnalyze_NoMatchingDistFound_ArbitraryEquality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 No compatible packages {0} with at least version {1} were found, check that the package name is spelled correctly and that the package (and its version) exists. 的本地化字符串。
+        /// </summary>
+        public static string ActionExceptionAnalyze_NoMatchingDistFound_Compatible {
+            get {
+                return ResourceManager.GetString("ActionExceptionAnalyze_NoMatchingDistFound_Compatible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 No packages {0} with version less than {1} were found, please check that the package name is spelled correctly and that the package (and its version) exists. 的本地化字符串。
+        /// </summary>
+        public static string ActionExceptionAnalyze_NoMatchingDistFound_ExclusiveOrderedLess {
+            get {
+                return ResourceManager.GetString("ActionExceptionAnalyze_NoMatchingDistFound_ExclusiveOrderedLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 No package {0} with version greater than {1} was found, please check that the package name is spelled correctly and that the package (and its version) exists. 的本地化字符串。
+        /// </summary>
+        public static string ActionExceptionAnalyze_NoMatchingDistFound_ExclusiveOrderedMore {
+            get {
+                return ResourceManager.GetString("ActionExceptionAnalyze_NoMatchingDistFound_ExclusiveOrderedMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 No package {0} with version less than or equal to {1} was found, please check that the package name is spelled correctly and that the package (and its version) exists. 的本地化字符串。
+        /// </summary>
+        public static string ActionExceptionAnalyze_NoMatchingDistFound_InclusiveOrderedLess {
+            get {
+                return ResourceManager.GetString("ActionExceptionAnalyze_NoMatchingDistFound_InclusiveOrderedLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 No package {0} with version greater than or equal to {1} was found, please check that the package name is spelled correctly and that the package (and its version) exists. 的本地化字符串。
+        /// </summary>
+        public static string ActionExceptionAnalyze_NoMatchingDistFound_InclusiveOrderedMore {
+            get {
+                return ResourceManager.GetString("ActionExceptionAnalyze_NoMatchingDistFound_InclusiveOrderedMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Package {0} with version {1} was not found, check the spelling of the package name and make sure the package (and its version) exists. 的本地化字符串。
+        /// </summary>
+        public static string ActionExceptionAnalyze_NoMatchingDistFound_VersionMatching {
+            get {
+                return ResourceManager.GetString("ActionExceptionAnalyze_NoMatchingDistFound_VersionMatching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Error Message: 的本地化字符串。
+        /// </summary>
+        public static string ActionExceptionWindow_OriginalException {
+            get {
+                return ResourceManager.GetString("ActionExceptionWindow_OriginalException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Action Exception 的本地化字符串。
+        /// </summary>
+        public static string ActionExceptionWindow_Title {
+            get {
+                return ResourceManager.GetString("ActionExceptionWindow_Title", resourceCulture);
             }
         }
         

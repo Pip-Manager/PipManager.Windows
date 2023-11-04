@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using PipManager.Controls.Library;
 using PipManager.Languages;
-using PipManager.Models;
 using PipManager.Models.Pages;
 using PipManager.Services.Action;
 using PipManager.Services.Configuration;
@@ -14,7 +13,6 @@ using Serilog;
 using System.Collections.ObjectModel;
 using PipManager.Models.Action;
 using PipManager.Models.Package;
-using PipManager.ViewModels.Windows;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -30,7 +28,6 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private readonly IEnvironmentService _environmentService;
     private readonly IConfigurationService _configurationService;
     private readonly IActionService _actionService;
-    private readonly IThemeService _themeService;
     private readonly IMaskService _maskService;
 
     public LibraryViewModel(INavigationService navigationService, IEnvironmentService environmentService,
@@ -40,10 +37,9 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         _environmentService = environmentService;
         _configurationService = configurationService;
         _actionService = actionService;
-        _themeService = themeService;
         _maskService = maskService;
 
-        _themeService.SetTheme(_configurationService.AppConfig.Personalization.Theme switch
+        themeService.SetTheme(_configurationService.AppConfig.Personalization.Theme switch
         {
             "light" => ApplicationTheme.Light,
             "dark" => ApplicationTheme.Dark,
