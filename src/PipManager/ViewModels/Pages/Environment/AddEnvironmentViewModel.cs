@@ -35,6 +35,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
     {
         if (!_isInitialized)
             InitializeViewModel();
+        ByWay = 0;
         _ = RefreshPipList();
     }
 
@@ -50,26 +51,12 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
 
     #region ByWaysList
 
-    [ObservableProperty]
-    private List<AddEnvironmentByWaysListItem> _byWaysListItems = new()
-    {
-        new AddEnvironmentByWaysListItem(new SymbolIcon(SymbolRegular.Box24, filled: true), Lang.EnvironmentAdd_EnvironmentVariable_Title),
-        new AddEnvironmentByWaysListItem(new SymbolIcon(SymbolRegular.WindowApps24, filled:true), Lang.EnvironmentAdd_PipCommand_Title),
-        new AddEnvironmentByWaysListItem(new SymbolIcon(SymbolRegular.WindowText20, filled: true), Lang.EnvironmentAdd_PythonPath_Title)
-    };
-
-    [ObservableProperty] private int _byWaysListSelectedIndex;
-    [ObservableProperty] private bool _byEnvironmentVariablesGridVisibility = true;
-    [ObservableProperty] private bool _byPipCommandGridVisibility;
-    [ObservableProperty] private bool _byPythonPathGridVisibility;
+    [ObservableProperty] private int _byWay;
 
     [RelayCommand]
     private void ChangeWay()
     {
-        Log.Information($"[AddEnvironment] Addition way changed to index:{ByWaysListSelectedIndex}");
-        ByEnvironmentVariablesGridVisibility = ByWaysListSelectedIndex == 0;
-        ByPipCommandGridVisibility = ByWaysListSelectedIndex == 1;
-        ByPythonPathGridVisibility = ByWaysListSelectedIndex == 2;
+        Log.Information($"[AddEnvironment] Addition way changed to index:{ByWay}");
     }
 
     #endregion ByWaysList
@@ -153,15 +140,14 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
     #region Add
 
     [RelayCommand]
-    private async Task AddEnvironment(string parameter)
+    private void AddEnvironment(string parameter)
     {
-        if (ByEnvironmentVariablesGridVisibility)
+        switch (ByWay)
         {
-            if (EnvironmentItemInList == null)
-            {
+            case 0 when EnvironmentItemInList == null:
                 _toastService.Error(Lang.ContentDialog_Message_EnvironmentNoSelection);
-            }
-            else
+                break;
+            case 0:
             {
                 var result = _environmentService.CheckEnvironmentAvailable(EnvironmentItemInList);
                 var alreadyExists = _environmentService.CheckEnvironmentExists(EnvironmentItemInList);
@@ -184,54 +170,60 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
                 {
                     _toastService.Error(result.Item2);
                 }
+
+                break;
             }
-        }
-        else if (ByPipCommandGridVisibility)
-        {
-            var result = _configurationService.GetEnvironmentItemFromCommand(PipCommand, "-V");
-            if (result != null)
+            case 1:
             {
-                var alreadyExists = _environmentService.CheckEnvironmentExists(result);
-                if (alreadyExists)
+                var result = _configurationService.GetEnvironmentItemFromCommand(PipCommand, "-V");
+                if (result != null)
                 {
-                    _toastService.Error(Lang.ContentDialog_Message_EnvironmentAlreadyExists);
+                    var alreadyExists = _environmentService.CheckEnvironmentExists(result);
+                    if (alreadyExists)
+                    {
+                        _toastService.Error(Lang.ContentDialog_Message_EnvironmentAlreadyExists);
+                    }
+                    else
+                    {
+                        _configurationService.AppConfig.CurrentEnvironment = result;
+                        _configurationService.AppConfig.EnvironmentItems.Add(result);
+                        Log.Information($"[AddEnvironment] Environment added ({result.PipVersion} for {result.PythonVersion})");
+                        _configurationService.Save();
+                        _navigationService.GoBack();
+                    }
                 }
                 else
                 {
-                    _configurationService.AppConfig.CurrentEnvironment = result;
-                    _configurationService.AppConfig.EnvironmentItems.Add(result);
-                    Log.Information($"[AddEnvironment] Environment added ({result.PipVersion} for {result.PythonVersion})");
-                    _configurationService.Save();
-                    _navigationService.GoBack();
+                    _toastService.Error(Lang.ContentDialog_Message_EnvironmentInvaild);
                 }
+
+                break;
             }
-            else
+            case 2:
             {
-                _toastService.Error(Lang.ContentDialog_Message_EnvironmentInvaild);
-            }
-        }
-        else if (ByPythonPathGridVisibility)
-        {
-            var result = _configurationService.GetEnvironmentItemFromCommand(PythonPath, "-m pip -V");
-            if (result != null)
-            {
-                var alreadyExists = _environmentService.CheckEnvironmentExists(result);
-                if (alreadyExists)
+                var result = _configurationService.GetEnvironmentItemFromCommand(PythonPath, "-m pip -V");
+                if (result != null)
                 {
-                    _toastService.Error(Lang.ContentDialog_Message_EnvironmentAlreadyExists);
+                    var alreadyExists = _environmentService.CheckEnvironmentExists(result);
+                    if (alreadyExists)
+                    {
+                        _toastService.Error(Lang.ContentDialog_Message_EnvironmentAlreadyExists);
+                    }
+                    else
+                    {
+                        _configurationService.AppConfig.CurrentEnvironment = result;
+                        _configurationService.AppConfig.EnvironmentItems.Add(result);
+                        Log.Information($"[AddEnvironment] Environment added ({result.PipVersion} for {result.PythonVersion})");
+                        _configurationService.Save();
+                        _navigationService.GoBack();
+                    }
                 }
                 else
                 {
-                    _configurationService.AppConfig.CurrentEnvironment = result;
-                    _configurationService.AppConfig.EnvironmentItems.Add(result);
-                    Log.Information($"[AddEnvironment] Environment added ({result.PipVersion} for {result.PythonVersion})");
-                    _configurationService.Save();
-                    _navigationService.GoBack();
+                    _toastService.Error(Lang.ContentDialog_Message_EnvironmentInvaild);
                 }
-            }
-            else
-            {
-                _toastService.Error(Lang.ContentDialog_Message_EnvironmentInvaild);
+
+                break;
             }
         }
     }
