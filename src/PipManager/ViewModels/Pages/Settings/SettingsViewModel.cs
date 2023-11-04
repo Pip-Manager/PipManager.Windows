@@ -287,10 +287,10 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     {
         var messageBox = new MessageBox
         {
-            Title = Lang.MsgBox_Title_AreYouSure,
+            Title = Lang.ContentDialog_Title_AreYouSure,
             Content = Lang.Settings_FileManagement_ResetConfig_DialogContent,
-            PrimaryButtonText = Lang.MsgBox_PrimaryButton_Action,
-            CloseButtonText = Lang.MsgBox_CloseButton_Cancel
+            PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Action,
+            CloseButtonText = Lang.ContentDialog_CloseButton_Cancel
         };
 
         var result = await messageBox.ShowDialogAsync();

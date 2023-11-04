@@ -189,13 +189,13 @@
   <data name="Settings_FileManagement_ResetConfig_DialogContent" xml:space="preserve">
     <value>This action will delete all app-related settings. Are you sure you want to keep going with this?</value>
   </data>
-  <data name="MsgBox_Title_AreYouSure" xml:space="preserve">
+  <data name="ContentDialog_Title_AreYouSure" xml:space="preserve">
     <value>Operation Warning</value>
   </data>
-  <data name="MsgBox_PrimaryButton_Action" xml:space="preserve">
+  <data name="ContentDialog_PrimaryButton_Action" xml:space="preserve">
     <value>Action</value>
   </data>
-  <data name="MsgBox_CloseButton_Cancel" xml:space="preserve">
+  <data name="ContentDialog_CloseButton_Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
   <data name="Settings_FileManagement_CrushesDirNotFound" xml:space="preserve">
@@ -277,37 +277,37 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="EnvironmentAdd_PythonPath_Title" xml:space="preserve">
     <value>Python Executable Path</value>
   </data>
-  <data name="MsgBox_Title_Error" xml:space="preserve">
+  <data name="ContentDialog_Title_Error" xml:space="preserve">
     <value>Error</value>
   </data>
-  <data name="MsgBox_Message_EnvironmentAlreadyExists" xml:space="preserve">
+  <data name="ContentDialog_Message_EnvironmentAlreadyExists" xml:space="preserve">
     <value>Environment already exists</value>
   </data>
-  <data name="MsgBox_Message_EnvironmentNoSelection" xml:space="preserve">
+  <data name="ContentDialog_Message_EnvironmentNoSelection" xml:space="preserve">
     <value>You didn't choose an environment</value>
   </data>
   <data name="EnvironmentAdd_EnvironmentVariable_NotFound" xml:space="preserve">
     <value>Can't find any environment</value>
   </data>
-  <data name="MsgBox_Title_Warning" xml:space="preserve">
+  <data name="ContentDialog_Title_Warning" xml:space="preserve">
     <value>Warning</value>
   </data>
-  <data name="MsgBox_Message_EnvironmentDeletion" xml:space="preserve">
+  <data name="ContentDialog_Message_EnvironmentDeletion" xml:space="preserve">
     <value>The environment will be removed from the list</value>
   </data>
-  <data name="MsgBox_Message_EnvironmentInvaild" xml:space="preserve">
+  <data name="ContentDialog_Message_EnvironmentInvaild" xml:space="preserve">
     <value>Error in adding environment</value>
   </data>
-  <data name="MsgBox_Title_Success" xml:space="preserve">
+  <data name="ContentDialog_Title_Success" xml:space="preserve">
     <value>Success</value>
   </data>
-  <data name="MsgBox_Message_EnvironmentCheckPassed" xml:space="preserve">
+  <data name="ContentDialog_Message_EnvironmentCheckPassed" xml:space="preserve">
     <value>Environment available</value>
   </data>
-  <data name="MsgBox_Message_EnvironmentCheckFailed" xml:space="preserve">
+  <data name="ContentDialog_Message_EnvironmentCheckFailed" xml:space="preserve">
     <value>Environment not available</value>
   </data>
-  <data name="MsgBox_PrimaryButton_EnvironmentDeletion" xml:space="preserve">
+  <data name="ContentDialog_PrimaryButton_EnvironmentDeletion" xml:space="preserve">
     <value>Remove Environment</value>
   </data>
   <data name="Library_Operation_Install" xml:space="preserve">
@@ -376,16 +376,16 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="Environment_Operation_CheckEnvironmentUpdate" xml:space="preserve">
     <value>Check Update</value>
   </data>
-  <data name="MsgBox_Message_FindUpdate" xml:space="preserve">
+  <data name="ContentDialog_Message_FindUpdate" xml:space="preserve">
     <value>New version detected. Update now?</value>
   </data>
-  <data name="MsgBox_Title_Notice" xml:space="preserve">
+  <data name="ContentDialog_Title_Notice" xml:space="preserve">
     <value>Notice</value>
   </data>
   <data name="Action_Operation_Update" xml:space="preserve">
     <value>Package Update</value>
   </data>
-  <data name="MsgBox_Message_EnvironmentIsLatest" xml:space="preserve">
+  <data name="ContentDialog_Message_EnvironmentIsLatest" xml:space="preserve">
     <value>The environment is up to date</value>
   </data>
   <data name="ExceptionWindow_Title" xml:space="preserve">
@@ -502,7 +502,7 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="Library_CheckUpdate_Latest" xml:space="preserve">
     <value>Latest: {0}</value>
   </data>
-  <data name="MsgBox_Message_PackageIsLatest" xml:space="preserve">
+  <data name="ContentDialog_Message_PackageIsLatest" xml:space="preserve">
     <value>Package(s) are up to date</value>
   </data>
   <data name="Action_ConsoleOutput" xml:space="preserve">
@@ -520,10 +520,10 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="Action_IssueDetected" xml:space="preserve">
     <value>Issue</value>
   </data>
-  <data name="MsgBox_Message_NetworkError" xml:space="preserve">
+  <data name="ContentDialog_Message_NetworkError" xml:space="preserve">
     <value>Network Error</value>
   </data>
-  <data name="MsgBox_Message_ActionStillRunning" xml:space="preserve">
+  <data name="ContentDialog_Message_ActionStillRunning" xml:space="preserve">
     <value>There are still running background tasks. Do you confirm to exit the software?</value>
   </data>
   <data name="Library_Version_Pre" xml:space="preserve">

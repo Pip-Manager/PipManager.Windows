@@ -26,14 +26,16 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
     private readonly IEnvironmentService _environmentService;
     private readonly IActionService _actionService;
     private readonly IMaskService _maskService;
+    private readonly IContentDialogService _contentDialogService;
 
-    public EnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService, IEnvironmentService environmentService, IActionService actionService, IMaskService maskService)
+    public EnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService, IEnvironmentService environmentService, IActionService actionService, IMaskService maskService, IContentDialogService contentDialogService)
     {
         _navigationService = navigationService;
         _configurationService = configurationService;
         _environmentService = environmentService;
         _actionService = actionService;
         _maskService = maskService;
+        _contentDialogService = contentDialogService;
     }
 
     public async void OnNavigatedTo()
@@ -73,10 +75,12 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
     private bool _environmentSelected;
 
     [RelayCommand]
-    private void DeleteEnvironment()
+    private async Task DeleteEnvironmentAsync()
     {
-        if (MsgBox.Warning(Lang.MsgBox_Message_EnvironmentDeletion, Lang.MsgBox_PrimaryButton_Action).Result !=
-            MessageBoxResult.Primary) return;
+        var result = await _contentDialogService.ShowSimpleDialogAsync(
+            ContentDialogCreateOptions.Warning(Lang.ContentDialog_Message_EnvironmentDeletion,
+                Lang.ContentDialog_PrimaryButton_Action));
+        if (result != ContentDialogResult.Primary) return;
         Log.Information($"[Environment] Environment has been removed from list ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
         EnvironmentItems.Remove(CurrentEnvironment!);
         CurrentEnvironment = null;
@@ -91,19 +95,21 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private async Task CheckEnvironment()
     {
-        var result = _environmentService.CheckEnvironmentAvailable(CurrentEnvironment!);
-        if (result.Item1)
+        var environmentAvailable = _environmentService.CheckEnvironmentAvailable(CurrentEnvironment!);
+        if (environmentAvailable.Item1)
         {
             Log.Information($"[Environment] Environment available ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
-            await MsgBox.Success(Lang.MsgBox_Message_EnvironmentCheckPassed);
+            await _contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.NoticeWithoutPrimaryButton(Lang.ContentDialog_Message_EnvironmentCheckPassed));
         }
         else
         {
             Log.Error($"[Environment] Environment not available ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
-
-            if (MsgBox.Error(Lang.MsgBox_Message_EnvironmentCheckFailed, Lang.MsgBox_PrimaryButton_EnvironmentDeletion).Result == MessageBoxResult.Primary)
+            var result = await _contentDialogService.ShowSimpleDialogAsync(
+                ContentDialogCreateOptions.Error(Lang.ContentDialog_Message_EnvironmentCheckFailed,
+                    Lang.ContentDialog_PrimaryButton_EnvironmentDeletion));
+            if (result == ContentDialogResult.Primary)
             {
-                DeleteEnvironment();
+                await DeleteEnvironmentAsync();
             }
         }
     }
@@ -127,8 +133,9 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
         if (latest != current && latest != string.Empty)
         {
             Log.Information($"[Environment] Environment update available ({current} => {latest})");
-            var message = $"{Lang.MsgBox_Message_FindUpdate}\n\n{current} => {latest}";
-            if (MsgBox.Warning(message, Lang.MsgBox_PrimaryButton_Action, Lang.MsgBox_Title_Notice).Result == MessageBoxResult.Primary)
+            var message = $"{Lang.ContentDialog_Message_FindUpdate}\n\n{current} => {latest}";
+            var result = await _contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.Notice(message));
+            if (result == ContentDialogResult.Primary)
             {
                 _actionService.ActionList.Add(new ActionListItem
                 (
@@ -144,11 +151,11 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
         }
         else if (latest == string.Empty)
         {
-            await MsgBox.Error(Lang.MsgBox_Message_NetworkError);
+            await _contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.Error(Lang.ContentDialog_Message_NetworkError));
         }
         else
         {
-            await MsgBox.Success(Lang.MsgBox_Message_EnvironmentIsLatest);
+            await _contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.NoticeWithoutPrimaryButton(Lang.ContentDialog_Message_EnvironmentIsLatest));
         }
     }
 
@@ -176,7 +183,7 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
     private void AddEnvironment()
     {
         _navigationService.Navigate(typeof(EnvironmentPage));
-        _navigationService.Navigate(typeof(AddEnvironmentPage));
+        _navigationService.NavigateWithHierarchy(typeof(AddEnvironmentPage));
     }
 
     #endregion Add Environment

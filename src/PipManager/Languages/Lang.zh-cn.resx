@@ -189,13 +189,13 @@
   <data name="Settings_FileManagement_ResetConfig_DialogContent" xml:space="preserve">
     <value>此操作会删除所有应用相关设置。你确定要继续执行吗？</value>
   </data>
-  <data name="MsgBox_Title_AreYouSure" xml:space="preserve">
+  <data name="ContentDialog_Title_AreYouSure" xml:space="preserve">
     <value>操作警告</value>
   </data>
-  <data name="MsgBox_PrimaryButton_Action" xml:space="preserve">
+  <data name="ContentDialog_PrimaryButton_Action" xml:space="preserve">
     <value>执行</value>
   </data>
-  <data name="MsgBox_CloseButton_Cancel" xml:space="preserve">
+  <data name="ContentDialog_CloseButton_Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
   <data name="Settings_FileManagement_CrushesDirNotFound" xml:space="preserve">
@@ -277,37 +277,37 @@
   <data name="EnvironmentAdd_PythonPath_Title" xml:space="preserve">
     <value>通过 Python.exe 路径获取</value>
   </data>
-  <data name="MsgBox_Title_Error" xml:space="preserve">
+  <data name="ContentDialog_Title_Error" xml:space="preserve">
     <value>错误</value>
   </data>
-  <data name="MsgBox_Message_EnvironmentAlreadyExists" xml:space="preserve">
+  <data name="ContentDialog_Message_EnvironmentAlreadyExists" xml:space="preserve">
     <value>环境已存在</value>
   </data>
-  <data name="MsgBox_Message_EnvironmentNoSelection" xml:space="preserve">
+  <data name="ContentDialog_Message_EnvironmentNoSelection" xml:space="preserve">
     <value>你没有选择环境</value>
   </data>
   <data name="EnvironmentAdd_EnvironmentVariable_NotFound" xml:space="preserve">
     <value>未发现环境</value>
   </data>
-  <data name="MsgBox_Title_Warning" xml:space="preserve">
+  <data name="ContentDialog_Title_Warning" xml:space="preserve">
     <value>警告</value>
   </data>
-  <data name="MsgBox_Message_EnvironmentDeletion" xml:space="preserve">
+  <data name="ContentDialog_Message_EnvironmentDeletion" xml:space="preserve">
     <value>该环境将被从列表中移除</value>
   </data>
-  <data name="MsgBox_Message_EnvironmentInvaild" xml:space="preserve">
+  <data name="ContentDialog_Message_EnvironmentInvaild" xml:space="preserve">
     <value>添加环境时出错</value>
   </data>
-  <data name="MsgBox_Title_Success" xml:space="preserve">
+  <data name="ContentDialog_Title_Success" xml:space="preserve">
     <value>成功</value>
   </data>
-  <data name="MsgBox_Message_EnvironmentCheckPassed" xml:space="preserve">
+  <data name="ContentDialog_Message_EnvironmentCheckPassed" xml:space="preserve">
     <value>环境可用</value>
   </data>
-  <data name="MsgBox_Message_EnvironmentCheckFailed" xml:space="preserve">
+  <data name="ContentDialog_Message_EnvironmentCheckFailed" xml:space="preserve">
     <value>环境不可用</value>
   </data>
-  <data name="MsgBox_PrimaryButton_EnvironmentDeletion" xml:space="preserve">
+  <data name="ContentDialog_PrimaryButton_EnvironmentDeletion" xml:space="preserve">
     <value>移除环境</value>
   </data>
   <data name="Library_Operation_Install" xml:space="preserve">
@@ -376,16 +376,16 @@
   <data name="Environment_Operation_CheckEnvironmentUpdate" xml:space="preserve">
     <value>检查更新</value>
   </data>
-  <data name="MsgBox_Message_FindUpdate" xml:space="preserve">
+  <data name="ContentDialog_Message_FindUpdate" xml:space="preserve">
     <value>检测到新版本，是否更新？</value>
   </data>
-  <data name="MsgBox_Title_Notice" xml:space="preserve">
+  <data name="ContentDialog_Title_Notice" xml:space="preserve">
     <value>提示</value>
   </data>
   <data name="Action_Operation_Update" xml:space="preserve">
     <value>更新操作</value>
   </data>
-  <data name="MsgBox_Message_EnvironmentIsLatest" xml:space="preserve">
+  <data name="ContentDialog_Message_EnvironmentIsLatest" xml:space="preserve">
     <value>无需更新</value>
   </data>
   <data name="ExceptionWindow_Title" xml:space="preserve">
@@ -502,8 +502,8 @@
   <data name="Library_CheckUpdate_Latest" xml:space="preserve">
     <value>最新版本: {0}</value>
   </data>
-  <data name="MsgBox_Message_PackageIsLatest" xml:space="preserve">
-    <value>以下包均以是最新版本</value>
+  <data name="ContentDialog_Message_PackageIsLatest" xml:space="preserve">
+    <value>均是最新版本</value>
   </data>
   <data name="Action_ConsoleOutput" xml:space="preserve">
     <value>控制台</value>
@@ -520,10 +520,10 @@
   <data name="Action_IssueDetected" xml:space="preserve">
     <value>出错</value>
   </data>
-  <data name="MsgBox_Message_NetworkError" xml:space="preserve">
+  <data name="ContentDialog_Message_NetworkError" xml:space="preserve">
     <value>网络异常</value>
   </data>
-  <data name="MsgBox_Message_ActionStillRunning" xml:space="preserve">
+  <data name="ContentDialog_Message_ActionStillRunning" xml:space="preserve">
     <value>后台任务仍在运行。您确认退出软件吗？</value>
   </data>
   <data name="Library_Version_Pre" xml:space="preserve">

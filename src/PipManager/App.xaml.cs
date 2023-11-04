@@ -66,6 +66,7 @@ public partial class App
             services.AddSingleton<IEnvironmentService, EnvironmentService>();
             services.AddSingleton<IActionService, ActionService>();
             services.AddSingleton<IThemeService, ThemeService>();
+            services.AddSingleton<IContentDialogService, ContentDialogService>();
 
             // Pages
             services.AddSingleton<LibraryPage>();

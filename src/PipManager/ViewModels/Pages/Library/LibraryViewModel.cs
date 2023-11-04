@@ -73,7 +73,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private Task DeletePackageAsync()
     {
         var selected = LibraryList.Where(libraryListItem => libraryListItem.IsSelected).ToList();
-        var custom = new DeletionWarningMsgBox(selected);
+        var custom = new DeletionWarningContentDialog(selected);
         var command = selected.Aggregate("", (current, item) => current + (item.PackageName + ' '));
         if (custom.ShowAsync().Result != MessageBoxResult.Primary) return Task.CompletedTask;
         _actionService.ActionList.Add(new ActionListItem
@@ -97,7 +97,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private async Task CheckUpdate()
     {
         _maskService.Show(Lang.Library_Operation_CheckUpdate);
-        var msgList = new List<LibraryCheckUpdateMsgBoxContentListItem>();
+        var msgList = new List<LibraryCheckUpdateContentDialogContentListItem>();
         var operationList = "";
         var ioTaskList = new List<Task>();
         var msgListLock = new object();
@@ -111,13 +111,13 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
                 lock (msgListLock)
                 {
                     operationList += $"{item.PackageName}=={latest.Last()} ";
-                    msgList.Add(new LibraryCheckUpdateMsgBoxContentListItem(item, latest.Last()));
+                    msgList.Add(new LibraryCheckUpdateContentDialogContentListItem(item, latest.Last()));
                 }
             })));
             Task.WaitAll(ioTaskList.ToArray());
         });
         _maskService.Hide();
-        var custom = new CheckUpdateMsgBox(msgList);
+        var custom = new CheckUpdateContentDialog(msgList);
         if (custom.ShowAsync().Result != MessageBoxResult.Primary) return;
         _actionService.ActionList.Add(new ActionListItem
         (

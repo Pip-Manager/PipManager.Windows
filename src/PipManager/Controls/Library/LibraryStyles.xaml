@@ -6,14 +6,14 @@
     xmlns:lang="clr-namespace:PipManager.Languages"
     xmlns:pages="clr-namespace:PipManager.Models.Pages"
     xmlns:valueConverters="clr-namespace:ValueConverters;assembly=ValueConverters">
-    <Grid x:Key="LibraryDeletionWarningMsgBoxContent" VerticalAlignment="Top">
+    <Grid x:Key="LibraryDeletionWarningContentDialogContent" VerticalAlignment="Top">
         <TextBlock
             VerticalAlignment="Top"
             FontSize="16"
             Foreground="Red"
             Text="{I18N {x:Static lang:LangKeys.Msgbox_Message_LibraryDeletionWarning}}" />
         <ScrollViewer Margin="0,30,0,0" VerticalAlignment="Top">
-            <ItemsControl x:Name="LibraryDeletionWarningMsgBoxContentListView">
+            <ItemsControl x:Name="LibraryDeletionWarningContentDialogContentListView">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type pages:LibraryListItem}">
                         <Grid>
@@ -37,7 +37,7 @@
         </ScrollViewer>
     </Grid>
 
-    <Grid x:Key="LibraryCheckUpdateMsgBoxContent" VerticalAlignment="Top">
+    <Grid x:Key="LibraryCheckUpdateContentDialogContent" VerticalAlignment="Top">
         <Grid.Resources>
             <valueConverters:BoolToVisibilityConverter x:Key="BoolToVisibility" FalseValue="Collapsed" />
             <valueConverters:ValueConverterGroup x:Key="InverseBoolToVisibility">
@@ -49,17 +49,17 @@
             VerticalAlignment="Top"
             FontSize="16"
             Foreground="OrangeRed"
-            Text="{I18N {x:Static lang:LangKeys.MsgBox_Message_FindUpdate}}"
+            Text="{I18N {x:Static lang:LangKeys.ContentDialog_Message_FindUpdate}}"
             Visibility="Collapsed" />
         <TextBlock
             VerticalAlignment="Top"
             FontSize="16"
-            Text="{I18N {x:Static lang:LangKeys.MsgBox_Message_PackageIsLatest}}"
+            Text="{I18N {x:Static lang:LangKeys.ContentDialog_Message_PackageIsLatest}}"
             Visibility="Collapsed" />
         <ScrollViewer Margin="0,30,0,0" VerticalAlignment="Top">
-            <ItemsControl x:Name="LibraryCheckUpdateMsgBoxContentListView">
+            <ItemsControl x:Name="LibraryCheckUpdateContentDialogContentListView">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type library:LibraryCheckUpdateMsgBoxContentListItem}">
+                    <DataTemplate DataType="{x:Type library:LibraryCheckUpdateContentDialogContentListItem}">
                         <Grid>
                             <StackPanel Margin="7,0,0,0" Orientation="Horizontal">
                                 <ui:SymbolIcon Symbol="TabDesktopNewPage20" Visibility="{Binding NeedUpdate, Converter={StaticResource InverseBoolToVisibility}}" />

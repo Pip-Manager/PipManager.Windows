@@ -5,24 +5,24 @@ using TextBlock = System.Windows.Controls.TextBlock;
 
 namespace PipManager.Controls.Library;
 
-public class CheckUpdateMsgBox
+public class CheckUpdateContentDialog
 {
     private readonly MessageBox _messageBox;
-    public List<LibraryCheckUpdateMsgBoxContentListItem> LibraryList { get; set; }
+    public List<LibraryCheckUpdateContentDialogContentListItem> LibraryList { get; set; }
 
-    public CheckUpdateMsgBox(List<LibraryCheckUpdateMsgBoxContentListItem> libraryList)
+    public CheckUpdateContentDialog(List<LibraryCheckUpdateContentDialogContentListItem> libraryList)
     {
         LibraryList = libraryList;
         _messageBox = new MessageBox
         {
-            PrimaryButtonText = Lang.MsgBox_PrimaryButton_Action,
-            CloseButtonText = Lang.MsgBox_CloseButton_Cancel,
+            PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Action,
+            CloseButtonText = Lang.ContentDialog_CloseButton_Cancel,
             IsPrimaryButtonEnabled = false,
             MinWidth = 500,
             MinHeight = 100,
             MaxHeight = 500,
-            Title = Lang.MsgBox_Title_Notice,
-            Content = Application.Current.TryFindResource("LibraryCheckUpdateMsgBoxContent")
+            Title = Lang.ContentDialog_Title_Notice,
+            Content = Application.Current.TryFindResource("LibraryCheckUpdateContentDialogContent")
         };
         (((_messageBox.Content as Grid)!.Children[2] as ScrollViewer)!.Content as ItemsControl)!.ItemsSource = LibraryList;
 
@@ -42,9 +42,9 @@ public class CheckUpdateMsgBox
     }
 }
 
-public class LibraryCheckUpdateMsgBoxContentListItem
+public class LibraryCheckUpdateContentDialogContentListItem
 {
-    public LibraryCheckUpdateMsgBoxContentListItem(LibraryListItem libraryListItem, string newVersion)
+    public LibraryCheckUpdateContentDialogContentListItem(LibraryListItem libraryListItem, string newVersion)
     {
         PackageName = libraryListItem.PackageName;
         PackageVersion = string.Format(Lang.Library_CheckUpdate_Current, libraryListItem.PackageVersion);

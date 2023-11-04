@@ -48,8 +48,16 @@ public partial class MainWindow
         var actionList = App.GetService<IActionService>().ActionList;
         if (actionList.Count > 0)
         {
-            e.Cancel =
-               MsgBox.Warning(Lang.MsgBox_Message_ActionStillRunning, Lang.MsgBox_PrimaryButton_Action).Result != MessageBoxResult.Primary;
+            var uiMessageBox = new MessageBox
+            {
+                Title = Lang.ContentDialog_Title_Warning,
+                Content = Lang.ContentDialog_Message_ActionStillRunning,
+                PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Action,
+                CloseButtonText = Lang.ContentDialog_CloseButton_Cancel
+            };
+
+            var result = uiMessageBox.ShowDialogAsync();
+            e.Cancel = result.Result != MessageBoxResult.Primary;
         }
         else
         {
