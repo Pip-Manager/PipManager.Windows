@@ -7,6 +7,7 @@ using PipManager.Services.Configuration;
 using PipManager.Services.Environment;
 using Serilog;
 using System.IO;
+using PipManager.Services.Toast;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
@@ -19,13 +20,15 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
     private readonly IConfigurationService _configurationService;
     private readonly IEnvironmentService _environmentService;
     private readonly IContentDialogService _contentDialogService;
+    private readonly IToastService _toastService;
 
-    public AddEnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService, IEnvironmentService environmentService, IContentDialogService contentDialogService)
+    public AddEnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService, IEnvironmentService environmentService, IContentDialogService contentDialogService, IToastService toastService)
     {
         _navigationService = navigationService;
         _configurationService = configurationService;
         _environmentService = environmentService;
         _contentDialogService = contentDialogService;
+        _toastService = toastService;
     }
 
     public void OnNavigatedTo()
@@ -156,7 +159,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
         {
             if (EnvironmentItemInList == null)
             {
-                await _contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.Error(Lang.ContentDialog_Message_EnvironmentNoSelection));
+                _toastService.Error(Lang.ContentDialog_Message_EnvironmentNoSelection);
             }
             else
             {
@@ -166,7 +169,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
                 {
                     if (alreadyExists)
                     {
-                        await _contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.Error(Lang.ContentDialog_Message_EnvironmentAlreadyExists));
+                        _toastService.Error(Lang.ContentDialog_Message_EnvironmentAlreadyExists);
                     }
                     else
                     {
@@ -179,7 +182,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
                 }
                 else
                 {
-                    await _contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.Error(result.Item2));
+                    _toastService.Error(result.Item2);
                 }
             }
         }
@@ -191,7 +194,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
                 var alreadyExists = _environmentService.CheckEnvironmentExists(result);
                 if (alreadyExists)
                 {
-                    await _contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.Error(Lang.ContentDialog_Message_EnvironmentAlreadyExists));
+                    _toastService.Error(Lang.ContentDialog_Message_EnvironmentAlreadyExists);
                 }
                 else
                 {
@@ -204,7 +207,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
             }
             else
             {
-                await _contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.Error(Lang.ContentDialog_Message_EnvironmentInvaild));
+                _toastService.Error(Lang.ContentDialog_Message_EnvironmentInvaild);
             }
         }
         else if (ByPythonPathGridVisibility)
@@ -215,7 +218,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
                 var alreadyExists = _environmentService.CheckEnvironmentExists(result);
                 if (alreadyExists)
                 {
-                    await _contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.Error(Lang.ContentDialog_Message_EnvironmentAlreadyExists));
+                    _toastService.Error(Lang.ContentDialog_Message_EnvironmentAlreadyExists);
                 }
                 else
                 {
@@ -228,7 +231,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
             }
             else
             {
-                await _contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.Error(Lang.ContentDialog_Message_EnvironmentInvaild));
+                _toastService.Error(Lang.ContentDialog_Message_EnvironmentInvaild);
             }
         }
     }

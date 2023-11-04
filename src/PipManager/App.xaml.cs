@@ -24,6 +24,7 @@ using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
+using PipManager.Services.Toast;
 using Wpf.Ui;
 using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
 using ActionViewModel = PipManager.ViewModels.Pages.Action.ActionViewModel;
@@ -61,7 +62,7 @@ public partial class App
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<ISnackbarService, SnackbarService>();
             services.AddSingleton<IMaskService, MaskService>();
-            services.AddSingleton<IContentDialogService, ContentDialogService>();
+            services.AddSingleton<IToastService, ToastService>();
             services.AddSingleton<IConfigurationService, ConfigurationService>();
             services.AddSingleton<IEnvironmentService, EnvironmentService>();
             services.AddSingleton<IActionService, ActionService>();

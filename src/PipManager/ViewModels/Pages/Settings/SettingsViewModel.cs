@@ -14,6 +14,8 @@ using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
+using PipManager.Controls;
+using PipManager.Services.Toast;
 
 namespace PipManager.ViewModels.Pages.Settings;
 
@@ -24,14 +26,17 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     private readonly IConfigurationService _configurationService;
     private readonly IThemeService _themeService;
     private readonly INavigationService _navigationService;
+    private readonly IToastService _toastService;
 
-    public SettingsViewModel(ISnackbarService snackbarService, IConfigurationService configurationService, IThemeService themeService, INavigationService navigationService)
+
+    public SettingsViewModel(ISnackbarService snackbarService, IConfigurationService configurationService, IThemeService themeService, INavigationService navigationService, IToastService toastService)
     {
         _httpClient = App.GetService<HttpClient>();
         _snackbarService = snackbarService;
         _configurationService = configurationService;
         _themeService = themeService;
         _navigationService = navigationService;
+        _toastService = toastService;
 
         foreach (var languagePair in GetLanguage.LanguageList)
         {

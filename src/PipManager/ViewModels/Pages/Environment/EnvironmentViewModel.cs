@@ -13,6 +13,7 @@ using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using PipManager.Models.Action;
+using PipManager.Services.Toast;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
@@ -27,8 +28,9 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
     private readonly IActionService _actionService;
     private readonly IMaskService _maskService;
     private readonly IContentDialogService _contentDialogService;
+    private readonly IToastService _toastService;
 
-    public EnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService, IEnvironmentService environmentService, IActionService actionService, IMaskService maskService, IContentDialogService contentDialogService)
+    public EnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService, IEnvironmentService environmentService, IActionService actionService, IMaskService maskService, IContentDialogService contentDialogService, IToastService toastService)
     {
         _navigationService = navigationService;
         _configurationService = configurationService;
@@ -36,6 +38,7 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
         _actionService = actionService;
         _maskService = maskService;
         _contentDialogService = contentDialogService;
+        _toastService = toastService;
     }
 
     public async void OnNavigatedTo()
@@ -98,8 +101,8 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
         var environmentAvailable = _environmentService.CheckEnvironmentAvailable(CurrentEnvironment!);
         if (environmentAvailable.Item1)
         {
-            Log.Information($"[Environment] Environment available ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
-            await _contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.NoticeWithoutPrimaryButton(Lang.ContentDialog_Message_EnvironmentCheckPassed));
+            Log.Information($"[Environment] Environment is available ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
+            _toastService.Info(Lang.ContentDialog_Message_EnvironmentCheckPassed);
         }
         else
         {
@@ -151,11 +154,11 @@ public partial class EnvironmentViewModel : ObservableObject, INavigationAware
         }
         else if (latest == string.Empty)
         {
-            await _contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.Error(Lang.ContentDialog_Message_NetworkError));
+            _toastService.Error(Lang.ContentDialog_Message_NetworkError);
         }
         else
         {
-            await _contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.NoticeWithoutPrimaryButton(Lang.ContentDialog_Message_EnvironmentIsLatest));
+            _toastService.Info(Lang.ContentDialog_Message_EnvironmentIsLatest);
         }
     }
 

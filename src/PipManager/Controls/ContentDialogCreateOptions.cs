@@ -5,13 +5,6 @@ namespace PipManager.Controls;
 
 public static class ContentDialogCreateOptions
 {
-    public static SimpleContentDialogCreateOptions Error(string message) => new()
-    {
-        Title = Lang.ContentDialog_Title_Error,
-        Content = message,
-        CloseButtonText = Lang.ContentDialog_CloseButton_Cancel
-    };
-
     public static SimpleContentDialogCreateOptions Error(string message, string primaryButtonText) => new()
     {
         Title = Lang.ContentDialog_Title_Error,
@@ -33,13 +26,6 @@ public static class ContentDialogCreateOptions
         Title = Lang.ContentDialog_Title_Notice,
         Content = message,
         PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Action,
-        CloseButtonText = Lang.ContentDialog_CloseButton_Cancel
-    };
-
-    public static SimpleContentDialogCreateOptions NoticeWithoutPrimaryButton(string message) => new()
-    {
-        Title = Lang.ContentDialog_Title_Notice,
-        Content = message,
         CloseButtonText = Lang.ContentDialog_CloseButton_Cancel
     };
 }
