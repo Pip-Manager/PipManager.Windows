@@ -7,6 +7,8 @@ namespace PipManager.Services.Configuration;
 public interface IConfigurationService
 {
     public AppConfig AppConfig { get; set; }
+    public bool DebugMode { get; set; }
+    public bool ExperimentMode { get; set; }
 
     public string GetUrlFromPackageSourceType(string index = "simple");
 

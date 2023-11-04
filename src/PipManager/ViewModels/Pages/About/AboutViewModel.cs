@@ -1,6 +1,7 @@
 ﻿using PipManager.Models.Pages;
 using Serilog;
 using System.Collections.ObjectModel;
+using PipManager.Services.Configuration;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.About;
@@ -8,8 +9,16 @@ namespace PipManager.ViewModels.Pages.About;
 public partial class AboutViewModel : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
+    private readonly IConfigurationService _configurationService;
 
     [ObservableProperty] private string _appVersion = "Development";
+    [ObservableProperty] private bool _debugMode;
+    [ObservableProperty] private bool _experimentMode;
+
+    public AboutViewModel(IConfigurationService configurationService)
+    {
+        _configurationService = configurationService;
+    }
 
     public void OnNavigatedTo()
     {
@@ -23,6 +32,8 @@ public partial class AboutViewModel : ObservableObject, INavigationAware
 
     private void InitializeViewModel()
     {
+        DebugMode = _configurationService.DebugMode;
+        ExperimentMode = _configurationService.ExperimentMode;
         AppVersion = AppInfo.AppVersion;
         _isInitialized = true;
         Log.Information("[About] Initialized");

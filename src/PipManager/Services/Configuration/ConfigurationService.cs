@@ -10,6 +10,8 @@ namespace PipManager.Services.Configuration;
 public class ConfigurationService : IConfigurationService
 {
     public AppConfig AppConfig { get; set; } = LoadConfiguration();
+    public bool ExperimentMode { get; set; }
+    public bool DebugMode { get; set; }
 
     public static AppConfig LoadConfiguration()
     {

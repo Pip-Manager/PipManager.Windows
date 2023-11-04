@@ -16,6 +16,7 @@
     xmlns:settings="clr-namespace:PipManager.Views.Pages.Settings"
     xmlns:tools="clr-namespace:PipManager.Views.Pages.Tools"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:lab="clr-namespace:PipManager.Views.Pages.Lab"
     Title="{Binding ViewModel.ApplicationTitle, Mode=OneWay}"
     MinWidth="1200"
     MinHeight="740"
@@ -74,6 +75,11 @@
                     Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_Tools}}"
                     Icon="{ui:SymbolIcon Toolbox24}"
                     TargetPageType="{x:Type tools:ToolsPage}" />
+                <ui:NavigationViewItem
+                    Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_Lab}}"
+                    Visibility="{Binding ViewModel.ExperimentMode, Converter={StaticResource BoolToVisibility}}"
+                    Icon="{ui:SymbolIcon FormNew24}"
+                    TargetPageType="{x:Type lab:LabPage}" />
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem

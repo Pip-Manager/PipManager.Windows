@@ -535,4 +535,7 @@
   <data name="Library_Version_Dev" xml:space="preserve">
     <value>开发版</value>
   </data>
+  <data name="MainWindow_NavigationContent_Lab" xml:space="preserve">
+    <value>实验室</value>
+  </data>
 </root>

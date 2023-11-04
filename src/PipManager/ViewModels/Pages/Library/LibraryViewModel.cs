@@ -14,6 +14,7 @@ using Serilog;
 using System.Collections.ObjectModel;
 using PipManager.Models.Action;
 using PipManager.Models.Package;
+using PipManager.ViewModels.Windows;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;

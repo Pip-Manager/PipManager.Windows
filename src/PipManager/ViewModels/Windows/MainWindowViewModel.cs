@@ -6,6 +6,7 @@ namespace PipManager.ViewModels.Windows;
 public partial class MainWindowViewModel : ObservableObject
 {
     private readonly IConfigurationService _configurationService;
+    [ObservableProperty] private bool _experimentMode;
 
     public MainWindowViewModel(IConfigurationService configurationService)
     {

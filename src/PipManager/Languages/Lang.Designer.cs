@@ -277,6 +277,177 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Cancel 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_CloseButton_Cancel {
+            get {
+                return ResourceManager.GetString("ContentDialog_CloseButton_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 There are still running background tasks. Do you confirm to exit the software? 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_Message_ActionStillRunning {
+            get {
+                return ResourceManager.GetString("ContentDialog_Message_ActionStillRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Environment already exists 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_Message_EnvironmentAlreadyExists {
+            get {
+                return ResourceManager.GetString("ContentDialog_Message_EnvironmentAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Environment not available 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_Message_EnvironmentCheckFailed {
+            get {
+                return ResourceManager.GetString("ContentDialog_Message_EnvironmentCheckFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Environment available 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_Message_EnvironmentCheckPassed {
+            get {
+                return ResourceManager.GetString("ContentDialog_Message_EnvironmentCheckPassed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 The environment will be removed from the list 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_Message_EnvironmentDeletion {
+            get {
+                return ResourceManager.GetString("ContentDialog_Message_EnvironmentDeletion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Error in adding environment 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_Message_EnvironmentInvaild {
+            get {
+                return ResourceManager.GetString("ContentDialog_Message_EnvironmentInvaild", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 The environment is up to date 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_Message_EnvironmentIsLatest {
+            get {
+                return ResourceManager.GetString("ContentDialog_Message_EnvironmentIsLatest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 You didn&apos;t choose an environment 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_Message_EnvironmentNoSelection {
+            get {
+                return ResourceManager.GetString("ContentDialog_Message_EnvironmentNoSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 New version detected. Update now? 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_Message_FindUpdate {
+            get {
+                return ResourceManager.GetString("ContentDialog_Message_FindUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Network Error 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_Message_NetworkError {
+            get {
+                return ResourceManager.GetString("ContentDialog_Message_NetworkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Package(s) are up to date 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_Message_PackageIsLatest {
+            get {
+                return ResourceManager.GetString("ContentDialog_Message_PackageIsLatest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Action 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_PrimaryButton_Action {
+            get {
+                return ResourceManager.GetString("ContentDialog_PrimaryButton_Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Remove Environment 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_PrimaryButton_EnvironmentDeletion {
+            get {
+                return ResourceManager.GetString("ContentDialog_PrimaryButton_EnvironmentDeletion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Operation Warning 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_Title_AreYouSure {
+            get {
+                return ResourceManager.GetString("ContentDialog_Title_AreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Error 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_Title_Error {
+            get {
+                return ResourceManager.GetString("ContentDialog_Title_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Notice 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_Title_Notice {
+            get {
+                return ResourceManager.GetString("ContentDialog_Title_Notice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Success 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_Title_Success {
+            get {
+                return ResourceManager.GetString("ContentDialog_Title_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Warning 的本地化字符串。
+        /// </summary>
+        public static string ContentDialog_Title_Warning {
+            get {
+                return ResourceManager.GetString("ContentDialog_Title_Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Add Environment 的本地化字符串。
         /// </summary>
         public static string Environment_Operation_AddEnvironment {
@@ -844,6 +1015,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Lab 的本地化字符串。
+        /// </summary>
+        public static string MainWindow_NavigationContent_Lab {
+            get {
+                return ResourceManager.GetString("MainWindow_NavigationContent_Lab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Library 的本地化字符串。
         /// </summary>
         public static string MainWindow_NavigationContent_Library {
@@ -889,182 +1069,11 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   查找类似 Cancel 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_CloseButton_Cancel {
-            get {
-                return ResourceManager.GetString("ContentDialog_CloseButton_Cancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 There are still running background tasks. Do you confirm to exit the software? 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_Message_ActionStillRunning {
-            get {
-                return ResourceManager.GetString("ContentDialog_Message_ActionStillRunning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Environment already exists 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_Message_EnvironmentAlreadyExists {
-            get {
-                return ResourceManager.GetString("ContentDialog_Message_EnvironmentAlreadyExists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Environment not available 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_Message_EnvironmentCheckFailed {
-            get {
-                return ResourceManager.GetString("ContentDialog_Message_EnvironmentCheckFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Environment available 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_Message_EnvironmentCheckPassed {
-            get {
-                return ResourceManager.GetString("ContentDialog_Message_EnvironmentCheckPassed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 The environment will be removed from the list 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_Message_EnvironmentDeletion {
-            get {
-                return ResourceManager.GetString("ContentDialog_Message_EnvironmentDeletion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Error in adding environment 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_Message_EnvironmentInvaild {
-            get {
-                return ResourceManager.GetString("ContentDialog_Message_EnvironmentInvaild", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 The environment is up to date 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_Message_EnvironmentIsLatest {
-            get {
-                return ResourceManager.GetString("ContentDialog_Message_EnvironmentIsLatest", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 You didn&apos;t choose an environment 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_Message_EnvironmentNoSelection {
-            get {
-                return ResourceManager.GetString("ContentDialog_Message_EnvironmentNoSelection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 New version detected. Update now? 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_Message_FindUpdate {
-            get {
-                return ResourceManager.GetString("ContentDialog_Message_FindUpdate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Following packages will be removed from the environment: 的本地化字符串。
         /// </summary>
         public static string Msgbox_Message_LibraryDeletionWarning {
             get {
                 return ResourceManager.GetString("Msgbox_Message_LibraryDeletionWarning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Network Error 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_Message_NetworkError {
-            get {
-                return ResourceManager.GetString("ContentDialog_Message_NetworkError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Package(s) are up to date 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_Message_PackageIsLatest {
-            get {
-                return ResourceManager.GetString("ContentDialog_Message_PackageIsLatest", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Action 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_PrimaryButton_Action {
-            get {
-                return ResourceManager.GetString("ContentDialog_PrimaryButton_Action", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Remove Environment 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_PrimaryButton_EnvironmentDeletion {
-            get {
-                return ResourceManager.GetString("ContentDialog_PrimaryButton_EnvironmentDeletion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Operation Warning 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_Title_AreYouSure {
-            get {
-                return ResourceManager.GetString("ContentDialog_Title_AreYouSure", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Error 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_Title_Error {
-            get {
-                return ResourceManager.GetString("ContentDialog_Title_Error", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Notice 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_Title_Notice {
-            get {
-                return ResourceManager.GetString("ContentDialog_Title_Notice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Success 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_Title_Success {
-            get {
-                return ResourceManager.GetString("ContentDialog_Title_Success", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Warning 的本地化字符串。
-        /// </summary>
-        public static string ContentDialog_Title_Warning {
-            get {
-                return ResourceManager.GetString("ContentDialog_Title_Warning", resourceCulture);
             }
         }
         

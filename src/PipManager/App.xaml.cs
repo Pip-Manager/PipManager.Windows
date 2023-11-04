@@ -25,12 +25,14 @@ using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
 using PipManager.Services.Toast;
+using PipManager.Views.Pages.Lab;
 using Wpf.Ui;
 using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
 using ActionViewModel = PipManager.ViewModels.Pages.Action.ActionViewModel;
 using LibraryViewModel = PipManager.ViewModels.Pages.Library.LibraryViewModel;
 using SearchViewModel = PipManager.ViewModels.Pages.Search.SearchViewModel;
 using SettingsViewModel = PipManager.ViewModels.Pages.Settings.SettingsViewModel;
+using PipManager.ViewModels.Pages.Lab;
 
 namespace PipManager;
 
@@ -81,6 +83,8 @@ public partial class App
             services.AddSingleton<SearchViewModel>();
             services.AddSingleton<ToolsPage>();
             services.AddSingleton<ToolsViewModel>();
+            services.AddSingleton<LabPage>();
+            services.AddSingleton<LabViewModel>();
 
             services.AddSingleton<EnvironmentPage>();
             services.AddSingleton<EnvironmentViewModel>();
@@ -109,6 +113,7 @@ public partial class App
     private static partial bool FreeConsole();
 
     private bool _showConsoleWindow;
+    private bool _experimentMode;
 
     /// <summary>
     /// Occurs when the application is loading.
@@ -117,9 +122,14 @@ public partial class App
     {
         for (var i = 0; i != e.Args.Length; ++i)
         {
-            if (e.Args[i] == "/console")
+            switch (e.Args[i])
             {
-                _showConsoleWindow = true;
+                case "/console":
+                    _showConsoleWindow = true;
+                    break;
+                case "/experiment":
+                    _experimentMode = true;
+                    break;
             }
         }
         var appStarting = new AppStarting
@@ -131,6 +141,9 @@ public partial class App
         appStarting.LogDeletion();
         appStarting.CrushesDeletion();
         Host.Start();
+        GetService<IConfigurationService>().DebugMode = _showConsoleWindow;
+        GetService<IConfigurationService>().ExperimentMode = _experimentMode;
+        GetService<MainWindowViewModel>().ExperimentMode = _experimentMode;
     }
 
     /// <summary>

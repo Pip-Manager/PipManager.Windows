@@ -535,4 +535,7 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="Library_Version_Dev" xml:space="preserve">
     <value>Dev</value>
   </data>
+  <data name="MainWindow_NavigationContent_Lab" xml:space="preserve">
+    <value>Lab</value>
+  </data>
 </root>
