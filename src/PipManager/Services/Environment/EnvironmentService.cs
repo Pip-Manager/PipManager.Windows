@@ -223,7 +223,7 @@ public partial class EnvironmentService : IEnvironmentService
             {
                 FileName = _configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
                 Arguments =
-                    $"-m pip install --upgrade \"{packageName}\" -i {_configurationService.GetUrlFromPackageSourceType()}",
+                    $"-m pip install --upgrade \"{packageName}\" -i {_configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
                 UseShellExecute = false,
                 RedirectStandardError = true,
                 CreateNoWindow = true
