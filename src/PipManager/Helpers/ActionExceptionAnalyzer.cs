@@ -5,7 +5,7 @@ namespace PipManager.Helpers;
 
 public static class ActionExceptionAnalyzer
 {
-    public static string Analyze(this ActionListItem action)
+    public static string Analyze(this ActionListItem? action)
     {
         if (!action.DetectIssue) return "";
         var speculations = "";

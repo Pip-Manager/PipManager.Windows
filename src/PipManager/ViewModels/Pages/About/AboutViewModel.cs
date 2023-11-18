@@ -6,19 +6,13 @@ using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.About;
 
-public partial class AboutViewModel : ObservableObject, INavigationAware
+public partial class AboutViewModel(IConfigurationService configurationService) : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
-    private readonly IConfigurationService _configurationService;
 
     [ObservableProperty] private string _appVersion = "Development";
     [ObservableProperty] private bool _debugMode;
     [ObservableProperty] private bool _experimentMode;
-
-    public AboutViewModel(IConfigurationService configurationService)
-    {
-        _configurationService = configurationService;
-    }
 
     public void OnNavigatedTo()
     {
@@ -32,8 +26,8 @@ public partial class AboutViewModel : ObservableObject, INavigationAware
 
     private void InitializeViewModel()
     {
-        DebugMode = _configurationService.DebugMode;
-        ExperimentMode = _configurationService.ExperimentMode;
+        DebugMode = configurationService.DebugMode;
+        ExperimentMode = configurationService.ExperimentMode;
         AppVersion = AppInfo.AppVersion;
         _isInitialized = true;
         Log.Information("[About] Initialized");

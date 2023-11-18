@@ -51,14 +51,14 @@ public class ActionListItem
     public bool ProgressIntermediate { get; set; }
     public int TotalSubTaskNumber { get; set; }
 
-    private int completedSubTaskNumber;
+    private int _completedSubTaskNumber;
 
     public int CompletedSubTaskNumber
     {
-        get => completedSubTaskNumber;
+        get => _completedSubTaskNumber;
         set
         {
-            completedSubTaskNumber = value;
+            _completedSubTaskNumber = value;
             ProgressBarValue = (double)value / TotalSubTaskNumber * 100.0;
         }
     }
