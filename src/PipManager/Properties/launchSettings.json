@@ -2,7 +2,7 @@
   "profiles": {
     "PipManager": {
       "commandName": "Project",
-      "commandLineArgs": "/console /experiment"
+      "commandLineArgs": "/debug /experiment"
     }
   }
 }

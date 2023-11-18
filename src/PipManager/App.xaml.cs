@@ -131,7 +131,7 @@ public partial class App
         {
             switch (e.Args[i])
             {
-                case "/console":
+                case "/debug":
                     _showConsoleWindow = true;
                     break;
 
