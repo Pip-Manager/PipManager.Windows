@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="PipManager.Views.Pages.Library.LibraryInstallPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:PipManager.Languages"
+    xmlns:library="clr-namespace:PipManager.Views.Pages.Library"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    x:Name="LibraryInstall"
+    Title="LibraryInstallPage"
+    d:DataContext="{d:DesignInstance library:LibraryInstallPage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="700"
+    d:DesignWidth="1200"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    ui:NavigationView.HeaderContent="{I18N {x:Static lang:LangKeys.LibraryInstall_Header}}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Tag="LibraryInstall"
+    mc:Ignorable="d">
+
+    <Grid Margin="0,0,0,20" />
+</Page>

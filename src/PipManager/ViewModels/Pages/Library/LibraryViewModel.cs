@@ -14,7 +14,6 @@ using PipManager.Views.Pages.Environment;
 using PipManager.Views.Pages.Library;
 using Serilog;
 using System.Collections.ObjectModel;
-using System.Windows.Navigation;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -78,7 +77,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         _navigationService.NavigateWithHierarchy(typeof(LibraryInstallPage));
     }
 
-    #endregion Delete Package
+    #endregion Install Package
 
     #region Delete Package
 

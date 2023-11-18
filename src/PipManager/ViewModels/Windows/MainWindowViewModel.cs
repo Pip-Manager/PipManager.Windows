@@ -1,10 +1,5 @@
 ﻿using PipManager.Services.Configuration;
 using Serilog;
-using System.Collections.ObjectModel;
-using PipManager.ViewModels.Pages.Library;
-using PipManager.Views.Pages.Library;
-using Wpf.Ui;
-using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Windows;
 
