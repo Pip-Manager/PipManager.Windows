@@ -36,6 +36,7 @@
 		<PackageReference Include="WPF-UI" Version="3.0.0-preview.9" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="WPF-UI.Tray" Version="3.0.0-preview.9" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -46,5 +46,6 @@ public partial class AboutViewModel(IConfigurationService configurationService) 
         new AboutNugetLibraryListItem("Serilog.Sinks.File", "5.0.0", "Apache-2.0", "Copyright © 2016 Serilog Contributors", "https://github.com/serilog/serilog-sinks-file"),
         new AboutNugetLibraryListItem("ValueConverters", "3.0.26", "MIT", "Copyright (c) 2019 Thomas Galliker", "https://github.com/thomasgalliker/ValueConverters.NET"),
         new AboutNugetLibraryListItem("WPF-UI", "3.0.0-preview.9", "MIT", "Copyright (c) 2021-2023 Leszek Pomianowski and WPF UI Contributors.", "https://github.com/lepoco/wpfui"),
+        new AboutNugetLibraryListItem("WPF-UI.Tray", "3.0.0-preview.9", "MIT", "Copyright (c) 2021-2023 Leszek Pomianowski and WPF UI Contributors.", "https://github.com/lepoco/wpfui"),
     };
 }

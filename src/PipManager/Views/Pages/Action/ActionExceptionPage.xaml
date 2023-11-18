@@ -1,13 +1,13 @@
 <Page
     x:Class="PipManager.Views.Pages.Action.ActionExceptionPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:lang="clr-namespace:PipManager.Languages"
-    xmlns:action1="clr-namespace:PipManager.Models.Action"
     xmlns:action="clr-namespace:PipManager.Views.Pages.Action"
+    xmlns:action1="clr-namespace:PipManager.Models.Action"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:PipManager.Languages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="ActionExceptionPage"
     d:DataContext="{d:DesignInstance action:ActionExceptionPage,
                                      IsDesignTimeCreatable=False}"

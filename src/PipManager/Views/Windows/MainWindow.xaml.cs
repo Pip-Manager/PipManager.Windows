@@ -3,6 +3,7 @@ using PipManager.Services.Action;
 using PipManager.Services.Mask;
 using PipManager.ViewModels.Windows;
 using System.ComponentModel;
+using PipManager.Views.Pages.Library;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 
@@ -11,6 +12,7 @@ namespace PipManager.Views.Windows;
 public partial class MainWindow
 {
     public MainWindowViewModel ViewModel { get; }
+    private readonly INavigationService _navigationService;
 
     public MainWindow(
         MainWindowViewModel viewModel,
@@ -23,6 +25,7 @@ public partial class MainWindow
     )
     {
         ViewModel = viewModel;
+        _navigationService = navigationService;
         DataContext = this;
 
         SystemThemeWatcher.Watch(this);
@@ -62,5 +65,11 @@ public partial class MainWindow
         {
             e.Cancel = false;
         }
+    }
+
+    private void InstallMenuItem_OnClick(object sender, RoutedEventArgs e)
+    {
+        _navigationService.Navigate(typeof(LibraryPage));
+        _navigationService.NavigateWithHierarchy(typeof(LibraryInstallPage));
     }
 }

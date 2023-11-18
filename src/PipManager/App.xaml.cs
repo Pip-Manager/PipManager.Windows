@@ -74,6 +74,7 @@ public partial class App
             services.AddSingleton<IActionService, ActionService>();
             services.AddSingleton<IThemeService, ThemeService>();
             services.AddSingleton<IContentDialogService, ContentDialogService>();
+            services.AddSingleton<ITaskBarService, TaskBarService>();
 
             // Pages
             services.AddSingleton<LibraryPage>();
