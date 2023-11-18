@@ -1150,6 +1150,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Install 的本地化字符串。
+        /// </summary>
+        public static string LibraryInstall_Header {
+            get {
+                return ResourceManager.GetString("LibraryInstall_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 About 的本地化字符串。
         /// </summary>
         public static string MainWindow_NavigationContent_About {

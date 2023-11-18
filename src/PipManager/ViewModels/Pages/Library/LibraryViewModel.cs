@@ -14,6 +14,7 @@ using PipManager.Views.Pages.Environment;
 using PipManager.Views.Pages.Library;
 using Serilog;
 using System.Collections.ObjectModel;
+using System.Windows.Navigation;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -68,6 +69,16 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         _isInitialized = true;
         Log.Information("[Library] Initialized");
     }
+
+    #region Install Package
+
+    [RelayCommand]
+    private void InstallPackage()
+    {
+        _navigationService.NavigateWithHierarchy(typeof(LibraryInstallPage));
+    }
+
+    #endregion Delete Package
 
     #region Delete Package
 
@@ -145,7 +156,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private void ToDetailPage(object parameter)
     {
         if (_library is null) return;
-        _navigationService.Navigate(typeof(LibraryDetailPage));
+        _navigationService.NavigateWithHierarchy(typeof(LibraryDetailPage));
         var current = _library.Where(libraryListItem => libraryListItem.Name == parameter as string).ToList()[0];
         WeakReferenceMessenger.Default.Send(new LibraryDetailMessage(current));
         Log.Information($"[Library] Turn to detail page: {current.Name}");

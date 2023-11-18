@@ -29,6 +29,7 @@
             <StackPanel Orientation="Horizontal">
                 <ui:Button
                     Appearance="Primary"
+                    Command="{Binding ViewModel.InstallPackageCommand}"
                     Content="{I18N {x:Static lang:LangKeys.Library_Operation_Install}}"
                     Icon="{ui:SymbolIcon Add24}"
                     IsEnabled="{Binding ViewModel.EnvironmentFoundVisible}" />

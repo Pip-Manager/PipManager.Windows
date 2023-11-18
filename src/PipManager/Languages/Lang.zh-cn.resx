@@ -589,4 +589,7 @@
   <data name="Action_AddOperation_Toast" xml:space="preserve">
     <value>新增了{0}个任务</value>
   </data>
+  <data name="LibraryInstall_Header" xml:space="preserve">
+    <value>安装</value>
+  </data>
 </root>

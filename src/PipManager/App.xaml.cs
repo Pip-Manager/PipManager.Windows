@@ -80,6 +80,8 @@ public partial class App
             services.AddSingleton<LibraryViewModel>();
             services.AddSingleton<LibraryDetailPage>();
             services.AddSingleton<LibraryDetailViewModel>();
+            services.AddSingleton<LibraryInstallPage>();
+            services.AddSingleton<LibraryInstallViewModel>();
 
             services.AddSingleton<ActionPage>();
             services.AddSingleton<ActionViewModel>();

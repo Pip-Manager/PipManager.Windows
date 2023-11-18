@@ -589,4 +589,7 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="Action_AddOperation_Toast" xml:space="preserve">
     <value>Added {0} new operation(s)</value>
   </data>
+  <data name="LibraryInstall_Header" xml:space="preserve">
+    <value>Install</value>
+  </data>
 </root>

@@ -13,18 +13,14 @@
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="700"
     d:DesignWidth="1200"
+    ui:NavigationView.HeaderContent="{I18N {x:Static lang:LangKeys.LibraryDetail_Header}}"
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
 
     <Grid Margin="0,0,0,20">
-        <TextBlock
-            Margin="0,32,0,0"
-            FontSize="26"
-            FontWeight="Bold"
-            Text="{I18N {x:Static lang:LangKeys.LibraryDetail_Header}}" />
-        <StackPanel Margin="0,80,0,0">
+        <StackPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="90" />

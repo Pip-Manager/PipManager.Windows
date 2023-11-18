@@ -48,12 +48,10 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
     {
         if (!_isInitialized)
             InitializeViewModel();
-        _navigationService.GetNavigationControl().BreadcrumbBar!.Visibility = Visibility.Collapsed;
     }
 
     public void OnNavigatedFrom()
     {
-        _navigationService.GetNavigationControl().BreadcrumbBar!.Visibility = Visibility.Visible;
     }
 
     private void InitializeViewModel()
