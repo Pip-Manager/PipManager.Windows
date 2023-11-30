@@ -42,7 +42,7 @@ public partial class AboutViewModel(IConfigurationService configurationService) 
         new AboutNugetLibraryListItem("Microsoft.Xaml.Behaviors.Wpf", "1.1.75", "MIT", "Copyright (c) 2015 Microsoft", "https://github.com/microsoft/XamlBehaviorsWpf"),
         new AboutNugetLibraryListItem("Newtonsoft.Json", "13.0.3", "MIT", "Copyright (c) 2007 James Newton-King", "https://github.com/JamesNK/Newtonsoft.Json"),
         new AboutNugetLibraryListItem("Serilog", "3.1.1", "Apache-2.0", "Copyright © 2013-2020 Serilog Contributors", "https://github.com/serilog/serilog"),
-        new AboutNugetLibraryListItem("Serilog.Sinks.Console", "5.0.0", "Apache-2.0", "Copyright © 2016 Serilog Contributors", "https://github.com/serilog/serilog-sinks-console"),
+        new AboutNugetLibraryListItem("Serilog.Sinks.Console", "5.0.1", "Apache-2.0", "Copyright © 2016 Serilog Contributors", "https://github.com/serilog/serilog-sinks-console"),
         new AboutNugetLibraryListItem("Serilog.Sinks.File", "5.0.0", "Apache-2.0", "Copyright © 2016 Serilog Contributors", "https://github.com/serilog/serilog-sinks-file"),
         new AboutNugetLibraryListItem("ValueConverters", "3.0.26", "MIT", "Copyright (c) 2019 Thomas Galliker", "https://github.com/thomasgalliker/ValueConverters.NET"),
         new AboutNugetLibraryListItem("WPF-UI", "3.0.0-preview.9", "MIT", "Copyright (c) 2021-2023 Leszek Pomianowski and WPF UI Contributors.", "https://github.com/lepoco/wpfui"),
