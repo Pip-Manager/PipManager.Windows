@@ -24,7 +24,7 @@ namespace PipManager.Controls
         public ToastType ToastType { get; set; } = ToastType.Info;
         public EventHandler<EventArgs>? Closed { get; internal set; }
         public EventHandler<EventArgs>? Click { get; internal set; }
-        public Thickness ToastMargin { get; set; } = new(0, 60, 0, 0);
+        public Thickness ToastMargin { get; set; } = new(0, 120, 0, 0);
     }
 
     public enum ToastType
@@ -179,7 +179,7 @@ namespace PipManager.Controls
                     PopupAnimation = PopupAnimation.Fade,
                     AllowsTransparency = true,
                     StaysOpen = true,
-                    Placement = PlacementMode.Left,
+                    Placement = PlacementMode.Top,
                     IsOpen = false,
                     Child = toast,
                     MinWidth = toast.MinWidth,
@@ -279,7 +279,8 @@ namespace PipManager.Controls
             const int rightDistance = 16;
 
             if (popup == null) return;
-            popup.HorizontalOffset = popupWidth + (ownerWidth - popupWidth - rightDistance) / 2;
+            //popup.HorizontalOffset = popupWidth + (ownerWidth - popupWidth - rightDistance) / 2;
+            popup.HorizontalOffset = (ownerWidth - popupWidth) / 2;
             popup.VerticalOffset = margin.Top;
         }
 

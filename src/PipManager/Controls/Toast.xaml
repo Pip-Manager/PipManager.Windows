@@ -5,8 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Width="Auto"
-    Height="Auto"
     MinWidth="100"
     MinHeight="50"
     MaxWidth="1500"
@@ -52,12 +50,10 @@
                     FontSize="14"
                     FontWeight="SemiBold"
                     Foreground="{Binding Foreground}"
-                    Text="{Binding Title}"
-                    TextWrapping="Wrap" />
+                    Text="{Binding Title}" />
 
                 <TextBlock
                     x:Name="ToastMessage"
-                    MaxWidth="{Binding TextWidth}"
                     Margin="14,0,0,0"
                     HorizontalAlignment="{Binding HorizontalContentAlignment}"
                     VerticalAlignment="Center"
@@ -65,8 +61,7 @@
                     FontSize="14"
                     FontWeight="{Binding FontWeight}"
                     Foreground="{Binding Foreground}"
-                    Text="{Binding Message}"
-                    TextWrapping="Wrap" />
+                    Text="{Binding Message}" />
             </StackPanel>
         </Grid>
     </Border>
