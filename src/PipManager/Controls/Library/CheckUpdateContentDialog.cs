@@ -40,18 +40,10 @@ public class CheckUpdateContentDialog
     }
 }
 
-public class LibraryCheckUpdateContentDialogContentListItem
+public class LibraryCheckUpdateContentDialogContentListItem(LibraryListItem libraryListItem, string newVersion)
 {
-    public LibraryCheckUpdateContentDialogContentListItem(LibraryListItem libraryListItem, string newVersion)
-    {
-        PackageName = libraryListItem.PackageName;
-        PackageVersion = string.Format(Lang.Library_CheckUpdate_Current, libraryListItem.PackageVersion);
-        NewVersion = string.Format(Lang.Library_CheckUpdate_Latest, newVersion);
-        NeedUpdate = newVersion != libraryListItem.PackageVersion;
-    }
-
-    public string PackageName { get; set; }
-    public string PackageVersion { get; set; }
-    public string NewVersion { get; set; }
-    public bool NeedUpdate { get; set; }
+    public string PackageName { get; set; } = libraryListItem.PackageName;
+    public string PackageVersion { get; set; } = string.Format(Lang.Library_CheckUpdate_Current, libraryListItem.PackageVersion);
+    public string NewVersion { get; set; } = string.Format(Lang.Library_CheckUpdate_Latest, newVersion);
+    public bool NeedUpdate { get; set; } = newVersion != libraryListItem.PackageVersion;
 }

@@ -58,7 +58,7 @@
             <ItemsControl x:Name="LibraryCheckUpdateContentDialogContentListView">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type library:LibraryCheckUpdateContentDialogContentListItem}">
-                        <Grid>
+                        <StackPanel>
                             <StackPanel Margin="7,0,0,0" Orientation="Horizontal">
                                 <ui:SymbolIcon Symbol="TabDesktopNewPage20" Visibility="{Binding NeedUpdate, Converter={StaticResource InverseBoolToVisibility}}" />
                                 <ui:SymbolIcon
@@ -72,7 +72,7 @@
                                     Text="{Binding PackageName}" />
                                 <TextBlock FontSize="14" Text=" " />
                             </StackPanel>
-                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                            <StackPanel Margin="20, 3, 0, 0" Orientation="Horizontal">
                                 <ui:Badge
                                     Appearance="Primary"
                                     Content="{Binding PackageVersion}"
@@ -83,7 +83,7 @@
                                     FontSize="12"
                                     Visibility="{Binding NeedUpdate, Converter={StaticResource BoolToVisibility}}" />
                             </StackPanel>
-                        </Grid>
+                        </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
