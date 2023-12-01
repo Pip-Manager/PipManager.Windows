@@ -26,11 +26,11 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
 {
     private bool _isInitialized;
 
-    public async void OnNavigatedTo()
+    public void OnNavigatedTo()
     {
         if (!_isInitialized)
             InitializeViewModel();
-        await configurationService.RefreshAllEnvironmentVersions();
+        configurationService.RefreshAllEnvironmentVersions();
         EnvironmentItems = new ObservableCollection<EnvironmentItem>(configurationService.AppConfig.EnvironmentItems);
         var currentEnvironment = configurationService.AppConfig.CurrentEnvironment;
         foreach (var environmentItem in EnvironmentItems)
@@ -133,7 +133,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
                     totalSubTaskNumber: 1
                 ));
                 navigationService.Navigate(typeof(ActionPage));
-                await configurationService.RefreshAllEnvironmentVersions();
+                configurationService.RefreshAllEnvironmentVersions();
             }
         }
         else if (latest == string.Empty)

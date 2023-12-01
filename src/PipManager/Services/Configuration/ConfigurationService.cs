@@ -101,23 +101,18 @@ public class ConfigurationService : IConfigurationService
         return pipDir.Length > 0 ? new EnvironmentItem(pipVersion, pythonPath, pythonVersion) : null;
     }
 
-    public Task RefreshAllEnvironmentVersions()
+    public void RefreshAllEnvironmentVersions()
     {
         foreach (var item in AppConfig.EnvironmentItems)
         {
-            Task.Run(() =>
+            var environmentItem = GetEnvironmentItemFromCommand(item.PythonPath!, "-m pip -V");
+            if (environmentItem != null)
             {
-                var environmentItem = GetEnvironmentItemFromCommand(item.PythonPath!, "-m pip -V");
-                if (environmentItem != null)
-                {
-                    item.PipVersion = environmentItem.PipVersion;
-                }
-            });
+                item.PipVersion = environmentItem.PipVersion;
+            }
         }
 
-        Task.WaitAll();
         Save();
-        return Task.CompletedTask;
     }
 
     #endregion Environments

@@ -20,5 +20,5 @@ public interface IConfigurationService
 
     public EnvironmentItem? GetEnvironmentItemFromCommand(string command, string arguments);
 
-    public Task RefreshAllEnvironmentVersions();
+    public void RefreshAllEnvironmentVersions();
 }
