@@ -276,10 +276,8 @@ namespace PipManager.Controls
             var ownerWidth = toast._owner.ActualWidth;
             var popupWidth = (popup?.Child as FrameworkElement)?.ActualWidth ?? 0;
             var margin = toast.ToastMargin;
-            const int rightDistance = 16;
 
             if (popup == null) return;
-            //popup.HorizontalOffset = popupWidth + (ownerWidth - popupWidth - rightDistance) / 2;
             popup.HorizontalOffset = (ownerWidth - popupWidth) / 2;
             popup.VerticalOffset = margin.Top;
         }
