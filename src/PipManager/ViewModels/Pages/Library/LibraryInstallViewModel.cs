@@ -1,13 +1,17 @@
 ﻿using System.Collections.ObjectModel;
+using PipManager.Controls.Library;
+using System.Windows.Controls.Primitives;
 using PipManager.Models.Pages;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Library;
 
-public partial class LibraryInstallViewModel(INavigationService navigationService) : ObservableObject, INavigationAware
+public partial class LibraryInstallViewModel(INavigationService navigationService, IContentDialogService contentDialogService) : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
+
+    private readonly IContentDialogService _contentDialogService = contentDialogService;
 
     [ObservableProperty] private ObservableCollection<LibraryInstallPackageItem> _preInstallPackages = new();
 
@@ -27,11 +31,12 @@ public partial class LibraryInstallViewModel(INavigationService navigationServic
     }
 
     [RelayCommand]
-    private void AddTask()
+    private async void AddTask()
     {
+        var custom = new InstallAddContentDialog(_contentDialogService.GetContentPresenter());
         _preInstallPackages.Add(new LibraryInstallPackageItem
         {
-            PackageName = 
+            PackageName = await custom.ShowAsync()
         });
     }
 

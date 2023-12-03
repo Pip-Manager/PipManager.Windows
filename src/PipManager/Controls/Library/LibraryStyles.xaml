@@ -89,4 +89,12 @@
             </ItemsControl>
         </ScrollViewer>
     </Grid>
+
+    <Grid x:Key="LibraryInstallAddContentDialogContent" VerticalAlignment="Top">
+        <TextBlock
+            VerticalAlignment="Top"
+            FontSize="16"
+            Text="Enter Package Name" />
+        <TextBox Margin="0, 30, 0, 0"></TextBox>
+    </Grid>
 </ResourceDictionary>

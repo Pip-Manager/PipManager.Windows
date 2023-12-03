@@ -28,4 +28,5 @@ public static class ContentDialogCreateOptions
         PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Action,
         CloseButtonText = Lang.ContentDialog_CloseButton_Cancel
     };
+
 }
