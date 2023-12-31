@@ -13,7 +13,7 @@ public partial class LibraryInstallViewModel(INavigationService navigationServic
 
     private readonly IContentDialogService _contentDialogService = contentDialogService;
 
-    [ObservableProperty] private ObservableCollection<LibraryInstallPackageItem> _preInstallPackages = new();
+    [ObservableProperty] private ObservableCollection<LibraryInstallPackageItem> _preInstallPackages = [];
 
     public void OnNavigatedTo()
     {
@@ -34,7 +34,7 @@ public partial class LibraryInstallViewModel(INavigationService navigationServic
     private async void AddTask()
     {
         var custom = new InstallAddContentDialog(_contentDialogService.GetContentPresenter());
-        _preInstallPackages.Add(new LibraryInstallPackageItem
+        PreInstallPackages.Add(new LibraryInstallPackageItem
         {
             PackageName = await custom.ShowAsync()
         });
@@ -44,9 +44,9 @@ public partial class LibraryInstallViewModel(INavigationService navigationServic
     private void DeleteTask(object? parameter)
     {
         var target = -1;
-        for (int index = 0; index < _preInstallPackages.Count; index++)
+        for (int index = 0; index < PreInstallPackages.Count; index++)
         {
-            if (ReferenceEquals(_preInstallPackages[index].PackageName, parameter))
+            if (ReferenceEquals(PreInstallPackages[index].PackageName, parameter))
             {
                 target = index;
             }
@@ -54,7 +54,7 @@ public partial class LibraryInstallViewModel(INavigationService navigationServic
 
         if (target != -1)
         {
-            _preInstallPackages.RemoveAt(target);
+            PreInstallPackages.RemoveAt(target);
         }
     }
 }

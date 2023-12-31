@@ -34,9 +34,9 @@ public partial class AboutViewModel(IConfigurationService configurationService) 
     }
 
     [ObservableProperty]
-    private ObservableCollection<AboutNugetLibraryListItem> _nugetLibraryList = new()
-    {
-        new AboutNugetLibraryListItem("Antelcat.Wpf.I18N", "1.1.0", "MIT", "Copyright (c) 2023 Feast", "https://github.com/Antelcat/Antelcat.Wpf.I18N"),
+    private ObservableCollection<AboutNugetLibraryListItem> _nugetLibraryList =
+    [
+        new AboutNugetLibraryListItem("Antelcat.I18N.WPF", "1.0.0", "MIT", "Copyright (c) 2023 Feast", "https://github.com/Antelcat/Antelcat.I18N"),
         new AboutNugetLibraryListItem("CommunityToolkit.Mvvm", "8.2.2", "MIT", "Copyright © .NET Foundation and Contributors", "https://github.com/CommunityToolkit/dotnet"),
         new AboutNugetLibraryListItem("Microsoft.Extensions.Hosting", "8.0.0", "MIT", "Copyright © .NET Foundation and Contributors", "https://github.com/dotnet/runtime"),
         new AboutNugetLibraryListItem("Microsoft.Xaml.Behaviors.Wpf", "1.1.75", "MIT", "Copyright (c) 2015 Microsoft", "https://github.com/microsoft/XamlBehaviorsWpf"),
@@ -45,7 +45,7 @@ public partial class AboutViewModel(IConfigurationService configurationService) 
         new AboutNugetLibraryListItem("Serilog.Sinks.Console", "5.0.1", "Apache-2.0", "Copyright © 2016 Serilog Contributors", "https://github.com/serilog/serilog-sinks-console"),
         new AboutNugetLibraryListItem("Serilog.Sinks.File", "5.0.0", "Apache-2.0", "Copyright © 2016 Serilog Contributors", "https://github.com/serilog/serilog-sinks-file"),
         new AboutNugetLibraryListItem("ValueConverters", "3.0.26", "MIT", "Copyright (c) 2019 Thomas Galliker", "https://github.com/thomasgalliker/ValueConverters.NET"),
-        new AboutNugetLibraryListItem("WPF-UI", "3.0.0-preview.9", "MIT", "Copyright (c) 2021-2023 Leszek Pomianowski and WPF UI Contributors.", "https://github.com/lepoco/wpfui"),
-        new AboutNugetLibraryListItem("WPF-UI.Tray", "3.0.0-preview.9", "MIT", "Copyright (c) 2021-2023 Leszek Pomianowski and WPF UI Contributors.", "https://github.com/lepoco/wpfui"),
-    };
+        new AboutNugetLibraryListItem("WPF-UI", "3.0.0-preview.13", "MIT", "Copyright (c) 2021-2023 Leszek Pomianowski and WPF UI Contributors.", "https://github.com/lepoco/wpfui"),
+        new AboutNugetLibraryListItem("WPF-UI.Tray", "3.0.0-preview.11", "MIT", "Copyright (c) 2021-2023 Leszek Pomianowski and WPF UI Contributors.", "https://github.com/lepoco/wpfui"),
+    ];
 }

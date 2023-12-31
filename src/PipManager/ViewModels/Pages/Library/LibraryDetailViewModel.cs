@@ -84,7 +84,7 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
             "Production/Stable" => ControlAppearance.Success,
             "Mature" => ControlAppearance.Success,
             "Inactive" => ControlAppearance.Caution,
-            _ => ControlAppearance.Secondary
+            _ => ControlAppearance.Caution
         };
 
         // Programming Language

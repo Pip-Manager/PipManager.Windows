@@ -28,8 +28,7 @@ public partial class AppStarting
         var language = Config.Personalization.Language;
         if (language != "Auto")
         {
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+            I18NExtension.Culture = new CultureInfo(language);
         }
         Log.Information($"Language sets to {language}");
     }

@@ -164,7 +164,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
     #region Add Environment
 
     [ObservableProperty]
-    private ObservableCollection<EnvironmentItem> _environmentItems = new();
+    private ObservableCollection<EnvironmentItem> _environmentItems = [];
 
     [RelayCommand]
     private void AddEnvironment()

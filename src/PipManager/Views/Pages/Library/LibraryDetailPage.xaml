@@ -62,51 +62,45 @@
                         Grid.Row="0"
                         VerticalAlignment="Top"
                         Orientation="Horizontal">
-                        <ui:Badge Appearance="Secondary" Content="{I18N {x:Static lang:LangKeys.LibraryDetail_Contact_Author}}" />
+                        <ui:SymbolIcon Symbol="Person24" />
                         <TextBlock Margin="7,5,0,5" Text="{Binding ViewModel.Author, Mode=TwoWay}" />
                     </StackPanel>
                     <StackPanel
                         Grid.Row="1"
                         VerticalAlignment="Top"
                         Orientation="Horizontal">
-                        <ui:Badge Appearance="Secondary" Content="{I18N {x:Static lang:LangKeys.LibraryDetail_Contact_AuthorEmail}}" />
+                        <ui:SymbolIcon Symbol="Mail24" />
                         <TextBlock
                             Margin="7,5,0,5"
                             Text="{Binding ViewModel.AuthorEmail, Mode=TwoWay}"
                             TextWrapping="WrapWithOverflow" />
                     </StackPanel>
-                    <StackPanel
+                    <ItemsControl
                         Grid.Row="2"
-                        VerticalAlignment="Top"
-                        Orientation="Horizontal">
-                        <ui:Badge Appearance="Secondary" Content="{I18N {x:Static lang:LangKeys.LibraryDetail_Contact_ProjectUrl}}" />
-                        <ItemsControl
-                            Margin="5,0,0,0"
-                            HorizontalAlignment="Left"
-                            ItemsSource="{Binding ViewModel.ProjectUrl}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel HorizontalAlignment="Stretch" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <ui:HyperlinkButton
-                                            Content="{Binding UrlType}"
-                                            Icon="{Binding Icon}"
-                                            NavigateUri="{Binding Url}"
-                                            ToolTip="{Binding Url}"
-                                            Visibility="{Binding Url, Converter={StaticResource NullToVisibility}}" />
-                                        <TextBlock
-                                            Margin="3,5,0,5"
-                                            Text="{I18N {x:Static lang:LangKeys.LibraryDetail_Unknown}}"
-                                            Visibility="{Binding Url, Converter={StaticResource NotNullToVisibility}}" />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
+                        HorizontalAlignment="Left"
+                        ItemsSource="{Binding ViewModel.ProjectUrl}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel HorizontalAlignment="Stretch" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:HyperlinkButton
+                                        Content="{Binding UrlType}"
+                                        Icon="{Binding Icon}"
+                                        NavigateUri="{Binding Url}"
+                                        ToolTip="{Binding Url}"
+                                        Visibility="{Binding Url, Converter={StaticResource NullToVisibility}}" />
+                                    <TextBlock
+                                        Margin="3,5,0,5"
+                                        Text="{I18N {x:Static lang:LangKeys.LibraryDetail_Unknown}}"
+                                        Visibility="{Binding Url, Converter={StaticResource NotNullToVisibility}}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Grid>
             </Border>
             <TextBlock

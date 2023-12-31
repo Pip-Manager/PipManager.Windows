@@ -8,6 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pages="clr-namespace:PipManager.Models.Pages"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:helpers="clr-namespace:PipManager.Helpers"
+    xmlns:converters="clr-namespace:PipManager.Converters"
     x:Name="Library"
     Title="LibraryPage"
     Height="560"
@@ -19,6 +21,10 @@
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:LanguageFixIntToStringConverter x:Key="LanguageFixIntToStringConverter"></converters:LanguageFixIntToStringConverter>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -56,12 +62,12 @@
                     BorderBrush="Gray"
                     BorderThickness="1"
                     CornerRadius="5"
-                    Visibility="{Binding ViewModel.ListVisible, Converter={StaticResource BoolToVisibility}}">
+                    Visibility="{Binding ViewModel.ListVisible, Converter={StaticResource InverseBoolToVisibility}}">
                     <StackPanel Margin="7,0,7,0" Orientation="Horizontal">
                         <TextBlock VerticalAlignment="Center">
                             <TextBlock.Text>
                                 <I18N Key="{x:Static lang:LangKeys.Library_Data_SelectedItemsCount}">
-                                    <Binding ElementName="LibraryList" Path="SelectedItems.Count" />
+                                    <Binding ElementName="LibraryList" Path="SelectedItems.Count" Converter="{StaticResource LanguageFixIntToStringConverter}" />
                                 </I18N>
                             </TextBlock.Text>
                         </TextBlock>
@@ -73,12 +79,12 @@
                     BorderBrush="Gray"
                     BorderThickness="1"
                     CornerRadius="5"
-                    Visibility="{Binding ViewModel.ListVisible, Converter={StaticResource BoolToVisibility}}">
+                    Visibility="{Binding ViewModel.ListVisible, Converter={StaticResource InverseBoolToVisibility}}">
                     <StackPanel Margin="7,0,7,0" Orientation="Horizontal">
                         <TextBlock VerticalAlignment="Center">
                             <TextBlock.Text>
                                 <I18N Key="{x:Static lang:LangKeys.Library_Data_PackageFound}">
-                                    <Binding ElementName="LibraryList" Path="Items.Count" />
+                                    <Binding ElementName="LibraryList" Path="Items.Count" Converter="{StaticResource LanguageFixIntToStringConverter}"/>
                                 </I18N>
                             </TextBlock.Text>
                         </TextBlock>

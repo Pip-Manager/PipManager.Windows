@@ -25,16 +25,14 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     private readonly IConfigurationService _configurationService;
     private readonly IThemeService _themeService;
     private readonly INavigationService _navigationService;
-    private readonly IToastService _toastService;
 
-    public SettingsViewModel(ISnackbarService snackbarService, IConfigurationService configurationService, IThemeService themeService, INavigationService navigationService, IToastService toastService)
+    public SettingsViewModel(ISnackbarService snackbarService, IConfigurationService configurationService, IThemeService themeService, INavigationService navigationService)
     {
         _httpClient = App.GetService<HttpClient>();
         _snackbarService = snackbarService;
         _configurationService = configurationService;
         _themeService = themeService;
         _navigationService = navigationService;
-        _toastService = toastService;
 
         foreach (var languagePair in GetLanguage.LanguageList)
         {
@@ -167,7 +165,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
 
     #region Language
 
-    [ObservableProperty] private List<string> _languages = new() { "Auto" };
+    [ObservableProperty] private List<string> _languages = ["Auto"];
     [ObservableProperty] private string _language = "Auto";
 
     [RelayCommand]

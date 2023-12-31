@@ -8,15 +8,8 @@ namespace PipManager.Services;
 /// <summary>
 /// Managed host of the application.
 /// </summary>
-public class ApplicationHostService : IHostedService
+public class ApplicationHostService(IServiceProvider serviceProvider) : IHostedService
 {
-    private readonly IServiceProvider _serviceProvider;
-
-    public ApplicationHostService(IServiceProvider serviceProvider)
-    {
-        _serviceProvider = serviceProvider;
-    }
-
     /// <summary>
     /// Triggered when the application host is ready to start the service.
     /// </summary>
@@ -44,7 +37,7 @@ public class ApplicationHostService : IHostedService
 
         if (!Application.Current.Windows.OfType<MainWindow>().Any())
         {
-            var navigationWindow = _serviceProvider.GetRequiredService<MainWindow>();
+            var navigationWindow = serviceProvider.GetRequiredService<MainWindow>();
             navigationWindow.Loaded += OnNavigationWindowLoaded;
             navigationWindow.Show();
         }

@@ -1,8 +1,8 @@
-﻿using PipManager.Models.Package;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows.Data;
+using PipManager.Models.Package;
 
-namespace PipManager.Helpers;
+namespace PipManager.Converters;
 
 internal class PackageSourceEnumToBooleanConverter : IValueConverter
 {

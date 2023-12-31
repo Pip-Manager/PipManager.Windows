@@ -78,16 +78,19 @@
                             <TextBlock
                                 Margin="15,0,0,0"
                                 VerticalAlignment="Center"
-                                Foreground="Gray"
                                 FontSize="15"
-                                Visibility="{Binding ElementName=VersionSpecifiedCheckbox, Path=IsChecked, Converter={StaticResource InverseBoolToVisibility}}" 
-                                Text="The newest version will be installed" />
+                                Foreground="Gray"
+                                Text="The newest and compatible version will be installed"
+                                Visibility="{Binding ElementName=VersionSpecifiedCheckbox, Path=IsChecked, Converter={StaticResource InverseBoolToVisibility}}" />
                         </StackPanel>
                         <StackPanel
                             Grid.Column="2"
                             HorizontalAlignment="Right"
                             Orientation="Horizontal">
-                            <ui:Button Content="Delete" Command="{Binding ElementName=LibraryInstall, Path=ViewModel.DeleteTaskCommand}" CommandParameter="{Binding PackageName}" />
+                            <ui:Button
+                                Command="{Binding ElementName=LibraryInstall, Path=ViewModel.DeleteTaskCommand}"
+                                CommandParameter="{Binding PackageName}"
+                                Content="Delete" />
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

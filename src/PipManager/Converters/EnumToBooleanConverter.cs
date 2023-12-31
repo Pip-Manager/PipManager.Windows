@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
 
-namespace PipManager.Helpers;
+namespace PipManager.Converters;
 
 internal class EnumToBooleanConverter : IValueConverter
 {

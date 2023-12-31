@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:settings="clr-namespace:PipManager.Views.Pages.Settings"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:converters="clr-namespace:PipManager.Converters"
     Title="SettingsPage"
     d:DataContext="{d:DesignInstance settings:SettingsPage,
                                      IsDesignTimeCreatable=False}"
@@ -19,9 +20,9 @@
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
     <Page.Resources>
-        <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
-        <helpers:PackageSourceEnumToBooleanConverter x:Key="PackageSourceEnumToBooleanConverter" />
-
+        <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <converters:PackageSourceEnumToBooleanConverter x:Key="PackageSourceEnumToBooleanConverter" />
+        <converters:LanguageFixIntToStringConverter x:Key="LanguageFixIntToStringConverter"></converters:LanguageFixIntToStringConverter>
         <Style x:Key="PackageSourceNetworkTextBlockStyle" TargetType="TextBlock">
             <Setter Property="Foreground" Value="Gray" />
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -172,7 +173,7 @@
                 Visibility="{Binding ElementName=LogAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
                 <TextBlock.Text>
                     <I18N Key="{x:Static lang:LangKeys.Settings_PersonalizationLogAutoDeletion_Tip}">
-                        <Binding ElementName="LogAutoDeletionSlider" Path="Value" />
+                        <Binding ElementName="LogAutoDeletionSlider" Path="Value" Converter="{StaticResource LanguageFixIntToStringConverter}"/>
                     </I18N>
                 </TextBlock.Text>
             </TextBlock>
@@ -204,7 +205,7 @@
                 Visibility="{Binding ElementName=CrushesAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
                 <TextBlock.Text>
                     <I18N Key="{x:Static lang:LangKeys.Settings_PersonalizationCrushesAutoDeletion_Tip}">
-                        <Binding ElementName="CrushesAutoDeletionSlider" Path="Value" />
+                        <Binding Path="ViewModel.CrushesAutoDeletionTimes" Converter="{StaticResource LanguageFixIntToStringConverter}"/>
                     </I18N>
                 </TextBlock.Text>
             </TextBlock>
