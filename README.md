@@ -11,7 +11,7 @@
   <p align="center">
     A Python Package Manager (pip based)
     <br />
-    <a href="https://pipmanager.ziling.space"><strong>Explore the docs (Chinese Simplified) »</strong></a>
+    <a href="https://pipmanager.dev"><strong>Explore the docs (Chinese Simplified) »</strong></a>
     <br />
     <br />
     <a href="https://github.com/Pip-Manager/PipManager">View Demo</a>
@@ -52,8 +52,6 @@
 </details>
 
 ## About Pip Manager
-
-<!-- [![Screen Shot][screenshot]](https://example.com) -->
 
 Pip Manager is a package manager for Python newcomers (based on Pip)
 

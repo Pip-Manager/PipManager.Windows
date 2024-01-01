@@ -2,14 +2,14 @@
     x:Class="PipManager.Views.Pages.Library.LibraryPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:PipManager.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:PipManager.Helpers"
     xmlns:lang="clr-namespace:PipManager.Languages"
     xmlns:library="clr-namespace:PipManager.Views.Pages.Library"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pages="clr-namespace:PipManager.Models.Pages"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:helpers="clr-namespace:PipManager.Helpers"
-    xmlns:converters="clr-namespace:PipManager.Converters"
     x:Name="Library"
     Title="LibraryPage"
     Height="560"
@@ -47,6 +47,7 @@
                     Content="{I18N {x:Static lang:LangKeys.Library_Operation_CheckUpdate}}"
                     Icon="{ui:SymbolIcon Check24}"
                     IsEnabled="{Binding ElementName=LibraryList, Path=SelectedItems.Count, Converter={StaticResource IntegerToBool}}" />
+                <ui:TextBox Name="LibrarySearchTextBox" Width="200" PlaceholderText="Search..." />
             </StackPanel>
             <StackPanel
                 HorizontalAlignment="Right"
@@ -63,7 +64,7 @@
                         <TextBlock VerticalAlignment="Center">
                             <TextBlock.Text>
                                 <I18N Key="{x:Static lang:LangKeys.Library_Data_SelectedItemsCount}">
-                                    <Binding ElementName="LibraryList" Path="SelectedItems.Count"/>
+                                    <Binding ElementName="LibraryList" Path="SelectedItems.Count" />
                                 </I18N>
                             </TextBlock.Text>
                         </TextBlock>
@@ -80,7 +81,7 @@
                         <TextBlock VerticalAlignment="Center">
                             <TextBlock.Text>
                                 <I18N Key="{x:Static lang:LangKeys.Library_Data_PackageFound}">
-                                    <Binding ElementName="LibraryList" Path="Items.Count"/>
+                                    <Binding ElementName="LibraryList" Path="Items.Count" />
                                 </I18N>
                             </TextBlock.Text>
                         </TextBlock>
@@ -97,6 +98,9 @@
             x:Name="LibraryList"
             Grid.Row="1"
             Margin="0,10,0,0"
+            IsTextSearchCaseSensitive="False"
+            IsTextSearchEnabled="True"
+            TextSearch.TextPath="PackageName"
             ItemsSource="{Binding ViewModel.LibraryList, Mode=TwoWay}"
             SelectionMode="Multiple"
             Visibility="{Binding ViewModel.LibraryList, Converter={StaticResource NotNullToVisibility}}">
@@ -111,6 +115,7 @@
                         <StackPanel Grid.Column="1" Margin="7,0,0,0">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
+                                    Name="LibraryListPackageName"
                                     VerticalAlignment="Center"
                                     FontSize="15"
                                     Text="{Binding PackageName}" />
