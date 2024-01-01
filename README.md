@@ -81,6 +81,7 @@ Double click `PipManager-XXX.exe`
 ### Arguments
 
 - `/console`: Show console while program running
+- `/experiment`: Enable a secret page for test
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -99,7 +100,7 @@ Double click `PipManager-XXX.exe`
 
 ### Features
 
-- [ ] Install Package
+- [x] Install Package
 - [x] Update Package
 - [x] Delete Package
 - [ ] Search Package
@@ -109,6 +110,7 @@ Double click `PipManager-XXX.exe`
 
 - Logging
 - Localization
+- Rules of action exceptions
 
 See the [Open Issues](https://github.com/Pip-Manager/PipManager/issues) for a full list of proposed features (and known issues).
 
