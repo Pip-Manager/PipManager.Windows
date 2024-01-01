@@ -59,6 +59,7 @@
             <valueConverters:StringIsNullOrEmptyConverter x:Key="StringIsNullOrEmpty" />
             <valueConverters:NullToBoolConverter x:Key="NullToBool" IsInverted="True" />
             <valueConverters:IntegerToBoolConverter x:Key="IntegerToBool" IsInverted="True" />
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

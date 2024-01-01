@@ -1,5 +1,4 @@
 ﻿using PipManager.Languages;
-using PipManager.Models.Pages;
 using System.Windows.Controls;
 using Wpf.Ui.Controls;
 using TextBox = System.Windows.Controls.TextBox;
@@ -12,7 +11,8 @@ public class InstallAddContentDialog(ContentPresenter contentPresenter)
     {
         PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Action,
         CloseButtonText = Lang.ContentDialog_CloseButton_Cancel,
-        Title = Lang.ContentDialog_Title_Warning,
+        Title = Lang.ContentDialog_Title_Notice,
+        DialogHeight = 200,
         Content = Application.Current.TryFindResource("LibraryInstallAddContentDialogContent")
     };
 

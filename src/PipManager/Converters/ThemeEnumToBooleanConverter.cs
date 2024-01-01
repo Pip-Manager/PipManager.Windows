@@ -3,7 +3,7 @@ using System.Windows.Data;
 
 namespace PipManager.Converters;
 
-internal class EnumToBooleanConverter : IValueConverter
+internal class ThemeEnumToBooleanConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

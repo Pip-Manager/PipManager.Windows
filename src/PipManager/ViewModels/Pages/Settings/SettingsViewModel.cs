@@ -3,7 +3,6 @@ using PipManager.Languages;
 using PipManager.Models;
 using PipManager.Models.Package;
 using PipManager.Services.Configuration;
-using PipManager.Services.Toast;
 using PipManager.Views.Pages.About;
 using PipManager.Views.Pages.Settings;
 using Serilog;
@@ -286,7 +285,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private static async Task ResetConfigurationAsync()
     {
-        var messageBox = new MessageBox
+        var messageBox = new Wpf.Ui.Controls.MessageBox
         {
             Title = Lang.ContentDialog_Title_AreYouSure,
             Content = Lang.Settings_FileManagement_ResetConfig_DialogContent,
@@ -295,7 +294,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         };
 
         var result = await messageBox.ShowDialogAsync();
-        if (result == MessageBoxResult.Primary)
+        if (result == Wpf.Ui.Controls.MessageBoxResult.Primary)
         {
             Log.Information("Config reset");
             await File.WriteAllTextAsync(AppInfo.ConfigPath, JsonConvert.SerializeObject(new AppConfig(), Formatting.Indented));

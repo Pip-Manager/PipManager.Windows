@@ -47,7 +47,7 @@ public partial class ActionExceptionViewModel : ObservableObject, INavigationAwa
     [RelayCommand]
     private static void ShowException(object parameter)
     {
-        var actionExceptionWindow = App.GetService<ActionExceptionWindow>();
+        var actionExceptionWindow = new ActionExceptionWindow();
         actionExceptionWindow.Initialize(parameter as ActionListItem);
         actionExceptionWindow.Show();
     }

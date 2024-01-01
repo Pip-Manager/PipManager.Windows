@@ -13,26 +13,19 @@ using Path = System.IO.Path;
 
 namespace PipManager.Services.Environment;
 
-public partial class EnvironmentService : IEnvironmentService
+public partial class EnvironmentService(IConfigurationService configurationService) : IEnvironmentService
 {
-    private readonly IConfigurationService _configurationService;
-    private readonly HttpClient _httpClient;
-
-    public EnvironmentService(IConfigurationService configurationService)
-    {
-        _configurationService = configurationService;
-        _httpClient = App.GetService<HttpClient>();
-    }
+    private readonly HttpClient _httpClient = App.GetService<HttpClient>();
 
     public bool CheckEnvironmentExists(EnvironmentItem environmentItem)
     {
-        var environmentItems = _configurationService.AppConfig.EnvironmentItems;
+        var environmentItems = configurationService.AppConfig.EnvironmentItems;
         return environmentItems.Any(item => item.PythonPath == environmentItem.PythonPath);
     }
 
     public (bool, string) CheckEnvironmentAvailable(EnvironmentItem environmentItem)
     {
-        var verify = _configurationService.GetEnvironmentItemFromCommand(environmentItem.PythonPath!, "-m pip -V");
+        var verify = configurationService.GetEnvironmentItemFromCommand(environmentItem.PythonPath!, "-m pip -V");
         return verify != null && environmentItem.PythonPath != string.Empty
             ? (true, "")
             : (false, "Broken Environment");
@@ -40,14 +33,14 @@ public partial class EnvironmentService : IEnvironmentService
 
     public List<PackageItem>? GetLibraries()
     {
-        if (_configurationService.AppConfig.CurrentEnvironment is null)
+        if (configurationService.AppConfig.CurrentEnvironment is null)
         {
             return null;
         }
 
         var packageLock = new object();
         var packageDirInfo = new DirectoryInfo(Path.Combine(
-            Path.GetDirectoryName(_configurationService.AppConfig.CurrentEnvironment!.PythonPath)!,
+            Path.GetDirectoryName(configurationService.AppConfig.CurrentEnvironment!.PythonPath)!,
             @"Lib\site-packages"));
         var packages = new List<PackageItem>();
         var ioTaskList = new List<Task>();
@@ -200,7 +193,7 @@ public partial class EnvironmentService : IEnvironmentService
         try
         {
             var responseMessage =
-                await _httpClient.GetAsync($"{_configurationService.GetUrlFromPackageSourceType("pypi")}{packageName}/json");
+                await _httpClient.GetAsync($"{configurationService.GetUrlFromPackageSourceType("pypi")}{packageName}/json");
             var response = await responseMessage.Content.ReadAsStringAsync();
 
             var pypiPackageInfo = JsonConvert.DeserializeObject<PypiPackageInfo>(response)
@@ -215,15 +208,37 @@ public partial class EnvironmentService : IEnvironmentService
         }
     }
 
+    public (bool, string) Install(string packageName)
+    {
+        var process = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
+                Arguments =
+                    $"-m pip install \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
+                UseShellExecute = false,
+                RedirectStandardError = true,
+                CreateNoWindow = true
+            }
+        };
+        process.Start();
+        var error = process.StandardError.ReadToEnd();
+        process.WaitForExit();
+        process.Close();
+        process.Dispose();
+        return (string.IsNullOrEmpty(error), error);
+    }
+
     public (bool, string) Update(string packageName)
     {
         var process = new Process
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = _configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
+                FileName = configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
                 Arguments =
-                    $"-m pip install --upgrade \"{packageName}\" -i {_configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
+                    $"-m pip install --upgrade \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
                 UseShellExecute = false,
                 RedirectStandardError = true,
                 CreateNoWindow = true
@@ -243,7 +258,7 @@ public partial class EnvironmentService : IEnvironmentService
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = _configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
+                FileName = configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
                 Arguments = $"-m pip uninstall -y \"{packageName}\"",
                 UseShellExecute = false,
                 RedirectStandardError = true,

@@ -27,12 +27,20 @@
             <RowDefinition Height="35" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <ui:Button
-            Grid.Row="0"
-            Appearance="Primary"
-            Command="{Binding ViewModel.AddTaskCommand}"
-            Content="Add"
-            Icon="{ui:SymbolIcon Add24}" />
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <ui:Button
+                Appearance="Primary"
+                Command="{Binding ViewModel.AddTaskCommand}"
+                Content="Add"
+                Icon="{ui:SymbolIcon Add24}" />
+            <ui:Button
+                Margin="5,0,0,0"
+                Appearance="Success"
+                Command="{Binding ViewModel.AddToActionCommand}"
+                Content="Install"
+                Icon="{ui:SymbolIcon ArrowDown24}"
+                IsEnabled="{Binding ElementName=AddTaskList, Path=Items.Count, Converter={StaticResource IntegerToBool}}" />
+        </StackPanel>
 
         <ItemsControl
             x:Name="AddTaskList"
@@ -57,23 +65,14 @@
                             Grid.Column="1"
                             HorizontalAlignment="Left"
                             Orientation="Horizontal">
-                            <CheckBox x:Name="VersionSpecifiedCheckbox" Content="Version Specified" />
+                            <CheckBox x:Name="VersionSpecifiedCheckbox" Content="Version Specified" IsChecked="{Binding VersionSpecified, Mode=TwoWay}" />
                             <ComboBox
-                                Margin="15,0,0,0"
-                                SelectedIndex="0"
-                                Visibility="{Binding ElementName=VersionSpecifiedCheckbox, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
-                                <ComboBoxItem Content="Compatible Release(~=)" />
-                                <ComboBoxItem Content="Version Matching(==)" />
-                                <ComboBoxItem Content="Equal or Bigger than(&gt;=)" />
-                                <ComboBoxItem Content="Bigger than(&gt;)" />
-                                <ComboBoxItem Content="Equal or Lower than(&lt;=)" />
-                                <ComboBoxItem Content="Lower than(&lt;)" />
-                            </ComboBox>
-                            <ui:TextBox
                                 Width="150"
-                                Margin="5,0,0,0"
+                                Margin="7,0,0,0"
                                 VerticalAlignment="Center"
-                                PlaceholderText="Version"
+                                ItemsSource="{Binding AvailableVersions}"
+                                SelectedIndex="0"
+                                SelectedItem="{Binding TargetVersion, Mode=TwoWay}"
                                 Visibility="{Binding ElementName=VersionSpecifiedCheckbox, Path=IsChecked, Converter={StaticResource BoolToVisibility}}" />
                             <TextBlock
                                 Margin="15,0,0,0"

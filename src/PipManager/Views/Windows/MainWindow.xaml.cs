@@ -50,7 +50,7 @@ public partial class MainWindow
         var actionList = App.GetService<IActionService>().ActionList;
         if (actionList.Count > 0)
         {
-            var uiMessageBox = new MessageBox
+            var uiMessageBox = new Wpf.Ui.Controls.MessageBox
             {
                 Title = Lang.ContentDialog_Title_Warning,
                 Content = Lang.ContentDialog_Message_ActionStillRunning,
@@ -59,7 +59,7 @@ public partial class MainWindow
             };
 
             var result = uiMessageBox.ShowDialogAsync();
-            e.Cancel = result.Result != MessageBoxResult.Primary;
+            e.Cancel = result.Result != Wpf.Ui.Controls.MessageBoxResult.Primary;
         }
         else
         {

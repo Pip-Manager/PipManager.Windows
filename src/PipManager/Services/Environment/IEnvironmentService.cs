@@ -13,6 +13,8 @@ public interface IEnvironmentService
 
     public Task<string[]?> GetVersions(string packageName);
 
+    public (bool, string) Install(string packageName);
+
     public (bool, string) Update(string packageName);
 
     public (bool, string) Uninstall(string packageName);

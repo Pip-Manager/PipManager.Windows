@@ -1,8 +1,6 @@
 ﻿using PipManager.Controls;
 using PipManager.Languages;
-using System.Windows.Media;
 using Wpf.Ui;
-using Wpf.Ui.Appearance;
 
 namespace PipManager.Services.Toast;
 

@@ -22,10 +22,6 @@
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <converters:LanguageFixIntToStringConverter x:Key="LanguageFixIntToStringConverter"></converters:LanguageFixIntToStringConverter>
-    </Page.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
@@ -67,7 +63,7 @@
                         <TextBlock VerticalAlignment="Center">
                             <TextBlock.Text>
                                 <I18N Key="{x:Static lang:LangKeys.Library_Data_SelectedItemsCount}">
-                                    <Binding ElementName="LibraryList" Path="SelectedItems.Count" Converter="{StaticResource LanguageFixIntToStringConverter}" />
+                                    <Binding ElementName="LibraryList" Path="SelectedItems.Count"/>
                                 </I18N>
                             </TextBlock.Text>
                         </TextBlock>
@@ -84,7 +80,7 @@
                         <TextBlock VerticalAlignment="Center">
                             <TextBlock.Text>
                                 <I18N Key="{x:Static lang:LangKeys.Library_Data_PackageFound}">
-                                    <Binding ElementName="LibraryList" Path="Items.Count" Converter="{StaticResource LanguageFixIntToStringConverter}"/>
+                                    <Binding ElementName="LibraryList" Path="Items.Count"/>
                                 </I18N>
                             </TextBlock.Text>
                         </TextBlock>

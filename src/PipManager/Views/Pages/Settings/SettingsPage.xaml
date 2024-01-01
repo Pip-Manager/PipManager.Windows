@@ -3,13 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:converters="clr-namespace:PipManager.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helpers="clr-namespace:PipManager.Helpers"
     xmlns:lang="clr-namespace:PipManager.Languages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:settings="clr-namespace:PipManager.Views.Pages.Settings"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:converters="clr-namespace:PipManager.Converters"
     Title="SettingsPage"
     d:DataContext="{d:DesignInstance settings:SettingsPage,
                                      IsDesignTimeCreatable=False}"
@@ -20,9 +19,8 @@
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
     <Page.Resources>
-        <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <converters:ThemeEnumToBooleanConverter x:Key="ThemeEnumToBooleanConverter" />
         <converters:PackageSourceEnumToBooleanConverter x:Key="PackageSourceEnumToBooleanConverter" />
-        <converters:LanguageFixIntToStringConverter x:Key="LanguageFixIntToStringConverter"></converters:LanguageFixIntToStringConverter>
         <Style x:Key="PackageSourceNetworkTextBlockStyle" TargetType="TextBlock">
             <Setter Property="Foreground" Value="Gray" />
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -138,14 +136,14 @@
             CommandParameter="light"
             Content="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTheme_Light}}"
             GroupName="themeSelect"
-            IsChecked="{Binding ViewModel.CurrentTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=TwoWay}" />
+            IsChecked="{Binding ViewModel.CurrentTheme, Converter={StaticResource ThemeEnumToBooleanConverter}, ConverterParameter=Light, Mode=TwoWay}" />
         <RadioButton
             Margin="0,8,0,0"
             Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
             CommandParameter="dark"
             Content="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTheme_Dark}}"
             GroupName="themeSelect"
-            IsChecked="{Binding ViewModel.CurrentTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=TwoWay}" />
+            IsChecked="{Binding ViewModel.CurrentTheme, Converter={StaticResource ThemeEnumToBooleanConverter}, ConverterParameter=Dark, Mode=TwoWay}" />
         <TextBlock Margin="0,12,0,0" Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_LogAutoDeletion}}" />
         <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
             <ui:ToggleSwitch
@@ -173,7 +171,9 @@
                 Visibility="{Binding ElementName=LogAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
                 <TextBlock.Text>
                     <I18N Key="{x:Static lang:LangKeys.Settings_PersonalizationLogAutoDeletion_Tip}">
-                        <Binding ElementName="LogAutoDeletionSlider" Path="Value" Converter="{StaticResource LanguageFixIntToStringConverter}"/>
+                        <Binding
+                            ElementName="LogAutoDeletionSlider"
+                            Path="Value" />
                     </I18N>
                 </TextBlock.Text>
             </TextBlock>
@@ -205,7 +205,7 @@
                 Visibility="{Binding ElementName=CrushesAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
                 <TextBlock.Text>
                     <I18N Key="{x:Static lang:LangKeys.Settings_PersonalizationCrushesAutoDeletion_Tip}">
-                        <Binding Path="ViewModel.CrushesAutoDeletionTimes" Converter="{StaticResource LanguageFixIntToStringConverter}"/>
+                        <Binding Path="ViewModel.CrushesAutoDeletionTimes" />
                     </I18N>
                 </TextBlock.Text>
             </TextBlock>

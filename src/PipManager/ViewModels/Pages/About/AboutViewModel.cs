@@ -36,7 +36,7 @@ public partial class AboutViewModel(IConfigurationService configurationService) 
     [ObservableProperty]
     private ObservableCollection<AboutNugetLibraryListItem> _nugetLibraryList =
     [
-        new AboutNugetLibraryListItem("Antelcat.I18N.WPF", "1.0.0", "MIT", "Copyright (c) 2023 Feast", "https://github.com/Antelcat/Antelcat.I18N"),
+        new AboutNugetLibraryListItem("Antelcat.I18N.WPF", "1.0.1", "MIT", "Copyright (c) 2023 Feast", "https://github.com/Antelcat/Antelcat.I18N"),
         new AboutNugetLibraryListItem("CommunityToolkit.Mvvm", "8.2.2", "MIT", "Copyright © .NET Foundation and Contributors", "https://github.com/CommunityToolkit/dotnet"),
         new AboutNugetLibraryListItem("Microsoft.Extensions.Hosting", "8.0.0", "MIT", "Copyright © .NET Foundation and Contributors", "https://github.com/dotnet/runtime"),
         new AboutNugetLibraryListItem("Microsoft.Xaml.Behaviors.Wpf", "1.1.75", "MIT", "Copyright (c) 2015 Microsoft", "https://github.com/microsoft/XamlBehaviorsWpf"),

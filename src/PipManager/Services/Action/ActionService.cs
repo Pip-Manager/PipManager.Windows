@@ -6,23 +6,15 @@ using Serilog;
 
 namespace PipManager.Services.Action;
 
-public class ActionService : IActionService
+public class ActionService(IEnvironmentService environmentService, IToastService toastService)
+    : IActionService
 {
-    private readonly IEnvironmentService _environmentService;
-    private readonly IToastService _toastService;
-
-    public ActionService(IEnvironmentService environmentService, IToastService toastService)
-    {
-        _environmentService = environmentService;
-        _toastService = toastService;
-    }
-
     public List<ActionListItem> ActionList { get; set; } = new();
     public List<ActionListItem> ExceptionList { get; set; } = new();
 
     public void AddOperation(ActionListItem actionListItem)
     {
-        _toastService.Info(string.Format(Lang.Action_AddOperation_Toast, actionListItem.TotalSubTaskNumber));
+        toastService.Info(string.Format(Lang.Action_AddOperation_Toast, actionListItem.TotalSubTaskNumber));
         ActionList.Add(actionListItem);
     }
 
@@ -40,11 +32,31 @@ public class ActionService : IActionService
                     foreach (var item in queue)
                     {
                         ActionList[0].OperationStatus = $"Uninstalling {item}";
-                        var result = _environmentService.Uninstall(item);
+                        var result = environmentService.Uninstall(item);
                         ActionList[0].CompletedSubTaskNumber++;
                         Log.Information(result.Item1
                             ? $"[Runner] {item} uninstall sub-task completed"
                             : $"[Runner] {item} uninstall sub-task failed\n   Reason:{result.Item2}");
+                    }
+                    Log.Information($"[Runner] Task {ActionList[0].OperationDescription} Completed");
+                }
+                else if (ActionList[0].OperationType == ActionType.Install)
+                {
+                    var queue = ActionList[0].OperationCommand.Split(' ');
+                    foreach (var item in queue)
+                    {
+                        ActionList[0].OperationStatus = $"Installing {item}";
+                        var result = environmentService.Install(item);
+                        ActionList[0].CompletedSubTaskNumber++;
+                        if (!result.Item1)
+                        {
+                            errorDetection = true;
+                            ActionList[0].DetectIssue = true;
+                            consoleError += result.Item2 + '\n';
+                        }
+                        Log.Information(result.Item1
+                            ? $"[Runner] {item} install sub-task completed"
+                            : $"[Runner] {item} install sub-task failed\n   Reason:{result.Item2}");
                     }
                     Log.Information($"[Runner] Task {ActionList[0].OperationDescription} Completed");
                 }
@@ -54,7 +66,7 @@ public class ActionService : IActionService
                     foreach (var item in queue)
                     {
                         ActionList[0].OperationStatus = $"Updating {item}";
-                        var result = _environmentService.Update(item);
+                        var result = environmentService.Update(item);
                         ActionList[0].CompletedSubTaskNumber++;
                         if (!result.Item1)
                         {
@@ -74,7 +86,7 @@ public class ActionService : IActionService
                 {
                     Application.Current.Dispatcher.BeginInvoke(() =>
                     {
-                        _toastService.Error(Lang.Action_IssueDetectedToast);
+                        toastService.Error(Lang.Action_IssueDetectedToast);
                     });
                     ActionList[0].ConsoleError = consoleError;
                     ExceptionList.Add(ActionList[0]);

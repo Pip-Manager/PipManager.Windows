@@ -95,6 +95,6 @@
             VerticalAlignment="Top"
             FontSize="16"
             Text="Enter Package Name" />
-        <TextBox Margin="0, 30, 0, 0"></TextBox>
+        <TextBox Margin="0, 30, 0, -30"></TextBox>
     </Grid>
 </ResourceDictionary>
