@@ -10,7 +10,7 @@ jobs:
      runs-on: windows-latest
      env:
         Project_Path: src/PipManager/PipManager.csproj
-        Executable_Path: src/PipManager/bin/Release/net8.0-windows/win-x64/publish/PipManager.exe
+        Executable_Path: publish/PipManager.exe
      steps:
         - name: Checkout
           uses: actions/checkout@v3
@@ -29,9 +29,10 @@ jobs:
           run: dotnet build ${{ env.Project_Path }} -c Release --no-restore
   
         - name: Publish
-          run: dotnet publish ${{ env.Project_Path }} -c Release -r win-x64 -p:Platform=x64 -p:PublishReadyToRun=false -p:EnableCompressionInSingleFile=false -p:PublishSingleFile=true -p:SelfContained=false -p:AssemblyVersion=1.0.0.0
+          run: dotnet publish ${{ env.Project_Path }} -c Release -r win-x64 -o "publish/" -p:Platform=x64 -p:PublishReadyToRun=false -p:EnableCompressionInSingleFile=false -p:PublishSingleFile=true -p:SelfContained=false -p:AssemblyVersion=1.0.0.0
   
-        - uses: actions/upload-artifact@v4
+        - name: Upload Artifact
+          uses: actions/upload-artifact@v4
           with:
             name: PipManager-dev
             path: ${{ env.Executable_Path }}
