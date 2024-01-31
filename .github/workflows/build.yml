@@ -13,12 +13,12 @@ jobs:
         Executable_Path: publish/PipManager.exe
      steps:
         - name: Checkout
-          uses: actions/checkout@v3
+          uses: actions/checkout@v4
           with:
             fetch-depth: 0
      
         - name: Install .Net 8
-          uses: actions/setup-dotnet@v3
+          uses: actions/setup-dotnet@v4
           with: 
             dotnet-version: 8.0.x
 
