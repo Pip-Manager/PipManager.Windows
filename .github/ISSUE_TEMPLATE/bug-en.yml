@@ -27,6 +27,13 @@ body:
       placeholder: E.g. 0.0.0.1
     validations:
       required: true
+  - type: input
+    id: log
+    attributes:
+      label: Crushes or Log
+      description: Enter the latest record in `crushes` or `logs` folder (in the same directory as app)
+    validations:
+      required: true
   - type: textarea
     id: reproduce
     attributes:

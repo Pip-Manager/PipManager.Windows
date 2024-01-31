@@ -27,6 +27,13 @@ body:
       placeholder: 如 0.0.0.1
     validations:
       required: true
+  - type: input
+    id: log
+    attributes:
+      label: 崩溃记录或日志文件
+      description: 填写 `crushes` 或 `logs` 文件夹下最新的崩溃或日志信息 (在应用的同目录下)
+    validations:
+      required: true
   - type: textarea
     id: reproduce
     attributes:
