@@ -616,4 +616,7 @@
   <data name="LibraryInstall_Add_InvalidPackageName" xml:space="preserve">
     <value>包名不符合 PEP 508</value>
   </data>
+  <data name="Development_Developing" xml:space="preserve">
+    <value>开发中</value>
+  </data>
 </root>

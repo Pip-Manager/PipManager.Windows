@@ -616,4 +616,7 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="LibraryInstall_Add_InvalidPackageName" xml:space="preserve">
     <value>Invalid Package Name (PEP 508)</value>
   </data>
+  <data name="Development_Developing" xml:space="preserve">
+    <value>Developing</value>
+  </data>
 </root>

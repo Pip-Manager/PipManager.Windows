@@ -619,6 +619,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Developing 的本地化字符串。
+        /// </summary>
+        public static string Development_Developing {
+            get {
+                return ResourceManager.GetString("Development_Developing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Add Environment 的本地化字符串。
         /// </summary>
         public static string Environment_Operation_AddEnvironment {
