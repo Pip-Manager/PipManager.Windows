@@ -65,16 +65,16 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
 
         #region Contact
 
-        Author = Package.Author.Count == 0 ? Lang.LibraryDetail_Unknown : string.Join(", ", Package.Author);
+        Author = Package.Author!.Count == 0 ? Lang.LibraryDetail_Unknown : string.Join(", ", Package.Author!);
         AuthorEmail = Package.AuthorEmail == "" ? Lang.LibraryDetail_Unknown : Package.AuthorEmail;
-        ProjectUrl = new ObservableCollection<LibraryDetailProjectUrlModel>(Package.ProjectUrl);
+        ProjectUrl = new ObservableCollection<LibraryDetailProjectUrlModel>(Package.ProjectUrl!);
 
         #endregion Contact
 
         #region Classifier
 
         // Development Status
-        DevelopmentStatus = Package.Classifier.TryGetValue("Development Status", out var value) ? value[0].Split(" - ")[^1] : Lang.LibraryDetail_Unknown;
+        DevelopmentStatus = Package.Classifier!.TryGetValue("Development Status", out var value) ? value[0].Split(" - ")[^1] : Lang.LibraryDetail_Unknown;
         DevelopmentStatusAppearance = DevelopmentStatus switch
         {
             "Planning" => ControlAppearance.Info,
@@ -88,10 +88,10 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
         };
 
         // Programming Language
-        ProgrammingLanguage = new ObservableCollection<string>(Package.Classifier.GetValueOrDefault("Programming Language", new List<string> { Lang.LibraryDetail_Unknown }).Select(item => item.Replace(" :: ", " ")));
+        ProgrammingLanguage = new ObservableCollection<string>(Package.Classifier.GetValueOrDefault("Programming Language", [Lang.LibraryDetail_Unknown]).Select(item => item.Replace(" :: ", " ")));
 
         // Intended Audience
-        IntendedAudience = new ObservableCollection<string>(Package.Classifier.GetValueOrDefault("Intended Audience", new List<string> { Lang.LibraryDetail_Unknown }));
+        IntendedAudience = new ObservableCollection<string>(Package.Classifier.GetValueOrDefault("Intended Audience", [Lang.LibraryDetail_Unknown]));
         if (IntendedAudience[0] != Lang.LibraryDetail_Unknown)
         {
             IntendedAudience = new ObservableCollection<string>(IntendedAudience.Select(item => item switch
@@ -114,15 +114,15 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
             }));
         }
         // Operating System
-        OperatingSystem = new ObservableCollection<string>(Package.Classifier.GetValueOrDefault("Operating System", new List<string> { Lang.LibraryDetail_Unknown }));
+        OperatingSystem = new ObservableCollection<string>(Package.Classifier.GetValueOrDefault("Operating System", [Lang.LibraryDetail_Unknown]));
         if (OperatingSystem.Count == 1 && OperatingSystem[0] == "OS Independent")
         {
             OperatingSystem[0] = Lang.LibraryDetail_Classifier_OperatingSystem_OSIndependent;
         }
         // Environment
-        Environment = new ObservableCollection<string>(Package.Classifier.GetValueOrDefault("Environment", new List<string> { Lang.LibraryDetail_Unknown }));
+        Environment = new ObservableCollection<string>(Package.Classifier.GetValueOrDefault("Environment", [Lang.LibraryDetail_Unknown]));
         // Topic
-        Topic = new ObservableCollection<string>(Package.Classifier.GetValueOrDefault("Topic", new List<string> { Lang.LibraryDetail_Unknown }));
+        Topic = new ObservableCollection<string>(Package.Classifier.GetValueOrDefault("Topic", [Lang.LibraryDetail_Unknown]));
 
         #endregion Classifier
     }

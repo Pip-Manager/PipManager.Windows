@@ -94,4 +94,12 @@
 	  <Folder Include="Services\Environment\Response\" />
 	  <Folder Include="Services\Toast\" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <EditorConfigFiles Remove="E:\pipManager\PipManager\src\PipManager\.editorconfig" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="E:\pipManager\PipManager\src\PipManager\.editorconfig" />
+	</ItemGroup>
 </Project>

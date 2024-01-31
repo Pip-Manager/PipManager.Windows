@@ -171,9 +171,7 @@
                 Visibility="{Binding ElementName=LogAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
                 <TextBlock.Text>
                     <I18N Key="{x:Static lang:LangKeys.Settings_PersonalizationLogAutoDeletion_Tip}">
-                        <Binding
-                            ElementName="LogAutoDeletionSlider"
-                            Path="Value" />
+                        <Binding ElementName="LogAutoDeletionSlider" Path="Value" />
                     </I18N>
                 </TextBlock.Text>
             </TextBlock>

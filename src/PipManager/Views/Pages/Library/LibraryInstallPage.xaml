@@ -65,7 +65,10 @@
                             Grid.Column="1"
                             HorizontalAlignment="Left"
                             Orientation="Horizontal">
-                            <CheckBox x:Name="VersionSpecifiedCheckbox" Content="{I18N {x:Static lang:LangKeys.LibraryInstall_List_VersionSpecified}}" IsChecked="{Binding VersionSpecified, Mode=TwoWay}" />
+                            <CheckBox
+                                x:Name="VersionSpecifiedCheckbox"
+                                Content="{I18N {x:Static lang:LangKeys.LibraryInstall_List_VersionSpecified}}"
+                                IsChecked="{Binding VersionSpecified, Mode=TwoWay}" />
                             <ComboBox
                                 Width="150"
                                 Margin="7,0,0,0"

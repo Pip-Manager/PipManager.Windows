@@ -100,17 +100,25 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                     }
                 }
 
-                foreach (var item in metadataDict.GetValueOrDefault("classifier", new List<string>()))
+                foreach (var item in metadataDict.GetValueOrDefault("classifier", []))
                 {
-                    var key = item.Split(" :: ")[0];
-                    var value = string.Join(" :: ", item.Split(" :: ")[1..]);
-                    if (!classifiers.ContainsKey(key))
-                    {
-                        classifiers.Add(key, []);
-                    }
+                    var keyValues = item.Split(" :: ");
 
-                    classifiers[key].Add(value);
+                    if (keyValues.Length >= 2)
+                    {
+                        var key = keyValues[0];
+                        var value = string.Join(" :: ", keyValues[1..]);
+
+                        if (!classifiers.TryGetValue(key, out var existingList))
+                        {
+                            existingList = [];
+                            classifiers.Add(key, existingList);
+                        }
+
+                        existingList.Add(value);
+                    }
                 }
+
 
                 // Record
                 var record = new List<string>();
@@ -127,7 +135,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 }
 
                 // Extra
-                var projectUrl = metadataDict.GetValueOrDefault("project-url", new List<string>());
+                var projectUrl = metadataDict.GetValueOrDefault("project-url", []);
                 var projectUrlDictionary = new List<LibraryDetailProjectUrlModel>();
                 Application.Current.Dispatcher.Invoke(() =>
                 {
@@ -176,9 +184,9 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                         DetailedVersion = PackageValidator.CheckVersion(packageVersion),
                         Path = actualPath,
                         DistInfoPath = distInfoDirectoryFullName,
-                        Summary = metadataDict.GetValueOrDefault("summary", new List<string> { "" })[0],
-                        Author = metadataDict.GetValueOrDefault("author", new List<string>()),
-                        AuthorEmail = metadataDict.GetValueOrDefault("author-email", new List<string> { "" })[0],
+                        Summary = metadataDict.GetValueOrDefault("summary", [""])[0],
+                        Author = metadataDict.GetValueOrDefault("author", []),
+                        AuthorEmail = metadataDict.GetValueOrDefault("author-email", [""])[0],
                         ProjectUrl = projectUrlDictionary,
                         Classifier = classifiers,
                         Metadata = metadataDict,
@@ -189,8 +197,8 @@ public partial class EnvironmentService(IConfigurationService configurationServi
             ioTaskList.Add(task);
         }
 
-        Task.WaitAll(ioTaskList.ToArray());
-        return packages.OrderBy(x => x.Name).ToList();
+        Task.WaitAll([.. ioTaskList]);
+        return [.. packages.OrderBy(x => x.Name)];
     }
 
     public async Task<GetVersionsResponse> GetVersions(string packageName)
@@ -207,7 +215,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
             var response = await responseMessage.Content.ReadAsStringAsync();
 
             var pypiPackageInfo = JsonConvert.DeserializeObject<PypiPackageInfo>(response)
-                ?.Releases
+                ?.Releases?
                 .Where(item => item.Value.Count != 0).OrderBy(e => e.Value[0].UploadTime)
                 .ThenBy(e => e.Value[0].UploadTime).ToDictionary(pair => pair.Key, pair => pair.Value);
             return new GetVersionsResponse { Status = 0, Versions = pypiPackageInfo?.Keys.ToArray()};

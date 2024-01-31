@@ -99,9 +99,9 @@
             Margin="0,10,0,0"
             IsTextSearchCaseSensitive="False"
             IsTextSearchEnabled="True"
-            TextSearch.TextPath="PackageName"
             ItemsSource="{Binding ViewModel.LibraryList, Mode=TwoWay}"
             SelectionMode="Multiple"
+            TextSearch.TextPath="PackageName"
             Visibility="{Binding ViewModel.LibraryList, Converter={StaticResource NotNullToVisibility}}">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type pages:LibraryListItem}">

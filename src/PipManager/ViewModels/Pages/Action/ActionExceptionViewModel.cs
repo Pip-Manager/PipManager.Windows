@@ -48,7 +48,10 @@ public partial class ActionExceptionViewModel : ObservableObject, INavigationAwa
     private static void ShowException(object parameter)
     {
         var actionExceptionWindow = new ActionExceptionWindow();
-        actionExceptionWindow.Initialize(parameter as ActionListItem);
-        actionExceptionWindow.Show();
+        if (parameter is ActionListItem action)
+        {
+            actionExceptionWindow.Initialize(action);
+            actionExceptionWindow.Show();
+        }
     }
 }

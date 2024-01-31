@@ -24,7 +24,7 @@ namespace PipManager.ViewModels.Pages.Library;
 
 public partial class LibraryViewModel : ObservableObject, INavigationAware
 {
-    private List<PackageItem>? _library = new();
+    private List<PackageItem>? _library = [];
     private bool _isInitialized;
     private readonly INavigationService _navigationService;
     private readonly IEnvironmentService _environmentService;
@@ -76,7 +76,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private void InstallPackage()
     {
         _navigationService.NavigateWithHierarchy(typeof(LibraryInstallPage));
-        WeakReferenceMessenger.Default.Send(new InstalledPackagesMessage(_libraryList.ToList()));
+        WeakReferenceMessenger.Default.Send(new InstalledPackagesMessage([.. LibraryList]));
 
     }
 
@@ -127,7 +127,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
                     msgList.Add(new LibraryCheckUpdateContentDialogContentListItem(item, latest.Versions!.Last()));
                 }
             })));
-            Task.WaitAll(ioTaskList.ToArray());
+            Task.WaitAll([.. ioTaskList]);
         });
         _maskService.Hide();
         if (msgList.Count == 0)
@@ -167,7 +167,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     #endregion Details
 
     [ObservableProperty] private int _libraryListLength;
-    [ObservableProperty] private ObservableCollection<LibraryListItem> _libraryList = new();
+    [ObservableProperty] private ObservableCollection<LibraryListItem> _libraryList = [];
 
     [ObservableProperty] private bool _environmentFoundVisible;
     [ObservableProperty] private bool _listVisible;
@@ -182,10 +182,10 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private async Task RefreshLibrary()
     {
-        LibraryList = new ObservableCollection<LibraryListItem>();
+        LibraryList = [];
         EnvironmentFoundVisible = true;
         _maskService.Show(Lang.MainWindow_NavigationContent_Library);
-        _library = new List<PackageItem>();
+        _library = [];
         if (_configurationService.AppConfig.CurrentEnvironment == null)
         {
             _maskService.Hide();
@@ -205,7 +205,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             {
                 LibraryList.Add(new LibraryListItem
                 (
-                    new SymbolIcon(SymbolRegular.Box24), package.Name, package.Version, package.DetailedVersion, package.Summary, false
+                    new SymbolIcon(SymbolRegular.Box24), package.Name!, package.Version!, package.DetailedVersion!, package.Summary!, false
                 ));
             }
             LibraryListLength = _library.Count;
