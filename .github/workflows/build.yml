@@ -1,0 +1,37 @@
+name: "PipManager Continuous Integration"
+
+on:
+  push:
+     branches:
+        - master
+    
+jobs:
+  build:
+     runs-on: windows-latest
+     env:
+        Project_Path: src/PipManager/PipManager.csproj
+        Executable_Path: src/PipManager/bin/Release/net8.0-windows/win-x64/publish/PipManager.exe
+     steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+          with:
+            fetch-depth: 0
+     
+        - name: Install .Net 8
+          uses: actions/setup-dotnet@v3
+          with: 
+            dotnet-version: 8.0.x
+
+        - name: Restore
+          run: dotnet restore ${{ env.Project_Path }}
+  
+        - name: Build
+          run: dotnet build ${{ env.Project_Path }} -c Release --no-restore
+  
+        - name: Publish
+          run: dotnet publish ${{ env.Project_Path }} -c Release -r win-x64 -p:Platform=x64 -p:PublishReadyToRun=false -p:EnableCompressionInSingleFile=false -p:PublishSingleFile=true -p:SelfContained=false -p:AssemblyVersion=1.0.0.0
+  
+        - uses: actions/upload-artifact@v4
+          with:
+            name: PipManager-dev
+            path: ${{ env.Executable_Path }}
