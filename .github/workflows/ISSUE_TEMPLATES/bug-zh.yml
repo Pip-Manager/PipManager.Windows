@@ -1,0 +1,44 @@
+name: 错误报告 (中文)
+description: 提交错误报告以帮助改进
+title: "[Bug] "
+labels:
+  - Bug
+body:
+  - type: checkboxes
+    attributes:
+      label: 请检查以下事项
+      options:
+        - label: 我查找过相关的 Issue
+          required: false
+        - label: 我阅读过[提问的艺术](https://github.com/betaseeker/How-To-Ask-Questions)
+          required: false
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 请详细描述遇到的问题
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: 应用版本
+      description: 请填写你正在使用的版本
+      placeholder: 如 0.0.0.1
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现流程
+      description: 请详细描述复现流程
+      placeholder: 若无法复现，请填写无法复现
+    validations:
+      required: true
+  - type: textarea
+    id: additional
+    attributes:
+      label: 其他信息
+      description: 请填写其他信息
+    validations:
+      required: false

@@ -1,0 +1,44 @@
+name: Bug Report (English)
+description: Submit bug reports to help improve
+title: "[Bug] "
+labels:
+  - Bug
+body:
+  - type: checkboxes
+    attributes:
+      label: Check the following items
+      options:
+        - label: I have looked up relevant Issue
+          required: false
+        - label: I've read [How To Ask Questions](https://github.com/betaseeker/How-To-Ask-Questions)
+          required: false
+  - type: textarea
+    id: description
+    attributes:
+      label: Description of the issue
+      description: Please describe in detail the problems encountered
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Application version
+      description: Enter the version you are using
+      placeholder: E.g. 0.0.0.1
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction
+      description: Describe in detail the reproduction
+      placeholder: If unable to reproduce, enter "unable to reproduce"
+    validations:
+      required: true
+  - type: textarea
+    id: additional
+    attributes:
+      label: Other information
+      description: Enter other information
+    validations:
+      required: false

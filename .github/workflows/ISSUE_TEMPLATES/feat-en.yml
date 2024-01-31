@@ -1,0 +1,36 @@
+name: Feature Request (English)
+description: Submit a new feature request
+title: "[Feat] "
+labels:
+  - Enhancement
+body:
+  - type: checkboxes
+    attributes:
+      label: Check the following items
+      options:
+        - label: I have looked up relevant Issue
+          required: false
+        - label: I've read [How To Ask Questions](https://github.com/betaseeker/How-To-Ask-Questions)
+          required: false
+  - type: textarea
+    id: description
+    attributes:
+      label: Description of new feature
+      description: Please describe the new features in detail
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Application version
+      description: Enter the version you are using
+      placeholder: E.g. 0.0.0.1
+    validations:
+      required: true
+  - type: textarea
+    id: additional
+    attributes:
+      label: Other information
+      description: Enter other information
+    validations:
+      required: false
