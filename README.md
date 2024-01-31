@@ -30,26 +30,13 @@
 
 </div>
 
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-pip-manager">About Pip Manager</a>
-      <ul>
-        <li><a href="#technology-stack">Technology Stack</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#arguments">Arguments</a></li>
-      </ul>
-    </li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-  </ol>
-</details>
+---
+
+该项目处于早期开发阶段，存在大量Bug
+
+The project is in an early stage of development and has a lot of bugs
+
+---
 
 ## About Pip Manager
 
@@ -70,22 +57,23 @@ Pip Manager is based on the following technology stacks:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Getting Started
+## Screenshots
 
-_Get `PipManager-XXX.zip` from Github Releases._
+![imaged94b02fa5d799502.png](https://loli.tc/images/imaged94b02fa5d799502.png)
+![image94df723d9bc647dc.png](https://loli.tc/images/image94df723d9bc647dc.png)
+
+## Getting Started
 
 Double click `PipManager-XXX.exe`
 
 ### Arguments
 
 - `/console`: Show console while program running
-- `/experiment`: Enable a secret page for test
+- `/experiment`: Enable a secret page for test *Currently this feature is useless*
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Roadmap
-
-**Pip Manager is currently developing in early version**
 
 ### Infrastructure
 
