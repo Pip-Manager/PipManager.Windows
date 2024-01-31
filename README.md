@@ -24,6 +24,7 @@
 
 <div align="center">
 
+[![Downloads][github-downloads-shield]][github-downloads-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
@@ -64,7 +65,7 @@ Pip Manager is based on the following technology stacks:
 
 ## Getting Started
 
-Double click `PipManager-XXX.exe`
+Double click `PipManager.exe` or `PipManager_withRuntime.exe` *If you have not installed [.Net 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0)*
 
 ### Arguments
 
@@ -118,6 +119,8 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+[github-downloads-shield]: https://img.shields.io/github/downloads/Pip-Manager/PipManager/total.svg?style=for-the-badge&color=blue
+[github-downloads-url]: https://github.com/Pip-Manager/PipManager/releases
 [stars-shield]: https://img.shields.io/github/stars/Pip-Manager/PipManager.svg?style=for-the-badge
 [stars-url]: https://github.com/Pip-Manager/PipManager/stargazers
 [issues-shield]: https://img.shields.io/github/issues/Pip-Manager/PipManager.svg?style=for-the-badge
