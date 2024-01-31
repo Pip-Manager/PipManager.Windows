@@ -18,6 +18,7 @@ using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using static PipManager.ViewModels.Pages.Library.LibraryDetailViewModel;
+using static PipManager.ViewModels.Pages.Library.LibraryInstallViewModel;
 
 namespace PipManager.ViewModels.Pages.Library;
 
@@ -75,6 +76,8 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private void InstallPackage()
     {
         _navigationService.NavigateWithHierarchy(typeof(LibraryInstallPage));
+        WeakReferenceMessenger.Default.Send(new InstalledPackagesMessage(_libraryList.ToList()));
+
     }
 
     #endregion Install Package
@@ -117,11 +120,11 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             ioTaskList.AddRange(selected.Select(item => Task.Run(() =>
             {
                 var latest = _environmentService.GetVersions(item.PackageName.ToLower().Replace('_', '-')).Result;
-                if (latest == null || item.PackageVersion == latest.Last()) return;
+                if (latest.Status != 0 || item.PackageVersion == latest.Versions!.Last()) return;
                 lock (msgListLock)
                 {
-                    operationList += $"{item.PackageName}=={latest.Last()} ";
-                    msgList.Add(new LibraryCheckUpdateContentDialogContentListItem(item, latest.Last()));
+                    operationList += $"{item.PackageName}=={latest.Versions!.Last()} ";
+                    msgList.Add(new LibraryCheckUpdateContentDialogContentListItem(item, latest.Versions!.Last()));
                 }
             })));
             Task.WaitAll(ioTaskList.ToArray());

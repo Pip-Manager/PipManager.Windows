@@ -358,20 +358,20 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Please copy the error message to find a solution. 的本地化字符串。
+        /// </summary>
+        public static string ActionExceptionWindow_CopyToClipboard {
+            get {
+                return ResourceManager.GetString("ActionExceptionWindow_CopyToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Exception 的本地化字符串。
         /// </summary>
         public static string ActionExceptionWindow_Exception {
             get {
                 return ResourceManager.GetString("ActionExceptionWindow_Exception", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Error Message: 的本地化字符串。
-        /// </summary>
-        public static string ActionExceptionWindow_OriginalException {
-            get {
-                return ResourceManager.GetString("ActionExceptionWindow_OriginalException", resourceCulture);
             }
         }
         
@@ -1150,11 +1150,83 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Package already in list 的本地化字符串。
+        /// </summary>
+        public static string LibraryInstall_Add_AlreadyInList {
+            get {
+                return ResourceManager.GetString("LibraryInstall_Add_AlreadyInList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Package already installed 的本地化字符串。
+        /// </summary>
+        public static string LibraryInstall_Add_AlreadyInstalled {
+            get {
+                return ResourceManager.GetString("LibraryInstall_Add_AlreadyInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Invalid Package Name (PEP 508) 的本地化字符串。
+        /// </summary>
+        public static string LibraryInstall_Add_InvalidPackageName {
+            get {
+                return ResourceManager.GetString("LibraryInstall_Add_InvalidPackageName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Enter Package Name 的本地化字符串。
+        /// </summary>
+        public static string LibraryInstall_Add_Notice {
+            get {
+                return ResourceManager.GetString("LibraryInstall_Add_Notice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Package not found 的本地化字符串。
+        /// </summary>
+        public static string LibraryInstall_Add_PackageNotFound {
+            get {
+                return ResourceManager.GetString("LibraryInstall_Add_PackageNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Verifying 的本地化字符串。
+        /// </summary>
+        public static string LibraryInstall_Add_Verifying {
+            get {
+                return ResourceManager.GetString("LibraryInstall_Add_Verifying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Install 的本地化字符串。
         /// </summary>
         public static string LibraryInstall_Header {
             get {
                 return ResourceManager.GetString("LibraryInstall_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 The newest and compatible version will be installed 的本地化字符串。
+        /// </summary>
+        public static string LibraryInstall_List_DefaultVersion {
+            get {
+                return ResourceManager.GetString("LibraryInstall_List_DefaultVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Version Specified 的本地化字符串。
+        /// </summary>
+        public static string LibraryInstall_List_VersionSpecified {
+            get {
+                return ResourceManager.GetString("LibraryInstall_List_VersionSpecified", resourceCulture);
             }
         }
         

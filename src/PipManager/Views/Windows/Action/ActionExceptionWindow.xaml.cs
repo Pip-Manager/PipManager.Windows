@@ -17,6 +17,6 @@ public partial class ActionExceptionWindow
     public void Initialize(ActionListItem? action)
     {
         SpeculationTextBox.Text = action.Analyze();
-        OriginalExceptionTextBox.Text = Lang.ActionExceptionWindow_OriginalException + "\n" + action.ConsoleError;
+        OriginalExceptionTextBox.Text = action.ConsoleError + "\n" + Lang.ActionExceptionWindow_CopyToClipboard;
     }
 }

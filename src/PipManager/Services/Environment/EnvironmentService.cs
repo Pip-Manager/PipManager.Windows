@@ -5,10 +5,15 @@ using PipManager.Models.Package;
 using PipManager.Models.Pages;
 using PipManager.Models.Pypi;
 using PipManager.Services.Configuration;
+using PipManager.Services.Environment.Response;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using System.Text.RegularExpressions;
+using System.Windows.Documents;
+using System.Xml.Linq;
 using Wpf.Ui.Controls;
+using static System.Text.RegularExpressions.Regex;
 using Path = System.IO.Path;
 
 namespace PipManager.Services.Environment;
@@ -77,7 +82,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                         key = key.ToLower();
                         if (!metadataDict.ContainsKey(key))
                         {
-                            metadataDict.Add(key, new List<string>());
+                            metadataDict.Add(key, []);
                             lastValidKey = key;
                             lastValidPos = 0;
                         }
@@ -101,7 +106,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                     var value = string.Join(" :: ", item.Split(" :: ")[1..]);
                     if (!classifiers.ContainsKey(key))
                     {
-                        classifiers.Add(key, new List<string>());
+                        classifiers.Add(key, []);
                     }
 
                     classifiers[key].Add(value);
@@ -188,10 +193,15 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         return packages.OrderBy(x => x.Name).ToList();
     }
 
-    public async Task<string[]?> GetVersions(string packageName)
+    public async Task<GetVersionsResponse> GetVersions(string packageName)
     {
         try
         {
+            packageName = PackageNameFilterRegex().Replace(packageName, "");
+            packageName = PackageNameNormalizerRegex().Replace(packageName, "-").ToLower();
+            if (!PackageNameVerificationRegex().IsMatch(packageName))
+                return new GetVersionsResponse { Status = 2, Versions = [] };
+            var sth = $"{configurationService.GetUrlFromPackageSourceType("pypi")}{packageName}/json";
             var responseMessage =
                 await _httpClient.GetAsync($"{configurationService.GetUrlFromPackageSourceType("pypi")}{packageName}/json");
             var response = await responseMessage.Content.ReadAsStringAsync();
@@ -200,11 +210,12 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 ?.Releases
                 .Where(item => item.Value.Count != 0).OrderBy(e => e.Value[0].UploadTime)
                 .ThenBy(e => e.Value[0].UploadTime).ToDictionary(pair => pair.Key, pair => pair.Value);
-            return pypiPackageInfo?.Keys.ToArray();
+            return new GetVersionsResponse { Status = 0, Versions = pypiPackageInfo?.Keys.ToArray()};
+
         }
         catch (Exception)
         {
-            return null;
+            return new GetVersionsResponse { Status = 1, Versions = [] };
         }
     }
 
@@ -271,4 +282,15 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         process.Close();
         return string.IsNullOrEmpty(output) ? (true, "") : (false, output);
     }
+
+    // Package Version Validation
+
+    [GeneratedRegex("[-_.]+", RegexOptions.IgnoreCase)]
+    private static partial Regex PackageNameNormalizerRegex();
+
+    [GeneratedRegex("\\[[^\\]]*\\]", RegexOptions.IgnoreCase)]
+    private static partial Regex PackageNameFilterRegex();
+
+    [GeneratedRegex("^([A-Z0-9]|[A-Z0-9][A-Z0-9._-]*[A-Z0-9])$", RegexOptions.IgnoreCase)]
+    private static partial Regex PackageNameVerificationRegex();
 }

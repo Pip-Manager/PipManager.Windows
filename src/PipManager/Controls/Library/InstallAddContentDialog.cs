@@ -13,12 +13,14 @@ public class InstallAddContentDialog(ContentPresenter contentPresenter)
         CloseButtonText = Lang.ContentDialog_CloseButton_Cancel,
         Title = Lang.ContentDialog_Title_Notice,
         DialogHeight = 200,
-        Content = Application.Current.TryFindResource("LibraryInstallAddContentDialogContent")
+        Content = Application.Current.TryFindResource("LibraryInstallAddContentDialogContent"),
+        IsSecondaryButtonEnabled = false,
+        CloseButtonAppearance = ControlAppearance.Secondary
     };
 
     public async Task<string> ShowAsync()
     {
-        await _contentDialog.ShowAsync();
-        return ((_contentDialog.Content as Grid)!.Children[1] as TextBox)!.Text;
+        var result = await _contentDialog.ShowAsync();
+        return result == ContentDialogResult.None ? "" : ((_contentDialog.Content as Grid)!.Children[1] as TextBox)!.Text.Trim();
     }
 }

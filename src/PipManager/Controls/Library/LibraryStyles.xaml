@@ -72,7 +72,7 @@
                                     Text="{Binding PackageName}" />
                                 <TextBlock FontSize="14" Text=" " />
                             </StackPanel>
-                            <StackPanel Margin="20, 3, 0, 0" Orientation="Horizontal">
+                            <StackPanel Margin="20,3,0,0" Orientation="Horizontal">
                                 <ui:Badge
                                     Appearance="Primary"
                                     Content="{Binding PackageVersion}"
@@ -90,11 +90,11 @@
         </ScrollViewer>
     </Grid>
 
-    <Grid x:Key="LibraryInstallAddContentDialogContent" VerticalAlignment="Top">
+    <Grid x:Key="LibraryInstallAddContentDialogContent" VerticalAlignment="Top" MinWidth="200">
         <TextBlock
             VerticalAlignment="Top"
             FontSize="16"
-            Text="Enter Package Name" />
-        <TextBox Margin="0, 30, 0, -30"></TextBox>
+            Text="{I18N {x:Static lang:LangKeys.LibraryInstall_Add_Notice}}" />
+        <TextBox Margin="0,30,0,-30" />
     </Grid>
 </ResourceDictionary>

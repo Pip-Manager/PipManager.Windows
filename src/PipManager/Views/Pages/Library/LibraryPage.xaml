@@ -47,7 +47,6 @@
                     Content="{I18N {x:Static lang:LangKeys.Library_Operation_CheckUpdate}}"
                     Icon="{ui:SymbolIcon Check24}"
                     IsEnabled="{Binding ElementName=LibraryList, Path=SelectedItems.Count, Converter={StaticResource IntegerToBool}}" />
-                <ui:TextBox Name="LibrarySearchTextBox" Width="200" PlaceholderText="Search..." />
             </StackPanel>
             <StackPanel
                 HorizontalAlignment="Right"

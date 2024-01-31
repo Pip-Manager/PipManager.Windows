@@ -31,13 +31,13 @@
             <ui:Button
                 Appearance="Primary"
                 Command="{Binding ViewModel.AddTaskCommand}"
-                Content="Add"
+                Content="{I18N {x:Static lang:LangKeys.Common_Button_Add}}"
                 Icon="{ui:SymbolIcon Add24}" />
             <ui:Button
                 Margin="5,0,0,0"
                 Appearance="Success"
                 Command="{Binding ViewModel.AddToActionCommand}"
-                Content="Install"
+                Content="{I18N {x:Static lang:LangKeys.Library_Operation_Install}}"
                 Icon="{ui:SymbolIcon ArrowDown24}"
                 IsEnabled="{Binding ElementName=AddTaskList, Path=Items.Count, Converter={StaticResource IntegerToBool}}" />
         </StackPanel>
@@ -65,7 +65,7 @@
                             Grid.Column="1"
                             HorizontalAlignment="Left"
                             Orientation="Horizontal">
-                            <CheckBox x:Name="VersionSpecifiedCheckbox" Content="Version Specified" IsChecked="{Binding VersionSpecified, Mode=TwoWay}" />
+                            <CheckBox x:Name="VersionSpecifiedCheckbox" Content="{I18N {x:Static lang:LangKeys.LibraryInstall_List_VersionSpecified}}" IsChecked="{Binding VersionSpecified, Mode=TwoWay}" />
                             <ComboBox
                                 Width="150"
                                 Margin="7,0,0,0"
@@ -79,7 +79,7 @@
                                 VerticalAlignment="Center"
                                 FontSize="15"
                                 Foreground="Gray"
-                                Text="The newest and compatible version will be installed"
+                                Text="{I18N {x:Static lang:LangKeys.LibraryInstall_List_DefaultVersion}}"
                                 Visibility="{Binding ElementName=VersionSpecifiedCheckbox, Path=IsChecked, Converter={StaticResource InverseBoolToVisibility}}" />
                         </StackPanel>
                         <StackPanel
@@ -89,7 +89,7 @@
                             <ui:Button
                                 Command="{Binding ElementName=LibraryInstall, Path=ViewModel.DeleteTaskCommand}"
                                 CommandParameter="{Binding PackageName}"
-                                Content="Delete" />
+                                Content="{I18N {x:Static lang:LangKeys.Library_Operation_Delete}}" />
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

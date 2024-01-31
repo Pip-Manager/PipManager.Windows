@@ -6,16 +6,38 @@ using PipManager.Services.Environment;
 using PipManager.Services.Mask;
 using PipManager.Services.Toast;
 using System.Collections.ObjectModel;
+using PipManager.Languages;
+using PipManager.Models.Package;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
+using CommunityToolkit.Mvvm.Messaging;
+using static PipManager.ViewModels.Pages.Library.LibraryDetailViewModel;
 
 namespace PipManager.ViewModels.Pages.Library;
 
-public partial class LibraryInstallViewModel(IActionService actionService, IMaskService maskService, IContentDialogService contentDialogService, IEnvironmentService environmentService, IToastService toastService) : ObservableObject, INavigationAware
+public partial class LibraryInstallViewModel: ObservableObject, INavigationAware
 {
     private bool _isInitialized;
 
     [ObservableProperty] private ObservableCollection<LibraryInstallPackageItem> _preInstallPackages = [];
+    private List<LibraryListItem> _installedPackages = [];
+    public record InstalledPackagesMessage(List<LibraryListItem> InstalledPackages);
+
+    private readonly IActionService _actionService;
+    private readonly IMaskService _maskService;
+    private readonly IContentDialogService _contentDialogService;
+    private readonly IEnvironmentService _environmentService;
+    private readonly IToastService _toastService;
+
+    public LibraryInstallViewModel(IActionService actionService, IMaskService maskService, IContentDialogService contentDialogService, IEnvironmentService environmentService, IToastService toastService)
+    {
+        _actionService = actionService;
+        _maskService = maskService;
+        _contentDialogService = contentDialogService;
+        _environmentService = environmentService;
+        _toastService = toastService;
+        WeakReferenceMessenger.Default.Register<InstalledPackagesMessage>(this, Receive);
+    }
 
     public void OnNavigatedTo()
     {
@@ -33,29 +55,49 @@ public partial class LibraryInstallViewModel(IActionService actionService, IMask
         _isInitialized = true;
     }
 
+    public void Receive(object recipient, InstalledPackagesMessage message)
+    {
+        _installedPackages = message.InstalledPackages;
+    }
+
     [RelayCommand]
     private async Task AddTask()
     {
-        var custom = new InstallAddContentDialog(contentDialogService.GetContentPresenter());
+        var custom = new InstallAddContentDialog(_contentDialogService.GetContentPresenter());
         var packageName = await custom.ShowAsync();
+        if (packageName == "")
+        {
+            return;
+        }
         if (PreInstallPackages.Any(package => package.PackageName == packageName))
         {
-            toastService.Error("Package already in list");
+            _toastService.Error(Lang.LibraryInstall_Add_AlreadyInList);
             return;
         }
-        maskService.Show("Verifying");
-        var packageVersions = await environmentService.GetVersions(packageName);
-        maskService.Hide();
-        if (packageVersions is null)
+        if (_installedPackages.Any(item => item.PackageName == packageName))
         {
-            toastService.Error("Package not found");
+            _toastService.Error(Lang.LibraryInstall_Add_AlreadyInstalled);
             return;
         }
-        PreInstallPackages.Add(new LibraryInstallPackageItem
+        _maskService.Show(Lang.LibraryInstall_Add_Verifying);
+        var packageVersions = await _environmentService.GetVersions(packageName);
+        _maskService.Hide();
+        switch (packageVersions.Status)
         {
-            PackageName = packageName,
-            AvailableVersions = new List<string>(packageVersions.Reverse())
-        });
+            case 1:
+                _toastService.Error(Lang.LibraryInstall_Add_PackageNotFound);
+                return;
+            case 2:
+                _toastService.Error(Lang.LibraryInstall_Add_InvalidPackageName);
+                return;
+            default:
+                PreInstallPackages.Add(new LibraryInstallPackageItem
+                {
+                    PackageName = packageName,
+                    AvailableVersions = new List<string>(packageVersions.Versions!.Reverse())
+                });
+                break;
+        }
     }
 
     [RelayCommand]
@@ -65,7 +107,7 @@ public partial class LibraryInstallViewModel(IActionService actionService, IMask
         operationCommand.AddRange(PreInstallPackages.Select(preInstallPackage => preInstallPackage.VersionSpecified
             ? $"{preInstallPackage.PackageName}=={preInstallPackage.TargetVersion}"
             : $"{preInstallPackage.PackageName}"));
-        actionService.AddOperation(new ActionListItem
+        _actionService.AddOperation(new ActionListItem
         (
             ActionType.Install,
             string.Join(' ', operationCommand),

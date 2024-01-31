@@ -25,60 +25,68 @@ public class ActionService(IEnvironmentService environmentService, IToastService
             if (ActionList.Count > 0)
             {
                 var errorDetection = false;
-                var consoleError = $"Exception Messages in Action {ActionList[0].OperationId}:\n\n";
-                if (ActionList[0].OperationType == ActionType.Uninstall)
+                var consoleError = "\n";
+                switch (ActionList[0].OperationType)
                 {
-                    var queue = ActionList[0].OperationCommand.Split(' ');
-                    foreach (var item in queue)
+                    case ActionType.Uninstall:
                     {
-                        ActionList[0].OperationStatus = $"Uninstalling {item}";
-                        var result = environmentService.Uninstall(item);
-                        ActionList[0].CompletedSubTaskNumber++;
-                        Log.Information(result.Item1
-                            ? $"[Runner] {item} uninstall sub-task completed"
-                            : $"[Runner] {item} uninstall sub-task failed\n   Reason:{result.Item2}");
-                    }
-                    Log.Information($"[Runner] Task {ActionList[0].OperationDescription} Completed");
-                }
-                else if (ActionList[0].OperationType == ActionType.Install)
-                {
-                    var queue = ActionList[0].OperationCommand.Split(' ');
-                    foreach (var item in queue)
-                    {
-                        ActionList[0].OperationStatus = $"Installing {item}";
-                        var result = environmentService.Install(item);
-                        ActionList[0].CompletedSubTaskNumber++;
-                        if (!result.Item1)
+                        var queue = ActionList[0].OperationCommand.Split(' ');
+                        foreach (var item in queue)
                         {
-                            errorDetection = true;
-                            ActionList[0].DetectIssue = true;
-                            consoleError += result.Item2 + '\n';
+                            ActionList[0].OperationStatus = $"Uninstalling {item}";
+                            var result = environmentService.Uninstall(item);
+                            ActionList[0].CompletedSubTaskNumber++;
+                            Log.Information(result.Item1
+                                ? $"[Runner] {item} uninstall sub-task completed"
+                                : $"[Runner] {item} uninstall sub-task failed\n   Reason:{result.Item2}");
                         }
-                        Log.Information(result.Item1
-                            ? $"[Runner] {item} install sub-task completed"
-                            : $"[Runner] {item} install sub-task failed\n   Reason:{result.Item2}");
+                        Log.Information($"[Runner] Task {ActionList[0].OperationDescription} Completed");
+                        break;
                     }
-                    Log.Information($"[Runner] Task {ActionList[0].OperationDescription} Completed");
-                }
-                else if (ActionList[0].OperationType == ActionType.Update)
-                {
-                    var queue = ActionList[0].OperationCommand.Split(' ');
-                    foreach (var item in queue)
+                    case ActionType.Install:
                     {
-                        ActionList[0].OperationStatus = $"Updating {item}";
-                        var result = environmentService.Update(item);
-                        ActionList[0].CompletedSubTaskNumber++;
-                        if (!result.Item1)
+                        var queue = ActionList[0].OperationCommand.Split(' ');
+                        foreach (var item in queue)
                         {
-                            errorDetection = true;
-                            ActionList[0].DetectIssue = true;
-                            consoleError += result.Item2 + '\n';
+                            ActionList[0].OperationStatus = $"Installing {item}";
+                            var result = environmentService.Install(item);
+                            ActionList[0].CompletedSubTaskNumber++;
+                            if (!result.Item1)
+                            {
+                                errorDetection = true;
+                                ActionList[0].DetectIssue = true;
+                                consoleError += result.Item2 + '\n';
+                            }
+                            Log.Information(result.Item1
+                                ? $"[Runner] {item} install sub-task completed"
+                                : $"[Runner] {item} install sub-task failed\n   Reason:{result.Item2}");
                         }
-                        Log.Information(result.Item1
-                            ? $"[Runner] {item} update sub-task completed"
-                            : $"[Runner] {item} update sub-task failed\n   Reason:{result.Item2}");
+                        Log.Information($"[Runner] Task {ActionList[0].OperationDescription} Completed");
+                        break;
                     }
-                    Log.Information($"[Runner] Task {ActionList[0].OperationDescription} Completed");
+                    case ActionType.Update:
+                    {
+                        var queue = ActionList[0].OperationCommand.Split(' ');
+                        foreach (var item in queue)
+                        {
+                            ActionList[0].OperationStatus = $"Updating {item}";
+                            var result = environmentService.Update(item);
+                            ActionList[0].CompletedSubTaskNumber++;
+                            if (!result.Item1)
+                            {
+                                errorDetection = true;
+                                ActionList[0].DetectIssue = true;
+                                consoleError += result.Item2 + '\n';
+                            }
+                            Log.Information(result.Item1
+                                ? $"[Runner] {item} update sub-task completed"
+                                : $"[Runner] {item} update sub-task failed\n   Reason:{result.Item2}");
+                        }
+                        Log.Information($"[Runner] Task {ActionList[0].OperationDescription} Completed");
+                        break;
+                    }
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
                 ActionList[0].CompletedSubTaskNumber = ActionList[0].TotalSubTaskNumber;
                 ActionList[0].OperationStatus = "Completed";

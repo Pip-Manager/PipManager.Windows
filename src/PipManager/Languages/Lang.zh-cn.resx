@@ -553,8 +553,8 @@
   <data name="ActionExceptionWindow_Title" xml:space="preserve">
     <value>任务执行异常</value>
   </data>
-  <data name="ActionExceptionWindow_OriginalException" xml:space="preserve">
-    <value>报错信息：</value>
+  <data name="ActionExceptionWindow_CopyToClipboard" xml:space="preserve">
+    <value>建议复制报错信息以寻求解决方案。</value>
   </data>
   <data name="ActionExceptionAnalyze_NoMatchingDistFound_VersionMatching" xml:space="preserve">
     <value>没有找到版本为{1}的包{0}，请检查包名的拼写是否正确，且确认该包(以及其版本)存在。</value>
@@ -591,5 +591,29 @@
   </data>
   <data name="LibraryInstall_Header" xml:space="preserve">
     <value>安装</value>
+  </data>
+  <data name="LibraryInstall_Add_Notice" xml:space="preserve">
+    <value>输入包名</value>
+  </data>
+  <data name="LibraryInstall_Add_AlreadyInList" xml:space="preserve">
+    <value>该包在列表中，无需添加</value>
+  </data>
+  <data name="LibraryInstall_Add_AlreadyInstalled" xml:space="preserve">
+    <value>该包已安装</value>
+  </data>
+  <data name="LibraryInstall_Add_Verifying" xml:space="preserve">
+    <value>验证中</value>
+  </data>
+  <data name="LibraryInstall_Add_PackageNotFound" xml:space="preserve">
+    <value>该包不存在</value>
+  </data>
+  <data name="LibraryInstall_List_VersionSpecified" xml:space="preserve">
+    <value>指定版本</value>
+  </data>
+  <data name="LibraryInstall_List_DefaultVersion" xml:space="preserve">
+    <value>将会安装最新的兼容版本</value>
+  </data>
+  <data name="LibraryInstall_Add_InvalidPackageName" xml:space="preserve">
+    <value>包名不符合 PEP 508</value>
   </data>
 </root>

@@ -110,9 +110,9 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         await Task.Run(async () =>
         {
             var versions = await environmentService.GetVersions("pip");
-            if (versions is not null)
+            if (versions.Status != 0)
             {
-                latest = versions.Last();
+                latest = versions.Versions.Last();
             }
         });
         Task.WaitAll();

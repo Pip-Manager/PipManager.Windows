@@ -553,8 +553,8 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="ActionExceptionWindow_Title" xml:space="preserve">
     <value>Action Exception</value>
   </data>
-  <data name="ActionExceptionWindow_OriginalException" xml:space="preserve">
-    <value>Error Message:</value>
+  <data name="ActionExceptionWindow_CopyToClipboard" xml:space="preserve">
+    <value>Please copy the error message to find a solution.</value>
   </data>
   <data name="ActionExceptionAnalyze_NoMatchingDistFound_VersionMatching" xml:space="preserve">
     <value>Package {0} with version {1} was not found, check the spelling of the package name and make sure the package (and its version) exists.</value>
@@ -591,5 +591,29 @@ Other sources are faster to connect to, but may be incomplete.</value>
   </data>
   <data name="LibraryInstall_Header" xml:space="preserve">
     <value>Install</value>
+  </data>
+  <data name="LibraryInstall_Add_Notice" xml:space="preserve">
+    <value>Enter Package Name</value>
+  </data>
+  <data name="LibraryInstall_Add_AlreadyInList" xml:space="preserve">
+    <value>Package already in list</value>
+  </data>
+  <data name="LibraryInstall_Add_AlreadyInstalled" xml:space="preserve">
+    <value>Package already installed</value>
+  </data>
+  <data name="LibraryInstall_Add_Verifying" xml:space="preserve">
+    <value>Verifying</value>
+  </data>
+  <data name="LibraryInstall_Add_PackageNotFound" xml:space="preserve">
+    <value>Package not found</value>
+  </data>
+  <data name="LibraryInstall_List_VersionSpecified" xml:space="preserve">
+    <value>Version Specified</value>
+  </data>
+  <data name="LibraryInstall_List_DefaultVersion" xml:space="preserve">
+    <value>The newest and compatible version will be installed</value>
+  </data>
+  <data name="LibraryInstall_Add_InvalidPackageName" xml:space="preserve">
+    <value>Invalid Package Name (PEP 508)</value>
   </data>
 </root>

@@ -62,6 +62,9 @@
 			<Generator>PublicResXFileCodeGenerator</Generator>
 			<LastGenOutput>Lang.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
+		<EmbeddedResource Update="Languages\Lang.zh-cn.resx">
+		  <Generator></Generator>
+		</EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -88,6 +91,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Services\Environment\Response\" />
 	  <Folder Include="Services\Toast\" />
 	</ItemGroup>
 </Project>

@@ -3,6 +3,4 @@
 namespace PipManager.Languages;
 
 [ResourceKeysOf(typeof(Lang))]
-public partial class LangKeys
-{
-}
+public partial class LangKeys;
