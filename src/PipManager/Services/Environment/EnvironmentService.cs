@@ -1,20 +1,18 @@
 ﻿using Newtonsoft.Json;
 using PipManager.Helpers;
+using PipManager.Models;
 using PipManager.Models.AppConfigModels;
 using PipManager.Models.Package;
 using PipManager.Models.Pages;
 using PipManager.Models.Pypi;
 using PipManager.Services.Configuration;
 using PipManager.Services.Environment.Response;
-using Serilog;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Text.RegularExpressions;
-using System.Windows.Documents;
-using System.Xml.Linq;
 using Wpf.Ui.Controls;
-using static System.Text.RegularExpressions.Regex;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using Path = System.IO.Path;
 
 namespace PipManager.Services.Environment;
@@ -29,12 +27,12 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         return environmentItems.Any(item => item.PythonPath == environmentItem.PythonPath);
     }
 
-    public (bool, string) CheckEnvironmentAvailable(EnvironmentItem environmentItem)
+    public ActionResponse CheckEnvironmentAvailable(EnvironmentItem environmentItem)
     {
         var verify = configurationService.GetEnvironmentItemFromCommand(environmentItem.PythonPath!, "-m pip -V");
         return verify != null && environmentItem.PythonPath != string.Empty
-            ? (true, "")
-            : (false, "Broken Environment");
+            ? new ActionResponse { Success = true }
+            : new ActionResponse { Success = false, Exception = ExceptionType.Environment_Broken };
     }
 
     public List<PackageItem>? GetLibraries()
@@ -228,7 +226,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         }
     }
 
-    public (bool, string) Install(string packageName, DataReceivedEventHandler consoleOutputCallback)
+    public ActionResponse Install(string packageName, DataReceivedEventHandler consoleOutputCallback)
     {
         var process = new Process
         {
@@ -250,10 +248,10 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         process.WaitForExit();
         process.Close();
         process.Dispose();
-        return (string.IsNullOrEmpty(error), error);
+        return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.Process_Error, Message = error };
     }
 
-    public (bool, string) InstallByRequirements(string requirementsFilePath, DataReceivedEventHandler consoleOutputCallback)
+    public ActionResponse InstallByRequirements(string requirementsFilePath, DataReceivedEventHandler consoleOutputCallback)
     {
         var process = new Process
         {
@@ -275,10 +273,10 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         process.WaitForExit();
         process.Close();
         process.Dispose();
-        return (string.IsNullOrEmpty(error), error);
+        return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.Process_Error, Message = error };
     }
 
-    public (bool, string) Update(string packageName, DataReceivedEventHandler consoleOutputCallback)
+    public ActionResponse Update(string packageName, DataReceivedEventHandler consoleOutputCallback)
     {
         var process = new Process
         {
@@ -300,10 +298,10 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         process.WaitForExit();
         process.Close();
         process.Dispose();
-        return (string.IsNullOrEmpty(error), error);
+        return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.Process_Error, Message = error };
     }
 
-    public (bool, string) Uninstall(string packageName, DataReceivedEventHandler consoleOutputCallback)
+    public ActionResponse Uninstall(string packageName, DataReceivedEventHandler consoleOutputCallback)
     {
         var process = new Process
         {
@@ -319,10 +317,10 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         };
         process.OutputDataReceived += consoleOutputCallback;
         process.Start();
-        var output = process.StandardError.ReadToEnd();
+        var error = process.StandardError.ReadToEnd();
         process.WaitForExit();
         process.Close();
-        return string.IsNullOrEmpty(output) ? (true, "") : (false, output);
+        return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.Process_Error, Message = error };
     }
 
     // Package Version Validation

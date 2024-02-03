@@ -45,9 +45,9 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                     }
                                 });
                                 currentAction.CompletedSubTaskNumber++;
-                                Log.Information(result.Item1
+                                Log.Information(result.Success
                                     ? $"[Runner] {item} uninstall sub-task completed"
-                                    : $"[Runner] {item} uninstall sub-task failed\n   Reason:{result.Item2}");
+                                    : $"[Runner] {item} uninstall sub-task failed\n   Reason:{result.Message}");
                             }
                             Log.Information($"[Runner] Task {currentAction.OperationDescription} Completed");
                             break;
@@ -64,11 +64,11 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                     currentAction.ConsoleOutput = eventArgs.Data;
                                 }
                             });
-                            if (!result.Item1)
+                            if (!result.Success)
                             {
                                 errorDetection = true;
                                 currentAction.DetectIssue = true;
-                                consoleError += result.Item2 + '\n';
+                                consoleError += result.Message + '\n';
                             }
                             Log.Information($"[Runner] Task {currentAction.OperationDescription} Completed");
                             break;
@@ -87,15 +87,15 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                     }
                                 });
                                 currentAction.CompletedSubTaskNumber++;
-                                if (!result.Item1)
+                                if (!result.Success)
                                 {
                                     errorDetection = true;
                                     currentAction.DetectIssue = true;
-                                    consoleError += result.Item2 + '\n';
+                                    consoleError += result.Message + '\n';
                                 }
-                                Log.Information(result.Item1
+                                Log.Information(result.Success
                                     ? $"[Runner] {item} install sub-task completed"
-                                    : $"[Runner] {item} install sub-task failed\n   Reason:{result.Item2}");
+                                    : $"[Runner] {item} install sub-task failed\n   Reason:{result.Message}");
                             }
                             Log.Information($"[Runner] Task {currentAction.OperationDescription} Completed");
                             break;
@@ -114,15 +114,15 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                     }
                                 });
                                 currentAction.CompletedSubTaskNumber++;
-                                if (!result.Item1)
+                                if (!result.Success)
                                 {
                                     errorDetection = true;
                                     currentAction.DetectIssue = true;
-                                    consoleError += result.Item2 + '\n';
+                                    consoleError += result.Message + '\n';
                                 }
-                                Log.Information(result.Item1
+                                Log.Information(result.Success
                                     ? $"[Runner] {item} update sub-task completed"
-                                    : $"[Runner] {item} update sub-task failed\n   Reason:{result.Item2}");
+                                    : $"[Runner] {item} update sub-task failed\n   Reason:{result.Message}");
                             }
                             Log.Information($"[Runner] Task {currentAction.OperationDescription} Completed");
                             break;

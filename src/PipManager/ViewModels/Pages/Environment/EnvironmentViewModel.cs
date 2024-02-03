@@ -84,7 +84,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
     private async Task CheckEnvironment()
     {
         var environmentAvailable = environmentService.CheckEnvironmentAvailable(CurrentEnvironment!);
-        if (environmentAvailable.Item1)
+        if (environmentAvailable.Success)
         {
             Log.Information($"[Environment] Environment is available ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
             toastService.Info(Lang.ContentDialog_Message_EnvironmentCheckPassed);

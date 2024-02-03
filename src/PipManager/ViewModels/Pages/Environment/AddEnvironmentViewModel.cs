@@ -150,7 +150,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
                 {
                     var result = _environmentService.CheckEnvironmentAvailable(EnvironmentItemInList);
                     var alreadyExists = _environmentService.CheckEnvironmentExists(EnvironmentItemInList);
-                    if (result.Item1)
+                    if (result.Success)
                     {
                         if (alreadyExists)
                         {
@@ -167,7 +167,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
                     }
                     else
                     {
-                        _toastService.Error(result.Item2);
+                        _toastService.Error(result.Message);
                     }
 
                     break;
