@@ -14,7 +14,7 @@
     <a href="https://pipmanager.dev"><strong>Explore the docs (Chinese Simplified) »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/AuroraZiling/PipManager">View Demo</a>
+    <a href="https://github.com/AuroraZiling/PipManager?tab=readme-ov-file#screenshots">Screenshots</a>
     ·
     <a href="https://github.com/AuroraZiling/PipManager/issues">Report Bug</a>
     ·
