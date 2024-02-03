@@ -302,6 +302,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         process.Dispose();
         return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.Process_Error, Message = error };
     }
+
     public ActionResponse Update(string packageName, DataReceivedEventHandler consoleOutputCallback)
     {
         var process = new Process

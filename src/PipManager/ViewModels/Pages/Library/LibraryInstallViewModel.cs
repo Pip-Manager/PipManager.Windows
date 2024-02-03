@@ -9,7 +9,6 @@ using PipManager.Services.Environment;
 using PipManager.Services.Mask;
 using PipManager.Services.Toast;
 using PipManager.Views.Pages.Action;
-using Serilog;
 using System.Collections.ObjectModel;
 using System.IO;
 using Wpf.Ui;
@@ -20,7 +19,7 @@ namespace PipManager.ViewModels.Pages.Library;
 public partial class LibraryInstallViewModel : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
-    
+
     public record InstalledPackagesMessage(List<LibraryListItem> InstalledPackages);
 
     private readonly IActionService _actionService;
@@ -189,7 +188,6 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
     [ObservableProperty] private bool _downloadDistributionsEnabled = false;
     [ObservableProperty] private bool _downloadDependencies = false;
 
-
     [RelayCommand]
     private async Task DownloadDistributionsTask()
     {
@@ -281,5 +279,5 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
         DownloadDistributionsEnabled = PreDownloadPackages.Count > 0;
     }
 
-    #endregion
+    #endregion Download Wheel File
 }

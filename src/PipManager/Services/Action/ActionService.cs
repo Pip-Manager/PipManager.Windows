@@ -39,7 +39,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                 currentAction.OperationStatus = $"Uninstalling {item}";
                                 var result = environmentService.Uninstall(item, (sender, eventArgs) =>
                                 {
-                                    currentAction.ConsoleOutput = string.IsNullOrEmpty(eventArgs.Data)? Lang.Action_ConsoleOutput_Empty : eventArgs.Data.Trim();
+                                    currentAction.ConsoleOutput = string.IsNullOrEmpty(eventArgs.Data) ? Lang.Action_ConsoleOutput_Empty : eventArgs.Data.Trim();
                                 });
                                 currentAction.CompletedSubTaskNumber++;
                                 Log.Information(result.Success
@@ -49,7 +49,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                             Log.Information($"[Runner] Task {currentAction.OperationType} Completed");
                             break;
                         }
-                    
+
                     case ActionType.Install:
                         {
                             var queue = currentAction.OperationCommand.Split(' ');
