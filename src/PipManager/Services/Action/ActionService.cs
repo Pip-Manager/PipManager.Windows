@@ -4,6 +4,7 @@ using PipManager.Services.Environment;
 using PipManager.Services.Toast;
 using Serilog;
 using System.Collections.ObjectModel;
+using System.IO;
 
 namespace PipManager.Services.Action;
 
@@ -36,7 +37,13 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                             foreach (var item in queue)
                             {
                                 currentAction.OperationStatus = $"Uninstalling {item}";
-                                var result = environmentService.Uninstall(item);
+                                var result = environmentService.Uninstall(item, (sender, eventArgs) =>
+                                {
+                                    if (!string.IsNullOrEmpty(eventArgs.Data))
+                                    {
+                                        currentAction.ConsoleOutput = eventArgs.Data;
+                                    }
+                                });
                                 currentAction.CompletedSubTaskNumber++;
                                 Log.Information(result.Item1
                                     ? $"[Runner] {item} uninstall sub-task completed"
@@ -47,6 +54,23 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                         }
                     case ActionType.InstallByRequirements:
                         {
+                            var requirementsTempFilePath = Path.Combine(AppInfo.CachesDir, $"{currentAction.OperationId}_requirements.txt");
+                            File.WriteAllText(requirementsTempFilePath, currentAction.OperationCommand);
+                            currentAction.OperationStatus = $"Installing from requirements.txt";
+                            var result = environmentService.InstallByRequirements(requirementsTempFilePath, (sender, eventArgs) =>
+                            {
+                                if (!string.IsNullOrEmpty(eventArgs.Data))
+                                {
+                                    currentAction.ConsoleOutput = eventArgs.Data;
+                                }
+                            });
+                            if (!result.Item1)
+                            {
+                                errorDetection = true;
+                                currentAction.DetectIssue = true;
+                                consoleError += result.Item2 + '\n';
+                            }
+                            Log.Information($"[Runner] Task {currentAction.OperationDescription} Completed");
                             break;
                         }
                     case ActionType.Install:
@@ -54,13 +78,20 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                             var queue = currentAction.OperationCommand.Split(' ');
                             foreach (var item in queue)
                             {
-                                currentAction.OperationStatus = $"Installing {item}";
-                                var result = environmentService.Install(item);
-                                currentAction.CompletedSubTaskNumber++;
+                                ActionList[0].OperationStatus = $"Installing {item}";
+                                var result = environmentService.Install(item, (sender, eventArgs) =>
+                                {
+                                    Log.Information(eventArgs.Data);
+                                    if (!string.IsNullOrEmpty(eventArgs.Data))
+                                    {
+                                        ActionList[0].ConsoleOutput = eventArgs.Data;
+                                    }
+                                });
+                                ActionList[0].CompletedSubTaskNumber++;
                                 if (!result.Item1)
                                 {
                                     errorDetection = true;
-                                    currentAction.DetectIssue = true;
+                                    ActionList[0].DetectIssue = true;
                                     consoleError += result.Item2 + '\n';
                                 }
                                 Log.Information(result.Item1
@@ -76,7 +107,13 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                             foreach (var item in queue)
                             {
                                 currentAction.OperationStatus = $"Updating {item}";
-                                var result = environmentService.Update(item);
+                                var result = environmentService.Update(item, (sender, eventArgs) =>
+                                {
+                                    if (!string.IsNullOrEmpty(eventArgs.Data))
+                                    {
+                                        currentAction.ConsoleOutput = eventArgs.Data;
+                                    }
+                                });
                                 currentAction.CompletedSubTaskNumber++;
                                 if (!result.Item1)
                                 {
@@ -105,13 +142,14 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                     currentAction.ConsoleError = consoleError;
                     ExceptionList.Add(currentAction);
                 }
-                
+                Thread.Sleep(500);
+
                 Application.Current.Dispatcher.Invoke(delegate
                 {
                     ActionList.RemoveAt(0);
                 });
+
             }
-            Thread.Sleep(500);
         }
     }
 }

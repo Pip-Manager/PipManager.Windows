@@ -619,4 +619,7 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="Development_Developing" xml:space="preserve">
     <value>Developing</value>
   </data>
+  <data name="Action_Operation_InstallByRequirements" xml:space="preserve">
+    <value>Package Install (via requirements.txt)</value>
+  </data>
 </root>

@@ -21,6 +21,7 @@ public partial class AppStarting
         Config = ConfigurationService.LoadConfiguration();
         Directory.CreateDirectory(AppInfo.CrushesDir);
         Directory.CreateDirectory(AppInfo.LogDir);
+        Directory.CreateDirectory(AppInfo.CachesDir);
     }
 
     public void LoadLanguage()

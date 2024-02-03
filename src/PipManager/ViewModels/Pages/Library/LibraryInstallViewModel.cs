@@ -7,11 +7,11 @@ using PipManager.Services.Mask;
 using PipManager.Services.Toast;
 using System.Collections.ObjectModel;
 using PipManager.Languages;
-using PipManager.Models.Package;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using CommunityToolkit.Mvvm.Messaging;
-using static PipManager.ViewModels.Pages.Library.LibraryDetailViewModel;
+using Microsoft.Win32;
+using System.IO;
 
 namespace PipManager.ViewModels.Pages.Library;
 
@@ -59,6 +59,8 @@ public partial class LibraryInstallViewModel: ObservableObject, INavigationAware
     {
         _installedPackages = message.InstalledPackages;
     }
+
+    #region Install
 
     [RelayCommand]
     private async Task AddTask()
@@ -134,4 +136,41 @@ public partial class LibraryInstallViewModel: ObservableObject, INavigationAware
             PreInstallPackages.RemoveAt(target);
         }
     }
+    #endregion
+
+    #region Requirements Import
+    [ObservableProperty] private string _requirements = "";
+
+    [RelayCommand]
+    private void AddRequirementsTask()
+    {
+        var openFileDialog = new OpenFileDialog
+        {
+            Title = "requirements.txt",
+            FileName = "requirements.txt",
+            DefaultExt = ".txt",
+            Filter = "requirements|requirements.txt",
+            RestoreDirectory = true
+        };
+        var result = openFileDialog.ShowDialog();
+        if (result == true)
+        {
+            Requirements = File.ReadAllText(openFileDialog.FileName);
+        }
+    }
+
+    [RelayCommand]
+    private void AddRequirementsToAction()
+    {
+        _actionService.AddOperation(new ActionListItem
+        (
+            ActionType.InstallByRequirements,
+            Requirements
+        ));
+        Requirements = "";
+    }
+    #endregion
+
+    #region Download
+    #endregion
 }

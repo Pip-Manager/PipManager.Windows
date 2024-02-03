@@ -259,6 +259,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Package Install (via requirements.txt) 的本地化字符串。
+        /// </summary>
+        public static string Action_Operation_InstallByRequirements {
+            get {
+                return ResourceManager.GetString("Action_Operation_InstallByRequirements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Package Uninstallation 的本地化字符串。
         /// </summary>
         public static string Action_Operation_Uninstall {

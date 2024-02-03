@@ -619,4 +619,7 @@
   <data name="Development_Developing" xml:space="preserve">
     <value>开发中</value>
   </data>
+  <data name="Action_Operation_InstallByRequirements" xml:space="preserve">
+    <value>通过 requirements.txt 安装</value>
+  </data>
 </root>

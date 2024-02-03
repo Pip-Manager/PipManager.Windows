@@ -59,6 +59,10 @@
             <valueConverters:StringIsNullOrEmptyConverter x:Key="StringIsNullOrEmpty" />
             <valueConverters:NullToBoolConverter x:Key="NullToBool" IsInverted="True" />
             <valueConverters:IntegerToBoolConverter x:Key="IntegerToBool" IsInverted="True" />
+            <valueConverters:ValueConverterGroup x:Key="IntegerToVisibility">
+                <valueConverters:IntegerToBoolConverter />
+                <valueConverters:BoolToVisibilityConverter FalseValue="Collapsed" />
+            </valueConverters:ValueConverterGroup>
 
         </ResourceDictionary>
     </Application.Resources>

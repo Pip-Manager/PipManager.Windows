@@ -6,6 +6,7 @@ using PipManager.Models.Pages;
 using PipManager.Models.Pypi;
 using PipManager.Services.Configuration;
 using PipManager.Services.Environment.Response;
+using Serilog;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
@@ -227,7 +228,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         }
     }
 
-    public (bool, string) Install(string packageName)
+    public (bool, string) Install(string packageName, DataReceivedEventHandler consoleOutputCallback)
     {
         var process = new Process
         {
@@ -237,10 +238,12 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 Arguments =
                     $"-m pip install \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
                 UseShellExecute = false,
+                RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 CreateNoWindow = true
             }
         };
+        process.OutputDataReceived += consoleOutputCallback;
         process.Start();
         var error = process.StandardError.ReadToEnd();
         process.WaitForExit();
@@ -249,7 +252,31 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         return (string.IsNullOrEmpty(error), error);
     }
 
-    public (bool, string) Update(string packageName)
+    public (bool, string) InstallByRequirements(string requirementsFilePath, DataReceivedEventHandler consoleOutputCallback)
+    {
+        var process = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
+                Arguments =
+                    $"-m pip install -r \"{requirementsFilePath}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
+            }
+        };
+        process.OutputDataReceived += consoleOutputCallback;
+        process.Start();
+        var error = process.StandardError.ReadToEnd();
+        process.WaitForExit();
+        process.Close();
+        process.Dispose();
+        return (string.IsNullOrEmpty(error), error);
+    }
+
+    public (bool, string) Update(string packageName, DataReceivedEventHandler consoleOutputCallback)
     {
         var process = new Process
         {
@@ -259,11 +286,14 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 Arguments =
                     $"-m pip install --upgrade \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
                 UseShellExecute = false,
+                RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 CreateNoWindow = true
             }
         };
+        process.OutputDataReceived += consoleOutputCallback;
         process.Start();
+        process.BeginOutputReadLine();
         var error = process.StandardError.ReadToEnd();
         process.WaitForExit();
         process.Close();
@@ -271,7 +301,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         return (string.IsNullOrEmpty(error), error);
     }
 
-    public (bool, string) Uninstall(string packageName)
+    public (bool, string) Uninstall(string packageName, DataReceivedEventHandler consoleOutputCallback)
     {
         var process = new Process
         {
@@ -280,10 +310,12 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 FileName = configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
                 Arguments = $"-m pip uninstall -y \"{packageName}\"",
                 UseShellExecute = false,
+                RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 CreateNoWindow = true
             }
         };
+        process.OutputDataReceived += consoleOutputCallback;
         process.Start();
         var output = process.StandardError.ReadToEnd();
         process.WaitForExit();

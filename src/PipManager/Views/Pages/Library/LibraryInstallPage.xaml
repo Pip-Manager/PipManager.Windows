@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:lang="clr-namespace:PipManager.Languages"
     xmlns:library="clr-namespace:PipManager.Views.Pages.Library"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -22,81 +23,145 @@
     Tag="LibraryInstall"
     mc:Ignorable="d">
 
-    <Grid Margin="0,0,0,20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="35" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <ui:Button
-                Appearance="Primary"
-                Command="{Binding ViewModel.AddTaskCommand}"
-                Content="{I18N {x:Static lang:LangKeys.Common_Button_Add}}"
-                Icon="{ui:SymbolIcon Add24}" />
-            <ui:Button
-                Margin="5,0,0,0"
-                Appearance="Success"
-                Command="{Binding ViewModel.AddToActionCommand}"
-                Content="{I18N {x:Static lang:LangKeys.Library_Operation_Install}}"
-                Icon="{ui:SymbolIcon ArrowDown24}"
-                IsEnabled="{Binding ElementName=AddTaskList, Path=Items.Count, Converter={StaticResource IntegerToBool}}" />
-        </StackPanel>
-
-        <ItemsControl
-            x:Name="AddTaskList"
-            Grid.Row="1"
-            Margin="0,10,0,0"
-            ItemsSource="{Binding ViewModel.PreInstallPackages, Mode=TwoWay}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type pages:LibraryInstallPackageItem}">
-                    <Grid Height="37">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.25*" />
-                            <ColumnDefinition Width="0.65*" />
-                            <ColumnDefinition Width="0.1*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
-                            Grid.Column="0"
-                            Margin="10,0,0,0"
-                            VerticalAlignment="Center"
-                            FontSize="16"
-                            Text="{Binding PackageName}" />
-                        <StackPanel
-                            Grid.Column="1"
-                            HorizontalAlignment="Left"
-                            Orientation="Horizontal">
-                            <CheckBox
-                                x:Name="VersionSpecifiedCheckbox"
-                                Content="{I18N {x:Static lang:LangKeys.LibraryInstall_List_VersionSpecified}}"
-                                IsChecked="{Binding VersionSpecified, Mode=TwoWay}" />
-                            <ComboBox
-                                Width="150"
-                                Margin="7,0,0,0"
-                                VerticalAlignment="Center"
-                                ItemsSource="{Binding AvailableVersions}"
-                                SelectedIndex="0"
-                                SelectedItem="{Binding TargetVersion, Mode=TwoWay}"
-                                Visibility="{Binding ElementName=VersionSpecifiedCheckbox, Path=IsChecked, Converter={StaticResource BoolToVisibility}}" />
-                            <TextBlock
-                                Margin="15,0,0,0"
-                                VerticalAlignment="Center"
-                                FontSize="15"
-                                Foreground="Gray"
-                                Text="{I18N {x:Static lang:LangKeys.LibraryInstall_List_DefaultVersion}}"
-                                Visibility="{Binding ElementName=VersionSpecifiedCheckbox, Path=IsChecked, Converter={StaticResource InverseBoolToVisibility}}" />
-                        </StackPanel>
-                        <StackPanel
-                            Grid.Column="2"
-                            HorizontalAlignment="Right"
-                            Orientation="Horizontal">
-                            <ui:Button
-                                Command="{Binding ElementName=LibraryInstall, Path=ViewModel.DeleteTaskCommand}"
-                                CommandParameter="{Binding PackageName}"
-                                Content="{I18N {x:Static lang:LangKeys.Library_Operation_Delete}}" />
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+    <Grid>
+        <TabControl Margin="0,0,0,20" Background="{DynamicResource ApplicationBackgroundBrush}">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <ui:SymbolIcon
+                            Margin="0,0,6,0"
+                            Filled="True"
+                            Symbol="AppsAddIn24" />
+                        <TextBlock Margin="0,0,10,0" Text="Default" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <ui:Button
+                            Appearance="Primary"
+                            Command="{Binding ViewModel.AddTaskCommand}"
+                            Content="{I18N {x:Static lang:LangKeys.Common_Button_Add}}"
+                            Icon="{ui:SymbolIcon Add24}" />
+                        <ui:Button
+                            Margin="5,0,0,0"
+                            Appearance="Success"
+                            Command="{Binding ViewModel.AddToActionCommand}"
+                            Content="{I18N {x:Static lang:LangKeys.Library_Operation_Install}}"
+                            Icon="{ui:SymbolIcon ArrowDown24}"
+                            IsEnabled="{Binding ElementName=AddTaskList, Path=Items.Count, Converter={StaticResource IntegerToBool}}" />
+                    </StackPanel>
+                    <ScrollViewer Grid.Row="1" Margin="0,10,0,0">
+                        <ItemsControl x:Name="AddTaskList" ItemsSource="{Binding ViewModel.PreInstallPackages, Mode=TwoWay}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type pages:LibraryInstallPackageItem}">
+                                    <Grid Height="37">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.25*" />
+                                            <ColumnDefinition Width="0.65*" />
+                                            <ColumnDefinition Width="0.1*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Grid.Column="0"
+                                            Margin="10,0,0,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="16"
+                                            Text="{Binding PackageName}" />
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Left"
+                                            Orientation="Horizontal">
+                                            <CheckBox
+                                                x:Name="VersionSpecifiedCheckbox"
+                                                Content="{I18N {x:Static lang:LangKeys.LibraryInstall_List_VersionSpecified}}"
+                                                IsChecked="{Binding VersionSpecified, Mode=TwoWay}" />
+                                            <ComboBox
+                                                Width="150"
+                                                Margin="7,0,0,0"
+                                                VerticalAlignment="Center"
+                                                ItemsSource="{Binding AvailableVersions}"
+                                                SelectedIndex="0"
+                                                SelectedItem="{Binding TargetVersion, Mode=TwoWay}"
+                                                Visibility="{Binding ElementName=VersionSpecifiedCheckbox, Path=IsChecked, Converter={StaticResource BoolToVisibility}}" />
+                                            <TextBlock
+                                                Margin="15,0,0,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="15"
+                                                Foreground="Gray"
+                                                Text="{I18N {x:Static lang:LangKeys.LibraryInstall_List_DefaultVersion}}"
+                                                Visibility="{Binding ElementName=VersionSpecifiedCheckbox, Path=IsChecked, Converter={StaticResource InverseBoolToVisibility}}" />
+                                        </StackPanel>
+                                        <StackPanel
+                                            Grid.Column="2"
+                                            Margin="0,0,10,0"
+                                            HorizontalAlignment="Center"
+                                            Orientation="Horizontal">
+                                            <ui:Button
+                                                Command="{Binding ElementName=LibraryInstall, Path=ViewModel.DeleteTaskCommand}"
+                                                CommandParameter="{Binding PackageName}"
+                                                Content="{I18N {x:Static lang:LangKeys.Library_Operation_Delete}}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <ui:SymbolIcon
+                            Margin="0,0,6,0"
+                            Filled="True"
+                            Symbol="ArrowImport24" />
+                        <TextBlock Margin="0,0,10,0" Text="Requirements.txt Import" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="45" />
+                    </Grid.RowDefinitions>
+                    <ui:Button
+                        Grid.Row="0"
+                        Appearance="Primary"
+                        Command="{Binding ViewModel.AddRequirementsTaskCommand}"
+                        Content="{I18N {x:Static lang:LangKeys.Common_Button_Browse}}"
+                        Icon="{ui:SymbolIcon FolderOpen20}" />
+                    <ui:TextBox
+                        x:Name="AddRequirementsTextBox"
+                        Grid.Row="1"
+                        Margin="0,5,0,0"
+                        PlaceholderText="requirements.txt"
+                        Text="{Binding ViewModel.Requirements, Mode=TwoWay}" />
+                    <ui:Button
+                        Grid.Row="2"
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Right"
+                        Appearance="Success"
+                        Command="{Binding ViewModel.AddRequirementsToActionCommand}"
+                        Content="{I18N {x:Static lang:LangKeys.Library_Operation_Install}}"
+                        Icon="{ui:SymbolIcon ArrowDown24}"
+                        IsEnabled="{Binding ElementName=AddRequirementsTextBox, Path=Text, Converter={StaticResource StringIsNotNullOrEmpty}}" />
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <ui:SymbolIcon
+                            Margin="0,0,6,0"
+                            Filled="True"
+                            Symbol="ArrowDownload24" />
+                        <TextBlock Margin="0,0,10,0" Text="Download (.whl)" />
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
+        </TabControl>
     </Grid>
+
 </Page>

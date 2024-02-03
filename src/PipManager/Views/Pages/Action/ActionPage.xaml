@@ -30,7 +30,10 @@
                 Content="{I18N {x:Static lang:LangKeys.Action_Button_Exceptions}}"
                 Icon="{ui:SymbolIcon Bug24}" />
         </StackPanel>
-        <ItemsControl Grid.Row="1" x:Name="ActionList" ItemsSource="{Binding ViewModel.Actions}">
+        <ItemsControl
+            x:Name="ActionList"
+            Grid.Row="1"
+            ItemsSource="{Binding ViewModel.Actions, UpdateSourceTrigger=PropertyChanged}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type pages1:ActionListItem}">
                     <Border
@@ -68,7 +71,10 @@
                                         Visibility="{Binding DetectIssue, Converter={StaticResource BoolToVisibility}}" />
                                 </StackPanel>
                                 <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
-                                    <ProgressBar Width="300" IsIndeterminate="{Binding ProgressIntermediate}" Value="{Binding ProgressBarValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ProgressBar
+                                        Width="300"
+                                        IsIndeterminate="{Binding ProgressIntermediate}"
+                                        Value="{Binding ProgressBarValue, Mode=OneWay}" />
                                     <TextBlock
                                         Margin="5,0,0,0"
                                         FontSize="16"
@@ -100,6 +106,18 @@
                                         VerticalAlignment="Center"
                                         FontSize="14"
                                         Text="{Binding OperationStatus}" />
+                                </StackPanel>
+                                <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
+                                    <ui:Badge
+                                        VerticalAlignment="Center"
+                                        Appearance="Info"
+                                        Content="Console"
+                                        FontSize="12" />
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="{Binding ConsoleOutput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
