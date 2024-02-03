@@ -215,6 +215,10 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 ?.Releases?
                 .Where(item => item.Value.Count != 0).OrderBy(e => e.Value[0].UploadTime)
                 .ThenBy(e => e.Value[0].UploadTime).ToDictionary(pair => pair.Key, pair => pair.Value);
+            if (pypiPackageInfo?.Count == 0)
+            {
+                return new GetVersionsResponse { Status = 1, Versions = [] };
+            }
             return new GetVersionsResponse { Status = 0, Versions = pypiPackageInfo?.Keys.ToArray() };
         }
         catch (Exception)
