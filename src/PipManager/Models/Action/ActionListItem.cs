@@ -3,7 +3,7 @@ using Wpf.Ui.Controls;
 
 namespace PipManager.Models.Action;
 
-public partial class ActionListItem: ObservableObject
+public partial class ActionListItem : ObservableObject
 {
     public ActionListItem(ActionType operationType, string operationCommand, string operationStatus = "Waiting in queue", bool progressIntermediate = false, int totalSubTaskNumber = 0, int completedSubTaskNumber = 0)
     {
@@ -52,7 +52,7 @@ public partial class ActionListItem: ObservableObject
     public bool ProgressIntermediate { get; set; }
     public string BadgeAppearance { get; set; }
 
-    #endregion
+    #endregion Initialization Required
 
     #region Property Update Required
 
@@ -74,5 +74,6 @@ public partial class ActionListItem: ObservableObject
     [ObservableProperty] private string _consoleError;
     [ObservableProperty] private bool _completed;
     [ObservableProperty] private bool _detectIssue;
-    #endregion
+
+    #endregion Property Update Required
 }

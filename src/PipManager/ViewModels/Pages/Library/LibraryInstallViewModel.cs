@@ -1,4 +1,7 @@
-﻿using PipManager.Controls.Library;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Win32;
+using PipManager.Controls.Library;
+using PipManager.Languages;
 using PipManager.Models.Action;
 using PipManager.Models.Pages;
 using PipManager.Services.Action;
@@ -6,16 +9,13 @@ using PipManager.Services.Environment;
 using PipManager.Services.Mask;
 using PipManager.Services.Toast;
 using System.Collections.ObjectModel;
-using PipManager.Languages;
+using System.IO;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
-using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.Win32;
-using System.IO;
 
 namespace PipManager.ViewModels.Pages.Library;
 
-public partial class LibraryInstallViewModel: ObservableObject, INavigationAware
+public partial class LibraryInstallViewModel : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
 
@@ -89,9 +89,11 @@ public partial class LibraryInstallViewModel: ObservableObject, INavigationAware
             case 1:
                 _toastService.Error(Lang.LibraryInstall_Add_PackageNotFound);
                 return;
+
             case 2:
                 _toastService.Error(Lang.LibraryInstall_Add_InvalidPackageName);
                 return;
+
             default:
                 PreInstallPackages.Add(new LibraryInstallPackageItem
                 {
@@ -136,9 +138,11 @@ public partial class LibraryInstallViewModel: ObservableObject, INavigationAware
             PreInstallPackages.RemoveAt(target);
         }
     }
-    #endregion
+
+    #endregion Install
 
     #region Requirements Import
+
     [ObservableProperty] private string _requirements = "";
 
     [RelayCommand]
@@ -169,8 +173,6 @@ public partial class LibraryInstallViewModel: ObservableObject, INavigationAware
         ));
         Requirements = "";
     }
-    #endregion
 
-    #region Download
-    #endregion
+    #endregion Requirements Import
 }

@@ -12,7 +12,6 @@ using System.IO;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using Wpf.Ui.Controls;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using Path = System.IO.Path;
 
 namespace PipManager.Services.Environment;
@@ -118,7 +117,6 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                     }
                 }
 
-
                 // Record
                 var record = new List<string>();
                 var actualPath = "";
@@ -217,8 +215,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 ?.Releases?
                 .Where(item => item.Value.Count != 0).OrderBy(e => e.Value[0].UploadTime)
                 .ThenBy(e => e.Value[0].UploadTime).ToDictionary(pair => pair.Key, pair => pair.Value);
-            return new GetVersionsResponse { Status = 0, Versions = pypiPackageInfo?.Keys.ToArray()};
-
+            return new GetVersionsResponse { Status = 0, Versions = pypiPackageInfo?.Keys.ToArray() };
         }
         catch (Exception)
         {

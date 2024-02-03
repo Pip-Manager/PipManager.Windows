@@ -114,10 +114,10 @@
                                         Content="{I18N {x:Static lang:LangKeys.Action_ConsoleOutput}}"
                                         FontSize="12" />
                                     <TextBlock
-                                        Margin="5,0,0,0"
                                         Width="1000"
-                                        VerticalAlignment="Center"
+                                        Margin="5,0,0,0"
                                         HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
                                         FontSize="14"
                                         Text="{Binding ConsoleOutput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         TextTrimming="WordEllipsis" />

@@ -11,8 +11,8 @@ namespace PipManager.Services.Action;
 public class ActionService(IEnvironmentService environmentService, IToastService toastService)
     : IActionService
 {
-    public ObservableCollection<ActionListItem> ActionList { get; set; } = new();
-    public ObservableCollection<ActionListItem> ExceptionList { get; set; } = new();
+    public ObservableCollection<ActionListItem> ActionList { get; set; } = [];
+    public ObservableCollection<ActionListItem> ExceptionList { get; set; } = [];
 
     public void AddOperation(ActionListItem actionListItem)
     {
@@ -147,7 +147,6 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                 {
                     ActionList.RemoveAt(0);
                 });
-
             }
         }
     }

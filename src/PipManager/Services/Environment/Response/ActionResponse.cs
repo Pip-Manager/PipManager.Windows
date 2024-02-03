@@ -8,4 +8,3 @@ public class ActionResponse
     public ExceptionType? Exception { get; set; }
     public string Message { get; set; } = string.Empty;
 }
-

@@ -1,6 +1,4 @@
-﻿using PipManager.Models;
-using Serilog;
-using System.Windows.Media;
+﻿using Serilog;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Search;

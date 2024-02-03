@@ -3,7 +3,6 @@ using PipManager.Services.Action;
 using PipManager.Views.Pages.Action;
 using Serilog;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 

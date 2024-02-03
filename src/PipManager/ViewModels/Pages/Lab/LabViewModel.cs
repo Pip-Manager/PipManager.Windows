@@ -1,16 +1,14 @@
 ﻿using PipManager.Models.Action;
 using PipManager.Services.Action;
 using Serilog;
-using Wpf.Ui;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Lab;
 
-public partial class LabViewModel(INavigationService navigationService, IActionService actionService)
+public partial class LabViewModel(IActionService actionService)
     : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
-    private readonly INavigationService _navigationService = navigationService;
 
     [RelayCommand]
     private void ActionTest()

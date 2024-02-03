@@ -11,23 +11,13 @@ using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Environment;
 
-public partial class AddEnvironmentViewModel : ObservableObject, INavigationAware
+public partial class AddEnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService, IEnvironmentService environmentService, IToastService toastService) : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
-    private readonly INavigationService _navigationService;
-    private readonly IConfigurationService _configurationService;
-    private readonly IEnvironmentService _environmentService;
-    private readonly IContentDialogService _contentDialogService;
-    private readonly IToastService _toastService;
-
-    public AddEnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService, IEnvironmentService environmentService, IContentDialogService contentDialogService, IToastService toastService)
-    {
-        _navigationService = navigationService;
-        _configurationService = configurationService;
-        _environmentService = environmentService;
-        _contentDialogService = contentDialogService;
-        _toastService = toastService;
-    }
+    private readonly INavigationService _navigationService = navigationService;
+    private readonly IConfigurationService _configurationService = configurationService;
+    private readonly IEnvironmentService _environmentService = environmentService;
+    private readonly IToastService _toastService = toastService;
 
     public void OnNavigatedTo()
     {
@@ -62,7 +52,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
     #region By Environment Variables
 
     [ObservableProperty]
-    private List<EnvironmentItem> _environmentItems = new();
+    private List<EnvironmentItem> _environmentItems = [];
 
     [ObservableProperty]
     private EnvironmentItem? _environmentItemInList;
@@ -80,7 +70,7 @@ public partial class AddEnvironmentViewModel : ObservableObject, INavigationAwar
         {
             Loading = true;
             Found = false;
-            EnvironmentItems = new List<EnvironmentItem>();
+            EnvironmentItems = [];
             var value = System.Environment.GetEnvironmentVariable("Path")!.Split(';');
             foreach (var item in value)
             {

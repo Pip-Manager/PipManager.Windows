@@ -43,6 +43,7 @@ namespace PipManager.Controls
         private readonly Window? _owner;
         private Popup? _popup;
         private DispatcherTimer? _timer;
+        private readonly ArgumentOutOfRangeException _argumentOutOfRangeException = new();
 
         private Toast()
         {
@@ -76,7 +77,7 @@ namespace PipManager.Controls
                     ToastType.Info or ToastType.Warning => SymbolRegular.Info24,
                     ToastType.Error => SymbolRegular.DismissCircle24,
                     ToastType.Success => SymbolRegular.Checkmark24,
-                    _ => throw new ArgumentOutOfRangeException()
+                    _ => throw _argumentOutOfRangeException
                 };
 
                 IconForeground = options.ToastType switch
@@ -85,27 +86,27 @@ namespace PipManager.Controls
                     {
                         ApplicationTheme.Light => new SolidColorBrush(Color.FromRgb(0, 120, 212)),
                         ApplicationTheme.Dark => new SolidColorBrush(Color.FromRgb(76, 194, 255)),
-                        _ => throw new ArgumentOutOfRangeException()
+                        _ => throw _argumentOutOfRangeException
                     },
                     ToastType.Warning => options.Theme switch
                     {
                         ApplicationTheme.Light => new SolidColorBrush(Color.FromRgb(157, 93, 0)),
                         ApplicationTheme.Dark => new SolidColorBrush(Color.FromRgb(252, 225, 0)),
-                        _ => throw new ArgumentOutOfRangeException()
+                        _ => throw _argumentOutOfRangeException
                     },
                     ToastType.Error => options.Theme switch
                     {
                         ApplicationTheme.Light => new SolidColorBrush(Color.FromRgb(196, 43, 28)),
                         ApplicationTheme.Dark => new SolidColorBrush(Color.FromRgb(255, 153, 164)),
-                        _ => throw new ArgumentOutOfRangeException()
+                        _ => throw _argumentOutOfRangeException
                     },
                     ToastType.Success => options.Theme switch
                     {
                         ApplicationTheme.Light => new SolidColorBrush(Color.FromRgb(15, 123, 15)),
                         ApplicationTheme.Dark => new SolidColorBrush(Color.FromRgb(108, 203, 95)),
-                        _ => throw new ArgumentOutOfRangeException()
+                        _ => throw _argumentOutOfRangeException
                     },
-                    _ => throw new ArgumentOutOfRangeException()
+                    _ => throw _argumentOutOfRangeException
                 };
 
                 Background = options.ToastType switch
@@ -114,41 +115,41 @@ namespace PipManager.Controls
                     {
                         ApplicationTheme.Light => new SolidColorBrush(Color.FromRgb(244, 244, 244)),
                         ApplicationTheme.Dark => new SolidColorBrush(Color.FromRgb(39, 39, 39)),
-                        _ => throw new ArgumentOutOfRangeException()
+                        _ => throw _argumentOutOfRangeException
                     },
                     ToastType.Warning => options.Theme switch
                     {
                         ApplicationTheme.Light => new SolidColorBrush(Color.FromRgb(255, 244, 206)),
                         ApplicationTheme.Dark => new SolidColorBrush(Color.FromRgb(67, 53, 25)),
-                        _ => throw new ArgumentOutOfRangeException()
+                        _ => throw _argumentOutOfRangeException
                     },
                     ToastType.Error => options.Theme switch
                     {
                         ApplicationTheme.Light => new SolidColorBrush(Color.FromRgb(253, 231, 233)),
                         ApplicationTheme.Dark => new SolidColorBrush(Color.FromRgb(68, 39, 38)),
-                        _ => throw new ArgumentOutOfRangeException()
+                        _ => throw _argumentOutOfRangeException
                     },
                     ToastType.Success => options.Theme switch
                     {
                         ApplicationTheme.Light => new SolidColorBrush(Color.FromRgb(223, 246, 221)),
                         ApplicationTheme.Dark => new SolidColorBrush(Color.FromRgb(57, 61, 27)),
-                        _ => throw new ArgumentOutOfRangeException()
+                        _ => throw _argumentOutOfRangeException
                     },
-                    _ => throw new ArgumentOutOfRangeException()
+                    _ => throw _argumentOutOfRangeException
                 };
 
                 BorderBrush = options.Theme switch
                 {
                     ApplicationTheme.Light => new SolidColorBrush(Color.FromRgb(240, 240, 240)),
                     ApplicationTheme.Dark => new SolidColorBrush(Color.FromRgb(40, 40, 40)),
-                    _ => throw new ArgumentOutOfRangeException()
+                    _ => throw _argumentOutOfRangeException
                 };
 
                 Foreground = options.Theme switch
                 {
                     ApplicationTheme.Light => new SolidColorBrush(Colors.Black),
                     ApplicationTheme.Dark => new SolidColorBrush(Colors.White),
-                    _ => throw new ArgumentOutOfRangeException()
+                    _ => throw _argumentOutOfRangeException
                 };
             }
 
@@ -265,7 +266,7 @@ namespace PipManager.Controls
             }
         }
 
-        private static UIElement? GetPopupPlacementTarget(Toast toast)
+        private static Window? GetPopupPlacementTarget(Toast toast)
         {
             return toast._owner;
         }

@@ -16,6 +16,7 @@ public interface IEnvironmentService
     public Task<GetVersionsResponse> GetVersions(string packageName);
 
     public ActionResponse Install(string packageName, DataReceivedEventHandler consoleOutputCallback);
+
     public ActionResponse InstallByRequirements(string requirementsFilePath, DataReceivedEventHandler consoleOutputCallback);
 
     public ActionResponse Update(string packageName, DataReceivedEventHandler consoleOutputCallback);

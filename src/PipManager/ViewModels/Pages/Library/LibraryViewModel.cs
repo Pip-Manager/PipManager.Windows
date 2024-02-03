@@ -77,7 +77,6 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     {
         _navigationService.NavigateWithHierarchy(typeof(LibraryInstallPage));
         WeakReferenceMessenger.Default.Send(new InstalledPackagesMessage([.. LibraryList]));
-
     }
 
     #endregion Install Package
