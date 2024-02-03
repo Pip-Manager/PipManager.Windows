@@ -2,7 +2,7 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/Pip-Manager/PipManager">
+  <a href="https://github.com/AuroraZiling/PipManager">
     <img src="https://raw.staticdn.net/Pip-Manager/Pip-Manager.github.io/main/docs/.vuepress/public/assets/icon.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -14,11 +14,11 @@
     <a href="https://pipmanager.dev"><strong>Explore the docs (Chinese Simplified) »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/Pip-Manager/PipManager">View Demo</a>
+    <a href="https://github.com/AuroraZiling/PipManager">View Demo</a>
     ·
-    <a href="https://github.com/Pip-Manager/PipManager/issues">Report Bug</a>
+    <a href="https://github.com/AuroraZiling/PipManager/issues">Report Bug</a>
     ·
-    <a href="https://github.com/Pip-Manager/PipManager/pulls">Request Feature</a>
+    <a href="https://github.com/AuroraZiling/PipManager/pulls">Request Feature</a>
   </p>
 </div>
 
@@ -99,7 +99,7 @@ Double click `PipManager.exe` or `PipManager_withRuntime.exe` *If you have not i
 - Localization
 - Rules of action exceptions
 
-See the [Open Issues](https://github.com/Pip-Manager/PipManager/issues) for a full list of proposed features (and known issues).
+See the [Open Issues](https://github.com/AuroraZiling/PipManager/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -119,14 +119,14 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-[github-downloads-shield]: https://img.shields.io/github/downloads/Pip-Manager/PipManager/total.svg?style=for-the-badge&color=blue
-[github-downloads-url]: https://github.com/Pip-Manager/PipManager/releases
-[stars-shield]: https://img.shields.io/github/stars/Pip-Manager/PipManager.svg?style=for-the-badge
-[stars-url]: https://github.com/Pip-Manager/PipManager/stargazers
-[issues-shield]: https://img.shields.io/github/issues/Pip-Manager/PipManager.svg?style=for-the-badge
-[issues-url]: https://github.com/Pip-Manager/PipManager/issues
-[license-shield]: https://img.shields.io/github/license/Pip-Manager/PipManager.svg?style=for-the-badge
-[license-url]: https://github.com/Pip-Manager/PipManager/blob/master/LICENSE.txt
+[github-downloads-shield]: https://img.shields.io/github/downloads/AuroraZiling/PipManager/total.svg?style=for-the-badge&color=blue
+[github-downloads-url]: https://github.com/AuroraZiling/PipManager/releases
+[stars-shield]: https://img.shields.io/github/stars/AuroraZiling/PipManager.svg?style=for-the-badge
+[stars-url]: https://github.com/AuroraZiling/PipManager/stargazers
+[issues-shield]: https://img.shields.io/github/issues/AuroraZiling/PipManager.svg?style=for-the-badge
+[issues-url]: https://github.com/AuroraZiling/PipManager/issues
+[license-shield]: https://img.shields.io/github/license/AuroraZiling/PipManager.svg?style=for-the-badge
+[license-url]: https://github.com/AuroraZiling/PipManager/blob/master/LICENSE.txt
 [screenshot]: images/screenshot.png
 [.NET Core]: https://img.shields.io/badge/.NET_Core-512BD4?style=for-the-badge&logo=dotnet&logoColor=white
 [.NET-url]: https://dotnet.microsoft.com/
