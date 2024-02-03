@@ -9,6 +9,7 @@ using PipManager.Services.Environment;
 using PipManager.Services.Mask;
 using PipManager.Services.Toast;
 using PipManager.Views.Pages.Action;
+using Serilog;
 using System.Collections.ObjectModel;
 using System.IO;
 using Wpf.Ui;
@@ -19,9 +20,7 @@ namespace PipManager.ViewModels.Pages.Library;
 public partial class LibraryInstallViewModel : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
-
-    [ObservableProperty] private ObservableCollection<LibraryInstallPackageItem> _preInstallPackages = [];
-    private List<LibraryListItem> _installedPackages = [];
+    
     public record InstalledPackagesMessage(List<LibraryListItem> InstalledPackages);
 
     private readonly IActionService _actionService;
@@ -65,8 +64,11 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
 
     #region Install
 
+    [ObservableProperty] private ObservableCollection<LibraryInstallPackageItem> _preInstallPackages = [];
+    private List<LibraryListItem> _installedPackages = [];
+
     [RelayCommand]
-    private async Task AddTask()
+    private async Task AddDefaultTask()
     {
         var custom = new InstallAddContentDialog(_contentDialogService.GetContentPresenter());
         var packageName = await custom.ShowAsync();
@@ -108,7 +110,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
     }
 
     [RelayCommand]
-    private void AddToAction()
+    private void AddDefaultToAction()
     {
         List<string> operationCommand = [];
         operationCommand.AddRange(PreInstallPackages.Select(preInstallPackage => preInstallPackage.VersionSpecified
@@ -118,14 +120,13 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
         (
             ActionType.Install,
             string.Join(' ', operationCommand),
-            progressIntermediate: false,
             totalSubTaskNumber: operationCommand.Count
         ));
         PreInstallPackages.Clear();
     }
 
     [RelayCommand]
-    private void DeleteTask(object? parameter)
+    private void DeleteDefaultTask(object? parameter)
     {
         var target = -1;
         for (int index = 0; index < PreInstallPackages.Count; index++)
@@ -180,4 +181,105 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
     }
 
     #endregion Requirements Import
+
+    #region Download Wheel File
+
+    [ObservableProperty] private ObservableCollection<LibraryInstallPackageItem> _preDownloadPackages = [];
+    [ObservableProperty] private string _downloadDistributionsFolderPath = "";
+    [ObservableProperty] private bool _downloadDistributionsEnabled = false;
+    [ObservableProperty] private bool _downloadDependencies = false;
+
+
+    [RelayCommand]
+    private async Task DownloadDistributionsTask()
+    {
+        var custom = new InstallAddContentDialog(_contentDialogService.GetContentPresenter());
+        var packageName = await custom.ShowAsync();
+        if (packageName == "")
+        {
+            return;
+        }
+        if (PreDownloadPackages.Any(package => package.PackageName == packageName))
+        {
+            _toastService.Error(Lang.LibraryInstall_Add_AlreadyInList);
+            return;
+        }
+        _maskService.Show(Lang.LibraryInstall_Add_Verifying);
+        var packageVersions = await _environmentService.GetVersions(packageName);
+        _maskService.Hide();
+        switch (packageVersions.Status)
+        {
+            case 1:
+                _toastService.Error(Lang.LibraryInstall_Add_PackageNotFound);
+                return;
+
+            case 2:
+                _toastService.Error(Lang.LibraryInstall_Add_InvalidPackageName);
+                return;
+
+            default:
+                PreDownloadPackages.Add(new LibraryInstallPackageItem
+                {
+                    PackageName = packageName,
+                    AvailableVersions = new List<string>(packageVersions.Versions!.Reverse())
+                });
+                DownloadDistributionsEnabled = DownloadDistributionsFolderPath.Length > 0;
+                break;
+        }
+    }
+
+    [RelayCommand]
+    private void BrowseDownloadDistributionsFolderTask()
+    {
+        var openFolderDialog = new OpenFolderDialog
+        {
+            Title = "Download Folder (for wheel files)"
+        };
+        var result = openFolderDialog.ShowDialog();
+        if (result == true)
+        {
+            DownloadDistributionsFolderPath = openFolderDialog.FolderName;
+            DownloadDistributionsEnabled = PreDownloadPackages.Count > 0;
+        }
+    }
+
+    [RelayCommand]
+    private void DownloadDistributionsToAction()
+    {
+        List<string> operationCommand = [];
+        operationCommand.AddRange(PreDownloadPackages.Select(preDownloadPackage => preDownloadPackage.VersionSpecified
+            ? $"{preDownloadPackage.PackageName}=={preDownloadPackage.TargetVersion}"
+            : $"{preDownloadPackage.PackageName}"));
+        _actionService.AddOperation(new ActionListItem
+        (
+            ActionType.Download,
+            string.Join(' ', operationCommand),
+            path: DownloadDistributionsFolderPath,
+            extraParameters: DownloadDependencies ? null : ["--no-deps"],
+            totalSubTaskNumber: operationCommand.Count
+        ));
+        PreDownloadPackages.Clear();
+        _navigationService.Navigate(typeof(ActionPage));
+    }
+
+    [RelayCommand]
+    private void DeleteDownloadDistributionsTask(object? parameter)
+    {
+        var target = -1;
+        for (int index = 0; index < PreDownloadPackages.Count; index++)
+        {
+            if (ReferenceEquals(PreDownloadPackages[index].PackageName, parameter))
+            {
+                target = index;
+            }
+        }
+
+        if (target != -1)
+        {
+            PreDownloadPackages.RemoveAt(target);
+        }
+        DownloadDistributionsEnabled = PreDownloadPackages.Count > 0;
+    }
+
+    #endregion
 }

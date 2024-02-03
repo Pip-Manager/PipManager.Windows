@@ -49,24 +49,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                             Log.Information($"[Runner] Task {currentAction.OperationType} Completed");
                             break;
                         }
-                    case ActionType.InstallByRequirements:
-                        {
-                            var requirementsTempFilePath = Path.Combine(AppInfo.CachesDir, $"{currentAction.OperationId}_requirements.txt");
-                            File.WriteAllText(requirementsTempFilePath, currentAction.OperationCommand);
-                            currentAction.OperationStatus = $"Installing from requirements.txt";
-                            var result = environmentService.InstallByRequirements(requirementsTempFilePath, (sender, eventArgs) =>
-                            {
-                                currentAction.ConsoleOutput = string.IsNullOrEmpty(eventArgs.Data) ? Lang.Action_ConsoleOutput_Empty : eventArgs.Data;
-                            });
-                            if (!result.Success)
-                            {
-                                errorDetection = true;
-                                currentAction.DetectIssue = true;
-                                consoleError += result.Message + '\n';
-                            }
-                            Log.Information($"[Runner] Task {currentAction.OperationType} Completed");
-                            break;
-                        }
+                    
                     case ActionType.Install:
                         {
                             var queue = currentAction.OperationCommand.Split(' ');
@@ -87,6 +70,48 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                 Log.Information(result.Success
                                     ? $"[Runner] {item} install sub-task completed"
                                     : $"[Runner] {item} install sub-task failed\n   Reason:{result.Message}");
+                            }
+                            Log.Information($"[Runner] Task {currentAction.OperationType} Completed");
+                            break;
+                        }
+                    case ActionType.InstallByRequirements:
+                        {
+                            var requirementsTempFilePath = Path.Combine(AppInfo.CachesDir, $"{currentAction.OperationId}_requirements.txt");
+                            File.WriteAllText(requirementsTempFilePath, currentAction.OperationCommand);
+                            currentAction.OperationStatus = $"Installing from requirements.txt";
+                            var result = environmentService.InstallByRequirements(requirementsTempFilePath, (sender, eventArgs) =>
+                            {
+                                currentAction.ConsoleOutput = string.IsNullOrEmpty(eventArgs.Data) ? Lang.Action_ConsoleOutput_Empty : eventArgs.Data;
+                            });
+                            if (!result.Success)
+                            {
+                                errorDetection = true;
+                                currentAction.DetectIssue = true;
+                                consoleError += result.Message + '\n';
+                            }
+                            Log.Information($"[Runner] Task {currentAction.OperationType} Completed");
+                            break;
+                        }
+                    case ActionType.Download:
+                        {
+                            var queue = currentAction.OperationCommand.Split(' ');
+                            foreach (var item in queue)
+                            {
+                                currentAction.OperationStatus = $"Downloading {item}";
+                                var result = environmentService.Download(item, currentAction.Path, (sender, eventArgs) =>
+                                {
+                                    currentAction.ConsoleOutput = string.IsNullOrEmpty(eventArgs.Data) ? Lang.Action_ConsoleOutput_Empty : eventArgs.Data;
+                                }, extraParameters: currentAction.ExtraParameters);
+                                currentAction.CompletedSubTaskNumber++;
+                                if (!result.Success)
+                                {
+                                    errorDetection = true;
+                                    currentAction.DetectIssue = true;
+                                    consoleError += result.Message + '\n';
+                                }
+                                Log.Information(result.Success
+                                    ? $"[Runner] {item} download sub-task completed"
+                                    : $"[Runner] {item} download sub-task failed\n   Reason:{result.Message}");
                             }
                             Log.Information($"[Runner] Task {currentAction.OperationType} Completed");
                             break;

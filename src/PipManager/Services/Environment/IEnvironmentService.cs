@@ -19,6 +19,8 @@ public interface IEnvironmentService
 
     public ActionResponse InstallByRequirements(string requirementsFilePath, DataReceivedEventHandler consoleOutputCallback);
 
+    public ActionResponse Download(string packageName, string downloadPath, DataReceivedEventHandler consoleOutputCallback, string[]? extraParameters = null);
+
     public ActionResponse Update(string packageName, DataReceivedEventHandler consoleOutputCallback);
 
     public ActionResponse Uninstall(string packageName, DataReceivedEventHandler consoleOutputCallback);

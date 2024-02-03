@@ -635,6 +635,15 @@ Other sources are faster to connect to, but may be incomplete.</value>
     <value>requirements.txt Import</value>
   </data>
   <data name="LibraryInstall_Download_Header" xml:space="preserve">
-    <value>Download Wheel File</value>
+    <value>Download Distributions</value>
+  </data>
+  <data name="LibraryInstall_Requirements_DownloadDependencies" xml:space="preserve">
+    <value>Download dependencies</value>
+  </data>
+  <data name="LibraryInstall_Requirements_DownloadFolder" xml:space="preserve">
+    <value>Download Folder</value>
+  </data>
+  <data name="Action_Operation_Download" xml:space="preserve">
+    <value>Download</value>
   </data>
 </root>

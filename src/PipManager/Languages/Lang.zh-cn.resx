@@ -635,6 +635,15 @@
     <value>requirement.txt 导入</value>
   </data>
   <data name="LibraryInstall_Download_Header" xml:space="preserve">
-    <value>下载 Wheel 文件</value>
+    <value>下载发行文件</value>
+  </data>
+  <data name="LibraryInstall_Requirements_DownloadDependencies" xml:space="preserve">
+    <value>下载依赖包</value>
+  </data>
+  <data name="LibraryInstall_Requirements_DownloadFolder" xml:space="preserve">
+    <value>下载文件夹</value>
+  </data>
+  <data name="Action_Operation_Download" xml:space="preserve">
+    <value>下载操作</value>
   </data>
 </root>

@@ -268,6 +268,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Download 的本地化字符串。
+        /// </summary>
+        public static string Action_Operation_Download {
+            get {
+                return ResourceManager.GetString("Action_Operation_Download", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Package Install 的本地化字符串。
         /// </summary>
         public static string Action_Operation_Install {
@@ -1249,7 +1258,7 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   查找类似 Download Wheel File 的本地化字符串。
+        ///   查找类似 Download Distributions 的本地化字符串。
         /// </summary>
         public static string LibraryInstall_Download_Header {
             get {
@@ -1281,6 +1290,24 @@ namespace PipManager.Languages {
         public static string LibraryInstall_List_VersionSpecified {
             get {
                 return ResourceManager.GetString("LibraryInstall_List_VersionSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Download dependencies 的本地化字符串。
+        /// </summary>
+        public static string LibraryInstall_Requirements_DownloadDependencies {
+            get {
+                return ResourceManager.GetString("LibraryInstall_Requirements_DownloadDependencies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Download Folder 的本地化字符串。
+        /// </summary>
+        public static string LibraryInstall_Requirements_DownloadFolder {
+            get {
+                return ResourceManager.GetString("LibraryInstall_Requirements_DownloadFolder", resourceCulture);
             }
         }
         

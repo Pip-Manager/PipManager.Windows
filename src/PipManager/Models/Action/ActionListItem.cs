@@ -5,12 +5,14 @@ namespace PipManager.Models.Action;
 
 public partial class ActionListItem : ObservableObject
 {
-    public ActionListItem(ActionType operationType, string operationCommand, string displayCommand = "", bool progressIntermediate = false, int totalSubTaskNumber = 1)
+    public ActionListItem(ActionType operationType, string operationCommand, string displayCommand = "", string path = "", string[]? extraParameters = null, bool progressIntermediate = false, int totalSubTaskNumber = 1)
     {
         OperationType = operationType;
         OperationCommand = operationCommand;
         ProgressIntermediate = progressIntermediate;
         TotalSubTaskNumber = totalSubTaskNumber;
+        Path = path;
+        ExtraParameters = extraParameters;
         DisplayCommand = displayCommand switch
         {
             "" => operationCommand,
@@ -21,6 +23,7 @@ public partial class ActionListItem : ObservableObject
             ActionType.Uninstall => Lang.Action_Operation_Uninstall,
             ActionType.Install => Lang.Action_Operation_Install,
             ActionType.InstallByRequirements => Lang.Action_Operation_InstallByRequirements,
+            ActionType.Download => Lang.Action_Operation_Download,
             ActionType.Update => Lang.Action_Operation_Update,
             _ => "Unknown",
         };
@@ -29,6 +32,7 @@ public partial class ActionListItem : ObservableObject
         {
             ActionType.Uninstall => new SymbolIcon(SymbolRegular.Delete24),
             ActionType.Install or ActionType.InstallByRequirements => new SymbolIcon(SymbolRegular.Add24),
+            ActionType.Download => new SymbolIcon(SymbolRegular.ArrowDownload24),
             ActionType.Update => new SymbolIcon(SymbolRegular.ArrowUp24),
             _ => new SymbolIcon(SymbolRegular.Question24),
         };
@@ -36,7 +40,7 @@ public partial class ActionListItem : ObservableObject
         {
             ActionType.Uninstall => "Danger",
             ActionType.Install or ActionType.InstallByRequirements => "Success",
-            ActionType.Update => "Caution",
+            ActionType.Update or ActionType.Download => "Caution",
             _ => "Primary",
         };
         ConsoleOutput = "";
@@ -53,6 +57,8 @@ public partial class ActionListItem : ObservableObject
     public string OperationTimestamp { get; set; } = DateTime.Now.ToLocalTime().ToString("yyyy-M-d HH:mm:ss");
     public string OperationCommand { get; set; }
     public string DisplayCommand { get; set; }
+    public string Path { get; set; }
+    public string[]? ExtraParameters { get; set; }
     public bool ProgressIntermediate { get; set; }
     public string BadgeAppearance { get; set; }
 

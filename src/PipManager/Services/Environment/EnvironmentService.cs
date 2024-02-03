@@ -273,6 +273,31 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.Process_Error, Message = error };
     }
 
+    public ActionResponse Download(string packageName, string downloadPath, DataReceivedEventHandler consoleOutputCallback, string[]? extraParameters = null)
+    {
+        string? extra = extraParameters != null ? string.Join(" ", extraParameters) : null;
+        var process = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
+                Arguments =
+                    $"-m pip download -d \"{downloadPath}\" \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6 {extra}",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
+            }
+        };
+        process.OutputDataReceived += consoleOutputCallback;
+        process.Start();
+        process.BeginOutputReadLine();
+        var error = process.StandardError.ReadToEnd();
+        process.WaitForExit();
+        process.Close();
+        process.Dispose();
+        return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.Process_Error, Message = error };
+    }
     public ActionResponse Update(string packageName, DataReceivedEventHandler consoleOutputCallback)
     {
         var process = new Process

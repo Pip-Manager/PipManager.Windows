@@ -43,19 +43,19 @@
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
                         <ui:Button
                             Appearance="Primary"
-                            Command="{Binding ViewModel.AddTaskCommand}"
+                            Command="{Binding ViewModel.AddDefaultTaskCommand}"
                             Content="{I18N {x:Static lang:LangKeys.Common_Button_Add}}"
                             Icon="{ui:SymbolIcon Add24}" />
                         <ui:Button
                             Margin="5,0,0,0"
                             Appearance="Success"
-                            Command="{Binding ViewModel.AddToActionCommand}"
+                            Command="{Binding ViewModel.AddDefaultToActionCommand}"
                             Content="{I18N {x:Static lang:LangKeys.Library_Operation_Install}}"
                             Icon="{ui:SymbolIcon ArrowDown24}"
-                            IsEnabled="{Binding ElementName=AddTaskList, Path=Items.Count, Converter={StaticResource IntegerToBool}}" />
+                            IsEnabled="{Binding ElementName=AddDefaultTaskList, Path=Items.Count, Converter={StaticResource IntegerToBool}}" />
                     </StackPanel>
                     <ScrollViewer Grid.Row="1" Margin="0,10,0,0">
-                        <ItemsControl x:Name="AddTaskList" ItemsSource="{Binding ViewModel.PreInstallPackages, Mode=TwoWay}">
+                        <ItemsControl x:Name="AddDefaultTaskList" ItemsSource="{Binding ViewModel.PreInstallPackages, Mode=TwoWay}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type pages:LibraryInstallPackageItem}">
                                     <Grid Height="37">
@@ -160,6 +160,118 @@
                         <TextBlock Margin="0,0,10,0" Text="{I18N {x:Static lang:LangKeys.LibraryInstall_Download_Header}}" />
                     </StackPanel>
                 </TabItem.Header>
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="35" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <ui:Button
+                            HorizontalAlignment="Left"
+                            Appearance="Primary"
+                            Command="{Binding ViewModel.DownloadDistributionsTaskCommand}"
+                            Content="{I18N {x:Static lang:LangKeys.Common_Button_Add}}"
+                            Icon="{ui:SymbolIcon Add24}" />
+                        <CheckBox
+                            HorizontalAlignment="Right"
+                            Content="{I18N {x:Static lang:LangKeys.LibraryInstall_Requirements_DownloadDependencies}}"
+                            IsChecked="{Binding ViewModel.DownloadDependencies, Mode=TwoWay}"
+                            IsEnabled="{Binding ElementName=DownloadDistributionsTaskList, Path=Items.Count, Converter={StaticResource IntegerToBool}}" />
+                    </Grid>
+                    <ScrollViewer Grid.Row="1" Margin="0,10,0,0">
+                        <ItemsControl x:Name="DownloadDistributionsTaskList" ItemsSource="{Binding ViewModel.PreDownloadPackages, Mode=TwoWay}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type pages:LibraryInstallPackageItem}">
+                                    <Grid Height="37">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.25*" />
+                                            <ColumnDefinition Width="0.7*" />
+                                            <ColumnDefinition Width="0.05*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Grid.Column="0"
+                                            Margin="10,0,0,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="16"
+                                            Text="{Binding PackageName}" />
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Left"
+                                            Orientation="Horizontal">
+                                            <CheckBox
+                                                x:Name="DownloadDistributionsVersionSpecifiedCheckbox"
+                                                Content="{I18N {x:Static lang:LangKeys.LibraryInstall_List_VersionSpecified}}"
+                                                IsChecked="{Binding VersionSpecified, Mode=TwoWay}" />
+                                            <ComboBox
+                                                Width="150"
+                                                Margin="7,0,0,0"
+                                                VerticalAlignment="Center"
+                                                ItemsSource="{Binding AvailableVersions}"
+                                                SelectedIndex="0"
+                                                SelectedItem="{Binding TargetVersion, Mode=TwoWay}"
+                                                Visibility="{Binding ElementName=DownloadDistributionsVersionSpecifiedCheckbox, Path=IsChecked, Converter={StaticResource BoolToVisibility}}" />
+                                            <TextBlock
+                                                Margin="7,0,0,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="15"
+                                                Foreground="Gray"
+                                                Text="{I18N {x:Static lang:LangKeys.LibraryInstall_List_DefaultVersion}}"
+                                                Visibility="{Binding ElementName=DownloadDistributionsVersionSpecifiedCheckbox, Path=IsChecked, Converter={StaticResource InverseBoolToVisibility}}" />
+                                        </StackPanel>
+                                        <StackPanel
+                                            Grid.Column="2"
+                                            HorizontalAlignment="Center"
+                                            Orientation="Horizontal">
+                                            <ui:Button
+                                                Command="{Binding ElementName=LibraryInstall, Path=ViewModel.DeleteDownloadDistributionsTaskCommand}"
+                                                CommandParameter="{Binding PackageName}"
+                                                Content="{I18N {x:Static lang:LangKeys.Library_Operation_Delete}}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Text="{I18N {x:Static lang:LangKeys.LibraryInstall_Requirements_DownloadFolder}}" />
+                        <TextBox
+                            x:Name="DownloadDistributionsFolderBrowseTextBox"
+                            Grid.Column="1"
+                            Margin="10,0,0,0"
+                            IsEnabled="{Binding ElementName=DownloadDistributionsTaskList, Path=Items.Count, Converter={StaticResource IntegerToBool}}"
+                            IsReadOnly="True"
+                            Text="{Binding ViewModel.DownloadDistributionsFolderPath, Mode=TwoWay}" />
+                        <ui:Button
+                            Grid.Column="2"
+                            Margin="5,0,0,0"
+                            HorizontalAlignment="Right"
+                            Appearance="Primary"
+                            Command="{Binding ViewModel.BrowseDownloadDistributionsFolderTaskCommand}"
+                            Content="{I18N {x:Static lang:LangKeys.Common_Button_Browse}}"
+                            Icon="{ui:SymbolIcon FolderOpen20}"
+                            IsEnabled="{Binding ElementName=DownloadDistributionsTaskList, Path=Items.Count, Converter={StaticResource IntegerToBool}}" />
+                        <ui:Button
+                            Grid.Column="3"
+                            Margin="5,0,0,0"
+                            HorizontalAlignment="Right"
+                            Appearance="Success"
+                            Command="{Binding ViewModel.DownloadDistributionsToActionCommand}"
+                            Content="{I18N {x:Static lang:LangKeys.Library_Operation_Install}}"
+                            Icon="{ui:SymbolIcon ArrowDown24}"
+                            IsEnabled="{Binding ViewModel.DownloadDistributionsEnabled}" />
+                    </Grid>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>
