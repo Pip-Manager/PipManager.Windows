@@ -30,7 +30,7 @@
                 Content="{I18N {x:Static lang:LangKeys.Action_Button_Exceptions}}"
                 Icon="{ui:SymbolIcon Bug24}" />
         </StackPanel>
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding ViewModel.Actions, UpdateSourceTrigger=PropertyChanged}">
+        <ItemsControl Grid.Row="1" x:Name="ActionList" ItemsSource="{Binding ViewModel.Actions}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type pages1:ActionListItem}">
                     <Border
@@ -68,7 +68,7 @@
                                         Visibility="{Binding DetectIssue, Converter={StaticResource BoolToVisibility}}" />
                                 </StackPanel>
                                 <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
-                                    <ProgressBar Width="300" Value="{Binding ProgressBarValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ProgressBar Width="300" IsIndeterminate="{Binding ProgressIntermediate}" Value="{Binding ProgressBarValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     <TextBlock
                                         Margin="5,0,0,0"
                                         FontSize="16"
@@ -112,7 +112,7 @@
             Margin="0,-30,0,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Visibility="{Binding ViewModel.ActionRunning, Converter={StaticResource InverseBoolToVisibility}}">
+            Visibility="{Binding ElementName=ActionList, Path=Items.Count, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IntegerToVisibility}}">
             <TextBlock FontSize="32" Text="{I18N {x:Static lang:LangKeys.Action_NoCurrentOperations}}" />
         </StackPanel>
     </Grid>

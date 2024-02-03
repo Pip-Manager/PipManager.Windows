@@ -15,9 +15,6 @@ public partial class ActionViewModel : ObservableObject, INavigationAware
     [ObservableProperty]
     private ObservableCollection<ActionListItem> _actions;
 
-    [ObservableProperty]
-    private bool _actionRunning;
-
     private readonly IActionService _actionService;
     private readonly INavigationService _navigationService;
 
@@ -25,8 +22,7 @@ public partial class ActionViewModel : ObservableObject, INavigationAware
     {
         _actionService = actionService;
         _navigationService = navigationService;
-        Actions = new ObservableCollection<ActionListItem>(_actionService.ActionList);
-        _ = UpdateActionListTask();
+        Actions = _actionService.ActionList;
     }
 
     public void OnNavigatedTo()
@@ -49,15 +45,5 @@ public partial class ActionViewModel : ObservableObject, INavigationAware
     private void ShowExceptions()
     {
         _navigationService.NavigateWithHierarchy(typeof(ActionExceptionPage));
-    }
-
-    public async Task UpdateActionListTask()
-    {
-        while (true)
-        {
-            ActionRunning = _actionService.ActionList.Any();
-            Actions = new ObservableCollection<ActionListItem>(_actionService.ActionList);
-            await Task.Delay(100);
-        }
     }
 }

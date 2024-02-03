@@ -19,8 +19,7 @@ public partial class LabViewModel(INavigationService navigationService, IActionS
         (
             ActionType.Update,
             "114510==114514 114511==114514",
-            progressIntermediate: false,
-            totalSubTaskNumber: 2
+            progressIntermediate: true
         ));
     }
 
