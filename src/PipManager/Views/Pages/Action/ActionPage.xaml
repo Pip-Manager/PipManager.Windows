@@ -115,10 +115,12 @@
                                         FontSize="12" />
                                     <TextBlock
                                         Margin="5,0,0,0"
+                                        Width="1000"
                                         VerticalAlignment="Center"
+                                        HorizontalAlignment="Left"
                                         FontSize="14"
                                         Text="{Binding ConsoleOutput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        TextWrapping="WrapWithOverflow" />
+                                        TextTrimming="WordEllipsis" />
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
