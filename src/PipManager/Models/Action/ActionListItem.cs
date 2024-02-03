@@ -5,12 +5,17 @@ namespace PipManager.Models.Action;
 
 public partial class ActionListItem : ObservableObject
 {
-    public ActionListItem(ActionType operationType, string operationCommand, bool progressIntermediate = false, int totalSubTaskNumber = 1)
+    public ActionListItem(ActionType operationType, string operationCommand, string displayCommand = "", bool progressIntermediate = false, int totalSubTaskNumber = 1)
     {
         OperationType = operationType;
         OperationCommand = operationCommand;
         ProgressIntermediate = progressIntermediate;
         TotalSubTaskNumber = totalSubTaskNumber;
+        DisplayCommand = displayCommand switch
+        {
+            "" => operationCommand,
+            _ => displayCommand,
+        };
         OperationDescription = operationType switch
         {
             ActionType.Uninstall => Lang.Action_Operation_Uninstall,
@@ -47,6 +52,7 @@ public partial class ActionListItem : ObservableObject
     public string OperationDescription { get; set; }
     public string OperationTimestamp { get; set; } = DateTime.Now.ToLocalTime().ToString("yyyy-M-d HH:mm:ss");
     public string OperationCommand { get; set; }
+    public string DisplayCommand { get; set; }
     public bool ProgressIntermediate { get; set; }
     public string BadgeAppearance { get; set; }
 

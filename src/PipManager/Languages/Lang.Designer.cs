@@ -1204,6 +1204,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Default 的本地化字符串。
+        /// </summary>
+        public static string LibraryInstall_Add_Header {
+            get {
+                return ResourceManager.GetString("LibraryInstall_Add_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Invalid Package Name (PEP 508) 的本地化字符串。
         /// </summary>
         public static string LibraryInstall_Add_InvalidPackageName {
@@ -1240,6 +1249,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Download Wheel File 的本地化字符串。
+        /// </summary>
+        public static string LibraryInstall_Download_Header {
+            get {
+                return ResourceManager.GetString("LibraryInstall_Download_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Install 的本地化字符串。
         /// </summary>
         public static string LibraryInstall_Header {
@@ -1263,6 +1281,15 @@ namespace PipManager.Languages {
         public static string LibraryInstall_List_VersionSpecified {
             get {
                 return ResourceManager.GetString("LibraryInstall_List_VersionSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 requirements.txt Import 的本地化字符串。
+        /// </summary>
+        public static string LibraryInstall_Requirements_Header {
+            get {
+                return ResourceManager.GetString("LibraryInstall_Requirements_Header", resourceCulture);
             }
         }
         

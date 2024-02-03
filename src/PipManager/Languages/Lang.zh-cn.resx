@@ -628,4 +628,13 @@
   <data name="Action_ConsoleOutput_Empty" xml:space="preserve">
     <value>当前无输出</value>
   </data>
+  <data name="LibraryInstall_Add_Header" xml:space="preserve">
+    <value>默认</value>
+  </data>
+  <data name="LibraryInstall_Requirements_Header" xml:space="preserve">
+    <value>requirement.txt 导入</value>
+  </data>
+  <data name="LibraryInstall_Download_Header" xml:space="preserve">
+    <value>下载 Wheel 文件</value>
+  </data>
 </root>

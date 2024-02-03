@@ -628,4 +628,13 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="Action_ConsoleOutput_Empty" xml:space="preserve">
     <value>No output currently</value>
   </data>
+  <data name="LibraryInstall_Add_Header" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="LibraryInstall_Requirements_Header" xml:space="preserve">
+    <value>requirements.txt Import</value>
+  </data>
+  <data name="LibraryInstall_Download_Header" xml:space="preserve">
+    <value>Download Wheel File</value>
+  </data>
 </root>

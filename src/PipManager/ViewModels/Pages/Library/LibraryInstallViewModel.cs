@@ -8,6 +8,7 @@ using PipManager.Services.Action;
 using PipManager.Services.Environment;
 using PipManager.Services.Mask;
 using PipManager.Services.Toast;
+using PipManager.Views.Pages.Action;
 using System.Collections.ObjectModel;
 using System.IO;
 using Wpf.Ui;
@@ -28,14 +29,16 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
     private readonly IContentDialogService _contentDialogService;
     private readonly IEnvironmentService _environmentService;
     private readonly IToastService _toastService;
+    private readonly INavigationService _navigationService;
 
-    public LibraryInstallViewModel(IActionService actionService, IMaskService maskService, IContentDialogService contentDialogService, IEnvironmentService environmentService, IToastService toastService)
+    public LibraryInstallViewModel(IActionService actionService, IMaskService maskService, IContentDialogService contentDialogService, IEnvironmentService environmentService, IToastService toastService, INavigationService navigationService)
     {
         _actionService = actionService;
         _maskService = maskService;
         _contentDialogService = contentDialogService;
         _environmentService = environmentService;
         _toastService = toastService;
+        _navigationService = navigationService;
         WeakReferenceMessenger.Default.Register<InstalledPackagesMessage>(this, Receive);
     }
 
@@ -153,7 +156,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
             Title = "requirements.txt",
             FileName = "requirements.txt",
             DefaultExt = ".txt",
-            Filter = "requirements|requirements.txt",
+            Filter = "requirements|*.txt",
             RestoreDirectory = true
         };
         var result = openFileDialog.ShowDialog();
@@ -169,9 +172,11 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
         _actionService.AddOperation(new ActionListItem
         (
             ActionType.InstallByRequirements,
-            Requirements
+            Requirements,
+            displayCommand: "requirements.txt"
         ));
         Requirements = "";
+        _navigationService.Navigate(typeof(ActionPage));
     }
 
     #endregion Requirements Import

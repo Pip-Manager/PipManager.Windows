@@ -32,7 +32,7 @@
                             Margin="0,0,6,0"
                             Filled="True"
                             Symbol="AppsAddIn24" />
-                        <TextBlock Margin="0,0,10,0" Text="Default" />
+                        <TextBlock Margin="0,0,10,0" Text="{I18N {x:Static lang:LangKeys.LibraryInstall_Add_Header}}" />
                     </StackPanel>
                 </TabItem.Header>
                 <Grid Margin="20">
@@ -118,7 +118,7 @@
                             Margin="0,0,6,0"
                             Filled="True"
                             Symbol="ArrowImport24" />
-                        <TextBlock Margin="0,0,10,0" Text="Requirements.txt Import" />
+                        <TextBlock Margin="0,0,10,0" Text="{I18N {x:Static lang:LangKeys.LibraryInstall_Requirements_Header}}" />
                     </StackPanel>
                 </TabItem.Header>
                 <Grid Margin="20">
@@ -157,7 +157,7 @@
                             Margin="0,0,6,0"
                             Filled="True"
                             Symbol="ArrowDownload24" />
-                        <TextBlock Margin="0,0,10,0" Text="Download (.whl)" />
+                        <TextBlock Margin="0,0,10,0" Text="{I18N {x:Static lang:LangKeys.LibraryInstall_Download_Header}}" />
                     </StackPanel>
                 </TabItem.Header>
             </TabItem>
