@@ -622,4 +622,10 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="Action_Operation_InstallByRequirements" xml:space="preserve">
     <value>Package Install (via requirements.txt)</value>
   </data>
+  <data name="Action_CurrentStatus_WaitingInQueue" xml:space="preserve">
+    <value>Waiting in queue</value>
+  </data>
+  <data name="Action_ConsoleOutput_Empty" xml:space="preserve">
+    <value>No output currently</value>
+  </data>
 </root>

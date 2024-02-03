@@ -214,11 +214,29 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 No output currently 的本地化字符串。
+        /// </summary>
+        public static string Action_ConsoleOutput_Empty {
+            get {
+                return ResourceManager.GetString("Action_ConsoleOutput_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Current Status 的本地化字符串。
         /// </summary>
         public static string Action_CurrentStatus {
             get {
                 return ResourceManager.GetString("Action_CurrentStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Waiting in queue 的本地化字符串。
+        /// </summary>
+        public static string Action_CurrentStatus_WaitingInQueue {
+            get {
+                return ResourceManager.GetString("Action_CurrentStatus_WaitingInQueue", resourceCulture);
             }
         }
         
