@@ -88,10 +88,17 @@ Double click `PipManager.exe` or `PipManager_withRuntime.exe` *If you have not i
 ### Features
 
 - [x] Install Package
+    - [x] Default *pip install*
+    - [x] requirements.txt Import
+    - [x] Download Distributions
 - [x] Update Package
 - [x] Delete Package
-- [ ] Search Package
 - [x] Show Packages in list
+- [x] Multi-environment Management
+- [ ] Search Package
+- [ ] Dependency Completion Check
+- [ ] Scenario Recommendation
+- [ ] Cache Management
 
 ### Long-term
 
@@ -115,7 +122,7 @@ See the [Open Issues](https://github.com/AuroraZiling/PipManager/issues) for a f
 
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MIT License. See `LICENSE` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
