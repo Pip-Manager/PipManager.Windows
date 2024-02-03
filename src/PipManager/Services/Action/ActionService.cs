@@ -39,17 +39,14 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                 currentAction.OperationStatus = $"Uninstalling {item}";
                                 var result = environmentService.Uninstall(item, (sender, eventArgs) =>
                                 {
-                                    if (!string.IsNullOrEmpty(eventArgs.Data))
-                                    {
-                                        currentAction.ConsoleOutput = eventArgs.Data;
-                                    }
+                                    currentAction.ConsoleOutput = string.IsNullOrEmpty(eventArgs.Data)? Lang.Action_ConsoleOutput_Empty : eventArgs.Data;
                                 });
                                 currentAction.CompletedSubTaskNumber++;
                                 Log.Information(result.Success
                                     ? $"[Runner] {item} uninstall sub-task completed"
                                     : $"[Runner] {item} uninstall sub-task failed\n   Reason:{result.Message}");
                             }
-                            Log.Information($"[Runner] Task {currentAction.OperationDescription} Completed");
+                            Log.Information($"[Runner] Task {currentAction.OperationType} Completed");
                             break;
                         }
                     case ActionType.InstallByRequirements:
@@ -59,10 +56,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                             currentAction.OperationStatus = $"Installing from requirements.txt";
                             var result = environmentService.InstallByRequirements(requirementsTempFilePath, (sender, eventArgs) =>
                             {
-                                if (!string.IsNullOrEmpty(eventArgs.Data))
-                                {
-                                    currentAction.ConsoleOutput = eventArgs.Data;
-                                }
+                                currentAction.ConsoleOutput = string.IsNullOrEmpty(eventArgs.Data) ? Lang.Action_ConsoleOutput_Empty : eventArgs.Data;
                             });
                             if (!result.Success)
                             {
@@ -70,7 +64,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                 currentAction.DetectIssue = true;
                                 consoleError += result.Message + '\n';
                             }
-                            Log.Information($"[Runner] Task {currentAction.OperationDescription} Completed");
+                            Log.Information($"[Runner] Task {currentAction.OperationType} Completed");
                             break;
                         }
                     case ActionType.Install:
@@ -81,10 +75,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                 currentAction.OperationStatus = $"Installing {item}";
                                 var result = environmentService.Install(item, (sender, eventArgs) =>
                                 {
-                                    if (!string.IsNullOrEmpty(eventArgs.Data))
-                                    {
-                                        currentAction.ConsoleOutput = eventArgs.Data;
-                                    }
+                                    currentAction.ConsoleOutput = string.IsNullOrEmpty(eventArgs.Data) ? Lang.Action_ConsoleOutput_Empty : eventArgs.Data;
                                 });
                                 currentAction.CompletedSubTaskNumber++;
                                 if (!result.Success)
@@ -97,7 +88,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                     ? $"[Runner] {item} install sub-task completed"
                                     : $"[Runner] {item} install sub-task failed\n   Reason:{result.Message}");
                             }
-                            Log.Information($"[Runner] Task {currentAction.OperationDescription} Completed");
+                            Log.Information($"[Runner] Task {currentAction.OperationType} Completed");
                             break;
                         }
                     case ActionType.Update:
@@ -108,10 +99,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                 currentAction.OperationStatus = $"Updating {item}";
                                 var result = environmentService.Update(item, (sender, eventArgs) =>
                                 {
-                                    if (!string.IsNullOrEmpty(eventArgs.Data))
-                                    {
-                                        currentAction.ConsoleOutput = eventArgs.Data;
-                                    }
+                                    currentAction.ConsoleOutput = string.IsNullOrEmpty(eventArgs.Data) ? Lang.Action_ConsoleOutput_Empty : eventArgs.Data;
                                 });
                                 currentAction.CompletedSubTaskNumber++;
                                 if (!result.Success)
@@ -124,7 +112,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                     ? $"[Runner] {item} update sub-task completed"
                                     : $"[Runner] {item} update sub-task failed\n   Reason:{result.Message}");
                             }
-                            Log.Information($"[Runner] Task {currentAction.OperationDescription} Completed");
+                            Log.Information($"[Runner] Task {currentAction.OperationType} Completed");
                             break;
                         }
                     default:

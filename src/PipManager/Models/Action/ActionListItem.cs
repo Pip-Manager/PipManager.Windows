@@ -5,14 +5,12 @@ namespace PipManager.Models.Action;
 
 public partial class ActionListItem : ObservableObject
 {
-    public ActionListItem(ActionType operationType, string operationCommand, string operationStatus = "Waiting in queue", bool progressIntermediate = false, int totalSubTaskNumber = 0, int completedSubTaskNumber = 0)
+    public ActionListItem(ActionType operationType, string operationCommand, bool progressIntermediate = false, int totalSubTaskNumber = 1)
     {
         OperationType = operationType;
         OperationCommand = operationCommand;
-        OperationStatus = operationStatus;
         ProgressIntermediate = progressIntermediate;
         TotalSubTaskNumber = totalSubTaskNumber;
-        CompletedSubTaskNumber = completedSubTaskNumber;
         OperationDescription = operationType switch
         {
             ActionType.Uninstall => Lang.Action_Operation_Uninstall,
@@ -69,8 +67,8 @@ public partial class ActionListItem : ObservableObject
         get => (double)CompletedSubTaskNumber / TotalSubTaskNumber * 100.0;
     }
 
-    [ObservableProperty] private string _operationStatus;
-    [ObservableProperty] private string _consoleOutput;
+    [ObservableProperty] private string _operationStatus = Lang.Action_CurrentStatus_WaitingInQueue;
+    [ObservableProperty] private string _consoleOutput = Lang.Action_ConsoleOutput_Empty;
     [ObservableProperty] private string _consoleError;
     [ObservableProperty] private bool _completed;
     [ObservableProperty] private bool _detectIssue;
