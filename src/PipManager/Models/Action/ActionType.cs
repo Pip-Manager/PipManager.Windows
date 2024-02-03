@@ -4,5 +4,6 @@ public enum ActionType
 {
     Uninstall,
     Install,
+    InstallByRequirements,
     Update
 }

@@ -503,7 +503,7 @@
     <value>均是最新版本</value>
   </data>
   <data name="Action_ConsoleOutput" xml:space="preserve">
-    <value>控制台</value>
+    <value>控制台输出</value>
   </data>
   <data name="Action_ConsoleError" xml:space="preserve">
     <value>错误信息</value>

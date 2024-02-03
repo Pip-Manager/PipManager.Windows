@@ -503,7 +503,7 @@ Other sources are faster to connect to, but may be incomplete.</value>
     <value>Package(s) are up to date</value>
   </data>
   <data name="Action_ConsoleOutput" xml:space="preserve">
-    <value>Console Output</value>
+    <value>Output</value>
   </data>
   <data name="Action_ConsoleError" xml:space="preserve">
     <value>Error</value>

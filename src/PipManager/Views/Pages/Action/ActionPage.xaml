@@ -111,13 +111,14 @@
                                     <ui:Badge
                                         VerticalAlignment="Center"
                                         Appearance="Info"
-                                        Content="Console"
+                                        Content="{I18N {x:Static lang:LangKeys.Action_ConsoleOutput}}"
                                         FontSize="12" />
                                     <TextBlock
                                         Margin="5,0,0,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
-                                        Text="{Binding ConsoleOutput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        Text="{Binding ConsoleOutput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        TextWrapping="WrapWithOverflow" />
                                 </StackPanel>
                             </StackPanel>
                         </Grid>

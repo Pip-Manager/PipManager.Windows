@@ -78,20 +78,19 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                             var queue = currentAction.OperationCommand.Split(' ');
                             foreach (var item in queue)
                             {
-                                ActionList[0].OperationStatus = $"Installing {item}";
+                                currentAction.OperationStatus = $"Installing {item}";
                                 var result = environmentService.Install(item, (sender, eventArgs) =>
                                 {
-                                    Log.Information(eventArgs.Data);
                                     if (!string.IsNullOrEmpty(eventArgs.Data))
                                     {
-                                        ActionList[0].ConsoleOutput = eventArgs.Data;
+                                        currentAction.ConsoleOutput = eventArgs.Data;
                                     }
                                 });
-                                ActionList[0].CompletedSubTaskNumber++;
+                                currentAction.CompletedSubTaskNumber++;
                                 if (!result.Item1)
                                 {
                                     errorDetection = true;
-                                    ActionList[0].DetectIssue = true;
+                                    currentAction.DetectIssue = true;
                                     consoleError += result.Item2 + '\n';
                                 }
                                 Log.Information(result.Item1

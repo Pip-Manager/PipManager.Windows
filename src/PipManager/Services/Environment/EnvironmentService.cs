@@ -245,6 +245,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         };
         process.OutputDataReceived += consoleOutputCallback;
         process.Start();
+        process.BeginOutputReadLine();
         var error = process.StandardError.ReadToEnd();
         process.WaitForExit();
         process.Close();
@@ -269,6 +270,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         };
         process.OutputDataReceived += consoleOutputCallback;
         process.Start();
+        process.BeginOutputReadLine();
         var error = process.StandardError.ReadToEnd();
         process.WaitForExit();
         process.Close();

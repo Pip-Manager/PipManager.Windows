@@ -205,7 +205,7 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   查找类似 Console Output 的本地化字符串。
+        ///   查找类似 Output 的本地化字符串。
         /// </summary>
         public static string Action_ConsoleOutput {
             get {
