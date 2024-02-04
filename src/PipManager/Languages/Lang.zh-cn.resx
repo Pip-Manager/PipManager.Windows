@@ -655,4 +655,19 @@
   <data name="LibraryInstall_Requirements_Download" xml:space="preserve">
     <value>下载</value>
   </data>
+  <data name="Search_List_NoDescription" xml:space="preserve">
+    <value>暂无描述</value>
+  </data>
+  <data name="Search_List_UpdateTime" xml:space="preserve">
+    <value>最后更新于: </value>
+  </data>
+  <data name="Search_List_TotalResultNumber" xml:space="preserve">
+    <value>约 {0} 个结果</value>
+  </data>
+  <data name="Search_Query_NoResults" xml:space="preserve">
+    <value>无结果</value>
+  </data>
+  <data name="Search_Query_Timeout" xml:space="preserve">
+    <value>查询超时</value>
+  </data>
 </root>

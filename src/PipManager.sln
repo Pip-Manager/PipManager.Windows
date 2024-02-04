@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决�
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipManager.PackageSearch", "PipManager.PackageSearch\PipManager.PackageSearch.csproj", "{759DBA08-4418-474E-BD6F-773829A81368}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{4C085660-9DCE-403F-89A7-E36C9405BBC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C085660-9DCE-403F-89A7-E36C9405BBC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C085660-9DCE-403F-89A7-E36C9405BBC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{759DBA08-4418-474E-BD6F-773829A81368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{759DBA08-4418-474E-BD6F-773829A81368}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{759DBA08-4418-474E-BD6F-773829A81368}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{759DBA08-4418-474E-BD6F-773829A81368}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

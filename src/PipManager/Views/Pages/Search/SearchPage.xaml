@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:lang="clr-namespace:PipManager.Languages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:query="clr-namespace:PipManager.PackageSearch.Wrappers.Query;assembly=PipManager.PackageSearch"
     xmlns:search="clr-namespace:PipManager.Views.Pages.Search"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="SearchPage"
@@ -19,83 +20,107 @@
     mc:Ignorable="d">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.4*" />
-            <ColumnDefinition Width="0.6*" />
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="37" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="0.12*" />
-                </Grid.ColumnDefinitions>
-                <ui:TextBox
-                    Grid.Column="0"
-                    VerticalAlignment="Stretch"
-                    Icon="{ui:SymbolIcon Search16}"
-                    PlaceholderText="Search..." />
-                <ui:Button
-                    Grid.Column="1"
-                    Margin="5,0,0,0"
-                    VerticalAlignment="Stretch"
-                    Appearance="Success"
-                    FontSize="20"
-                    Icon="{ui:SymbolIcon Search48}" />
-            </Grid>
-
-            <ListView Grid.Row="1" />
-        </Grid>
-
-        <Grid Grid.Column="1" Margin="10,0,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="55" />
-            </Grid.RowDefinitions>
-            <TextBlock
-                Grid.Row="0"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="34" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ui:TextBox
+                x:Name="SearchTextBox"
+                Grid.Column="0"
+                VerticalAlignment="Stretch"
+                Icon="{ui:SymbolIcon Search16}"
+                PlaceholderText="Search..." />
+            <ui:Button
+                Grid.Column="2"
+                Margin="5,0,0,0"
+                VerticalAlignment="Stretch"
+                Appearance="Success"
+                Command="{Binding ViewModel.SearchCommand}"
+                CommandParameter="{Binding ElementName=SearchTextBox, Path=Text}"
                 FontSize="20"
-                Text="Description" />
-            <ui:RichTextBox Grid.Row="1" />
-            <StackPanel
-                Grid.Row="2"
-                HorizontalAlignment="Left"
-                Orientation="Horizontal">
-                <CheckBox x:Name="VersionSpecifiedCheckbox" Content="{I18N {x:Static lang:LangKeys.Search_VersionSpecified}}" />
-                <ComboBox
-                    Width="150"
-                    Margin="10,0,0,0"
-                    VerticalAlignment="Center" />
-                <TextBlock
-                    Margin="15,0,0,0"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    Foreground="Gray"
-                    Text="{I18N {x:Static lang:LangKeys.Search_DefaultVersion}}" />
-            </StackPanel>
-            <StackPanel
-                Grid.Row="3"
-                Margin="0,7,0,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Orientation="Horizontal">
-                <ui:Button
-                    Width="120"
-                    Appearance="Primary"
-                    Content="Install"
-                    Icon="{ui:SymbolIcon Add24}" />
-                <ui:Button
-                    Width="120"
-                    Margin="10,0,0,0"
-                    Appearance="Secondary"
-                    Content="Download"
-                    Icon="{ui:SymbolIcon ArrowDownload24}" />
-            </StackPanel>
+                Icon="{ui:SymbolIcon Search48}" />
         </Grid>
+
+        <ListView
+            x:Name="SearchList"
+            Grid.Row="1"
+            Margin="0,7,0,7"
+            ItemsSource="{Binding ViewModel.QueryList, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type query:QueryListItemModel}">
+                    <Grid>
+                        <StackPanel Margin="5">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    FontSize="15"
+                                    Text="{Binding Name}" />
+                                <TextBlock FontSize="14" Text=" " />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    FontSize="15"
+                                    Text="{Binding Version}" />
+                            </StackPanel>
+                            <TextBlock
+                                Width="1050"
+                                HorizontalAlignment="Left"
+                                FontSize="12"
+                                Foreground="Gray"
+                                Text="{Binding Description}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackPanel
+            Grid.Row="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Orientation="Horizontal"
+            Visibility="{Binding ViewModel.SuccessQueried, Converter={StaticResource BoolToVisibility}}">
+            <ui:Button
+                Command="{Binding ViewModel.ToPreviousPageCommand}"
+                FontSize="20"
+                Icon="{ui:SymbolIcon ArrowLeft24}"
+                IsEnabled="{Binding ViewModel.ReachesFirstPage, Converter={StaticResource InverseBool}}" />
+            <TextBlock
+                Margin="15,0,0,0"
+                VerticalAlignment="Center"
+                FontSize="18"
+                Text="{Binding ViewModel.CurrentPage}" />
+            <TextBlock
+                VerticalAlignment="Center"
+                FontSize="18"
+                Text=" / " />
+            <TextBlock
+                Margin="0,0,15,0"
+                VerticalAlignment="Center"
+                FontSize="18"
+                Text="{Binding ViewModel.MaxPage}" />
+            <ui:Button
+                Command="{Binding ViewModel.ToNextPageCommand}"
+                FontSize="20"
+                Icon="{ui:SymbolIcon ArrowRight24}"
+                IsEnabled="{Binding ViewModel.ReachesLastPage, Converter={StaticResource InverseBool}}" />
+        </StackPanel>
+        <TextBlock
+            Grid.Row="2"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Visibility="{Binding ViewModel.SuccessQueried, Converter={StaticResource BoolToVisibility}}">
+            <TextBlock.Text>
+                <I18N Key="{x:Static lang:LangKeys.Search_List_TotalResultNumber}">
+                    <Binding Path="ViewModel.TotalResultNumber" />
+                </I18N>
+            </TextBlock.Text>
+        </TextBlock>
     </Grid>
 </Page>

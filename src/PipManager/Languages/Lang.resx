@@ -655,4 +655,19 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="LibraryInstall_Requirements_Download" xml:space="preserve">
     <value>Download</value>
   </data>
+  <data name="Search_List_NoDescription" xml:space="preserve">
+    <value>No Description</value>
+  </data>
+  <data name="Search_List_UpdateTime" xml:space="preserve">
+    <value>Update Time: </value>
+  </data>
+  <data name="Search_List_TotalResultNumber" xml:space="preserve">
+    <value>About {0} results found</value>
+  </data>
+  <data name="Search_Query_NoResults" xml:space="preserve">
+    <value>No results</value>
+  </data>
+  <data name="Search_Query_Timeout" xml:space="preserve">
+    <value>Timeout</value>
+  </data>
 </root>

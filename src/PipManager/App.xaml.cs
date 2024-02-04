@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PipManager.PackageSearch;
 using PipManager.Services;
 using PipManager.Services.Action;
 using PipManager.Services.Configuration;
@@ -75,6 +76,7 @@ public partial class App
             services.AddSingleton<IThemeService, ThemeService>();
             services.AddSingleton<IContentDialogService, ContentDialogService>();
             services.AddSingleton<ITaskBarService, TaskBarService>();
+            services.AddSingleton<IPackageSearchService, PackageSearchService>();
 
             // Pages
             services.AddSingleton<LibraryPage>();

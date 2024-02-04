@@ -1420,6 +1420,51 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 No Description 的本地化字符串。
+        /// </summary>
+        public static string Search_List_NoDescription {
+            get {
+                return ResourceManager.GetString("Search_List_NoDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 About {0} results found 的本地化字符串。
+        /// </summary>
+        public static string Search_List_TotalResultNumber {
+            get {
+                return ResourceManager.GetString("Search_List_TotalResultNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Update Time:  的本地化字符串。
+        /// </summary>
+        public static string Search_List_UpdateTime {
+            get {
+                return ResourceManager.GetString("Search_List_UpdateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 No results 的本地化字符串。
+        /// </summary>
+        public static string Search_Query_NoResults {
+            get {
+                return ResourceManager.GetString("Search_Query_NoResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Timeout 的本地化字符串。
+        /// </summary>
+        public static string Search_Query_Timeout {
+            get {
+                return ResourceManager.GetString("Search_Query_Timeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Specify Version 的本地化字符串。
         /// </summary>
         public static string Search_VersionSpecified {
