@@ -29,7 +29,7 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
     [ObservableProperty]
     private int _currentPage = 1;
     [ObservableProperty]
-    private int _maxPage = 0;
+    private int _maxPage = 1;
 
     public void OnNavigatedTo()
     {
@@ -113,7 +113,7 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
             QueryList.Clear();
             TotalResultNumber = "";
             SuccessQueried = false;
-            MaxPage = 0;
+            MaxPage = 1;
         }
     }
 
@@ -125,7 +125,7 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
             QueryList.Clear();
             TotalResultNumber = "";
             SuccessQueried = false;
-            MaxPage = 0;
+            MaxPage = 1;
             CurrentPage = 1;
             QueryPackageName = parameter;
             var result = await packageSearchService.Query(parameter, 1);

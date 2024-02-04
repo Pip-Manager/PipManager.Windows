@@ -37,7 +37,7 @@ public class PackageSearchService(HttpClient httpClient) : IPackageSearchService
             return queryWrapper;
         }
         var pageNode = htmlDocument.DocumentNode.SelectSingleNode("/html/body/main/div/div/div[2]/form/div[3]/div");
-        queryWrapper.MaxPageNumber = pageNode == null ? 0 : int.Parse(pageNode.ChildNodes[^4].InnerText);
+        queryWrapper.MaxPageNumber = pageNode == null ? 1 : int.Parse(pageNode.ChildNodes[^4].InnerText);
 
         try
         {
