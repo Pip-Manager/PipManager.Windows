@@ -1294,6 +1294,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Download 的本地化字符串。
+        /// </summary>
+        public static string LibraryInstall_Requirements_Download {
+            get {
+                return ResourceManager.GetString("LibraryInstall_Requirements_Download", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Download dependencies 的本地化字符串。
         /// </summary>
         public static string LibraryInstall_Requirements_DownloadDependencies {
@@ -1398,6 +1407,24 @@ namespace PipManager.Languages {
         public static string Mask_Loading {
             get {
                 return ResourceManager.GetString("Mask_Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 The newest and compatible version will be selected 的本地化字符串。
+        /// </summary>
+        public static string Search_DefaultVersion {
+            get {
+                return ResourceManager.GetString("Search_DefaultVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Specify Version 的本地化字符串。
+        /// </summary>
+        public static string Search_VersionSpecified {
+            get {
+                return ResourceManager.GetString("Search_VersionSpecified", resourceCulture);
             }
         }
         

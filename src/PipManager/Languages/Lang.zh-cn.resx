@@ -646,4 +646,13 @@
   <data name="Action_Operation_Download" xml:space="preserve">
     <value>下载操作</value>
   </data>
+  <data name="Search_VersionSpecified" xml:space="preserve">
+    <value>指定版本</value>
+  </data>
+  <data name="Search_DefaultVersion" xml:space="preserve">
+    <value>默认选择最新的兼容版本</value>
+  </data>
+  <data name="LibraryInstall_Requirements_Download" xml:space="preserve">
+    <value>下载</value>
+  </data>
 </root>

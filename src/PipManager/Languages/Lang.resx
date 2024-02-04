@@ -646,4 +646,13 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="Action_Operation_Download" xml:space="preserve">
     <value>Download</value>
   </data>
+  <data name="Search_VersionSpecified" xml:space="preserve">
+    <value>Specify Version</value>
+  </data>
+  <data name="Search_DefaultVersion" xml:space="preserve">
+    <value>The newest and compatible version will be selected</value>
+  </data>
+  <data name="LibraryInstall_Requirements_Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
 </root>

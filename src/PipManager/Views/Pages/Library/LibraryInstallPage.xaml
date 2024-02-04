@@ -267,7 +267,7 @@
                             HorizontalAlignment="Right"
                             Appearance="Success"
                             Command="{Binding ViewModel.DownloadDistributionsToActionCommand}"
-                            Content="{I18N {x:Static lang:LangKeys.Library_Operation_Install}}"
+                            Content="{I18N {x:Static lang:LangKeys.LibraryInstall_Requirements_Download}}"
                             Icon="{ui:SymbolIcon ArrowDown24}"
                             IsEnabled="{Binding ViewModel.DownloadDistributionsEnabled}" />
                     </Grid>
