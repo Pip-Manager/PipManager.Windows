@@ -51,8 +51,51 @@
         </Grid>
 
         <Grid Grid.Column="1" Margin="10,0,0,0">
-            <TextBlock Text="Description" FontSize="20" />
-            <ui:TextBox />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="55" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                FontSize="20"
+                Text="Description" />
+            <ui:RichTextBox Grid.Row="1" />
+            <StackPanel
+                Grid.Row="2"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal">
+                <CheckBox x:Name="VersionSpecifiedCheckbox" Content="{I18N {x:Static lang:LangKeys.Search_VersionSpecified}}" />
+                <ComboBox
+                    Width="150"
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center" />
+                <TextBlock
+                    Margin="15,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="15"
+                    Foreground="Gray"
+                    Text="{I18N {x:Static lang:LangKeys.Search_DefaultVersion}}" />
+            </StackPanel>
+            <StackPanel
+                Grid.Row="3"
+                Margin="0,7,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Orientation="Horizontal">
+                <ui:Button
+                    Width="120"
+                    Appearance="Primary"
+                    Content="Install"
+                    Icon="{ui:SymbolIcon Add24}" />
+                <ui:Button
+                    Width="120"
+                    Margin="10,0,0,0"
+                    Appearance="Secondary"
+                    Content="Download"
+                    Icon="{ui:SymbolIcon ArrowDownload24}" />
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>
