@@ -76,7 +76,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                         }
                     case ActionType.InstallByRequirements:
                         {
-                            var requirementsTempFilePath = Path.Combine(AppInfo.CachesDir, $"{currentAction.OperationId}_requirements.txt");
+                            var requirementsTempFilePath = Path.Combine(AppInfo.CachesDir, $"temp_install_requirements_{currentAction.OperationId}.txt");
                             File.WriteAllText(requirementsTempFilePath, currentAction.OperationCommand);
                             currentAction.OperationStatus = $"Installing from requirements.txt";
                             var result = environmentService.InstallByRequirements(requirementsTempFilePath, (sender, eventArgs) =>

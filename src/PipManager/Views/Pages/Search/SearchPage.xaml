@@ -19,10 +19,40 @@
     mc:Ignorable="d">
 
     <Grid>
-        <TextBlock
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="32"
-            Text="{I18N {x:Static lang:LangKeys.Development_Developing}}" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.4*" />
+            <ColumnDefinition Width="0.6*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="37" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="0.12*" />
+                </Grid.ColumnDefinitions>
+                <ui:TextBox
+                    Grid.Column="0"
+                    VerticalAlignment="Stretch"
+                    Icon="{ui:SymbolIcon Search16}"
+                    PlaceholderText="Search..." />
+                <ui:Button
+                    Grid.Column="1"
+                    Margin="5,0,0,0"
+                    VerticalAlignment="Stretch"
+                    Appearance="Success"
+                    FontSize="20"
+                    Icon="{ui:SymbolIcon Search48}" />
+            </Grid>
+
+            <ListView Grid.Row="1" />
+        </Grid>
+
+        <Grid Grid.Column="1" Margin="10,0,0,0">
+            <TextBlock Text="Description" FontSize="20" />
+            <ui:TextBox />
+        </Grid>
     </Grid>
 </Page>

@@ -108,4 +108,28 @@ public partial class AppStarting
             Log.Information($"{crushFileAmount} crush file(s) deleted");
         }
     }
+
+    public void CachesDeletion()
+    {
+        if (!Directory.Exists(AppInfo.CachesDir)) return;
+        var directoryInfo = new DirectoryInfo(AppInfo.CachesDir);
+        var filesInfo = directoryInfo.GetFileSystemInfos();
+        var cacheFileAmount = 0;
+        foreach (var file in filesInfo)
+        {
+            if (file.Name.StartsWith("temp_"))
+            {
+                try
+                {
+                    File.Delete(file.FullName);
+                    cacheFileAmount++;
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+        }
+        Log.Information($"{cacheFileAmount} cache file(s) deleted");
+    }
 }

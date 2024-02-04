@@ -151,6 +151,7 @@ public partial class App
         appStarting.LoadLanguage();
         appStarting.LogDeletion();
         appStarting.CrushesDeletion();
+        appStarting.CachesDeletion();
         Host.Start();
         GetService<IConfigurationService>().DebugMode = _showConsoleWindow;
         GetService<IConfigurationService>().ExperimentMode = _experimentMode;
