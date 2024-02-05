@@ -632,7 +632,7 @@
     <value>默认</value>
   </data>
   <data name="LibraryInstall_Requirements_Header" xml:space="preserve">
-    <value>requirement.txt 导入</value>
+    <value>requirements.txt 导入</value>
   </data>
   <data name="LibraryInstall_Download_Header" xml:space="preserve">
     <value>下载发行文件</value>
