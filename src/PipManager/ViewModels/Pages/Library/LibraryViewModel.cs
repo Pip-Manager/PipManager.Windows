@@ -191,9 +191,9 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             EnvironmentFoundVisible = false;
             return;
         }
-        await Task.Run(() =>
+        await Task.Run(async () =>
         {
-            _library = _environmentService.GetLibraries();
+            _library = await _environmentService.GetLibraries();
         }).ContinueWith(_ =>
         {
             _maskService.Hide();

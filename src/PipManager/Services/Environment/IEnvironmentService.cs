@@ -11,7 +11,7 @@ public interface IEnvironmentService
 
     public ActionResponse CheckEnvironmentAvailable(EnvironmentItem environmentItem);
 
-    public List<PackageItem>? GetLibraries();
+    public Task<List<PackageItem>?> GetLibraries();
 
     public Task<GetVersionsResponse> GetVersions(string packageName);
 

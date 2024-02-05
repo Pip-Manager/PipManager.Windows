@@ -7,10 +7,13 @@ using PipManager.Models.Pages;
 using PipManager.Models.Pypi;
 using PipManager.Services.Configuration;
 using PipManager.Services.Environment.Response;
+using Serilog;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Text.RegularExpressions;
+using System.Windows.Threading;
 using Wpf.Ui.Controls;
 using Path = System.IO.Path;
 
@@ -34,23 +37,23 @@ public partial class EnvironmentService(IConfigurationService configurationServi
             : new ActionResponse { Success = false, Exception = ExceptionType.Environment_Broken };
     }
 
-    public List<PackageItem>? GetLibraries()
+    public async Task<List<PackageItem>?> GetLibraries()
     {
         if (configurationService.AppConfig.CurrentEnvironment is null)
         {
             return null;
         }
 
-        var packageLock = new object();
         var packageDirInfo = new DirectoryInfo(Path.Combine(
             Path.GetDirectoryName(configurationService.AppConfig.CurrentEnvironment!.PythonPath)!,
             @"Lib\site-packages"));
-        var packages = new List<PackageItem>();
+        var packages = new ConcurrentBag<PackageItem>();
         var ioTaskList = new List<Task>();
-        foreach (var distInfoDirectory in packageDirInfo.GetDirectories()
-                     .Where(path => path.Name.EndsWith(".dist-info")).ToList())
+        var distInfoDirectories = packageDirInfo.GetDirectories()
+                     .Where(path => path.Name.EndsWith(".dist-info")).ToList();
+        foreach (var distInfoDirectory in distInfoDirectories)
         {
-            var task = Task.Run(() =>
+            var task = Task.Run(async() =>
             {
                 var distInfoDirectoryFullName = distInfoDirectory.FullName;
                 var distInfoDirectoryName = distInfoDirectory.Name;
@@ -66,7 +69,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 var lastValidKey = "";
                 var lastValidPos = 0;
                 var classifiers = new Dictionary<string, List<string>>();
-                foreach (var line in File.ReadLines(Path.Combine(distInfoDirectoryFullName, "METADATA")))
+                await foreach (var line in File.ReadLinesAsync(Path.Combine(distInfoDirectoryFullName, "METADATA")))
                 {
                     if (line == "")
                     {
@@ -120,7 +123,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 // Record
                 var record = new List<string>();
                 var actualPath = "";
-                foreach (var line in File.ReadLines(Path.Combine(distInfoDirectoryFullName, "RECORD")))
+                await foreach (var line in File.ReadLinesAsync(Path.Combine(distInfoDirectoryFullName, "RECORD")))
                 {
                     var dirIdentifier = line.Split('/')[0];
                     if (dirIdentifier == distInfoDirectoryName || dirIdentifier[0] == '.') continue;
@@ -134,67 +137,60 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 // Extra
                 var projectUrl = metadataDict.GetValueOrDefault("project-url", []);
                 var projectUrlDictionary = new List<LibraryDetailProjectUrlModel>();
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    if (projectUrl.Count != 0)
-                    {
-                        projectUrlDictionary.AddRange(projectUrl.Select(url => new LibraryDetailProjectUrlModel
-                        {
-                            Icon = url.Split(", ")[0].ToLower() switch
-                            {
-                                "homepage" or "home" => new SymbolIcon(SymbolRegular.Home24),
-                                "download" => new SymbolIcon(SymbolRegular.ArrowDownload24),
-                                "changelog" or "changes" or "release notes" => new SymbolIcon(SymbolRegular
-                                    .ClipboardTextEdit24),
-                                "bug tracker" or "issue tracker" or "bug reports" or "issues" or "tracker" =>
-                                    new SymbolIcon(SymbolRegular.Bug24),
-                                "source code" or "source" or "repository" or "code" => new SymbolIcon(SymbolRegular
-                                    .Code24),
-                                "funding" or "donate" or "donations" => new SymbolIcon(SymbolRegular.Money24),
-                                "documentation" => new SymbolIcon(SymbolRegular.Document24),
-                                "commercial" => new SymbolIcon(SymbolRegular.PeopleMoney24),
-                                "support" => new SymbolIcon(SymbolRegular.PersonSupport24),
-                                "chat" or "q & a" => new SymbolIcon(SymbolRegular.ChatHelp24),
-                                _ => new SymbolIcon(SymbolRegular.Link24)
-                            },
-                            UrlType = url.Split(", ")[0],
-                            Url = url.Split(", ")[1]
-                        }));
-                    }
-                    else
-                    {
-                        projectUrlDictionary.Add(new LibraryDetailProjectUrlModel
-                        {
-                            Icon = new SymbolIcon(SymbolRegular.Question24),
-                            UrlType = "Unknown",
-                            Url = ""
-                        });
-                    }
-                });
 
-                lock (packageLock)
+                if (projectUrl.Count != 0)
                 {
-                    packages.Add(new PackageItem
+                    projectUrlDictionary.AddRange(projectUrl.Select(url => new LibraryDetailProjectUrlModel
                     {
-                        Name = packageName,
-                        Version = packageVersion,
-                        DetailedVersion = PackageValidator.CheckVersion(packageVersion),
-                        Path = actualPath,
-                        DistInfoPath = distInfoDirectoryFullName,
-                        Summary = metadataDict.GetValueOrDefault("summary", [""])[0],
-                        Author = metadataDict.GetValueOrDefault("author", []),
-                        AuthorEmail = metadataDict.GetValueOrDefault("author-email", [""])[0],
-                        ProjectUrl = projectUrlDictionary,
-                        Classifier = classifiers,
-                        Metadata = metadataDict,
-                        Record = record
+                        Icon = url.Split(", ")[0].ToLower() switch
+                        {
+                            "homepage" or "home" => SymbolRegular.Home24,
+                            "download" => SymbolRegular.ArrowDownload24,
+                            "changelog" or "changes" or "release notes" => SymbolRegular
+                                .ClipboardTextEdit24,
+                            "bug tracker" or "issue tracker" or "bug reports" or "issues" or "tracker" =>
+                                SymbolRegular.Bug24,
+                            "source code" or "source" or "repository" or "code" => SymbolRegular
+                                .Code24,
+                            "funding" or "donate" or "donations" => SymbolRegular.Money24,
+                            "documentation" => SymbolRegular.Document24,
+                            "commercial" => SymbolRegular.PeopleMoney24,
+                            "support" => SymbolRegular.PersonSupport24,
+                            "chat" or "q & a" => SymbolRegular.ChatHelp24,
+                            _ => SymbolRegular.Link24
+                        },
+                        UrlType = url.Split(", ")[0],
+                        Url = url.Split(", ")[1]
+                    }));
+                }
+                else
+                {
+                    projectUrlDictionary.Add(new LibraryDetailProjectUrlModel
+                    {
+                        Icon = SymbolRegular.Question24,
+                        UrlType = "Unknown",
+                        Url = ""
                     });
                 }
+                packages.Add(new PackageItem
+                {
+                    Name = packageName,
+                    Version = packageVersion,
+                    DetailedVersion = PackageValidator.CheckVersion(packageVersion),
+                    Path = actualPath,
+                    DistInfoPath = distInfoDirectoryFullName,
+                    Summary = metadataDict.GetValueOrDefault("summary", [""])[0],
+                    Author = metadataDict.GetValueOrDefault("author", []),
+                    AuthorEmail = metadataDict.GetValueOrDefault("author-email", [""])[0],
+                    ProjectUrl = projectUrlDictionary,
+                    Classifier = classifiers,
+                    Metadata = metadataDict,
+                    Record = record
+                });
             });
             ioTaskList.Add(task);
         }
-
-        Task.WaitAll([.. ioTaskList]);
+        await Task.WhenAll([.. ioTaskList]);
         return [.. packages.OrderBy(x => x.Name)];
     }
 
