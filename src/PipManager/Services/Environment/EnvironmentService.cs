@@ -11,9 +11,9 @@ using Serilog;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Packaging;
 using System.Net.Http;
 using System.Text.RegularExpressions;
-using System.Windows.Threading;
 using Wpf.Ui.Controls;
 using Path = System.IO.Path;
 
@@ -191,6 +191,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
             ioTaskList.Add(task);
         }
         await Task.WhenAll([.. ioTaskList]);
+        Log.Information($"[EnvironmentService] Found {packages.Count} packages");
         return [.. packages.OrderBy(x => x.Name)];
     }
 
@@ -213,12 +214,15 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 .ThenBy(e => e.Value[0].UploadTime).ToDictionary(pair => pair.Key, pair => pair.Value);
             if (pypiPackageInfo == null || pypiPackageInfo?.Count == 0)
             {
+                Log.Warning($"[EnvironmentService] {packageName} package not found");
                 return new GetVersionsResponse { Status = 1, Versions = [] };
             }
+            Log.Information($"[EnvironmentService] Found {packageName}");
             return new GetVersionsResponse { Status = 0, Versions = pypiPackageInfo?.Keys.ToArray() };
         }
         catch (Exception)
         {
+            Log.Warning($"[EnvironmentService] Unexpected error when get versions of {packageName} package");
             return new GetVersionsResponse { Status = 1, Versions = [] };
         }
     }

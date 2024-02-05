@@ -5,7 +5,6 @@ using PipManager.Services.Mask;
 using PipManager.Services.Toast;
 using Serilog;
 using System.Collections.ObjectModel;
-using System.Reflection.Metadata;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Search;
@@ -122,6 +121,7 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
     {
         if (parameter != null && !string.IsNullOrEmpty(parameter))
         {
+            Log.Information($"[Search] Query: {parameter}");
             QueryList.Clear();
             TotalResultNumber = "";
             SuccessQueried = false;
