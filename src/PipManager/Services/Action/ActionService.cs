@@ -154,13 +154,13 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                     currentAction.ConsoleError = consoleError;
                     ExceptionList.Add(currentAction);
                 }
-                Thread.Sleep(500);
 
                 Application.Current.Dispatcher.Invoke(delegate
                 {
                     ActionList.RemoveAt(0);
                 });
             }
+            Thread.Sleep(500);
         }
     }
 }
