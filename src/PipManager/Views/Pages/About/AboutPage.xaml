@@ -133,17 +133,10 @@
                                         Icon="{ui:SymbolIcon Link24}"
                                         NavigateUri="{Binding LibraryUrl}" />
                                     <StackPanel Margin="5,0,0,0">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                FontSize="14"
-                                                Text="{Binding LibraryName}" />
-                                            <TextBlock FontSize="14" Text=" " />
-                                            <ui:Badge
-                                                Appearance="Primary"
-                                                Content="{Binding LibraryVersion}"
-                                                FontSize="12" />
-                                        </StackPanel>
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="{Binding LibraryName}" />
 
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock
