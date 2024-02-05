@@ -100,7 +100,7 @@
                                             HorizontalAlignment="Center"
                                             Orientation="Horizontal">
                                             <ui:Button
-                                                Command="{Binding ElementName=LibraryInstall, Path=ViewModel.DeleteTaskCommand}"
+                                                Command="{Binding ElementName=LibraryInstall, Path=ViewModel.DeleteDefaultTaskCommand}"
                                                 CommandParameter="{Binding PackageName}"
                                                 Content="{I18N {x:Static lang:LangKeys.Library_Operation_Delete}}" />
                                         </StackPanel>
