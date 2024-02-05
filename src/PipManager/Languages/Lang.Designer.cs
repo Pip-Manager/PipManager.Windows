@@ -781,6 +781,24 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Current:  的本地化字符串。
+        /// </summary>
+        public static string EnvironmentCheckEnvironmentUpdate_CurrentVersion {
+            get {
+                return ResourceManager.GetString("EnvironmentCheckEnvironmentUpdate_CurrentVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Latest:  的本地化字符串。
+        /// </summary>
+        public static string EnvironmentCheckEnvironmentUpdate_LatestVersion {
+            get {
+                return ResourceManager.GetString("EnvironmentCheckEnvironmentUpdate_LatestVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Pip Manager - Unexpected Exception 的本地化字符串。
         /// </summary>
         public static string ExceptionWindow_Title {

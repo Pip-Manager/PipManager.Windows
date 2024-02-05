@@ -111,7 +111,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         await Task.Run(async () =>
         {
             var versions = await environmentService.GetVersions("pip");
-            if (versions.Status != 0)
+            if (versions.Status == 0)
             {
                 latest = versions.Versions!.Last();
             }
@@ -122,7 +122,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         if (latest != current && latest != string.Empty)
         {
             Log.Information($"[Environment] Environment update available ({current} => {latest})");
-            var message = $"{Lang.ContentDialog_Message_FindUpdate}\n\n{current} => {latest}";
+            var message = $"{Lang.ContentDialog_Message_FindUpdate}\n\n{Lang.EnvironmentCheckEnvironmentUpdate_CurrentVersion}{current}\n{Lang.EnvironmentCheckEnvironmentUpdate_LatestVersion}{latest}";
             var result = await contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.Notice(message));
             if (result == ContentDialogResult.Primary)
             {

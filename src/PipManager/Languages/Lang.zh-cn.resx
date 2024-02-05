@@ -670,4 +670,10 @@
   <data name="Search_Query_Timeout" xml:space="preserve">
     <value>查询超时</value>
   </data>
+  <data name="EnvironmentCheckEnvironmentUpdate_CurrentVersion" xml:space="preserve">
+    <value>当前版本: </value>
+  </data>
+  <data name="EnvironmentCheckEnvironmentUpdate_LatestVersion" xml:space="preserve">
+    <value>最新版本: </value>
+  </data>
 </root>

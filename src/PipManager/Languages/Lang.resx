@@ -670,4 +670,10 @@ Other sources are faster to connect to, but may be incomplete.</value>
   <data name="Search_Query_Timeout" xml:space="preserve">
     <value>Timeout</value>
   </data>
+  <data name="EnvironmentCheckEnvironmentUpdate_CurrentVersion" xml:space="preserve">
+    <value>Current: </value>
+  </data>
+  <data name="EnvironmentCheckEnvironmentUpdate_LatestVersion" xml:space="preserve">
+    <value>Latest: </value>
+  </data>
 </root>
