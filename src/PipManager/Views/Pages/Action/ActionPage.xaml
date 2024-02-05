@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:lang="clr-namespace:PipManager.Languages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:pages1="clr-namespace:PipManager.Models.Action"
+    xmlns:pages="clr-namespace:PipManager.Models.Action"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="ActionPage"
     d:DataContext="{d:DesignInstance action:ActionPage,
@@ -35,7 +35,7 @@
             Grid.Row="1"
             ItemsSource="{Binding ViewModel.Actions}">
             <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type pages1:ActionListItem}">
+                <DataTemplate DataType="{x:Type pages:ActionListItem}">
                     <Border
                         Margin="0,5,0,0"
                         Padding="15"

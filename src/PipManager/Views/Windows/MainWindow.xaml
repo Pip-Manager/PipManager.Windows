@@ -112,13 +112,9 @@
             Title="{Binding ViewModel.ApplicationTitle}"
             Grid.Row="0"
             CloseWindowByDoubleClickOnIcon="True"
-            FontSize="14"
             ShowMaximize="False">
             <ui:TitleBar.Icon>
-                <ui:ImageIcon
-                    Width="22"
-                    Height="22"
-                    Source="pack://application:,,,/Assets/icon.png" />
+                <ui:ImageIcon Source="pack://application:,,,/Assets/icon.png" />
             </ui:TitleBar.Icon>
         </ui:TitleBar>
         <tray:NotifyIcon
@@ -129,8 +125,7 @@
             TooltipText="Pip Manager">
             <tray:NotifyIcon.Menu>
                 <ContextMenu>
-                    <MenuItem Click="InstallMenuItem_OnClick" Header="Install" />
-
+                    <MenuItem Click="InstallMenuItem_OnClick" Header="{I18N {x:Static lang:LangKeys.TrayMenu_Install}}" />
                 </ContextMenu>
             </tray:NotifyIcon.Menu>
         </tray:NotifyIcon>
