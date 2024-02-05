@@ -59,25 +59,25 @@
                                     Grid.Column="0"
                                     Content="{I18N {x:Static lang:LangKeys.About_GithubRepo}}"
                                     Icon="{ui:SymbolIcon Link24}"
-                                    NavigateUri="https://github.com/Pip-Manager/PipManager" />
+                                    NavigateUri="https://github.com/AuroraZiling/PipManager" />
                                 <ui:HyperlinkButton
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     Content="{I18N {x:Static lang:LangKeys.About_GithubIssue}}"
                                     Icon="{ui:SymbolIcon Bug24}"
-                                    NavigateUri="https://github.com/Pip-Manager/PipManager/issues" />
+                                    NavigateUri="https://github.com/AuroraZiling/PipManager/issues" />
                                 <ui:HyperlinkButton
                                     Grid.Row="0"
                                     Grid.Column="1"
                                     Content="{I18N {x:Static lang:LangKeys.About_Document}}"
                                     Icon="{ui:SymbolIcon Document24}"
-                                    NavigateUri="http://pipmanager.ziling.space/" />
+                                    NavigateUri="https://pipmanager.dev/" />
                                 <ui:HyperlinkButton
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     Content="{I18N {x:Static lang:LangKeys.About_GithubDiscussion}}"
                                     Icon="{ui:SymbolIcon ArrowUpload24}"
-                                    NavigateUri="https://github.com/Pip-Manager/PipManager/discussions" />
+                                    NavigateUri="https://github.com/AuroraZiling/PipManager/discussions" />
                             </Grid>
                         </StackPanel>
                     </StackPanel>
