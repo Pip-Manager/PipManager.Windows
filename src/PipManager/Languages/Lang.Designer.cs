@@ -1618,8 +1618,7 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   查找类似 The PyPI source contains the most complete library, but the connection is slow.
-        ///Other sources are faster to connect to, but may be incomplete. 的本地化字符串。
+        ///   查找类似 If you are in mainland China, we recommend choosing a non-PyPI source 的本地化字符串。
         /// </summary>
         public static string Settings_PackageSource_Notice {
             get {

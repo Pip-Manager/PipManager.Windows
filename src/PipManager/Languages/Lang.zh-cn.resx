@@ -241,8 +241,7 @@
     <value>提示</value>
   </data>
   <data name="Settings_PackageSource_Notice" xml:space="preserve">
-    <value>PyPI 源包含最完整的库，但是连接速度慢。
-其他源连接速度较快，但可能并不完整。</value>
+    <value>如果你身处中国大陆境内，建议选择非PyPI源</value>
   </data>
   <data name="EnvironmentAdd_Header" xml:space="preserve">
     <value>添加环境</value>

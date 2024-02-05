@@ -241,8 +241,7 @@
     <value>Notice</value>
   </data>
   <data name="Settings_PackageSource_Notice" xml:space="preserve">
-    <value>The PyPI source contains the most complete library, but the connection is slow.
-Other sources are faster to connect to, but may be incomplete.</value>
+    <value>If you are in mainland China, we recommend choosing a non-PyPI source</value>
   </data>
   <data name="EnvironmentAdd_Header" xml:space="preserve">
     <value>Add Environment</value>
