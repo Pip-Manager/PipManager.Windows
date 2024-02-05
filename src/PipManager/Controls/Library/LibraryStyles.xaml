@@ -98,6 +98,6 @@
             VerticalAlignment="Top"
             FontSize="16"
             Text="{I18N {x:Static lang:LangKeys.LibraryInstall_Add_Notice}}" />
-        <TextBox Margin="0,30,0,-30" />
+        <ui:TextBox Margin="0,30,0,-30" />
     </Grid>
 </ResourceDictionary>
