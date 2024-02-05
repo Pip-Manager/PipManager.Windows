@@ -6,9 +6,10 @@ namespace PipManager.PackageSearch;
 public class PackageSearchService(HttpClient httpClient) : IPackageSearchService
 {
     public Dictionary<(string, int), QueryWrapper> QueryCaches { get; set; } = [];
-    public async Task<QueryWrapper> Query(string name, int page=1)
+
+    public async Task<QueryWrapper> Query(string name, int page = 1)
     {
-        if(QueryCaches.ContainsKey((name, page)))
+        if (QueryCaches.ContainsKey((name, page)))
         {
             return QueryCaches[(name, page)];
         }
@@ -17,7 +18,7 @@ public class PackageSearchService(HttpClient httpClient) : IPackageSearchService
         {
             htmlContent = await httpClient.GetStringAsync($"https://pypi.org/search/?q={name}&page={page}");
         }
-        catch (Exception exception) when (exception is TaskCanceledException || exception is HttpRequestException) 
+        catch (Exception exception) when (exception is TaskCanceledException || exception is HttpRequestException)
         {
             return new QueryWrapper
             {

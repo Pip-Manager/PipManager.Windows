@@ -17,7 +17,7 @@ public class MaskService : IMaskService
 
     public MaskPresenter GetMaskPresenter() => _presenter ?? throw new ArgumentNullException("The MaskPresenter didn't set previously.");
 
-    public void Show(string message="")
+    public void Show(string message = "")
     {
         if (_presenter == null || _grid == null)
             throw new ArgumentNullException("The MaskPresenter didn't set previously.");

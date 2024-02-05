@@ -15,18 +15,25 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
 
     [ObservableProperty]
     private ObservableCollection<QueryListItemModel> _queryList = [];
+
     [ObservableProperty]
     private string _queryPackageName = "";
+
     [ObservableProperty]
     private string _totalResultNumber = "";
+
     [ObservableProperty]
     private bool _successQueried = false;
+
     [ObservableProperty]
     private bool _reachesFirstPage = true;
+
     [ObservableProperty]
     private bool _reachesLastPage = false;
+
     [ObservableProperty]
     private int _currentPage = 1;
+
     [ObservableProperty]
     private int _maxPage = 1;
 
@@ -49,12 +56,12 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
     [RelayCommand]
     public async Task ToPreviousPage()
     {
-        if(CurrentPage == 1)
+        if (CurrentPage == 1)
         {
             return;
         }
         maskService.Show();
-        var result = await packageSearchService.Query(QueryPackageName, CurrentPage-1);
+        var result = await packageSearchService.Query(QueryPackageName, CurrentPage - 1);
         Process(result);
         maskService.Hide();
         CurrentPage--;
@@ -64,12 +71,12 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
     [RelayCommand]
     public async Task ToNextPage()
     {
-        if(CurrentPage == MaxPage)
+        if (CurrentPage == MaxPage)
         {
             return;
         }
         maskService.Show();
-        var result = await packageSearchService.Query(QueryPackageName, CurrentPage+1);
+        var result = await packageSearchService.Query(QueryPackageName, CurrentPage + 1);
         Process(result);
         maskService.Hide();
         CurrentPage++;

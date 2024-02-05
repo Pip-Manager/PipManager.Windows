@@ -11,7 +11,6 @@ using Serilog;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Packaging;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using Wpf.Ui.Controls;
@@ -53,7 +52,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                      .Where(path => path.Name.EndsWith(".dist-info")).ToList();
         foreach (var distInfoDirectory in distInfoDirectories)
         {
-            var task = Task.Run(async() =>
+            var task = Task.Run(async () =>
             {
                 var distInfoDirectoryFullName = distInfoDirectory.FullName;
                 var distInfoDirectoryName = distInfoDirectory.Name;

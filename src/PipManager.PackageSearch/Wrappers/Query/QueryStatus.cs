@@ -1,6 +1,4 @@
-﻿
-
-namespace PipManager.PackageSearch.Wrappers.Query;
+﻿namespace PipManager.PackageSearch.Wrappers.Query;
 
 public enum QueryStatus
 {
@@ -8,4 +6,3 @@ public enum QueryStatus
     NoResults,
     Timeout
 }
-

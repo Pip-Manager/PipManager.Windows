@@ -7,4 +7,3 @@ public class QueryListItemModel
     public required string Description { get; set; }
     public DateTime UpdateTime { get; set; }
 }
-

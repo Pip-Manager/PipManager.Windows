@@ -44,8 +44,8 @@
                 Command="{Binding ViewModel.SearchCommand}"
                 CommandParameter="{Binding ElementName=SearchTextBox, Path=Text}"
                 FontSize="20"
-                Icon="{ui:SymbolIcon Search48}" 
-                IsDefault="True"/>
+                Icon="{ui:SymbolIcon Search48}"
+                IsDefault="True" />
         </Grid>
 
         <ListView

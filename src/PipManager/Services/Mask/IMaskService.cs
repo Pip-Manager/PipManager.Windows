@@ -8,7 +8,7 @@ public interface IMaskService
 
     public MaskPresenter GetMaskPresenter();
 
-    public void Show(string message="");
+    public void Show(string message = "");
 
     public void Hide();
 }
