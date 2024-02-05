@@ -35,8 +35,7 @@
                 x:Name="SearchTextBox"
                 Grid.Column="0"
                 VerticalAlignment="Stretch"
-                Icon="{ui:SymbolIcon Search16}"
-                PlaceholderText="Search..." />
+                Icon="{ui:SymbolIcon Search16}" />
             <ui:Button
                 Grid.Column="2"
                 Margin="5,0,0,0"
