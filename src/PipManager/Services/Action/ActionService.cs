@@ -29,6 +29,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                 var errorDetection = false;
                 var consoleError = "\n";
                 var currentAction = ActionList[0];
+                currentAction.ConsoleOutput = Lang.Action_ConsoleOutput_Empty;
                 switch (currentAction.OperationType)
                 {
                     case ActionType.Uninstall:
@@ -154,7 +155,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                     currentAction.ConsoleError = consoleError;
                     ExceptionList.Add(currentAction);
                 }
-
+                Thread.Sleep(100);
                 Application.Current.Dispatcher.Invoke(delegate
                 {
                     ActionList.RemoveAt(0);
