@@ -76,21 +76,14 @@ Double click `PipManager.exe` or `PipManager_withRuntime.exe` *If you have not i
 
 ## Roadmap
 
-### Infrastructure
-
-- [x] Navigation Service
-- [x] Logging Service
-- [x] Crushes Logging
-- [x] Settings Service
-- [x] System Tray Menu
-- [x] Localization Support
-
 ### Features
 
 - [x] Install Package
     - [x] Default *pip install*
     - [x] requirements.txt Import
     - [x] Download Distributions
+    - [ ] Install via distributions
+    - [ ] Install via VCS
 - [x] Update Package
 - [x] Delete Package
 - [x] Show Packages in list
@@ -99,6 +92,8 @@ Double click `PipManager.exe` or `PipManager_withRuntime.exe` *If you have not i
 - [ ] Dependency Completion Check
 - [ ] Scenario Recommendation
 - [ ] Cache Management
+- [ ] Tools
+    - [ ] Embedded Lite Python Script Editor
 
 ### Long-term
 
