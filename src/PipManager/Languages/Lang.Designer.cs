@@ -1465,6 +1465,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Details 的本地化字符串。
+        /// </summary>
+        public static string Search_Operation_Details {
+            get {
+                return ResourceManager.GetString("Search_Operation_Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 No results 的本地化字符串。
         /// </summary>
         public static string Search_Query_NoResults {
@@ -1488,6 +1497,15 @@ namespace PipManager.Languages {
         public static string Search_VersionSpecified {
             get {
                 return ResourceManager.GetString("Search_VersionSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Details 的本地化字符串。
+        /// </summary>
+        public static string SearchDetail_Header {
+            get {
+                return ResourceManager.GetString("SearchDetail_Header", resourceCulture);
             }
         }
         

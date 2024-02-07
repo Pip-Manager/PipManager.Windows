@@ -12,6 +12,7 @@ using PipManager.ViewModels.Pages.Action;
 using PipManager.ViewModels.Pages.Environment;
 using PipManager.ViewModels.Pages.Lab;
 using PipManager.ViewModels.Pages.Library;
+using PipManager.ViewModels.Pages.Search;
 using PipManager.ViewModels.Pages.Tools;
 using PipManager.ViewModels.Windows;
 using PipManager.Views.Pages.About;
@@ -93,6 +94,9 @@ public partial class App
 
             services.AddSingleton<SearchPage>();
             services.AddSingleton<SearchViewModel>();
+            services.AddSingleton<SearchDetailPage>();
+            services.AddSingleton<SearchDetailViewModel>();
+
             services.AddSingleton<ToolsPage>();
             services.AddSingleton<ToolsViewModel>();
             services.AddSingleton<LabPage>();

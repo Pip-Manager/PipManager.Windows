@@ -1,15 +1,19 @@
-﻿using PipManager.Languages;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using PipManager.Languages;
 using PipManager.PackageSearch;
 using PipManager.PackageSearch.Wrappers.Query;
 using PipManager.Services.Mask;
 using PipManager.Services.Toast;
+using PipManager.Views.Pages.Search;
 using Serilog;
 using System.Collections.ObjectModel;
+using Wpf.Ui;
 using Wpf.Ui.Controls;
+using static PipManager.ViewModels.Pages.Search.SearchDetailViewModel;
 
 namespace PipManager.ViewModels.Pages.Search;
 
-public partial class SearchViewModel(IPackageSearchService packageSearchService, IToastService toastService, IMaskService maskService) : ObservableObject, INavigationAware
+public partial class SearchViewModel(IPackageSearchService packageSearchService, IToastService toastService, IMaskService maskService, INavigationService navigationService) : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
 
@@ -52,6 +56,20 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
         _isInitialized = true;
         Log.Information("[Search] Initialized");
     }
+
+    #region Details
+
+    [RelayCommand]
+    private void ToDetailPage(object parameter)
+    {
+        if (QueryList is null) return;
+        navigationService.NavigateWithHierarchy(typeof(SearchDetailPage));
+        var current = QueryList.Where(searchListItem => searchListItem.Name == parameter as string).ToList()[0];
+        WeakReferenceMessenger.Default.Send(new SearchDetailMessage(current));
+        Log.Information($"[Search] Turn to detail page: {current.Name}");
+    }
+
+    #endregion Details
 
     [RelayCommand]
     public async Task ToPreviousPage()

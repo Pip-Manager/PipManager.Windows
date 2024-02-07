@@ -1,5 +1,6 @@
 ﻿using HtmlAgilityPack;
 using PipManager.PackageSearch.Wrappers.Query;
+using Serilog;
 
 namespace PipManager.PackageSearch;
 
@@ -51,6 +52,7 @@ public class PackageSearchService(HttpClient httpClient) : IPackageSearchService
                     Name = resultItem.ChildNodes[1].ChildNodes[1].InnerText,
                     Version = resultItem.ChildNodes[1].ChildNodes[3].InnerText,
                     Description = resultItem.ChildNodes[3].InnerText,
+                    Url = $"https://pypi.org{resultItem.Attributes["href"].Value}",
                     UpdateTime = DateTime.ParseExact(resultItem.ChildNodes[1].ChildNodes[5].ChildNodes[0].Attributes["datetime"].Value, "yyyy-MM-ddTHH:mm:sszzz", null, System.Globalization.DateTimeStyles.RoundtripKind)
                 });
             }

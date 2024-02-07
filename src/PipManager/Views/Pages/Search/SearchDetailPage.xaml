@@ -1,0 +1,25 @@
+﻿<Page
+    x:Class="PipManager.Views.Pages.Search.SearchDetailPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:PipManager.Languages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:search="clr-namespace:PipManager.Views.Pages.Search"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    x:Name="SearchDetail"
+    Title="SearchDetailPage"
+    d:DataContext="{d:DesignInstance search:SearchDetailPage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="700"
+    d:DesignWidth="1200"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    ui:NavigationView.HeaderContent="{I18N {x:Static lang:LangKeys.SearchDetail_Header}}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    mc:Ignorable="d">
+
+    <Grid Margin="0,0,0,20">
+        <TextBlock Text="{Binding ViewModel.Package.Name}" />
+    </Grid>
+</Page>
