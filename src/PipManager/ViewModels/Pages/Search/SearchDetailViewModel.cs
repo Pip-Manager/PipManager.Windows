@@ -1,9 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using PipManager.Languages;
-using PipManager.Models.Package;
-using PipManager.Models.Pages;
 using PipManager.PackageSearch.Wrappers.Query;
-using System.Collections.ObjectModel;
+using Serilog;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
@@ -28,10 +25,12 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     {
         if (!_isInitialized)
             InitializeViewModel();
+        _navigationService.GetNavigationControl().BreadcrumbBar!.Visibility = Visibility.Collapsed;
     }
 
     public void OnNavigatedFrom()
     {
+        _navigationService.GetNavigationControl().BreadcrumbBar!.Visibility = Visibility.Visible;
     }
 
     private void InitializeViewModel()

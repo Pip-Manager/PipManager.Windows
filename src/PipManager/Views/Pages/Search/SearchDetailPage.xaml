@@ -19,7 +19,45 @@
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
 
-    <Grid Margin="0,0,0,20">
-        <TextBlock Text="{Binding ViewModel.Package.Name}" />
+    <Grid Margin="0,36,0,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border
+            Padding="20"
+            Background="DodgerBlue"
+            CornerRadius="7">
+            <Grid>
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="28" Text="{Binding ViewModel.Package.Name}" />
+                        <TextBlock
+                            Margin="10,0,0,0"
+                            FontSize="28"
+                            Text="{Binding ViewModel.Package.Version}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Latest Updated: " />
+                        <TextBlock Margin="10,0,0,0" Text="{Binding ViewModel.Package.UpdateTime}" />
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <ui:Button
+                        Appearance="Secondary"
+                        Content="Download Distributions"
+                        Icon="{ui:SymbolIcon ArrowCircleDown24}" />
+                    <ui:Button
+                        Margin="15,0,0,0"
+                        Appearance="Success"
+                        Content="Install"
+                        Icon="{ui:SymbolIcon AddCircle24}" />
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

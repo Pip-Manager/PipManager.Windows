@@ -63,7 +63,7 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
     private void ToDetailPage(object parameter)
     {
         if (QueryList is null) return;
-        navigationService.NavigateWithHierarchy(typeof(SearchDetailPage));
+        navigationService.Navigate(typeof(SearchDetailPage));
         var current = QueryList.Where(searchListItem => searchListItem.Name == parameter as string).ToList()[0];
         WeakReferenceMessenger.Default.Send(new SearchDetailMessage(current));
         Log.Information($"[Search] Turn to detail page: {current.Name}");
