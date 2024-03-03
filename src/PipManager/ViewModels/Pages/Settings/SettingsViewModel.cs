@@ -209,7 +209,6 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     }
 
     #endregion Theme
-
     #region Log and Crushes Auto Deletion
 
     [ObservableProperty] private bool _logAutoDeletion;
