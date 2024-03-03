@@ -21,16 +21,22 @@
 
     <Grid Margin="0,36,0,20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
+            <RowDefinition Height="180" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        
+        <Border Grid.Row="0" Padding="20" Background="SteelBlue" CornerRadius="7">
+            <TextBlock Margin="0, 100, 0, 0" TextWrapping="Wrap" Text="{Binding ViewModel.Package.Description}"></TextBlock>
+        </Border>
         <Border
+            Grid.Row="0"
+            VerticalAlignment="Top"
+            Height="100"
             Padding="20"
             Background="DodgerBlue"
             CornerRadius="7">
             <Grid>
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
-
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontSize="28" Text="{Binding ViewModel.Package.Name}" />
                         <TextBlock
