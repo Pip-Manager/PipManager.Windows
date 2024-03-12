@@ -18,6 +18,7 @@ public interface IConfigurationService
 
     public string FindPythonPathByPipDir(string pipDir);
 
+    public EnvironmentItem? GetEnvironmentItem(string pythonPath);
     public EnvironmentItem? GetEnvironmentItemFromCommand(string command, string arguments);
 
     public void RefreshAllEnvironmentVersions();

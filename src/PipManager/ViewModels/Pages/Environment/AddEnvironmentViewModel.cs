@@ -77,7 +77,7 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
                 if (!item.Contains("Python") || item.Contains("Scripts") ||
                     !File.Exists(Path.Combine(item, "python.exe"))) continue;
                 var environmentItem =
-                    _configurationService.GetEnvironmentItemFromCommand(Path.Combine(item, "python.exe"), "-m pip -V");
+                    _configurationService.GetEnvironmentItem(Path.Combine(item, "python.exe"));
                 if (environmentItem == null) continue;
                 EnvironmentItems.Add(environmentItem);
             }
@@ -190,7 +190,7 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
                 }
             case 2:
                 {
-                    var result = _configurationService.GetEnvironmentItemFromCommand(PythonPath, "-m pip -V");
+                    var result = _configurationService.GetEnvironmentItem(PythonPath);
                     if (result != null)
                     {
                         var alreadyExists = _environmentService.CheckEnvironmentExists(result);

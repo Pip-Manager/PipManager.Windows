@@ -4,10 +4,11 @@ using PipManager.Models.AppConfigModels;
 using PipManager.Models.Package;
 using System.Diagnostics;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace PipManager.Services.Configuration;
 
-public class ConfigurationService : IConfigurationService
+public partial class ConfigurationService : IConfigurationService
 {
     public AppConfig AppConfig { get; set; } = LoadConfiguration();
     public bool ExperimentMode { get; set; }
@@ -42,6 +43,19 @@ public class ConfigurationService : IConfigurationService
         }
 
         return pipExePath;
+    }
+    
+    [GeneratedRegex("__version__ = \"(.*?)\"", RegexOptions.IgnoreCase, "zh-CN")]
+    private static partial Regex GetPipVersionInInitFile();
+
+    public EnvironmentItem? GetEnvironmentItem(string pythonPath)
+    {
+        var pythonVersion = FileVersionInfo.GetVersionInfo(pythonPath).FileVersion!; 
+        var pythonDirectory = Directory.GetParent(pythonPath)!.FullName;
+        var pipDirectory = Path.Combine(pythonDirectory, @"Lib\site-packages");
+        var pipDir = Directory.GetDirectories(pipDirectory, "pip")[0];
+        var pipVersion = GetPipVersionInInitFile().Match(File.ReadAllText(Path.Combine(pipDir, @"__init__.py"))).Groups[1].Value;
+        return pipDir.Length > 0 ? new EnvironmentItem(pipVersion, pythonPath, pythonVersion) : null;
     }
 
     public EnvironmentItem? GetEnvironmentItemFromCommand(string command, string arguments)
@@ -105,7 +119,7 @@ public class ConfigurationService : IConfigurationService
     {
         foreach (var item in AppConfig.EnvironmentItems)
         {
-            var environmentItem = GetEnvironmentItemFromCommand(item.PythonPath!, "-m pip -V");
+            var environmentItem = GetEnvironmentItem(item.PythonPath!);
             if (environmentItem != null)
             {
                 item.PipVersion = environmentItem.PipVersion;
