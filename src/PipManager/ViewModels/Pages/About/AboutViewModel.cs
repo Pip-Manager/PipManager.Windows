@@ -42,6 +42,7 @@ public partial class AboutViewModel(IConfigurationService configurationService) 
         new AboutNugetLibraryListItem("Microsoft.Xaml.Behaviors.Wpf", "MIT", "Copyright (c) 2015 Microsoft", "https://github.com/microsoft/XamlBehaviorsWpf"),
         new AboutNugetLibraryListItem("Newtonsoft.Json", "MIT", "Copyright (c) 2007 James Newton-King", "https://github.com/JamesNK/Newtonsoft.Json"),
         new AboutNugetLibraryListItem("Serilog", "Apache-2.0", "Copyright © 2013-2020 Serilog Contributors", "https://github.com/serilog/serilog"),
+        new AboutNugetLibraryListItem("Serilog.Extensions.Logging", "Apache-2.0", "Copyright © 2013-2020 Serilog Contributors", "https://github.com/serilog/serilog-extensions-logging"),
         new AboutNugetLibraryListItem("Serilog.Sinks.Console", "Apache-2.0", "Copyright © 2016 Serilog Contributors", "https://github.com/serilog/serilog-sinks-console"),
         new AboutNugetLibraryListItem("Serilog.Sinks.File", "Apache-2.0", "Copyright © 2016 Serilog Contributors", "https://github.com/serilog/serilog-sinks-file"),
         new AboutNugetLibraryListItem("ValueConverters", "MIT", "Copyright (c) 2019 Thomas Galliker", "https://github.com/thomasgalliker/ValueConverters.NET"),

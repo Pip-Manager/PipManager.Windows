@@ -31,6 +31,7 @@ using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
+using Microsoft.Extensions.Logging;
 using Wpf.Ui;
 using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
 using ActionViewModel = PipManager.ViewModels.Pages.Action.ActionViewModel;
@@ -47,6 +48,11 @@ public partial class App
 {
     private static readonly IHost Host = Microsoft.Extensions.Hosting.Host
         .CreateDefaultBuilder()
+        .ConfigureLogging(logging =>
+        {
+            logging.ClearProviders();
+            logging.AddSerilog();
+        })
         .ConfigureAppConfiguration(c => { c.SetBasePath(AppContext.BaseDirectory); })
         .ConfigureServices((_, services) =>
         {
