@@ -28,6 +28,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="Antelcat.I18N.WPF" Version="1.0.1" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.59" />
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2365.46" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Serilog" Version="3.1.1" />

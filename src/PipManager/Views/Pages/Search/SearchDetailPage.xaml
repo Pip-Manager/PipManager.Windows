@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:search="clr-namespace:PipManager.Views.Pages.Search"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
     x:Name="SearchDetail"
     Title="SearchDetailPage"
     d:DataContext="{d:DesignInstance search:SearchDetailPage,
@@ -19,34 +20,70 @@
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
 
-    <Grid Margin="0,36,0,20">
+    <Grid Margin="0,36,0,15" Background="{Binding ViewModel.ThemeTypeInHex}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
-        <Border Grid.Row="0" Padding="20" Background="SteelBlue" CornerRadius="7">
-            <TextBlock Margin="0, 100, 0, 0" TextWrapping="Wrap" Text="{Binding ViewModel.Package.Description}"></TextBlock>
+
+        <Border
+            Grid.Row="1"
+            Margin="0,-8,0,0"
+            BorderBrush="Gray"
+            BorderThickness="4,0,4,4"
+            CornerRadius="3">
+            <Grid>
+                <ui:ProgressRing
+                    Width="100"
+                    Height="100"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Visibility="{Binding ViewModel.ProjectDescriptionVisibility, Converter={StaticResource InverseBoolToVisibility}}" IsIndeterminate="True" />
+                <wpf:WebView2
+                    x:Name="SearchDetailProjectDesciptionWebView"
+                    Margin="0,8,0,0"
+                    CoreWebView2InitializationCompleted="SearchDetailProjectDesciptionWebView_CoreWebView2InitializationCompleted"
+                    NavigationStarting="SearchDetailProjectDesciptionWebView_NavigationStarting"
+                    Visibility="{Binding ViewModel.ProjectDescriptionVisibility, Converter={StaticResource BoolToVisibility}}" />
+            </Grid>
         </Border>
         <Border
             Grid.Row="0"
-            VerticalAlignment="Top"
+            Padding="20"
+            Background="SteelBlue"
+            CornerRadius="7">
+            <TextBlock
+                Margin="0,100,0,0"
+                Foreground="White"
+                Text="{Binding ViewModel.Package.Description}"
+                TextWrapping="Wrap" />
+        </Border>
+        <Border
+            Grid.Row="0"
             Height="100"
             Padding="20"
+            VerticalAlignment="Top"
             Background="DodgerBlue"
             CornerRadius="7">
             <Grid>
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock FontSize="28" Text="{Binding ViewModel.Package.Name}" />
+                        <TextBlock
+                            FontSize="28"
+                            Foreground="White"
+                            Text="{Binding ViewModel.Package.Name}" />
                         <TextBlock
                             Margin="10,0,0,0"
                             FontSize="28"
+                            Foreground="White"
                             Text="{Binding ViewModel.Package.Version}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Latest Updated: " />
-                        <TextBlock Margin="10,0,0,0" Text="{Binding ViewModel.Package.UpdateTime}" />
+                        <TextBlock Foreground="White" Text="Latest Updated: " />
+                        <TextBlock
+                            Margin="10,0,0,0"
+                            Foreground="White"
+                            Text="{Binding ViewModel.Package.UpdateTime}" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel
@@ -65,6 +102,5 @@
                 </StackPanel>
             </Grid>
         </Border>
-        
     </Grid>
 </Page>

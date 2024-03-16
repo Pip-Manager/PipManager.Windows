@@ -681,4 +681,7 @@
   <data name="SearchDetail_Header" xml:space="preserve">
     <value>Details</value>
   </data>
+  <data name="SearchDetail_ProjectDescription_LoadFailed" xml:space="preserve">
+    <value>Project description not available online</value>
+  </data>
 </root>
