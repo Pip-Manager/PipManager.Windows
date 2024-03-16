@@ -28,7 +28,7 @@
     </Page.Resources>
 
     <StackPanel Margin="0,0,0,20">
-        <!-- Package Source -->
+        <!--  Package Source  -->
         <TextBlock
             FontSize="20"
             FontWeight="Medium"
@@ -110,13 +110,13 @@
             Command="{Binding ViewModel.TestNetworkCommand}"
             Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_NetworkTest}}"
             Icon="{ui:SymbolIcon NetworkCheck20}" />
-        
+
         <TextBlock
             Margin="0,12,0,0"
             FontSize="20"
             FontWeight="Medium"
             Text="{I18N {x:Static lang:LangKeys.Settings_Category_Personalization}}" />
-        <!-- Personalization - Language -->
+        <!--  Personalization - Language  -->
         <TextBlock Margin="0,12,0,0" Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_Language}}" />
         <ComboBox
             x:Name="LanguageComboBox"
@@ -131,9 +131,9 @@
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </ComboBox>
-        <!-- Personalization - Theme -->
+        <!--  Personalization - Theme  -->
         <TextBlock Margin="0,12,0,0" Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_Theme}}" />
-        <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+        <StackPanel Margin="0,8,0,0" Orientation="Horizontal">
             <RadioButton
                 Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
                 CommandParameter="light"
@@ -148,7 +148,7 @@
                 GroupName="themeSelect"
                 IsChecked="{Binding ViewModel.CurrentTheme, Converter={StaticResource ThemeEnumToBooleanConverter}, ConverterParameter=Dark, Mode=TwoWay}" />
         </StackPanel>
-        <!-- Personalization - Log Auto Deletion -->
+        <!--  Personalization - Log Auto Deletion  -->
         <TextBlock Margin="0,12,0,0" Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_LogAutoDeletion}}" />
         <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
             <ui:ToggleSwitch
@@ -181,7 +181,7 @@
                 </TextBlock.Text>
             </TextBlock>
         </StackPanel>
-        <!-- Personalization - Crushes Auto Deletion -->
+        <!--  Personalization - Crushes Auto Deletion  -->
         <TextBlock Margin="0,12,0,0" Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_CrushesAutoDeletion}}" />
         <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
             <ui:ToggleSwitch
@@ -214,7 +214,15 @@
                 </TextBlock.Text>
             </TextBlock>
         </StackPanel>
-        <!-- File Management -->
+        <!--  Personalization - WebView Settings  -->
+        <TextBlock Margin="0,12,0,0" Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_WebViewSettings}}" />
+        <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
+            <ui:Button
+                Command="{Binding ViewModel.WebViewClearCacheCommand}"
+                Content="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_WebViewSettings_ClearCache}}"
+                Icon="{ui:SymbolIcon Delete24}" />
+        </StackPanel>
+        <!--  File Management  -->
         <TextBlock
             Margin="0,12,0,0"
             FontSize="20"

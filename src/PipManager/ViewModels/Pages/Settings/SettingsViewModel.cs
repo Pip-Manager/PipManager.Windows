@@ -3,6 +3,7 @@ using PipManager.Languages;
 using PipManager.Models;
 using PipManager.Models.Package;
 using PipManager.Services.Configuration;
+using PipManager.Services.Toast;
 using PipManager.Views.Pages.About;
 using PipManager.Views.Pages.Settings;
 using Serilog;
@@ -24,14 +25,16 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     private readonly IConfigurationService _configurationService;
     private readonly IThemeService _themeService;
     private readonly INavigationService _navigationService;
+    private readonly IToastService _toastService;
 
-    public SettingsViewModel(ISnackbarService snackbarService, IConfigurationService configurationService, IThemeService themeService, INavigationService navigationService)
+    public SettingsViewModel(ISnackbarService snackbarService, IConfigurationService configurationService, IThemeService themeService, INavigationService navigationService, IToastService toastService)
     {
         _httpClient = App.GetService<HttpClient>();
         _snackbarService = snackbarService;
         _configurationService = configurationService;
         _themeService = themeService;
         _navigationService = navigationService;
+        _toastService = toastService;
 
         foreach (var languagePair in GetLanguage.LanguageList)
         {
@@ -250,6 +253,27 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     }
 
     #endregion Log and Crushes Auto Deletion
+
+    #region WebView
+
+    [RelayCommand]
+    private void WebViewClearCache()
+    {
+        try
+        {
+            Directory.Delete(Path.Combine(AppInfo.CachesDir, "EBWebView"), true);
+            _toastService.Success(Lang.Settings_PersonalizationTitle_WebViewSettings_CacheCleared);
+            Log.Information($"[Settings] WebView cache removed");
+        }
+        catch (DirectoryNotFoundException) {
+            _toastService.Success(Lang.Settings_PersonalizationTitle_WebViewSettings_CacheCleared);
+        }catch (IOException)
+        {
+            _toastService.Error(Lang.Settings_PersonalizationTitle_WebViewSettings_CacheIsUsing);
+        }
+    }
+
+    #endregion
 
     #region File Management
 

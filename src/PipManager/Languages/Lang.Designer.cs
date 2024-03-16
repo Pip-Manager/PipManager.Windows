@@ -1744,6 +1744,42 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 WebView2 Settings 的本地化字符串。
+        /// </summary>
+        public static string Settings_PersonalizationTitle_WebViewSettings {
+            get {
+                return ResourceManager.GetString("Settings_PersonalizationTitle_WebViewSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Cache cleared 的本地化字符串。
+        /// </summary>
+        public static string Settings_PersonalizationTitle_WebViewSettings_CacheCleared {
+            get {
+                return ResourceManager.GetString("Settings_PersonalizationTitle_WebViewSettings_CacheCleared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 WebView still in use, cannot clear cache 的本地化字符串。
+        /// </summary>
+        public static string Settings_PersonalizationTitle_WebViewSettings_CacheIsUsing {
+            get {
+                return ResourceManager.GetString("Settings_PersonalizationTitle_WebViewSettings_CacheIsUsing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Clear Cache 的本地化字符串。
+        /// </summary>
+        public static string Settings_PersonalizationTitle_WebViewSettings_ClearCache {
+            get {
+                return ResourceManager.GetString("Settings_PersonalizationTitle_WebViewSettings_ClearCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Changes will take effect after the application is restarted 的本地化字符串。
         /// </summary>
         public static string Snackbar_effectAfterRestart {

@@ -684,4 +684,16 @@
   <data name="SearchDetail_ProjectDescription_LoadFailed" xml:space="preserve">
     <value>Project description not available online</value>
   </data>
+  <data name="Settings_PersonalizationTitle_WebViewSettings" xml:space="preserve">
+    <value>WebView2 Settings</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_WebViewSettings_ClearCache" xml:space="preserve">
+    <value>Clear Cache</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_WebViewSettings_CacheCleared" xml:space="preserve">
+    <value>Cache cleared</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_WebViewSettings_CacheIsUsing" xml:space="preserve">
+    <value>WebView still in use, cannot clear cache</value>
+  </data>
 </root>

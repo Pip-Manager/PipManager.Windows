@@ -684,4 +684,16 @@
   <data name="SearchDetail_ProjectDescription_LoadFailed" xml:space="preserve">
     <value>无法在线获取项目描述</value>
   </data>
+  <data name="Settings_PersonalizationTitle_WebViewSettings" xml:space="preserve">
+    <value>WebView2 设置</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_WebViewSettings_ClearCache" xml:space="preserve">
+    <value>清除缓存</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_WebViewSettings_CacheCleared" xml:space="preserve">
+    <value>缓存已清除</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_WebViewSettings_CacheIsUsing" xml:space="preserve">
+    <value>WebView仍在使用，无法清除缓存</value>
+  </data>
 </root>
