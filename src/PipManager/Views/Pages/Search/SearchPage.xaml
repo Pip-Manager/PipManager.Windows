@@ -70,7 +70,7 @@
                                     Text="{Binding Version}" />
                             </StackPanel>
                             <TextBlock
-                                Width="1050"
+                                Width="900"
                                 HorizontalAlignment="Left"
                                 FontSize="12"
                                 Foreground="Gray"
