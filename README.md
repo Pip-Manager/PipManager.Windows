@@ -88,7 +88,7 @@ Double click `PipManager.exe` or `PipManager_withRuntime.exe` *If you have not i
 - [x] Delete Package
 - [x] Show Packages in list
 - [x] Multi-environment Management
-- [ ] Search Package
+- [x] Search Package
 - [ ] Dependency Completion Check
 - [ ] Scenario Recommendation
 - [ ] Cache Management
