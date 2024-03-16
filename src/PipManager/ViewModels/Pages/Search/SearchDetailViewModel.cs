@@ -1,15 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using HtmlAgilityPack;
+using Microsoft.Web.WebView2.Core;
+using PipManager.Languages;
 using PipManager.PackageSearch.Wrappers.Query;
+using PipManager.Services.Toast;
 using PipManager.Views.Pages.Search;
 using Serilog;
+using System.Drawing;
 using System.Net.Http;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
-using HtmlAgilityPack;
-using System.Drawing;
-using Microsoft.Web.WebView2.Core;
-using PipManager.Services.Toast;
-using PipManager.Languages;
 
 namespace PipManager.ViewModels.Pages.Search;
 
@@ -26,8 +26,10 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     private bool _projectDescriptionVisibility = false;
 
     private string _themeType = "light";
+
     [ObservableProperty]
     private string _themeTypeInHex = "#FAFAFA";
+
     private int _themeTypeInInteger = 16448250;
 
     private const string _htmlModel = """
@@ -57,7 +59,6 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
         _toastService = toastService;
 
         WeakReferenceMessenger.Default.Register<SearchDetailMessage>(this, Receive);
-
     }
 
     public void OnNavigatedTo()
@@ -72,6 +73,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
                 ThemeTypeInHex = "#FFFFFF";
                 _themeTypeInInteger = 16777215;
                 break;
+
             case Wpf.Ui.Appearance.ApplicationTheme.Dark:
                 _themeType = "dark";
                 ThemeTypeInHex = "#0D1117";

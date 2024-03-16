@@ -1,5 +1,4 @@
 ﻿using Microsoft.Web.WebView2.Wpf;
-using Serilog;
 using Wpf.Ui.Controls;
 using SearchDetailViewModel = PipManager.ViewModels.Pages.Search.SearchDetailViewModel;
 
@@ -21,7 +20,7 @@ public partial class SearchDetailPage : INavigableView<SearchDetailViewModel>
 
     private void SearchDetailProjectDesciptionWebView_NavigationStarting(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs e)
     {
-        if(e.Uri.StartsWith("http://") || e.Uri.StartsWith("https://"))
+        if (e.Uri.StartsWith("http://") || e.Uri.StartsWith("https://"))
         {
             e.Cancel = true;
         }

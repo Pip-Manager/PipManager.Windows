@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using PipManager.PackageSearch;
 using PipManager.Services;
 using PipManager.Services.Action;
@@ -31,7 +32,6 @@ using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
-using Microsoft.Extensions.Logging;
 using Wpf.Ui;
 using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
 using ActionViewModel = PipManager.ViewModels.Pages.Action.ActionViewModel;

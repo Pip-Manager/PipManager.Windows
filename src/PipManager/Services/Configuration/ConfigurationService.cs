@@ -44,13 +44,13 @@ public partial class ConfigurationService : IConfigurationService
 
         return pipExePath;
     }
-    
+
     [GeneratedRegex("__version__ = \"(.*?)\"", RegexOptions.IgnoreCase, "zh-CN")]
     private static partial Regex GetPipVersionInInitFile();
 
     public EnvironmentItem? GetEnvironmentItem(string pythonPath)
     {
-        var pythonVersion = FileVersionInfo.GetVersionInfo(pythonPath).FileVersion!; 
+        var pythonVersion = FileVersionInfo.GetVersionInfo(pythonPath).FileVersion!;
         var pythonDirectory = Directory.GetParent(pythonPath)!.FullName;
         var pipDirectory = Path.Combine(pythonDirectory, @"Lib\site-packages");
         var pipDir = Directory.GetDirectories(pipDirectory, "pip")[0];

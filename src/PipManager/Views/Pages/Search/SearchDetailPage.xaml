@@ -38,7 +38,8 @@
                     Height="100"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Visibility="{Binding ViewModel.ProjectDescriptionVisibility, Converter={StaticResource InverseBoolToVisibility}}" IsIndeterminate="True" />
+                    IsIndeterminate="True"
+                    Visibility="{Binding ViewModel.ProjectDescriptionVisibility, Converter={StaticResource InverseBoolToVisibility}}" />
                 <wpf:WebView2
                     x:Name="SearchDetailProjectDesciptionWebView"
                     Margin="0,8,0,0"
@@ -91,10 +92,12 @@
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
                     <ui:Button
+                        IsEnabled="False"
                         Appearance="Secondary"
                         Content="Download Distributions"
                         Icon="{ui:SymbolIcon ArrowCircleDown24}" />
                     <ui:Button
+                        IsEnabled="False"
                         Margin="15,0,0,0"
                         Appearance="Success"
                         Content="Install"

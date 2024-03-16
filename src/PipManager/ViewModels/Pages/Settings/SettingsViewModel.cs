@@ -265,15 +265,17 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
             _toastService.Success(Lang.Settings_PersonalizationTitle_WebViewSettings_CacheCleared);
             Log.Information($"[Settings] WebView cache removed");
         }
-        catch (DirectoryNotFoundException) {
+        catch (DirectoryNotFoundException)
+        {
             _toastService.Success(Lang.Settings_PersonalizationTitle_WebViewSettings_CacheCleared);
-        }catch (IOException)
+        }
+        catch (IOException)
         {
             _toastService.Error(Lang.Settings_PersonalizationTitle_WebViewSettings_CacheIsUsing);
         }
     }
 
-    #endregion
+    #endregion WebView
 
     #region File Management
 
