@@ -142,6 +142,8 @@ public partial class App
     /// </summary>
     private void OnStartup(object sender, StartupEventArgs e)
     {
+        Environment.SetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER", AppInfo.CachesDir);
+
         for (var i = 0; i != e.Args.Length; ++i)
         {
             switch (e.Args[i])

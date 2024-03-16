@@ -98,6 +98,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
         SearchDetailPage.ProjectDescriptionWebView!.Loaded += async (sender, e) =>
         {
             ProjectDescriptionVisibility = false;
+            var webView2Environment = await CoreWebView2Environment.CreateAsync(null, AppInfo.CachesDir);
             await SearchDetailPage.ProjectDescriptionWebView!.EnsureCoreWebView2Async().ConfigureAwait(true);
             try
             {
