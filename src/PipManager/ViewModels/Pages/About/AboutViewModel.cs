@@ -38,7 +38,9 @@ public partial class AboutViewModel(IConfigurationService configurationService) 
     [
         new AboutNugetLibraryListItem("Antelcat.I18N.WPF", "MIT", "Copyright (c) 2023 Feast", "https://github.com/Antelcat/Antelcat.I18N"),
         new AboutNugetLibraryListItem("CommunityToolkit.Mvvm", "MIT", "Copyright © .NET Foundation and Contributors", "https://github.com/CommunityToolkit/dotnet"),
+        new AboutNugetLibraryListItem("HtmlAgilityPack", "MIT", "Copyright © ZZZ Projects Inc.", "https://github.com/zzzprojects/html-agility-pack"),
         new AboutNugetLibraryListItem("Microsoft.Extensions.Hosting", "MIT", "Copyright © .NET Foundation and Contributors", "https://github.com/dotnet/runtime"),
+        new AboutNugetLibraryListItem("Microsoft.Web.WebView2", "Custom License", "© Microsoft Corporation. All rights reserved.", "https://github.com/dotnet/runtime"),
         new AboutNugetLibraryListItem("Microsoft.Xaml.Behaviors.Wpf", "MIT", "Copyright (c) 2015 Microsoft", "https://github.com/microsoft/XamlBehaviorsWpf"),
         new AboutNugetLibraryListItem("Newtonsoft.Json", "MIT", "Copyright (c) 2007 James Newton-King", "https://github.com/JamesNK/Newtonsoft.Json"),
         new AboutNugetLibraryListItem("Serilog", "Apache-2.0", "Copyright © 2013-2020 Serilog Contributors", "https://github.com/serilog/serilog"),
@@ -48,6 +50,5 @@ public partial class AboutViewModel(IConfigurationService configurationService) 
         new AboutNugetLibraryListItem("ValueConverters", "MIT", "Copyright (c) 2019 Thomas Galliker", "https://github.com/thomasgalliker/ValueConverters.NET"),
         new AboutNugetLibraryListItem("WPF-UI", "MIT", "Copyright (c) 2021-2023 Leszek Pomianowski and WPF UI Contributors", "https://github.com/lepoco/wpfui"),
         new AboutNugetLibraryListItem("WPF-UI.Tray", "MIT", "Copyright (c) 2021-2023 Leszek Pomianowski and WPF UI Contributors", "https://github.com/lepoco/wpfui"),
-        new AboutNugetLibraryListItem("HtmlAgilityPack", "MIT", "Copyright © ZZZ Projects Inc.", "https://github.com/zzzprojects/html-agility-pack"),
     ];
 }
