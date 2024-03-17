@@ -696,4 +696,10 @@
   <data name="Settings_PersonalizationTitle_WebViewSettings_CacheIsUsing" xml:space="preserve">
     <value>WebView still in use, cannot clear cache</value>
   </data>
+  <data name="SearchDetail_DownloadDistributions" xml:space="preserve">
+    <value>Download Distributions</value>
+  </data>
+  <data name="SearchDetail_Install" xml:space="preserve">
+    <value>Install</value>
+  </data>
 </root>

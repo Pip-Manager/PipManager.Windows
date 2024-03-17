@@ -696,4 +696,10 @@
   <data name="Settings_PersonalizationTitle_WebViewSettings_CacheIsUsing" xml:space="preserve">
     <value>WebView仍在使用，无法清除缓存</value>
   </data>
+  <data name="SearchDetail_DownloadDistributions" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="SearchDetail_Install" xml:space="preserve">
+    <value>安装</value>
+  </data>
 </root>

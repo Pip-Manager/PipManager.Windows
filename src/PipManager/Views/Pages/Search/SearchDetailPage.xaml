@@ -94,13 +94,13 @@
                     <ui:Button
                         IsEnabled="False"
                         Appearance="Secondary"
-                        Content="Download Distributions"
+                        Content="{I18N {x:Static lang:LangKeys.SearchDetail_DownloadDistributions}}"
                         Icon="{ui:SymbolIcon ArrowCircleDown24}" />
                     <ui:Button
                         IsEnabled="False"
                         Margin="15,0,0,0"
                         Appearance="Success"
-                        Content="Install"
+                        Content="{I18N {x:Static lang:LangKeys.SearchDetail_Install}}"
                         Icon="{ui:SymbolIcon AddCircle24}" />
                 </StackPanel>
             </Grid>
