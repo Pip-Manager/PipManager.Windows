@@ -47,9 +47,8 @@
             BreadcrumbBar="{Binding ElementName=BreadcrumbBar}"
             FontSize="14"
             FrameMargin="0"
-            IsBackButtonVisible="Visible"
-            IsPaneToggleVisible="True"
-            PaneDisplayMode="Top">
+            IsBackButtonVisible="Collapsed"
+            IsPaneToggleVisible="True" OpenPaneLength="200">
             <ui:NavigationView.Header>
                 <ui:BreadcrumbBar x:Name="BreadcrumbBar" Margin="42,32,42,20" />
             </ui:NavigationView.Header>

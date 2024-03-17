@@ -120,8 +120,9 @@
         <TextBlock Margin="0,12,0,0" Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_Language}}" />
         <ComboBox
             x:Name="LanguageComboBox"
-            Margin="0,10,900,0"
-            HorizontalAlignment="Stretch"
+            Margin="0,10,0,0"
+            Width="200"
+            HorizontalAlignment="Left"
             Focusable="False"
             ItemsSource="{Binding ViewModel.Languages}"
             SelectedItem="{Binding ViewModel.Language, Mode=TwoWay}">
