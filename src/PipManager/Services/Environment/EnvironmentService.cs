@@ -49,7 +49,10 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         var packages = new ConcurrentBag<PackageItem>();
         var ioTaskList = new List<Task>();
         var distInfoDirectories = packageDirInfo.GetDirectories()
-                     .Where(path => path.Name.EndsWith(".dist-info")).ToList();
+                     .Where(path => path.Name.EndsWith(".dist-info"))
+                     .AsParallel()
+                     .ToList();
+
         foreach (var distInfoDirectory in distInfoDirectories)
         {
             var task = Task.Run(async () =>
@@ -58,11 +61,12 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 var distInfoDirectoryName = distInfoDirectory.Name;
 
                 // Basic
-                var packageBasicInfo = distInfoDirectoryName.Replace(".dist-info", "").Split('-');
+                var packageBasicInfo = distInfoDirectoryName[..^10].Split('-');
                 var packageName = packageBasicInfo[0];
                 var packageVersion = packageBasicInfo[1];
 
                 if (packageName == "pip") return;
+
                 // Metadata
                 var metadataDict = new Dictionary<string, List<string>>();
                 var lastValidKey = "";
@@ -95,8 +99,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                     }
                     else
                     {
-                        metadataDict[lastValidKey][lastValidPos] += '\n' + value;
-                        ;
+                        metadataDict[lastValidKey][lastValidPos] = string.Join(metadataDict[lastValidKey][lastValidPos], "\n", value);
                     }
                 }
 
