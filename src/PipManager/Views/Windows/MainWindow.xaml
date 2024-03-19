@@ -29,10 +29,11 @@
     Closing="MainWindow_OnClosing"
     ExtendsContentIntoTitleBar="True"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    ResizeMode="NoResize"
+    ResizeMode="CanMinimize"
     WindowBackdropType="Mica"
     WindowCornerPreference="Round"
     WindowStartupLocation="CenterScreen"
+    WindowState="Normal"
     mc:Ignorable="d">
 
     <Grid>
