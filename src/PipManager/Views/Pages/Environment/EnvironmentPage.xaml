@@ -68,13 +68,13 @@
                             Source="../../../Assets/logo/python-logo-only.png" />
                         <StackPanel Grid.Column="1" Margin="7,0,0,0">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock FontSize="14" Text="{Binding PipVersion, Mode=TwoWay}" />
-                                <TextBlock FontSize="14" Text=" " />
-                                <TextBlock FontSize="14" Text="{Binding PythonVersion, StringFormat=for Python {0}}" />
+                                <ui:TextBlock FontTypography="BodyStrong" Text="{Binding PipVersion, Mode=TwoWay}" />
+                                <ui:TextBlock FontTypography="BodyStrong" Text=" " />
+                                <ui:TextBlock FontTypography="BodyStrong" Text="{Binding PythonVersion, StringFormat=for Python {0}}" />
                             </StackPanel>
 
-                            <TextBlock
-                                FontSize="12"
+                            <ui:TextBlock
+                                FontTypography="Body"
                                 Foreground="Gray"
                                 Text="{Binding PythonPath}"
                                 TextWrapping="Wrap" />

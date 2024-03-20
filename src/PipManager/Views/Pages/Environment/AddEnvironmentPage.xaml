@@ -32,7 +32,10 @@
                             Margin="0,0,6,0"
                             Filled="True"
                             Symbol="Box24" />
-                        <TextBlock Margin="0,0,10,0" Text="{I18N {x:Static lang:LangKeys.EnvironmentAdd_EnvironmentVariable_Title}}" />
+                        <ui:TextBlock
+                            Margin="0,0,10,0"
+                            FontTypography="Caption"
+                            Text="{I18N {x:Static lang:LangKeys.EnvironmentAdd_EnvironmentVariable_Title}}" />
                     </StackPanel>
                 </TabItem.Header>
                 <Grid Margin="20">
@@ -97,13 +100,13 @@
                                             Source="../../../Assets/logo/python-logo-only.png" />
                                         <StackPanel Grid.Column="1" Margin="7,0,0,0">
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock FontSize="14" Text="{Binding PipVersion}" />
-                                                <TextBlock FontSize="14" Text=" " />
-                                                <TextBlock FontSize="14" Text="{Binding PythonVersion, StringFormat=for Python {0}}" />
+                                                <ui:TextBlock FontTypography="BodyStrong" Text="{Binding PipVersion}" />
+                                                <ui:TextBlock FontTypography="BodyStrong" Text=" " />
+                                                <ui:TextBlock FontTypography="BodyStrong" Text="{Binding PythonVersion, StringFormat=for Python {0}}" />
                                             </StackPanel>
 
-                                            <TextBlock
-                                                FontSize="12"
+                                            <ui:TextBlock
+                                                FontTypography="Body"
                                                 Foreground="Gray"
                                                 Text="{Binding PythonPath}"
                                                 TextWrapping="Wrap" />
@@ -130,23 +133,17 @@
                             Margin="0,0,6,0"
                             Filled="True"
                             Symbol="WindowApps24" />
-                        <TextBlock Text="{I18N {x:Static lang:LangKeys.EnvironmentAdd_PipCommand_Title}}" />
+                        <ui:TextBlock FontTypography="Caption" Text="{I18N {x:Static lang:LangKeys.EnvironmentAdd_PipCommand_Title}}" />
                     </StackPanel>
                 </TabItem.Header>
                 <Grid Margin="20">
                     <StackPanel>
-                        <TextBlock Text="{I18N {x:Static lang:LangKeys.EnvironmentAdd_PipCommand_Label}}" />
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <ui:TextBox
-                                x:Name="ByPipCommandTextBox"
-                                Grid.Column="0"
-                                PlaceholderText="pip"
-                                Text="{Binding ViewModel.PipCommand, UpdateSourceTrigger=PropertyChanged}" />
-                        </Grid>
+                        <ui:TextBlock FontTypography="BodyStrong" Text="{I18N {x:Static lang:LangKeys.EnvironmentAdd_PipCommand_Label}}" />
+                        <ui:TextBox
+                            x:Name="ByPipCommandTextBox"
+                            Margin="0,5,0,0"
+                            PlaceholderText="pip"
+                            Text="{Binding ViewModel.PipCommand, UpdateSourceTrigger=PropertyChanged}" />
 
                         <ui:InfoBar
                             Title="{I18N {x:Static lang:LangKeys.Common_NoticeTitle_Notice}}"
@@ -173,18 +170,17 @@
                             Margin="0,0,6,0"
                             Filled="True"
                             Symbol="WindowText20" />
-                        <TextBlock Text="{I18N {x:Static lang:LangKeys.EnvironmentAdd_PythonPath_Title}}" />
+                        <ui:TextBlock FontTypography="Caption" Text="{I18N {x:Static lang:LangKeys.EnvironmentAdd_PythonPath_Title}}" />
                     </StackPanel>
                 </TabItem.Header>
                 <Grid Margin="20">
                     <StackPanel>
                         <StackPanel>
-                            <TextBlock Text="{I18N {x:Static lang:LangKeys.EnvironmentAdd_PythonPath_Label}}" />
+                            <ui:TextBlock FontTypography="BodyStrong" Text="{I18N {x:Static lang:LangKeys.EnvironmentAdd_PythonPath_Label}}" />
 
-                            <Grid>
+                            <Grid Margin="0,5,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <ui:TextBox
@@ -195,7 +191,7 @@
                                     Text="{Binding ViewModel.PythonPath}" />
 
                                 <ui:Button
-                                    Grid.Column="2"
+                                    Grid.Column="1"
                                     Margin="3,0,0,0"
                                     Command="{Binding ViewModel.BrowsePythonPathCommand}"
                                     Content="{I18N {x:Static lang:LangKeys.Common_Button_Browse}}"
