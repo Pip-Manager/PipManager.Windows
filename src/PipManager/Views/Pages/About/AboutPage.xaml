@@ -28,22 +28,33 @@
                             Height="200"
                             Source="pack://application:,,,/Assets/icon.png" />
                         <StackPanel Margin="15,30,0,0">
-                            <TextBlock FontSize="42" Text="Pip Manager" />
-                            <StackPanel Margin="3,10,0,0" Orientation="Horizontal">
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    FontSize="16"
-                                    Text="{Binding ViewModel.AppVersion, StringFormat=Version: {0}}" />
+                            <StackPanel Orientation="Horizontal">
+                                <ui:TextBlock
+                                    FontSize="42"
+                                    FontTypography="TitleLarge"
+                                    Text="Pip Manager" />
                                 <ui:Badge
                                     Margin="7,0,0,0"
+                                    VerticalAlignment="Top"
                                     Appearance="Caution"
                                     Content="Debug Mode"
+                                    FontSize="12"
                                     Visibility="{Binding ViewModel.DebugMode, Converter={StaticResource BoolToVisibility}}" />
                                 <ui:Badge
                                     Margin="7,0,0,0"
+                                    VerticalAlignment="Top"
                                     Appearance="Danger"
                                     Content="Experiment"
+                                    FontSize="12"
                                     Visibility="{Binding ViewModel.ExperimentMode, Converter={StaticResource BoolToVisibility}}" />
+
+                            </StackPanel>
+                            <StackPanel Margin="3,10,0,0" Orientation="Horizontal">
+                                <ui:TextBlock
+                                    VerticalAlignment="Center"
+                                    FontTypography="BodyStrong"
+                                    Text="{Binding ViewModel.AppVersion, StringFormat=Version: {0}}" />
+
                             </StackPanel>
                             <Grid Margin="-3,10,0,0">
                                 <Grid.RowDefinitions>
@@ -90,9 +101,9 @@
                             HorizontalAlignment="Right"
                             Content="MIT License"
                             NavigateUri="https://github.com/AuroraZiling/PipManager/blob/main/LICENSE" />
-                        <TextBlock
+                        <ui:TextBlock
                             Margin="0,0,10,0"
-                            FontSize="14"
+                            FontTypography="Body"
                             Text="Copyright (c) 2023 AuroraZiling" />
                     </StackPanel>
                 </Grid>
@@ -103,16 +114,16 @@
                     Margin="0,10,0,0"
                     FontTypography="Subtitle"
                     Text="{I18N {x:Static lang:LangKeys.About_MoreInformation_Privacy}}" />
-                <TextBlock
+                <ui:TextBlock
                     Margin="0,5,0,0"
-                    FontSize="16"
+                    FontTypography="BodyStrong"
                     Foreground="OrangeRed">
                     <Run Text="{I18N {x:Static lang:LangKeys.About_MoreInformation_PrivacyLine1}}" />
                     <LineBreak />
                     <Run Text="{I18N {x:Static lang:LangKeys.About_MoreInformation_PrivacyLine2}}" />
                     <LineBreak />
                     <Run Text="{I18N {x:Static lang:LangKeys.About_MoreInformation_PrivacyLine3}}" />
-                </TextBlock>
+                </ui:TextBlock>
                 <ui:TextBlock
                     Margin="0,10,0,0"
                     FontTypography="Subtitle"
@@ -127,28 +138,28 @@
                             <Grid x:Name="NugetLibraryListItemGrid" Margin="7,3,0,3">
                                 <StackPanel Orientation="Horizontal">
                                     <ui:HyperlinkButton
-                                        HorizontalAlignment="Right"
+                                        HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         Content="Github"
                                         Icon="{ui:SymbolIcon Link24}"
                                         NavigateUri="{Binding LibraryUrl}" />
                                     <StackPanel Margin="5,0,0,0">
-                                        <TextBlock
+                                        <ui:TextBlock
                                             VerticalAlignment="Center"
-                                            FontSize="14"
+                                            FontTypography="Body"
                                             Text="{Binding LibraryName}" />
 
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock
-                                                FontSize="12"
+                                            <ui:TextBlock
+                                                FontTypography="Caption"
                                                 Foreground="Gray"
                                                 Text="{Binding LibraryLicenseType}" />
-                                            <TextBlock
-                                                FontSize="12"
+                                            <ui:TextBlock
+                                                FontTypography="Caption"
                                                 Foreground="Gray"
                                                 Text=" · " />
-                                            <TextBlock
-                                                FontSize="12"
+                                            <ui:TextBlock
+                                                FontTypography="Caption"
                                                 Foreground="Gray"
                                                 Text="{Binding LibraryCopyright}" />
                                         </StackPanel>
