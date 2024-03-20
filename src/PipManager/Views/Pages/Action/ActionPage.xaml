@@ -44,81 +44,81 @@
                         CornerRadius="5">
                         <Grid>
                             <StackPanel>
-                                <TextBlock
+                                <ui:TextBlock
                                     HorizontalAlignment="Left"
-                                    FontSize="12"
+                                    FontTypography="Caption"
                                     Foreground="Gray"
                                     Text="{Binding OperationId, StringFormat=Action: {0}}" />
                                 <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                                     <ui:SymbolIcon VerticalAlignment="Center" Symbol="{Binding Path=OperationIcon.Symbol}" />
-                                    <TextBlock
-                                        Margin="5,0,0,0"
+                                    <ui:TextBlock
+                                        Margin="5,3,0,0"
                                         VerticalAlignment="Center"
-                                        FontSize="16"
+                                        FontTypography="BodyStrong"
                                         Text="{Binding OperationDescription}" />
                                     <ui:Badge
                                         Margin="5,0,0,0"
                                         VerticalAlignment="Center"
-                                        Appearance="{Binding BadgeAppearance}"
-                                        Content="{Binding OperationType}"
-                                        FontSize="12" />
+                                        Appearance="{Binding BadgeAppearance}">
+                                        <ui:TextBlock FontTypography="Caption" Text="{Binding OperationType}" />
+                                    </ui:Badge>
                                     <ui:Badge
                                         Margin="5,0,0,0"
                                         VerticalAlignment="Center"
                                         Appearance="Danger"
-                                        Content="Error"
-                                        FontSize="12"
-                                        Visibility="{Binding DetectIssue, Converter={StaticResource BoolToVisibility}}" />
+                                        Visibility="{Binding DetectIssue, Converter={StaticResource BoolToVisibility}}">
+                                        <ui:TextBlock FontTypography="Caption" Text="Error" />
+                                    </ui:Badge>
                                 </StackPanel>
                                 <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
                                     <ProgressBar
                                         Width="300"
                                         IsIndeterminate="{Binding ProgressIntermediate}"
                                         Value="{Binding ProgressBarValue, Mode=OneWay}" />
-                                    <TextBlock
+                                    <ui:TextBlock
                                         Margin="5,0,0,0"
-                                        FontSize="16"
+                                        FontTypography="Body"
                                         Text="{Binding CompletedSubTaskNumber, Mode=TwoWay}" />
-                                    <TextBlock FontSize="16" Text="/" />
-                                    <TextBlock FontSize="16" Text="{Binding TotalSubTaskNumber}" />
+                                    <ui:TextBlock FontTypography="Body" Text="/" />
+                                    <ui:TextBlock FontTypography="Body" Text="{Binding TotalSubTaskNumber}" />
                                 </StackPanel>
                                 <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
                                     <ui:Badge
                                         VerticalAlignment="Center"
-                                        Appearance="Info"
-                                        Content="{I18N {x:Static lang:LangKeys.Action_Command}}"
-                                        FontSize="12" />
-                                    <TextBlock
+                                        Appearance="Info">
+                                        <ui:TextBlock FontTypography="Caption" Text="{I18N {x:Static lang:LangKeys.Action_Command}}" />
+                                    </ui:Badge>
+                                    <ui:TextBlock
                                         Margin="5,0,0,0"
                                         VerticalAlignment="Center"
-                                        FontSize="14"
+                                        FontTypography="Body"
                                         Text="{Binding DisplayCommand}"
                                         TextWrapping="WrapWithOverflow" />
                                 </StackPanel>
                                 <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
                                     <ui:Badge
                                         VerticalAlignment="Center"
-                                        Appearance="Caution"
-                                        Content="{I18N {x:Static lang:LangKeys.Action_CurrentStatus}}"
-                                        FontSize="12" />
-                                    <TextBlock
+                                        Appearance="Caution">
+                                        <ui:TextBlock FontTypography="Caption" Text="{I18N {x:Static lang:LangKeys.Action_CurrentStatus}}" />
+                                    </ui:Badge>
+                                    <ui:TextBlock
                                         Margin="5,0,0,0"
                                         VerticalAlignment="Center"
-                                        FontSize="14"
+                                        FontTypography="Body"
                                         Text="{Binding OperationStatus}" />
                                 </StackPanel>
                                 <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
                                     <ui:Badge
                                         VerticalAlignment="Center"
-                                        Appearance="Info"
-                                        Content="{I18N {x:Static lang:LangKeys.Action_ConsoleOutput}}"
-                                        FontSize="12" />
-                                    <TextBlock
+                                        Appearance="Info">
+                                        <ui:TextBlock FontTypography="Caption" Text="{I18N {x:Static lang:LangKeys.Action_ConsoleOutput}}" />
+                                    </ui:Badge>
+                                    <ui:TextBlock
                                         Width="1000"
                                         Margin="5,0,0,0"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        FontSize="14"
+                                        FontTypography="Body"
                                         Text="{Binding ConsoleOutput, Mode=TwoWay}"
                                         TextTrimming="WordEllipsis" />
                                 </StackPanel>
@@ -134,7 +134,7 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Visibility="{Binding ElementName=ActionList, Path=Items.Count, Converter={StaticResource IntegerToVisibility}}">
-            <TextBlock FontSize="32" Text="{I18N {x:Static lang:LangKeys.Action_NoCurrentOperations}}" />
+            <ui:TextBlock FontTypography="TitleLarge" Text="{I18N {x:Static lang:LangKeys.Action_NoCurrentOperations}}" />
         </StackPanel>
     </Grid>
 </Page>

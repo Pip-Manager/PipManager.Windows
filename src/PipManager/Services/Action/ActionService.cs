@@ -27,7 +27,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
             if (ActionList.Count > 0)
             {
                 var errorDetection = false;
-                var consoleError = "\n";
+                var consoleError = "";
                 var currentAction = ActionList[0];
                 currentAction.ConsoleOutput = Lang.Action_ConsoleOutput_Empty;
                 switch (currentAction.OperationType)
