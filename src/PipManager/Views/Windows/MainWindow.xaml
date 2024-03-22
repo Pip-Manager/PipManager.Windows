@@ -44,6 +44,7 @@
         <ui:NavigationView
             x:Name="NavigationView"
             Grid.Row="1"
+            Transition="FadeInWithSlide"
             Padding="42,0,42,0"
             BreadcrumbBar="{Binding ElementName=BreadcrumbBar}"
             FontSize="14"
@@ -53,11 +54,6 @@
             <ui:NavigationView.Header>
                 <ui:BreadcrumbBar x:Name="BreadcrumbBar" Margin="42,32,42,20" />
             </ui:NavigationView.Header>
-            <ui:NavigationView.ContentOverlay>
-                <Grid>
-                    <ui:SnackbarPresenter x:Name="SnackbarPresenter" />
-                </Grid>
-            </ui:NavigationView.ContentOverlay>
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem
                     Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_Library}}"

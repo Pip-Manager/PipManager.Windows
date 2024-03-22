@@ -32,7 +32,6 @@ public partial class MainWindow
 
         InitializeComponent();
         navigationService.SetNavigationControl(NavigationView);
-        snackbarService.SetSnackbarPresenter(SnackbarPresenter);
         maskPresenter.SetMaskPresenter(MaskPresenter);
         contentDialogService.SetContentPresenter(RootContentDialog);
         var runnerThread = new Thread(actionService.Runner)
