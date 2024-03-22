@@ -2,10 +2,14 @@
 using HtmlAgilityPack;
 using Microsoft.Web.WebView2.Core;
 using PipManager.Languages;
+using PipManager.Models.Pages;
 using PipManager.PackageSearch.Wrappers.Query;
+using PipManager.Services.Environment;
+using PipManager.Services.Mask;
 using PipManager.Services.Toast;
 using PipManager.Views.Pages.Search;
 using Serilog;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Net.Http;
 using Wpf.Ui;
@@ -21,6 +25,8 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     private readonly HttpClient _httpClient;
     private readonly IThemeService _themeService;
     private readonly IToastService _toastService;
+    private readonly IMaskService _maskService;
+    private readonly IEnvironmentService _environmentService;
 
     [ObservableProperty]
     private bool _projectDescriptionVisibility = false;
@@ -51,12 +57,14 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     [ObservableProperty]
     private QueryListItemModel? _package;
 
-    public SearchDetailViewModel(INavigationService navigationService, HttpClient httpClient, IThemeService themeService, IToastService toastService)
+    public SearchDetailViewModel(INavigationService navigationService, HttpClient httpClient, IThemeService themeService, IToastService toastService, IMaskService maskService, IEnvironmentService environmentService)
     {
         _navigationService = navigationService;
         _httpClient = httpClient;
         _themeService = themeService;
         _toastService = toastService;
+        _maskService = maskService;
+        _environmentService = environmentService;
 
         WeakReferenceMessenger.Default.Register<SearchDetailMessage>(this, Receive);
     }
@@ -81,6 +89,9 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
                 break;
         }
         SearchDetailPage.ProjectDescriptionWebView!.DefaultBackgroundColor = Color.FromArgb(_themeTypeInInteger);
+
+        _maskService.Show(Lang.LibraryInstall_Add_Verifying);
+        
     }
 
     public void OnNavigatedFrom()
@@ -93,12 +104,50 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
         _isInitialized = true;
     }
 
+    [ObservableProperty]
+    private ObservableCollection<string> _availableVersions = [];
+    [ObservableProperty]
+    private string _targetVersion = "";
+
+    [RelayCommand]
+    private async Task InstallPackage()
+    {
+        var installedPackages = await _environmentService.GetLibraries();
+        if(installedPackages == null)
+        {
+            _toastService.Error(Lang.SearchDetail_Install_CannotGetLibraries);
+            return;
+        }
+        if (installedPackages.Any(item => item.Name == Package!.Name))
+        {
+            _toastService.Error(Lang.LibraryInstall_Add_AlreadyInstalled);
+            return;
+        }
+        
+    }
+
     public void Receive(object recipient, SearchDetailMessage message)
     {
         Package = message.Package;
 
         SearchDetailPage.ProjectDescriptionWebView!.Loaded += async (sender, e) =>
         {
+            var packageVersions = await _environmentService.GetVersions(Package!.Name);
+            _maskService.Hide();
+            switch (packageVersions.Status)
+            {
+                case 1:
+                    _toastService.Error(Lang.LibraryInstall_Add_PackageNotFound);
+                    break;
+
+                case 2:
+                    _toastService.Error(Lang.LibraryInstall_Add_InvalidPackageName);
+                    break;
+
+                default:
+                    AvailableVersions = new ObservableCollection<string>(packageVersions.Versions!.Reverse());
+                    break;
+            }
             ProjectDescriptionVisibility = false;
             var webView2Environment = await CoreWebView2Environment.CreateAsync(null, AppInfo.CachesDir);
             await SearchDetailPage.ProjectDescriptionWebView!.EnsureCoreWebView2Async().ConfigureAwait(true);

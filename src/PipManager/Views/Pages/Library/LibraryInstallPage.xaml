@@ -32,7 +32,10 @@
                             Margin="0,0,6,0"
                             Filled="True"
                             Symbol="AppsAddIn24" />
-                        <TextBlock Margin="0,0,10,0" Text="{I18N {x:Static lang:LangKeys.LibraryInstall_Add_Header}}" />
+                        <ui:TextBlock
+                            Margin="0,0,10,0"
+                            FontTypography="Caption"
+                            Text="{I18N {x:Static lang:LangKeys.LibraryInstall_Add_Header}}" />
                     </StackPanel>
                 </TabItem.Header>
                 <Grid Margin="20">
@@ -64,11 +67,11 @@
                                             <ColumnDefinition Width="0.65*" />
                                             <ColumnDefinition Width="0.1*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock
+                                        <ui:TextBlock
                                             Grid.Column="0"
                                             Margin="10,0,0,0"
                                             VerticalAlignment="Center"
-                                            FontSize="16"
+                                            FontTypography="BodyStrong"
                                             Text="{Binding PackageName}" />
                                         <StackPanel
                                             Grid.Column="1"
@@ -86,10 +89,10 @@
                                                 SelectedIndex="0"
                                                 SelectedItem="{Binding TargetVersion, Mode=TwoWay}"
                                                 Visibility="{Binding ElementName=VersionSpecifiedCheckbox, Path=IsChecked, Converter={StaticResource BoolToVisibility}}" />
-                                            <TextBlock
+                                            <ui:TextBlock
                                                 Margin="15,0,0,0"
                                                 VerticalAlignment="Center"
-                                                FontSize="15"
+                                                FontTypography="Body"
                                                 Foreground="Gray"
                                                 Text="{I18N {x:Static lang:LangKeys.LibraryInstall_List_DefaultVersion}}"
                                                 Visibility="{Binding ElementName=VersionSpecifiedCheckbox, Path=IsChecked, Converter={StaticResource InverseBoolToVisibility}}" />
@@ -118,7 +121,10 @@
                             Margin="0,0,6,0"
                             Filled="True"
                             Symbol="ArrowImport24" />
-                        <TextBlock Margin="0,0,10,0" Text="{I18N {x:Static lang:LangKeys.LibraryInstall_Requirements_Header}}" />
+                        <ui:TextBlock
+                            Margin="0,0,10,0"
+                            FontTypography="Caption"
+                            Text="{I18N {x:Static lang:LangKeys.LibraryInstall_Requirements_Header}}" />
                     </StackPanel>
                 </TabItem.Header>
                 <Grid Margin="20">
@@ -157,7 +163,10 @@
                             Margin="0,0,6,0"
                             Filled="True"
                             Symbol="ArrowDownload24" />
-                        <TextBlock Margin="0,0,10,0" Text="{I18N {x:Static lang:LangKeys.LibraryInstall_Download_Header}}" />
+                        <ui:TextBlock
+                            Margin="0,0,10,0"
+                            FontTypography="Caption"
+                            Text="{I18N {x:Static lang:LangKeys.LibraryInstall_Download_Header}}" />
                     </StackPanel>
                 </TabItem.Header>
                 <Grid Margin="20">
@@ -189,11 +198,11 @@
                                             <ColumnDefinition Width="0.7*" />
                                             <ColumnDefinition Width="0.05*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock
+                                        <ui:TextBlock
                                             Grid.Column="0"
                                             Margin="10,0,0,0"
                                             VerticalAlignment="Center"
-                                            FontSize="16"
+                                            FontTypography="BodyStrong"
                                             Text="{Binding PackageName}" />
                                         <StackPanel
                                             Grid.Column="1"
@@ -211,10 +220,10 @@
                                                 SelectedIndex="0"
                                                 SelectedItem="{Binding TargetVersion, Mode=TwoWay}"
                                                 Visibility="{Binding ElementName=DownloadDistributionsVersionSpecifiedCheckbox, Path=IsChecked, Converter={StaticResource BoolToVisibility}}" />
-                                            <TextBlock
+                                            <ui:TextBlock
                                                 Margin="7,0,0,0"
                                                 VerticalAlignment="Center"
-                                                FontSize="15"
+                                                FontTypography="Body"
                                                 Foreground="Gray"
                                                 Text="{I18N {x:Static lang:LangKeys.LibraryInstall_List_DefaultVersion}}"
                                                 Visibility="{Binding ElementName=DownloadDistributionsVersionSpecifiedCheckbox, Path=IsChecked, Converter={StaticResource InverseBoolToVisibility}}" />
@@ -240,10 +249,11 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock
+                        <ui:TextBlock
                             Grid.Column="0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
+                            FontTypography="Caption"
                             Text="{I18N {x:Static lang:LangKeys.LibraryInstall_Requirements_DownloadFolder}}" />
                         <TextBox
                             x:Name="DownloadDistributionsFolderBrowseTextBox"

@@ -60,13 +60,13 @@
                     CornerRadius="5"
                     Visibility="{Binding ViewModel.ListVisible, Converter={StaticResource InverseBoolToVisibility}}">
                     <StackPanel Margin="7,0,7,0" Orientation="Horizontal">
-                        <TextBlock VerticalAlignment="Center">
+                        <ui:TextBlock VerticalAlignment="Center">
                             <TextBlock.Text>
                                 <I18N Key="{x:Static lang:LangKeys.Library_Data_SelectedItemsCount}">
                                     <Binding ElementName="LibraryList" Path="SelectedItems.Count" />
                                 </I18N>
                             </TextBlock.Text>
-                        </TextBlock>
+                        </ui:TextBlock>
                     </StackPanel>
                 </Border>
                 <Border
@@ -77,13 +77,13 @@
                     CornerRadius="5"
                     Visibility="{Binding ViewModel.ListVisible, Converter={StaticResource InverseBoolToVisibility}}">
                     <StackPanel Margin="7,0,7,0" Orientation="Horizontal">
-                        <TextBlock VerticalAlignment="Center">
+                        <ui:TextBlock VerticalAlignment="Center" FontTypography="Body">
                             <TextBlock.Text>
                                 <I18N Key="{x:Static lang:LangKeys.Library_Data_PackageFound}">
                                     <Binding ElementName="LibraryList" Path="Items.Count" />
                                 </I18N>
                             </TextBlock.Text>
-                        </TextBlock>
+                        </ui:TextBlock>
                     </StackPanel>
                 </Border>
                 <ui:Button
@@ -113,35 +113,28 @@
                         <ui:SymbolIcon Grid.Column="0" Symbol="{Binding Path=PackageIcon.Symbol}" />
                         <StackPanel Grid.Column="1" Margin="7,0,0,0">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock
+                                <ui:TextBlock
                                     Name="LibraryListPackageName"
                                     VerticalAlignment="Center"
-                                    FontSize="15"
+                                    Style="{StaticResource BodyLargeTextBlockStyle}"
                                     Text="{Binding PackageName}" />
-                                <TextBlock FontSize="14" Text=" " />
-                                <ui:Badge
-                                    Appearance="Primary"
-                                    Content="{Binding PackageVersion}"
-                                    FontSize="12" />
-                                <ui:Badge
-                                    Appearance="Caution"
-                                    Content="{I18N {x:Static lang:LangKeys.Library_Version_Pre}}"
-                                    FontSize="12"
-                                    Visibility="{Binding PackageDetailedVersion.PreL, Converter={StaticResource NullToVisibility}}" />
-                                <ui:Badge
-                                    Appearance="Primary"
-                                    Content="{I18N {x:Static lang:LangKeys.Library_Version_Post}}"
-                                    FontSize="12"
-                                    Visibility="{Binding PackageDetailedVersion.PostL, Converter={StaticResource NullToVisibility}}" />
-                                <ui:Badge
-                                    Appearance="Danger"
-                                    Content="{I18N {x:Static lang:LangKeys.Library_Version_Dev}}"
-                                    FontSize="12"
-                                    Visibility="{Binding PackageDetailedVersion.DevL, Converter={StaticResource NullToVisibility}}" />
+                                <ui:TextBlock FontTypography="Body" Text=" " />
+                                <ui:Badge Appearance="Primary">
+                                    <ui:TextBlock FontTypography="Caption" Text="{Binding PackageVersion}" />
+                                </ui:Badge>
+                                <ui:Badge Appearance="Caution" Visibility="{Binding PackageDetailedVersion.PreL, Converter={StaticResource NullToVisibility}}">
+                                    <ui:TextBlock FontTypography="Caption" Text="{I18N {x:Static lang:LangKeys.Library_Version_Pre}}" />
+                                </ui:Badge>
+                                <ui:Badge Appearance="Primary" Visibility="{Binding PackageDetailedVersion.PostL, Converter={StaticResource NullToVisibility}}">
+                                    <ui:TextBlock FontTypography="Caption" Text="{I18N {x:Static lang:LangKeys.Library_Version_Post}}" />
+                                </ui:Badge>
+                                <ui:Badge Appearance="Danger" Visibility="{Binding PackageDetailedVersion.DevL, Converter={StaticResource NullToVisibility}}">
+                                    <ui:TextBlock FontTypography="Caption" Text="{I18N {x:Static lang:LangKeys.Library_Version_Dev}}" />
+                                </ui:Badge>
                             </StackPanel>
 
-                            <TextBlock
-                                FontSize="12"
+                            <ui:TextBlock
+                                FontTypography="Body"
                                 Foreground="Gray"
                                 Text="{Binding PackageSummary}"
                                 TextWrapping="Wrap" />

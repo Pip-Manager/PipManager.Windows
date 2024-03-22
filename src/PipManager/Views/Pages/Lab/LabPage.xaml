@@ -18,5 +18,6 @@
 
     <Grid>
         <ui:Button Command="{Binding ViewModel.ActionTestCommand}" Content="Action Test" />
+        <ui:Card Content=""></ui:Card>
     </Grid>
 </Page>

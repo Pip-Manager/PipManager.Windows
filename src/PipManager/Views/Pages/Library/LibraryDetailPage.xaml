@@ -21,92 +21,66 @@
 
     <Grid Margin="0,0,0,20">
         <StackPanel>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="90" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0">
-                    <ui:Badge Appearance="Primary" Content="{I18N {x:Static lang:LangKeys.LibraryDetail_Package}}" />
-                    <ui:Badge Appearance="Primary" Content="{I18N {x:Static lang:LangKeys.LibraryDetail_Version}}" />
-                    <ui:Badge Appearance="Primary" Content="{I18N {x:Static lang:LangKeys.LibraryDetail_Path}}" />
-                    <ui:Badge Appearance="Primary" Content="{I18N {x:Static lang:LangKeys.LibraryDetail_Summary}}" />
-                </StackPanel>
-                <StackPanel Grid.Column="1">
-                    <TextBlock Margin="7,5,0,5" Text="{Binding ViewModel.Package.Name, Mode=TwoWay}" />
-                    <TextBlock Margin="7,5,0,5" Text="{Binding ViewModel.Package.Version, Mode=TwoWay}" />
-                    <TextBlock Margin="7,5,0,5" Text="{Binding ViewModel.Package.Path, Mode=TwoWay}" />
-                    <TextBlock
-                        Margin="7,5,0,5"
+            <ui:Card>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <ui:TextBlock
+                            VerticalAlignment="Center"
+                            FontTypography="Subtitle"
+                            Text="{Binding ViewModel.Package.Name, Mode=TwoWay}" />
+                        <ui:Badge
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Center"
+                            Appearance="Info">
+                            <ui:TextBlock FontTypography="Caption" Text="{Binding ViewModel.Package.Version, Mode=TwoWay}" />
+                        </ui:Badge>
+                    </StackPanel>
+
+                    <ui:TextBlock
+                        Margin="0,3,0,0"
+                        FontTypography="Body"
                         Text="{Binding ViewModel.Package.Summary, Mode=TwoWay}"
                         TextWrapping="WrapWithOverflow" />
+
                 </StackPanel>
-            </Grid>
-            <TextBlock
-                Margin="0,10,0,0"
-                FontSize="20"
-                Text="{I18N {x:Static lang:LangKeys.LibraryDetail_Contact_Title}}" />
-            <Border
-                Margin="0,3,0,0"
-                Padding="10"
-                BorderBrush="Gray"
-                BorderThickness="2"
-                CornerRadius="5">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="35" />
-                        <RowDefinition Height="35" />
-                        <RowDefinition Height="35" />
-                    </Grid.RowDefinitions>
-                    <StackPanel
-                        Grid.Row="0"
-                        VerticalAlignment="Top"
-                        Orientation="Horizontal">
-                        <ui:SymbolIcon Symbol="Person24" />
-                        <TextBlock Margin="7,5,0,5" Text="{Binding ViewModel.Author, Mode=TwoWay}" />
-                    </StackPanel>
-                    <StackPanel
-                        Grid.Row="1"
-                        VerticalAlignment="Top"
-                        Orientation="Horizontal">
-                        <ui:SymbolIcon Symbol="Mail24" />
-                        <TextBlock
-                            Margin="7,5,0,5"
+            </ui:Card>
+            <ui:CardExpander Icon="{ui:SymbolIcon Person24}">
+                <ui:CardExpander.Header>
+                    <StackPanel>
+                        <ui:TextBlock Text="{Binding ViewModel.Author, Mode=TwoWay}" />
+                        <ui:TextBlock
+                            FontTypography="Caption"
+                            Foreground="Gray"
                             Text="{Binding ViewModel.AuthorEmail, Mode=TwoWay}"
                             TextWrapping="WrapWithOverflow" />
                     </StackPanel>
-                    <ItemsControl
-                        Grid.Row="2"
-                        HorizontalAlignment="Left"
-                        ItemsSource="{Binding ViewModel.ProjectUrl}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel HorizontalAlignment="Stretch" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <ui:HyperlinkButton
-                                        Content="{Binding UrlType}"
-                                        Icon="{Binding Icon}"
-                                        NavigateUri="{Binding Url}"
-                                        ToolTip="{Binding Url}"
-                                        Visibility="{Binding Url, Converter={StaticResource NullToVisibility}}" />
-                                    <TextBlock
-                                        Margin="3,5,0,5"
-                                        Text="{I18N {x:Static lang:LangKeys.LibraryDetail_Unknown}}"
-                                        Visibility="{Binding Url, Converter={StaticResource NotNullToVisibility}}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Grid>
-            </Border>
-            <TextBlock
-                Margin="0,10,0,0"
-                FontSize="20"
-                Text="{I18N {x:Static lang:LangKeys.LibraryDetail_Classifier_Title}}" />
+                </ui:CardExpander.Header>
+                <ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding ViewModel.ProjectUrl}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel HorizontalAlignment="Stretch" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:HyperlinkButton
+                                    Content="{Binding UrlType}"
+                                    Icon="{Binding Icon}"
+                                    NavigateUri="{Binding Url}"
+                                    ToolTip="{Binding Url}"
+                                    Visibility="{Binding Url, Converter={StaticResource NullToVisibility}}" />
+                                <ui:TextBlock
+                                    FontTypography="Body"
+                                    Margin="3,5,0,5"
+                                    Text="{I18N {x:Static lang:LangKeys.LibraryDetail_Unknown}}"
+                                    Visibility="{Binding Url, Converter={StaticResource NotNullToVisibility}}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ui:CardExpander>
+            
             <Border
                 Margin="0,3,0,0"
                 Padding="10"

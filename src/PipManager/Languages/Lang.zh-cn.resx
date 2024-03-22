@@ -399,9 +399,6 @@
   <data name="LibraryDetail_Unknown" xml:space="preserve">
     <value>未知</value>
   </data>
-  <data name="LibraryDetail_Classifier_Title" xml:space="preserve">
-    <value>分类</value>
-  </data>
   <data name="LibraryDetail_Classifier_DevelopmentStatus" xml:space="preserve">
     <value>开发状态</value>
   </data>
@@ -479,9 +476,6 @@
   </data>
   <data name="LibraryDetail_Classifier_Topic" xml:space="preserve">
     <value>主题</value>
-  </data>
-  <data name="LibraryDetail_Contact_Title" xml:space="preserve">
-    <value>联系</value>
   </data>
   <data name="LibraryDetail_Contact_Author" xml:space="preserve">
     <value>作者</value>
@@ -701,5 +695,8 @@
   </data>
   <data name="SearchDetail_Install" xml:space="preserve">
     <value>安装</value>
+  </data>
+  <data name="SearchDetail_Install_CannotGetLibraries" xml:space="preserve">
+    <value>无法获取已安装的包列表</value>
   </data>
 </root>

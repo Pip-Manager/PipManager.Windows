@@ -1105,15 +1105,6 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Classifier.
-        /// </summary>
-        public static string LibraryDetail_Classifier_Title {
-            get {
-                return ResourceManager.GetString("LibraryDetail_Classifier_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Topic.
         /// </summary>
         public static string LibraryDetail_Classifier_Topic {
@@ -1146,15 +1137,6 @@ namespace PipManager.Languages {
         public static string LibraryDetail_Contact_ProjectUrl {
             get {
                 return ResourceManager.GetString("LibraryDetail_Contact_ProjectUrl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Contact.
-        /// </summary>
-        public static string LibraryDetail_Contact_Title {
-            get {
-                return ResourceManager.GetString("LibraryDetail_Contact_Title", resourceCulture);
             }
         }
         
@@ -1524,6 +1506,15 @@ namespace PipManager.Languages {
         public static string SearchDetail_Install {
             get {
                 return ResourceManager.GetString("SearchDetail_Install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to get installed libraries.
+        /// </summary>
+        public static string SearchDetail_Install_CannotGetLibraries {
+            get {
+                return ResourceManager.GetString("SearchDetail_Install_CannotGetLibraries", resourceCulture);
             }
         }
         

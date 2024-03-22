@@ -399,9 +399,6 @@
   <data name="LibraryDetail_Unknown" xml:space="preserve">
     <value>Unknown</value>
   </data>
-  <data name="LibraryDetail_Classifier_Title" xml:space="preserve">
-    <value>Classifier</value>
-  </data>
   <data name="LibraryDetail_Classifier_DevelopmentStatus" xml:space="preserve">
     <value>Development Status</value>
   </data>
@@ -479,9 +476,6 @@
   </data>
   <data name="LibraryDetail_Classifier_Topic" xml:space="preserve">
     <value>Topic</value>
-  </data>
-  <data name="LibraryDetail_Contact_Title" xml:space="preserve">
-    <value>Contact</value>
   </data>
   <data name="LibraryDetail_Contact_Author" xml:space="preserve">
     <value>Author</value>
@@ -701,5 +695,8 @@
   </data>
   <data name="SearchDetail_Install" xml:space="preserve">
     <value>Install</value>
+  </data>
+  <data name="SearchDetail_Install_CannotGetLibraries" xml:space="preserve">
+    <value>Failed to get installed libraries</value>
   </data>
 </root>
