@@ -83,9 +83,7 @@
                                     <ui:TextBlock FontTypography="Body" Text="{Binding TotalSubTaskNumber}" />
                                 </StackPanel>
                                 <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
-                                    <ui:Badge
-                                        VerticalAlignment="Center"
-                                        Appearance="Info">
+                                    <ui:Badge VerticalAlignment="Center" Appearance="Info">
                                         <ui:TextBlock FontTypography="Caption" Text="{I18N {x:Static lang:LangKeys.Action_Command}}" />
                                     </ui:Badge>
                                     <ui:TextBlock
@@ -96,9 +94,7 @@
                                         TextWrapping="WrapWithOverflow" />
                                 </StackPanel>
                                 <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
-                                    <ui:Badge
-                                        VerticalAlignment="Center"
-                                        Appearance="Caution">
+                                    <ui:Badge VerticalAlignment="Center" Appearance="Caution">
                                         <ui:TextBlock FontTypography="Caption" Text="{I18N {x:Static lang:LangKeys.Action_CurrentStatus}}" />
                                     </ui:Badge>
                                     <ui:TextBlock
@@ -108,9 +104,7 @@
                                         Text="{Binding OperationStatus}" />
                                 </StackPanel>
                                 <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
-                                    <ui:Badge
-                                        VerticalAlignment="Center"
-                                        Appearance="Info">
+                                    <ui:Badge VerticalAlignment="Center" Appearance="Info">
                                         <ui:TextBlock FontTypography="Caption" Text="{I18N {x:Static lang:LangKeys.Action_ConsoleOutput}}" />
                                     </ui:Badge>
                                     <ui:TextBlock
