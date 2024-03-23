@@ -35,7 +35,7 @@
                             Symbol="AppsAddIn24" />
                         <ui:TextBlock
                             Margin="0,0,10,0"
-                            FontTypography="Caption"
+                            Style="{StaticResource BodyLargeTextBlockStyle}"
                             Text="{I18N {x:Static lang:LangKeys.LibraryInstall_Add_Header}}" />
                     </StackPanel>
                 </TabItem.Header>
@@ -124,7 +124,7 @@
                             Symbol="ArrowImport24" />
                         <ui:TextBlock
                             Margin="0,0,10,0"
-                            FontTypography="Caption"
+                            Style="{StaticResource BodyLargeTextBlockStyle}"
                             Text="{I18N {x:Static lang:LangKeys.LibraryInstall_Requirements_Header}}" />
                     </StackPanel>
                 </TabItem.Header>
@@ -166,7 +166,7 @@
                             Symbol="ArrowDownload24" />
                         <ui:TextBlock
                             Margin="0,0,10,0"
-                            FontTypography="Caption"
+                            Style="{StaticResource BodyLargeTextBlockStyle}"
                             Text="{I18N {x:Static lang:LangKeys.LibraryInstall_Download_Header}}" />
                     </StackPanel>
                 </TabItem.Header>
