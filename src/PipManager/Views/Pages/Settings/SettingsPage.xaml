@@ -16,6 +16,7 @@
     d:DesignWidth="1200"
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    FontFamily="/PipManager;component/Resources/Fonts/MiSans-Regular.ttf#MiSans"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
     <Page.Resources>
@@ -31,7 +32,7 @@
         <!--  Network  -->
         <ui:Card>
             <StackPanel>
-                <ui:TextBlock FontTypography="BodyStrong" Text="{I18N {x:Static lang:LangKeys.Settings_Category_Network}}" />
+                <ui:TextBlock Style="{StaticResource BodyLargeTextBlockStyle}" Text="{I18N {x:Static lang:LangKeys.Settings_Category_Network}}" />
 
                 <!--  Network - Package Source  -->
                 <ui:CardExpander Margin="0,5,0,0" Icon="{ui:SymbolIcon Box24}">
@@ -143,7 +144,7 @@
         <!--  Personalization  -->
         <ui:Card Margin="0,15,0,0">
             <StackPanel>
-                <ui:TextBlock FontTypography="BodyStrong" Text="{I18N {x:Static lang:LangKeys.Settings_Category_Personalization}}" />
+                <ui:TextBlock Style="{StaticResource BodyLargeTextBlockStyle}"  Text="{I18N {x:Static lang:LangKeys.Settings_Category_Personalization}}" />
 
                 <!--  Personalization - Language  -->
                 <ui:CardControl Margin="0,5,0,0" Icon="{ui:SymbolIcon LocalLanguage24}">
@@ -332,7 +333,7 @@
         <!--  File Management  -->
         <ui:Card Margin="0,15,0,0">
             <StackPanel>
-                <ui:TextBlock FontTypography="BodyStrong" Text="{I18N {x:Static lang:LangKeys.Settings_Category_FileManagement}}" />
+                <ui:TextBlock Style="{StaticResource BodyLargeTextBlockStyle}"  Text="{I18N {x:Static lang:LangKeys.Settings_Category_FileManagement}}" />
 
                 <!--  File Management - WebView2 Cache  -->
                 <ui:CardControl

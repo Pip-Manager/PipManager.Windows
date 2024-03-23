@@ -14,6 +14,7 @@
     d:DataContext="{d:DesignInstance action:ActionExceptionWindow,
                                      IsDesignTimeCreatable=True}"
     ExtendsContentIntoTitleBar="True"
+    FontFamily="/PipManager;component/Resources/Fonts/MiSans-Regular.ttf#MiSans"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     ResizeMode="CanMinimize"
     WindowBackdropType="Mica"

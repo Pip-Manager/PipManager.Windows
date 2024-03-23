@@ -13,11 +13,12 @@
     d:DesignWidth="1200"
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    FontFamily="/PipManager;component/Resources/Fonts/MiSans-Regular.ttf#MiSans"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
 
     <Grid>
         <ui:Button Command="{Binding ViewModel.ActionTestCommand}" Content="Action Test" />
-        <ui:Card Content=""></ui:Card>
+        <ui:Card Content="" />
     </Grid>
 </Page>

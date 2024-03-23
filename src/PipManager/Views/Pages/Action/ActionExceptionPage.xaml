@@ -16,6 +16,7 @@
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     ui:NavigationView.HeaderContent="{I18N {x:Static lang:LangKeys.ActionException_Header}}"
+    FontFamily="/PipManager;component/Resources/Fonts/MiSans-Regular.ttf#MiSans"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
 
@@ -62,10 +63,8 @@
                                         TextWrapping="WrapWithOverflow" />
                                 </StackPanel>
                                 <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
-                                    <ui:Badge
-                                        VerticalAlignment="Center"
-                                        Appearance="Info">
-                                        <ui:TextBlock Text="{I18N {x:Static lang:LangKeys.ActionException_Badge_Timestamp}}" FontTypography="Caption"/>
+                                    <ui:Badge VerticalAlignment="Center" Appearance="Info">
+                                        <ui:TextBlock FontTypography="Caption" Text="{I18N {x:Static lang:LangKeys.ActionException_Badge_Timestamp}}" />
                                     </ui:Badge>
                                     <ui:TextBlock
                                         Margin="5,0,0,0"

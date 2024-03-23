@@ -94,7 +94,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Services\Toast\" />
+		<Resource Include="Resources\Fonts\MiSans-Regular.ttf" />
 	</ItemGroup>
 
 	<ItemGroup>
