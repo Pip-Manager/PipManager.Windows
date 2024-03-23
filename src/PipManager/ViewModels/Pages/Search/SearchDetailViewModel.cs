@@ -2,7 +2,6 @@
 using HtmlAgilityPack;
 using Microsoft.Web.WebView2.Core;
 using PipManager.Languages;
-using PipManager.Models.Pages;
 using PipManager.PackageSearch.Wrappers.Query;
 using PipManager.Services.Environment;
 using PipManager.Services.Mask;
@@ -88,7 +87,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
                 _themeTypeInInteger = 856343;
                 break;
         }
-        SearchDetailPage.ProjectDescriptionWebView!.DefaultBackgroundColor = Color.FromArgb(_themeTypeInInteger);        
+        SearchDetailPage.ProjectDescriptionWebView!.DefaultBackgroundColor = Color.FromArgb(_themeTypeInInteger);
     }
 
     public void OnNavigatedFrom()
@@ -103,6 +102,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
 
     [ObservableProperty]
     private ObservableCollection<string> _availableVersions = [];
+
     [ObservableProperty]
     private string _targetVersion = "";
 
@@ -110,7 +110,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     private async Task InstallPackage()
     {
         var installedPackages = await _environmentService.GetLibraries();
-        if(installedPackages == null)
+        if (installedPackages == null)
         {
             _toastService.Error(Lang.SearchDetail_Install_CannotGetLibraries);
             return;
@@ -120,7 +120,6 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
             _toastService.Error(Lang.LibraryInstall_Add_AlreadyInstalled);
             return;
         }
-        
     }
 
     public void Receive(object recipient, SearchDetailMessage message)

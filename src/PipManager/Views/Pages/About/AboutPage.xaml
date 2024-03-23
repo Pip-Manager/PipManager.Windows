@@ -147,7 +147,7 @@
                                     <StackPanel Margin="5,0,0,0">
                                         <ui:TextBlock
                                             VerticalAlignment="Center"
-                                            Style="{StaticResource BodyLargeTextBlockStyle}" 
+                                            Style="{StaticResource BodyLargeTextBlockStyle}"
                                             Text="{Binding LibraryName}" />
 
                                         <StackPanel Orientation="Horizontal">

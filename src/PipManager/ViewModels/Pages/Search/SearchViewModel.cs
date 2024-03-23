@@ -28,7 +28,7 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
 
     [ObservableProperty]
     private bool _onQuerying = false;
-    
+
     [ObservableProperty]
     private bool _successQueried = false;
 
