@@ -702,4 +702,7 @@
   <data name="Settings_PackageSource_Subtitle" xml:space="preserve">
     <value>通过PyPI或其他镜像站安装、下载包</value>
   </data>
+  <data name="SearchDetail_LatestUpdatedTime" xml:space="preserve">
+    <value>更新时间:</value>
+  </data>
 </root>

@@ -702,4 +702,7 @@
   <data name="Settings_PackageSource_Subtitle" xml:space="preserve">
     <value>Installing and downloading packages via PyPI or other mirror sites</value>
   </data>
+  <data name="SearchDetail_LatestUpdatedTime" xml:space="preserve">
+    <value>Latest Updated:</value>
+  </data>
 </root>
