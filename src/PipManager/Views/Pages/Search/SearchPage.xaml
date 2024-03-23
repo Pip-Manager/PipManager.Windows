@@ -41,13 +41,22 @@
                 Grid.Column="2"
                 Margin="5,0,0,0"
                 VerticalAlignment="Stretch"
-                Appearance="Success"
+                Appearance="Primary"
                 Command="{Binding ViewModel.SearchCommand}"
                 CommandParameter="{Binding ElementName=SearchTextBox, Path=Text}"
                 FontSize="20"
                 Icon="{ui:SymbolIcon Search48}"
                 IsDefault="True" />
         </Grid>
+
+        <ui:ProgressRing
+            Grid.Row="1"
+            Width="80"
+            Height="80"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            IsIndeterminate="True"
+            Visibility="{Binding ViewModel.OnQuerying, Converter={StaticResource BoolToVisibility}}" />
 
         <ListView
             x:Name="SearchList"
@@ -56,23 +65,23 @@
             ItemsSource="{Binding ViewModel.QueryList, Mode=TwoWay}">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type query:QueryListItemModel}">
-                    <Grid>
+                    <Grid Margin="5,0,0,0">
                         <StackPanel Margin="5">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock
+                                <ui:TextBlock
                                     VerticalAlignment="Center"
-                                    FontSize="15"
+                                    Style="{StaticResource BodyLargeTextBlockStyle}"
                                     Text="{Binding Name}" />
-                                <TextBlock FontSize="14" Text=" " />
-                                <TextBlock
+                                <ui:TextBlock FontSize="14" Text=" " />
+                                <ui:TextBlock
                                     VerticalAlignment="Center"
-                                    FontSize="15"
+                                    Style="{StaticResource BodyLargeTextBlockStyle}"
                                     Text="{Binding Version}" />
                             </StackPanel>
-                            <TextBlock
+                            <ui:TextBlock
                                 Width="800"
                                 HorizontalAlignment="Left"
-                                FontSize="12"
+                                FontTypography="Body"
                                 Foreground="Gray"
                                 Text="{Binding Description}"
                                 TextWrapping="Wrap" />
@@ -101,19 +110,19 @@
                 FontSize="20"
                 Icon="{ui:SymbolIcon ArrowLeft24}"
                 IsEnabled="{Binding ViewModel.ReachesFirstPage, Converter={StaticResource InverseBool}}" />
-            <TextBlock
+            <ui:TextBlock
                 Margin="15,0,0,0"
                 VerticalAlignment="Center"
-                FontSize="18"
+                Style="{StaticResource BodyLargeTextBlockStyle}"
                 Text="{Binding ViewModel.CurrentPage}" />
-            <TextBlock
+            <ui:TextBlock
                 VerticalAlignment="Center"
-                FontSize="18"
+                Style="{StaticResource BodyLargeTextBlockStyle}"
                 Text=" / " />
-            <TextBlock
+            <ui:TextBlock
                 Margin="0,0,15,0"
                 VerticalAlignment="Center"
-                FontSize="18"
+                Style="{StaticResource BodyLargeTextBlockStyle}"
                 Text="{Binding ViewModel.MaxPage}" />
             <ui:Button
                 Command="{Binding ViewModel.ToNextPageCommand}"
@@ -121,16 +130,17 @@
                 Icon="{ui:SymbolIcon ArrowRight24}"
                 IsEnabled="{Binding ViewModel.ReachesLastPage, Converter={StaticResource InverseBool}}" />
         </StackPanel>
-        <TextBlock
+        <ui:TextBlock
             Grid.Row="2"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
+            FontTypography="Body"
             Visibility="{Binding ViewModel.SuccessQueried, Converter={StaticResource BoolToVisibility}}">
-            <TextBlock.Text>
+            <ui:TextBlock.Text>
                 <I18N Key="{x:Static lang:LangKeys.Search_List_TotalResultNumber}">
                     <Binding Path="ViewModel.TotalResultNumber" />
                 </I18N>
-            </TextBlock.Text>
-        </TextBlock>
+            </ui:TextBlock.Text>
+        </ui:TextBlock>
     </Grid>
 </Page>

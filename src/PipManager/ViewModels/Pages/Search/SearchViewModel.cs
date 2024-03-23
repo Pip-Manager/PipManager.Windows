@@ -27,6 +27,9 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
     private string _totalResultNumber = "";
 
     [ObservableProperty]
+    private bool _onQuerying = false;
+    
+    [ObservableProperty]
     private bool _successQueried = false;
 
     [ObservableProperty]
@@ -146,6 +149,7 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
     {
         if (parameter != null && !string.IsNullOrEmpty(parameter))
         {
+            OnQuerying = true;
             Log.Information($"[Search] Query: {parameter}");
             QueryList.Clear();
             TotalResultNumber = "";
@@ -155,6 +159,7 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
             QueryPackageName = parameter;
             var result = await packageSearchService.Query(parameter, 1);
             Process(result);
+            OnQuerying = false;
         }
     }
 }
