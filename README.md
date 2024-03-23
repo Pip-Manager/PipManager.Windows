@@ -60,8 +60,8 @@ Pip Manager is based on the following technology stacks:
 
 ## Screenshots
 
-![imaged94b02fa5d799502.png](https://loli.tc/images/imaged94b02fa5d799502.png)
-![image94df723d9bc647dc.png](https://loli.tc/images/image94df723d9bc647dc.png)
+![light.jpeg](https://loli.tc/images/light.jpeg)
+![dark.jpeg](https://loli.tc/images/dark.jpeg)
 
 ## Getting Started
 
