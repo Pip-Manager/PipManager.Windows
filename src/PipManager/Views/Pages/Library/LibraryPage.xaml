@@ -12,7 +12,6 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     x:Name="Library"
     Title="LibraryPage"
-    Height="560"
     d:DataContext="{d:DesignInstance library:LibraryPage,
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="700"
@@ -21,6 +20,7 @@
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     FontFamily="/PipManager;component/Resources/Fonts/MiSans-Regular.ttf#MiSans"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    ScrollViewer.CanContentScroll="False"
     mc:Ignorable="d">
 
     <Grid>

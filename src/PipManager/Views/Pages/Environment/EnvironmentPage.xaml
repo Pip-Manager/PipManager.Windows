@@ -9,7 +9,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="EnvironmentPage"
-    Height="560"
     d:DataContext="{d:DesignInstance environment:EnvironmentPage,
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="700"

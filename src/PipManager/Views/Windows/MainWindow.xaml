@@ -30,7 +30,7 @@
     ExtendsContentIntoTitleBar="True"
     FontFamily="/PipManager;component/Resources/Fonts/MiSans-Regular.ttf#MiSans"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    ResizeMode="CanMinimize"
+    ResizeMode="CanResizeWithGrip"
     WindowBackdropType="Mica"
     WindowCornerPreference="Round"
     WindowStartupLocation="CenterScreen"
