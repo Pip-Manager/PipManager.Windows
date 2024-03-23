@@ -91,17 +91,24 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
+                    <ComboBox
+                        Width="150"
+                        VerticalAlignment="Center"
+                        ItemsSource="{Binding AvailableVersions}"
+                        SelectedIndex="0"
+                        SelectedItem="{Binding TargetVersion, Mode=TwoWay}"/>
                     <ui:Button
-                        IsEnabled="False"
+                        Margin="15,0,0,0"
                         Appearance="Secondary"
                         Content="{I18N {x:Static lang:LangKeys.SearchDetail_DownloadDistributions}}"
-                        Icon="{ui:SymbolIcon ArrowCircleDown24}" />
+                        Icon="{ui:SymbolIcon ArrowCircleDown24}"
+                        IsEnabled="False" />
                     <ui:Button
-                        IsEnabled="False"
                         Margin="15,0,0,0"
                         Appearance="Success"
                         Content="{I18N {x:Static lang:LangKeys.SearchDetail_Install}}"
-                        Icon="{ui:SymbolIcon AddCircle24}" />
+                        Icon="{ui:SymbolIcon AddCircle24}"
+                        IsEnabled="False" />
                 </StackPanel>
             </Grid>
         </Border>

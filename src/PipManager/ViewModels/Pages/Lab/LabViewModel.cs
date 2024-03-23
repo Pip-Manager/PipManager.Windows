@@ -16,8 +16,8 @@ public partial class LabViewModel(IActionService actionService)
         actionService.AddOperation(new ActionListItem
         (
             ActionType.Install,
-            "torch requests a pyqt6",
-            totalSubTaskNumber: 4,
+            "114514==114",
+            totalSubTaskNumber: 1,
             progressIntermediate: false
         ));
     }

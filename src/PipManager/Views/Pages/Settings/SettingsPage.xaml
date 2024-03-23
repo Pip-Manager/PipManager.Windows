@@ -29,87 +29,97 @@
 
     <StackPanel Margin="0,0,0,20">
         <!--  Package Source  -->
-        <TextBlock
-            FontSize="20"
-            FontWeight="Medium"
-            Text="{I18N {x:Static lang:LangKeys.Settings_Category_PackageSource}}" />
-        <ui:InfoBar
-            Title="{I18N {x:Static lang:LangKeys.Common_NoticeTitle_Notice}}"
-            Margin="0,8,0,0"
-            IsClosable="False"
-            IsOpen="True"
-            Message="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Notice}}" />
-        <Grid Margin="0,8,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="130" />
-                <ColumnDefinition Width="100" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-            </Grid.RowDefinitions>
-            <RadioButton
-                Grid.Row="0"
-                Grid.Column="0"
-                Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
-                CommandParameter="official"
-                Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Official}}"
-                Cursor="Hand"
-                GroupName="packageSourceSelect"
-                IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Official, Mode=TwoWay}" />
-            <TextBlock
-                Grid.Row="0"
-                Grid.Column="1"
-                Style="{StaticResource PackageSourceNetworkTextBlockStyle}"
-                Text="{Binding ViewModel.OfficialPackageSourceNetwork}" />
-            <RadioButton
-                Grid.Row="1"
-                Grid.Column="0"
-                Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
-                CommandParameter="tsinghua"
-                Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Tsinghua}}"
-                GroupName="packageSourceSelect"
-                IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Tsinghua, Mode=TwoWay}" />
-            <TextBlock
-                Grid.Row="1"
-                Grid.Column="1"
-                Style="{StaticResource PackageSourceNetworkTextBlockStyle}"
-                Text="{Binding ViewModel.TsinghuaPackageSourceNetwork}" />
-            <RadioButton
-                Grid.Row="2"
-                Grid.Column="0"
-                Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
-                CommandParameter="aliyun"
-                Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Aliyun}}"
-                GroupName="packageSourceSelect"
-                IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Aliyun, Mode=TwoWay}" />
-            <TextBlock
-                Grid.Row="2"
-                Grid.Column="1"
-                Style="{StaticResource PackageSourceNetworkTextBlockStyle}"
-                Text="{Binding ViewModel.AliyunPackageSourceNetwork}" />
-            <RadioButton
-                Grid.Row="3"
-                Grid.Column="0"
-                Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
-                CommandParameter="douban"
-                Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Douban}}"
-                Cursor="Hand"
-                GroupName="packageSourceSelect"
-                IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Douban, Mode=TwoWay}" />
-            <TextBlock
-                Grid.Row="3"
-                Grid.Column="1"
-                Style="{StaticResource PackageSourceNetworkTextBlockStyle}"
-                Text="{Binding ViewModel.DoubanPackageSourceNetwork}" />
-        </Grid>
-        <ui:Button
-            Margin="0,10,0,0"
-            Command="{Binding ViewModel.TestNetworkCommand}"
-            Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_NetworkTest}}"
-            Icon="{ui:SymbolIcon NetworkCheck20}" />
+
+        <ui:CardExpander Icon="{ui:SymbolIcon Box24}">
+            <ui:CardExpander.Header>
+                <StackPanel>
+                    <ui:TextBlock Text="{I18N {x:Static lang:LangKeys.Settings_Category_PackageSource}}" />
+                    <ui:TextBlock
+                        FontTypography="Caption"
+                        Foreground="Gray"
+                        Text="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Subtitle}}" />
+                </StackPanel>
+            </ui:CardExpander.Header>
+            <StackPanel>
+                <ui:InfoBar
+                    Title="{I18N {x:Static lang:LangKeys.Common_NoticeTitle_Notice}}"
+                    Margin="0,8,0,0"
+                    IsClosable="False"
+                    IsOpen="True"
+                    Message="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Notice}}" />
+                <Grid Margin="0,8,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition Width="100" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+                    <RadioButton
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
+                        CommandParameter="official"
+                        Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Official}}"
+                        Cursor="Hand"
+                        GroupName="packageSourceSelect"
+                        IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Official, Mode=TwoWay}" />
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Style="{StaticResource PackageSourceNetworkTextBlockStyle}"
+                        Text="{Binding ViewModel.OfficialPackageSourceNetwork}" />
+                    <RadioButton
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
+                        CommandParameter="tsinghua"
+                        Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Tsinghua}}"
+                        GroupName="packageSourceSelect"
+                        IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Tsinghua, Mode=TwoWay}" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Style="{StaticResource PackageSourceNetworkTextBlockStyle}"
+                        Text="{Binding ViewModel.TsinghuaPackageSourceNetwork}" />
+                    <RadioButton
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
+                        CommandParameter="aliyun"
+                        Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Aliyun}}"
+                        GroupName="packageSourceSelect"
+                        IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Aliyun, Mode=TwoWay}" />
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Style="{StaticResource PackageSourceNetworkTextBlockStyle}"
+                        Text="{Binding ViewModel.AliyunPackageSourceNetwork}" />
+                    <RadioButton
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
+                        CommandParameter="douban"
+                        Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Douban}}"
+                        Cursor="Hand"
+                        GroupName="packageSourceSelect"
+                        IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Douban, Mode=TwoWay}" />
+                    <TextBlock
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Style="{StaticResource PackageSourceNetworkTextBlockStyle}"
+                        Text="{Binding ViewModel.DoubanPackageSourceNetwork}" />
+                </Grid>
+                <ui:Button
+                    Margin="0,10,0,0"
+                    Command="{Binding ViewModel.TestNetworkCommand}"
+                    Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_NetworkTest}}"
+                    Icon="{ui:SymbolIcon NetworkCheck20}" />
+            </StackPanel>
+        </ui:CardExpander>
 
         <TextBlock
             Margin="0,12,0,0"
@@ -120,8 +130,8 @@
         <TextBlock Margin="0,12,0,0" Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_Language}}" />
         <ComboBox
             x:Name="LanguageComboBox"
-            Margin="0,10,0,0"
             Width="200"
+            Margin="0,10,0,0"
             HorizontalAlignment="Left"
             Focusable="False"
             ItemsSource="{Binding ViewModel.Languages}"

@@ -1672,6 +1672,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Installing and downloading packages via PyPI or other mirror sites.
+        /// </summary>
+        public static string Settings_PackageSource_Subtitle {
+            get {
+                return ResourceManager.GetString("Settings_PackageSource_Subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tsinghua.
         /// </summary>
         public static string Settings_PackageSource_Tsinghua {

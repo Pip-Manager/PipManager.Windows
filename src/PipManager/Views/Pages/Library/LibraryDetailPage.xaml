@@ -44,7 +44,7 @@
 
                 </StackPanel>
             </ui:Card>
-            <ui:CardExpander Icon="{ui:SymbolIcon Person24}">
+            <ui:CardExpander Margin="0,10,0,0" Icon="{ui:SymbolIcon Person24}">
                 <ui:CardExpander.Header>
                     <StackPanel>
                         <ui:TextBlock Text="{Binding ViewModel.Author, Mode=TwoWay}" />
@@ -71,8 +71,8 @@
                                     ToolTip="{Binding Url}"
                                     Visibility="{Binding Url, Converter={StaticResource NullToVisibility}}" />
                                 <ui:TextBlock
-                                    FontTypography="Body"
                                     Margin="3,5,0,5"
+                                    FontTypography="Body"
                                     Text="{I18N {x:Static lang:LangKeys.LibraryDetail_Unknown}}"
                                     Visibility="{Binding Url, Converter={StaticResource NotNullToVisibility}}" />
                             </StackPanel>
@@ -80,13 +80,8 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ui:CardExpander>
-            
-            <Border
-                Margin="0,3,0,0"
-                Padding="10"
-                BorderBrush="Gray"
-                BorderThickness="2"
-                CornerRadius="5">
+
+            <ui:Card Margin="0,10,0,0">
                 <StackPanel>
                     <TextBlock Margin="0,0,0,5" Text="{I18N {x:Static lang:LangKeys.LibraryDetail_Classifier_DevelopmentStatus}}" />
                     <ui:Badge
@@ -167,7 +162,7 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </StackPanel>
-            </Border>
+            </ui:Card>
         </StackPanel>
     </Grid>
 </Page>
