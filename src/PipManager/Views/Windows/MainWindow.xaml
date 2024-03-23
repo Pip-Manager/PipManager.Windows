@@ -44,13 +44,14 @@
         <ui:NavigationView
             x:Name="NavigationView"
             Grid.Row="1"
-            Transition="FadeInWithSlide"
             Padding="42,0,42,0"
             BreadcrumbBar="{Binding ElementName=BreadcrumbBar}"
             FontSize="14"
             FrameMargin="0"
-            IsBackButtonVisible="Collapsed"
-            IsPaneToggleVisible="True" OpenPaneLength="200">
+            IsBackButtonVisible="Visible"
+            IsPaneToggleVisible="True"
+            OpenPaneLength="200"
+            Transition="FadeInWithSlide">
             <ui:NavigationView.Header>
                 <ui:BreadcrumbBar x:Name="BreadcrumbBar" Margin="42,32,42,20" />
             </ui:NavigationView.Header>

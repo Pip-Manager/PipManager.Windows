@@ -28,10 +28,11 @@
 
         <Border
             Grid.Row="1"
-            Margin="0,-8,0,0"
+            Margin="0,10,0,0"
             BorderBrush="Gray"
-            BorderThickness="4,0,4,4"
-            CornerRadius="3">
+            BorderThickness="3"
+            CornerRadius="5"
+            Padding="3">
             <Grid>
                 <ui:ProgressRing
                     Width="100"
@@ -42,48 +43,42 @@
                     Visibility="{Binding ViewModel.ProjectDescriptionVisibility, Converter={StaticResource InverseBoolToVisibility}}" />
                 <wpf:WebView2
                     x:Name="SearchDetailProjectDesciptionWebView"
-                    Margin="0,8,0,0"
+                    Margin="0, 2, 0, 0"
                     CoreWebView2InitializationCompleted="SearchDetailProjectDesciptionWebView_CoreWebView2InitializationCompleted"
                     NavigationStarting="SearchDetailProjectDesciptionWebView_NavigationStarting"
                     Visibility="{Binding ViewModel.ProjectDescriptionVisibility, Converter={StaticResource BoolToVisibility}}" />
             </Grid>
         </Border>
-        <Border
-            Grid.Row="0"
-            Padding="20"
-            Background="SteelBlue"
-            CornerRadius="7">
-            <TextBlock
-                Margin="0,100,0,0"
-                Foreground="White"
-                Text="{Binding ViewModel.Package.Description}"
-                TextWrapping="Wrap" />
-        </Border>
-        <Border
-            Grid.Row="0"
-            Height="100"
-            Padding="20"
-            VerticalAlignment="Top"
-            Background="DodgerBlue"
-            CornerRadius="7">
+
+        <ui:Card Grid.Row="0">
             <Grid>
-                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            FontSize="28"
-                            Foreground="White"
+                        <ui:TextBlock
+                            VerticalAlignment="Center"
+                            FontTypography="Subtitle"
                             Text="{Binding ViewModel.Package.Name}" />
-                        <TextBlock
-                            Margin="10,0,0,0"
-                            FontSize="28"
-                            Foreground="White"
-                            Text="{Binding ViewModel.Package.Version}" />
+                        <ui:Badge
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Center"
+                            Appearance="Info">
+                            <ui:TextBlock FontTypography="Caption" Text="{Binding ViewModel.Package.Version}" />
+                        </ui:Badge>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="White" Text="Latest Updated: " />
-                        <TextBlock
+                    <ui:TextBlock
+                        Margin="0,3,0,0"
+                        FontTypography="Body"
+                        Text="{Binding ViewModel.Package.Description}"
+                        TextWrapping="Wrap" />
+                    <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
+                        <ui:TextBlock
+                            Appearance="Secondary"
+                            FontTypography="Caption"
+                            Text="Latest Updated: " />
+                        <ui:TextBlock
                             Margin="10,0,0,0"
-                            Foreground="White"
+                            Appearance="Secondary"
+                            FontTypography="Caption"
                             Text="{Binding ViewModel.Package.UpdateTime}" />
                     </StackPanel>
                 </StackPanel>
@@ -96,7 +91,7 @@
                         VerticalAlignment="Center"
                         ItemsSource="{Binding AvailableVersions}"
                         SelectedIndex="0"
-                        SelectedItem="{Binding TargetVersion, Mode=TwoWay}"/>
+                        SelectedItem="{Binding TargetVersion, Mode=TwoWay}" />
                     <ui:Button
                         Margin="15,0,0,0"
                         Appearance="Secondary"
@@ -111,6 +106,6 @@
                         IsEnabled="False" />
                 </StackPanel>
             </Grid>
-        </Border>
+        </ui:Card>
     </Grid>
 </Page>
