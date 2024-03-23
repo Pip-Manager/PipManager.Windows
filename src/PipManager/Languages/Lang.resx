@@ -148,13 +148,13 @@
     <value>Log Auto Deletion</value>
   </data>
   <data name="Settings_PersonalizationLogAutoDeletion_Tip" xml:space="preserve">
-    <value>Log files will be deleted after more than {0}</value>
+    <value>Log files will be deleted after more than {0} items</value>
   </data>
   <data name="Settings_PersonalizationTitle_CrushesAutoDeletion" xml:space="preserve">
     <value>Crushes Auto Deletion</value>
   </data>
   <data name="Settings_PersonalizationCrushesAutoDeletion_Tip" xml:space="preserve">
-    <value>Crush files will be deleted after more than {0}</value>
+    <value>Crush files will be deleted after more than {0} items</value>
   </data>
   <data name="TrayMenu_Install" xml:space="preserve">
     <value>Install Package</value>
@@ -678,16 +678,13 @@
   <data name="SearchDetail_ProjectDescription_LoadFailed" xml:space="preserve">
     <value>Project description not available online</value>
   </data>
-  <data name="Settings_PersonalizationTitle_WebViewSettings" xml:space="preserve">
-    <value>WebView2 Settings</value>
+  <data name="Settings_FileManagement_WebViewSettings_ClearCache" xml:space="preserve">
+    <value>Clear WebView2 Cache</value>
   </data>
-  <data name="Settings_PersonalizationTitle_WebViewSettings_ClearCache" xml:space="preserve">
-    <value>Clear Cache</value>
-  </data>
-  <data name="Settings_PersonalizationTitle_WebViewSettings_CacheCleared" xml:space="preserve">
+  <data name="Settings_FileManagement_WebViewSettings_CacheCleared" xml:space="preserve">
     <value>Cache cleared</value>
   </data>
-  <data name="Settings_PersonalizationTitle_WebViewSettings_CacheIsUsing" xml:space="preserve">
+  <data name="Settings_FileManagement_WebViewSettings_CacheIsUsing" xml:space="preserve">
     <value>WebView still in use, cannot clear cache</value>
   </data>
   <data name="SearchDetail_DownloadDistributions" xml:space="preserve">
@@ -704,5 +701,23 @@
   </data>
   <data name="SearchDetail_LatestUpdatedTime" xml:space="preserve">
     <value>Latest Updated:</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_Language_Subtitle" xml:space="preserve">
+    <value>Set language</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_Theme_Subtitle" xml:space="preserve">
+    <value>Change window theme</value>
+  </data>
+  <data name="Settings_Category_Network" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_LogAutoDeletion_Subtitle" xml:space="preserve">
+    <value>Set the log file number limit</value>
+  </data>
+  <data name="Settings_FileManagement_WebViewSettings_ClearCache_Subtitle" xml:space="preserve">
+    <value>Clear the WebView2 cache used for e.g. search pages</value>
+  </data>
+  <data name="Settings_FileManagement_ResetConfig_Subtitle" xml:space="preserve">
+    <value>All configuration settings (config.json) will be restored to the initial state</value>
   </data>
 </root>

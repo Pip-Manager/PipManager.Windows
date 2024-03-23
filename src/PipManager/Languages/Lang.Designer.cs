@@ -1546,6 +1546,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Network 的本地化字符串。
+        /// </summary>
+        public static string Settings_Category_Network {
+            get {
+                return ResourceManager.GetString("Settings_Category_Network", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Package Source 的本地化字符串。
         /// </summary>
         public static string Settings_Category_PackageSource {
@@ -1614,6 +1623,51 @@ namespace PipManager.Languages {
         public static string Settings_FileManagement_ResetConfig_DialogContent {
             get {
                 return ResourceManager.GetString("Settings_FileManagement_ResetConfig_DialogContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 All configuration settings (config.json) will be restored to the initial state 的本地化字符串。
+        /// </summary>
+        public static string Settings_FileManagement_ResetConfig_Subtitle {
+            get {
+                return ResourceManager.GetString("Settings_FileManagement_ResetConfig_Subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Cache cleared 的本地化字符串。
+        /// </summary>
+        public static string Settings_FileManagement_WebViewSettings_CacheCleared {
+            get {
+                return ResourceManager.GetString("Settings_FileManagement_WebViewSettings_CacheCleared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 WebView still in use, cannot clear cache 的本地化字符串。
+        /// </summary>
+        public static string Settings_FileManagement_WebViewSettings_CacheIsUsing {
+            get {
+                return ResourceManager.GetString("Settings_FileManagement_WebViewSettings_CacheIsUsing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Clear WebView2 Cache 的本地化字符串。
+        /// </summary>
+        public static string Settings_FileManagement_WebViewSettings_ClearCache {
+            get {
+                return ResourceManager.GetString("Settings_FileManagement_WebViewSettings_ClearCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Clear the WebView2 cache used for e.g. search pages 的本地化字符串。
+        /// </summary>
+        public static string Settings_FileManagement_WebViewSettings_ClearCache_Subtitle {
+            get {
+                return ResourceManager.GetString("Settings_FileManagement_WebViewSettings_ClearCache_Subtitle", resourceCulture);
             }
         }
         
@@ -1699,7 +1753,7 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   查找类似 Crush files will be deleted after more than {0} 的本地化字符串。
+        ///   查找类似 Crush files will be deleted after more than {0} items 的本地化字符串。
         /// </summary>
         public static string Settings_PersonalizationCrushesAutoDeletion_Tip {
             get {
@@ -1708,7 +1762,7 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   查找类似 Log files will be deleted after more than {0} 的本地化字符串。
+        ///   查找类似 Log files will be deleted after more than {0} items 的本地化字符串。
         /// </summary>
         public static string Settings_PersonalizationLogAutoDeletion_Tip {
             get {
@@ -1753,11 +1807,29 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   查找类似 Set language 的本地化字符串。
+        /// </summary>
+        public static string Settings_PersonalizationTitle_Language_Subtitle {
+            get {
+                return ResourceManager.GetString("Settings_PersonalizationTitle_Language_Subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Log Auto Deletion 的本地化字符串。
         /// </summary>
         public static string Settings_PersonalizationTitle_LogAutoDeletion {
             get {
                 return ResourceManager.GetString("Settings_PersonalizationTitle_LogAutoDeletion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Set the log file number limit 的本地化字符串。
+        /// </summary>
+        public static string Settings_PersonalizationTitle_LogAutoDeletion_Subtitle {
+            get {
+                return ResourceManager.GetString("Settings_PersonalizationTitle_LogAutoDeletion_Subtitle", resourceCulture);
             }
         }
         
@@ -1771,38 +1843,11 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   查找类似 WebView2 Settings 的本地化字符串。
+        ///   查找类似 Change window theme 的本地化字符串。
         /// </summary>
-        public static string Settings_PersonalizationTitle_WebViewSettings {
+        public static string Settings_PersonalizationTitle_Theme_Subtitle {
             get {
-                return ResourceManager.GetString("Settings_PersonalizationTitle_WebViewSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Cache cleared 的本地化字符串。
-        /// </summary>
-        public static string Settings_PersonalizationTitle_WebViewSettings_CacheCleared {
-            get {
-                return ResourceManager.GetString("Settings_PersonalizationTitle_WebViewSettings_CacheCleared", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 WebView still in use, cannot clear cache 的本地化字符串。
-        /// </summary>
-        public static string Settings_PersonalizationTitle_WebViewSettings_CacheIsUsing {
-            get {
-                return ResourceManager.GetString("Settings_PersonalizationTitle_WebViewSettings_CacheIsUsing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Clear Cache 的本地化字符串。
-        /// </summary>
-        public static string Settings_PersonalizationTitle_WebViewSettings_ClearCache {
-            get {
-                return ResourceManager.GetString("Settings_PersonalizationTitle_WebViewSettings_ClearCache", resourceCulture);
+                return ResourceManager.GetString("Settings_PersonalizationTitle_Theme_Subtitle", resourceCulture);
             }
         }
         

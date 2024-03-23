@@ -28,238 +28,434 @@
     </Page.Resources>
 
     <StackPanel Margin="0,0,0,20">
-        <!--  Package Source  -->
-
-        <ui:CardExpander Icon="{ui:SymbolIcon Box24}">
-            <ui:CardExpander.Header>
-                <StackPanel>
-                    <ui:TextBlock Text="{I18N {x:Static lang:LangKeys.Settings_Category_PackageSource}}" />
-                    <ui:TextBlock
-                        FontTypography="Caption"
-                        Foreground="Gray"
-                        Text="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Subtitle}}" />
-                </StackPanel>
-            </ui:CardExpander.Header>
+        <!--  Network  -->
+        <ui:Card>
             <StackPanel>
-                <ui:InfoBar
-                    Title="{I18N {x:Static lang:LangKeys.Common_NoticeTitle_Notice}}"
-                    Margin="0,8,0,0"
-                    IsClosable="False"
-                    IsOpen="True"
-                    Message="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Notice}}" />
-                <Grid Margin="0,8,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="130" />
-                        <ColumnDefinition Width="100" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="40" />
-                        <RowDefinition Height="40" />
-                        <RowDefinition Height="40" />
-                        <RowDefinition Height="40" />
-                    </Grid.RowDefinitions>
-                    <RadioButton
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
-                        CommandParameter="official"
-                        Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Official}}"
-                        Cursor="Hand"
-                        GroupName="packageSourceSelect"
-                        IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Official, Mode=TwoWay}" />
-                    <TextBlock
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Style="{StaticResource PackageSourceNetworkTextBlockStyle}"
-                        Text="{Binding ViewModel.OfficialPackageSourceNetwork}" />
-                    <RadioButton
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
-                        CommandParameter="tsinghua"
-                        Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Tsinghua}}"
-                        GroupName="packageSourceSelect"
-                        IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Tsinghua, Mode=TwoWay}" />
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Style="{StaticResource PackageSourceNetworkTextBlockStyle}"
-                        Text="{Binding ViewModel.TsinghuaPackageSourceNetwork}" />
-                    <RadioButton
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
-                        CommandParameter="aliyun"
-                        Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Aliyun}}"
-                        GroupName="packageSourceSelect"
-                        IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Aliyun, Mode=TwoWay}" />
-                    <TextBlock
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Style="{StaticResource PackageSourceNetworkTextBlockStyle}"
-                        Text="{Binding ViewModel.AliyunPackageSourceNetwork}" />
-                    <RadioButton
-                        Grid.Row="3"
-                        Grid.Column="0"
-                        Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
-                        CommandParameter="douban"
-                        Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Douban}}"
-                        Cursor="Hand"
-                        GroupName="packageSourceSelect"
-                        IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Douban, Mode=TwoWay}" />
-                    <TextBlock
-                        Grid.Row="3"
-                        Grid.Column="1"
-                        Style="{StaticResource PackageSourceNetworkTextBlockStyle}"
-                        Text="{Binding ViewModel.DoubanPackageSourceNetwork}" />
-                </Grid>
-                <ui:Button
-                    Margin="0,10,0,0"
-                    Command="{Binding ViewModel.TestNetworkCommand}"
-                    Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_NetworkTest}}"
-                    Icon="{ui:SymbolIcon NetworkCheck20}" />
-            </StackPanel>
-        </ui:CardExpander>
+                <ui:TextBlock FontTypography="BodyStrong" Text="{I18N {x:Static lang:LangKeys.Settings_Category_Network}}" />
 
-        <TextBlock
-            Margin="0,12,0,0"
-            FontSize="20"
-            FontWeight="Medium"
-            Text="{I18N {x:Static lang:LangKeys.Settings_Category_Personalization}}" />
-        <!--  Personalization - Language  -->
-        <TextBlock Margin="0,12,0,0" Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_Language}}" />
-        <ComboBox
-            x:Name="LanguageComboBox"
-            Width="200"
-            Margin="0,10,0,0"
-            HorizontalAlignment="Left"
-            Focusable="False"
-            ItemsSource="{Binding ViewModel.Languages}"
-            SelectedItem="{Binding ViewModel.Language, Mode=TwoWay}">
-            <behaviors:Interaction.Triggers>
-                <behaviors:EventTrigger EventName="SelectionChanged" SourceObject="{Binding ElementName=LanguageComboBox}">
-                    <behaviors:InvokeCommandAction Command="{Binding ViewModel.ChangeLanguageCommand}" />
-                </behaviors:EventTrigger>
-            </behaviors:Interaction.Triggers>
-        </ComboBox>
-        <!--  Personalization - Theme  -->
-        <TextBlock Margin="0,12,0,0" Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_Theme}}" />
-        <StackPanel Margin="0,8,0,0" Orientation="Horizontal">
-            <RadioButton
-                Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
-                CommandParameter="light"
-                Content="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTheme_Light}}"
-                GroupName="themeSelect"
-                IsChecked="{Binding ViewModel.CurrentTheme, Converter={StaticResource ThemeEnumToBooleanConverter}, ConverterParameter=Light, Mode=TwoWay}" />
-            <RadioButton
-                Margin="10,0,0,0"
-                Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
-                CommandParameter="dark"
-                Content="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTheme_Dark}}"
-                GroupName="themeSelect"
-                IsChecked="{Binding ViewModel.CurrentTheme, Converter={StaticResource ThemeEnumToBooleanConverter}, ConverterParameter=Dark, Mode=TwoWay}" />
-        </StackPanel>
-        <!--  Personalization - Log Auto Deletion  -->
-        <TextBlock Margin="0,12,0,0" Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_LogAutoDeletion}}" />
-        <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
-            <ui:ToggleSwitch
-                x:Name="LogAutoDeletionToggleSwitch"
-                Command="{Binding ViewModel.ChangeLogAutoDeletionCommand, Mode=OneWay}"
-                IsChecked="{Binding ViewModel.LogAutoDeletion, Mode=TwoWay}" />
-            <Slider
-                x:Name="LogAutoDeletionSlider"
-                Width="200"
-                Margin="10,0,0,0"
-                IsEnabled="{Binding ElementName=LogAutoDeletionToggleSwitch, Path=IsChecked}"
-                IsSnapToTickEnabled="True"
-                Minimum="3"
-                TickPlacement="BottomRight"
-                Value="{Binding ViewModel.LogAutoDeletionTimes, Mode=TwoWay}">
-                <behaviors:Interaction.Triggers>
-                    <behaviors:EventTrigger EventName="ValueChanged" SourceObject="{Binding ElementName=LogAutoDeletionSlider}">
-                        <behaviors:InvokeCommandAction Command="{Binding ViewModel.ChangeLogAutoDeletionTimesCommand}" />
-                    </behaviors:EventTrigger>
-                </behaviors:Interaction.Triggers>
-            </Slider>
-            <TextBlock
-                Margin="10,0,0,0"
-                Foreground="Gray"
-                Visibility="{Binding ElementName=LogAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
-                <TextBlock.Text>
-                    <I18N Key="{x:Static lang:LangKeys.Settings_PersonalizationLogAutoDeletion_Tip}">
-                        <Binding ElementName="LogAutoDeletionSlider" Path="Value" />
-                    </I18N>
-                </TextBlock.Text>
-            </TextBlock>
-        </StackPanel>
-        <!--  Personalization - Crushes Auto Deletion  -->
-        <TextBlock Margin="0,12,0,0" Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_CrushesAutoDeletion}}" />
-        <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
-            <ui:ToggleSwitch
-                x:Name="CrushesAutoDeletionToggleSwitch"
-                Command="{Binding ViewModel.ChangeCrushesAutoDeletionCommand, Mode=OneWay}"
-                IsChecked="{Binding ViewModel.CrushesAutoDeletion, Mode=TwoWay}" />
-            <Slider
-                x:Name="CrushesAutoDeletionSlider"
-                Width="200"
-                Margin="10,0,0,0"
-                IsEnabled="{Binding ElementName=CrushesAutoDeletionToggleSwitch, Path=IsChecked}"
-                IsSnapToTickEnabled="True"
-                Minimum="3"
-                TickPlacement="BottomRight"
-                Value="{Binding ViewModel.CrushesAutoDeletionTimes, Mode=TwoWay}">
-                <behaviors:Interaction.Triggers>
-                    <behaviors:EventTrigger EventName="ValueChanged" SourceObject="{Binding ElementName=CrushesAutoDeletionSlider}">
-                        <behaviors:InvokeCommandAction Command="{Binding ViewModel.ChangeCrushesAutoDeletionTimesCommand}" />
-                    </behaviors:EventTrigger>
-                </behaviors:Interaction.Triggers>
-            </Slider>
-            <TextBlock
-                Margin="10,0,0,0"
-                Foreground="Gray"
-                Visibility="{Binding ElementName=CrushesAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
-                <TextBlock.Text>
-                    <I18N Key="{x:Static lang:LangKeys.Settings_PersonalizationCrushesAutoDeletion_Tip}">
-                        <Binding Path="ViewModel.CrushesAutoDeletionTimes" />
-                    </I18N>
-                </TextBlock.Text>
-            </TextBlock>
-        </StackPanel>
-        <!--  Personalization - WebView Settings  -->
-        <TextBlock Margin="0,12,0,0" Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_WebViewSettings}}" />
-        <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
-            <ui:Button
-                Command="{Binding ViewModel.WebViewClearCacheCommand}"
-                Content="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_WebViewSettings_ClearCache}}"
-                Icon="{ui:SymbolIcon Delete24}" />
-        </StackPanel>
+                <!--  Network - Package Source  -->
+                <ui:CardExpander Margin="0,5,0,0" Icon="{ui:SymbolIcon Box24}">
+                    <ui:CardExpander.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ui:TextBlock
+                                Grid.Row="0"
+                                FontTypography="Body"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_Category_PackageSource}}" />
+                            <ui:TextBlock
+                                Grid.Row="1"
+                                Appearance="Secondary"
+                                FontTypography="Caption"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Subtitle}}" />
+                        </Grid>
+                    </ui:CardExpander.Header>
+                    <StackPanel>
+                        <ui:InfoBar
+                            Title="{I18N {x:Static lang:LangKeys.Common_NoticeTitle_Notice}}"
+                            Margin="0,8,0,0"
+                            IsClosable="False"
+                            IsOpen="True"
+                            Message="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Notice}}" />
+                        <Grid Margin="0,8,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="40" />
+                            </Grid.RowDefinitions>
+                            <RadioButton
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
+                                CommandParameter="official"
+                                Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Official}}"
+                                Cursor="Hand"
+                                GroupName="packageSourceSelect"
+                                IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Official, Mode=TwoWay}" />
+                            <ui:TextBlock
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="0,10,0,0"
+                                Appearance="Secondary"
+                                Text="{Binding ViewModel.OfficialPackageSourceNetwork}" />
+                            <RadioButton
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
+                                CommandParameter="tsinghua"
+                                Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Tsinghua}}"
+                                GroupName="packageSourceSelect"
+                                IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Tsinghua, Mode=TwoWay}" />
+                            <ui:TextBlock
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="0,10,0,0"
+                                Appearance="Secondary"
+                                Text="{Binding ViewModel.TsinghuaPackageSourceNetwork}" />
+                            <RadioButton
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
+                                CommandParameter="aliyun"
+                                Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Aliyun}}"
+                                GroupName="packageSourceSelect"
+                                IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Aliyun, Mode=TwoWay}" />
+                            <ui:TextBlock
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Margin="0,10,0,0"
+                                Appearance="Secondary"
+                                Text="{Binding ViewModel.AliyunPackageSourceNetwork}" />
+                            <RadioButton
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                Command="{Binding ViewModel.ChangePackageSourceCommand, Mode=OneWay}"
+                                CommandParameter="douban"
+                                Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Douban}}"
+                                Cursor="Hand"
+                                GroupName="packageSourceSelect"
+                                IsChecked="{Binding ViewModel.CurrentPackageSource, Converter={StaticResource PackageSourceEnumToBooleanConverter}, ConverterParameter=Douban, Mode=TwoWay}" />
+                            <ui:TextBlock
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Margin="0,10,0,0"
+                                Appearance="Secondary"
+                                Text="{Binding ViewModel.DoubanPackageSourceNetwork}" />
+                        </Grid>
+                        <ui:Button
+                            Margin="0,10,0,0"
+                            Command="{Binding ViewModel.TestNetworkCommand}"
+                            Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_NetworkTest}}"
+                            Icon="{ui:SymbolIcon NetworkCheck20}" />
+                    </StackPanel>
+                </ui:CardExpander>
+            </StackPanel>
+        </ui:Card>
+
+
+        <!--  Personalization  -->
+        <ui:Card Margin="0,15,0,0">
+            <StackPanel>
+                <ui:TextBlock FontTypography="BodyStrong" Text="{I18N {x:Static lang:LangKeys.Settings_Category_Personalization}}" />
+
+                <!--  Personalization - Language  -->
+                <ui:CardControl Margin="0,5,0,0" Icon="{ui:SymbolIcon LocalLanguage24}">
+                    <ui:CardControl.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ui:TextBlock
+                                Grid.Row="0"
+                                FontTypography="Body"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_Language}}" />
+                            <ui:TextBlock
+                                Grid.Row="1"
+                                Appearance="Secondary"
+                                FontTypography="Caption"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_Language_Subtitle}}" />
+                        </Grid>
+                    </ui:CardControl.Header>
+                    <ComboBox
+                        x:Name="LanguageComboBox"
+                        Width="200"
+                        HorizontalAlignment="Right"
+                        Focusable="False"
+                        ItemsSource="{Binding ViewModel.Languages}"
+                        SelectedItem="{Binding ViewModel.Language, Mode=TwoWay}">
+                        <behaviors:Interaction.Triggers>
+                            <behaviors:EventTrigger EventName="SelectionChanged" SourceObject="{Binding ElementName=LanguageComboBox}">
+                                <behaviors:InvokeCommandAction Command="{Binding ViewModel.ChangeLanguageCommand}" />
+                            </behaviors:EventTrigger>
+                        </behaviors:Interaction.Triggers>
+                    </ComboBox>
+                </ui:CardControl>
+
+                <!--  Personalization - Theme  -->
+                <ui:CardControl Margin="0,3,0,0" Icon="{ui:SymbolIcon Color24}">
+                    <ui:CardControl.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ui:TextBlock
+                                Grid.Row="0"
+                                FontTypography="Body"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_Theme}}" />
+                            <ui:TextBlock
+                                Grid.Row="1"
+                                Appearance="Secondary"
+                                FontTypography="Caption"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_Theme_Subtitle}}" />
+                        </Grid>
+                    </ui:CardControl.Header>
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <RadioButton
+                            Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
+                            CommandParameter="light"
+                            Content="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTheme_Light}}"
+                            GroupName="themeSelect"
+                            IsChecked="{Binding ViewModel.CurrentTheme, Converter={StaticResource ThemeEnumToBooleanConverter}, ConverterParameter=Light, Mode=TwoWay}" />
+                        <RadioButton
+                            Margin="10,0,0,0"
+                            Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
+                            CommandParameter="dark"
+                            Content="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTheme_Dark}}"
+                            GroupName="themeSelect"
+                            IsChecked="{Binding ViewModel.CurrentTheme, Converter={StaticResource ThemeEnumToBooleanConverter}, ConverterParameter=Dark, Mode=TwoWay}" />
+                    </StackPanel>
+                </ui:CardControl>
+
+                <!--  Personalization - Log Auto Deletion  -->
+                <ui:CardExpander Margin="0,3,0,0" Icon="{ui:SymbolIcon Delete24}">
+                    <ui:CardExpander.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ui:TextBlock
+                                Grid.Row="0"
+                                FontTypography="Body"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_LogAutoDeletion}}" />
+                            <ui:TextBlock
+                                Grid.Row="1"
+                                Appearance="Secondary"
+                                FontTypography="Caption"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_LogAutoDeletion_Subtitle}}" />
+                        </Grid>
+                    </ui:CardExpander.Header>
+                    <StackPanel Height="30" Orientation="Horizontal">
+                        <ui:ToggleSwitch
+                            x:Name="LogAutoDeletionToggleSwitch"
+                            VerticalAlignment="Center"
+                            Command="{Binding ViewModel.ChangeLogAutoDeletionCommand, Mode=OneWay}"
+                            IsChecked="{Binding ViewModel.LogAutoDeletion, Mode=TwoWay}" />
+                        <Slider
+                            x:Name="LogAutoDeletionSlider"
+                            Width="200"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            IsEnabled="{Binding ElementName=LogAutoDeletionToggleSwitch, Path=IsChecked}"
+                            IsSnapToTickEnabled="True"
+                            Minimum="3"
+                            TickPlacement="BottomRight"
+                            Visibility="{Binding ElementName=LogAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"
+                            Value="{Binding ViewModel.LogAutoDeletionTimes, Mode=TwoWay}">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="ValueChanged" SourceObject="{Binding ElementName=LogAutoDeletionSlider}">
+                                    <behaviors:InvokeCommandAction Command="{Binding ViewModel.ChangeLogAutoDeletionTimesCommand}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                        </Slider>
+                        <ui:TextBlock
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            Appearance="Secondary"
+                            Visibility="{Binding ElementName=LogAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
+                            <ui:TextBlock.Text>
+                                <I18N Key="{x:Static lang:LangKeys.Settings_PersonalizationLogAutoDeletion_Tip}">
+                                    <Binding ElementName="LogAutoDeletionSlider" Path="Value" />
+                                </I18N>
+                            </ui:TextBlock.Text>
+                        </ui:TextBlock>
+                    </StackPanel>
+                </ui:CardExpander>
+
+                <!--  Personalization - Crushes Auto Deletion  -->
+                <ui:CardExpander Margin="0,3,0,0" Icon="{ui:SymbolIcon Delete24}">
+                    <ui:CardExpander.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ui:TextBlock
+                                Grid.Row="0"
+                                FontTypography="Body"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_CrushesAutoDeletion}}" />
+                            <ui:TextBlock
+                                Grid.Row="1"
+                                Appearance="Secondary"
+                                FontTypography="Caption"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_LogAutoDeletion_Subtitle}}" />
+                        </Grid>
+                    </ui:CardExpander.Header>
+                    <StackPanel Height="30" Orientation="Horizontal">
+                        <ui:ToggleSwitch
+                            x:Name="CrushesAutoDeletionToggleSwitch"
+                            VerticalAlignment="Center"
+                            Command="{Binding ViewModel.ChangeCrushesAutoDeletionCommand, Mode=OneWay}"
+                            IsChecked="{Binding ViewModel.CrushesAutoDeletion, Mode=TwoWay}" />
+                        <Slider
+                            x:Name="CrushesAutoDeletionSlider"
+                            Width="200"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            IsEnabled="{Binding ElementName=CrushesAutoDeletionToggleSwitch, Path=IsChecked}"
+                            IsSnapToTickEnabled="True"
+                            Minimum="3"
+                            TickPlacement="BottomRight"
+                            Visibility="{Binding ElementName=CrushesAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"
+                            Value="{Binding ViewModel.CrushesAutoDeletionTimes, Mode=TwoWay}">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="ValueChanged" SourceObject="{Binding ElementName=CrushesAutoDeletionSlider}">
+                                    <behaviors:InvokeCommandAction Command="{Binding ViewModel.ChangeCrushesAutoDeletionTimesCommand}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                        </Slider>
+                        <ui:TextBlock
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            Appearance="Secondary"
+                            Visibility="{Binding ElementName=CrushesAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
+                            <ui:TextBlock.Text>
+                                <I18N Key="{x:Static lang:LangKeys.Settings_PersonalizationCrushesAutoDeletion_Tip}">
+                                    <Binding Path="ViewModel.CrushesAutoDeletionTimes" />
+                                </I18N>
+                            </ui:TextBlock.Text>
+                        </ui:TextBlock>
+                    </StackPanel>
+                </ui:CardExpander>
+            </StackPanel>
+        </ui:Card>
+
         <!--  File Management  -->
-        <TextBlock
-            Margin="0,12,0,0"
-            FontSize="20"
-            FontWeight="Medium"
-            Text="{I18N {x:Static lang:LangKeys.Settings_Category_FileManagement}}" />
-        <StackPanel Margin="0,12,0,0">
-            <ui:Button
-                Command="{Binding ViewModel.OpenAppFolderCommand}"
-                Content="{I18N {x:Static lang:LangKeys.Settings_FileManagement_OpenAppDir}}"
-                Icon="{ui:SymbolIcon AppFolder20}" />
-            <ui:Button
-                Margin="0,10,0,0"
-                Command="{Binding ViewModel.OpenLogFolderCommand}"
-                Content="{I18N {x:Static lang:LangKeys.Settings_FileManagement_OpenLogDir}}"
-                Icon="{ui:SymbolIcon Record20}" />
-            <ui:Button
-                Margin="0,10,0,0"
-                Command="{Binding ViewModel.OpenCrushesFolderCommand}"
-                Content="{I18N {x:Static lang:LangKeys.Settings_FileManagement_OpenCrushesDir}}"
-                Icon="{ui:SymbolIcon CircleOff20}" />
-            <ui:Button
-                Margin="0,10,0,0"
-                Appearance="Danger"
-                Command="{Binding ViewModel.ResetConfigurationCommand}"
-                Content="{I18N {x:Static lang:LangKeys.Settings_FileManagement_ResetConfig}}"
-                Icon="{ui:SymbolIcon ArrowReset20}" />
-        </StackPanel>
+        <ui:Card Margin="0,15,0,0">
+            <StackPanel>
+                <ui:TextBlock FontTypography="BodyStrong" Text="{I18N {x:Static lang:LangKeys.Settings_Category_FileManagement}}" />
+
+                <!--  File Management - WebView2 Cache  -->
+                <ui:CardControl
+                    Margin="0,5,0,0"
+                    Command="{Binding ViewModel.WebViewClearCacheCommand}"
+                    Icon="{ui:SymbolIcon Delete24}">
+                    <ui:CardControl.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ui:TextBlock
+                                Grid.Row="0"
+                                FontTypography="Body"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_FileManagement_WebViewSettings_ClearCache}}" />
+                            <ui:TextBlock
+                                Grid.Row="1"
+                                Appearance="Secondary"
+                                FontTypography="Caption"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_FileManagement_WebViewSettings_ClearCache_Subtitle}}" />
+                        </Grid>
+                    </ui:CardControl.Header>
+                </ui:CardControl>
+
+                <!--  File Management - Open App Folder  -->
+                <ui:CardControl
+                    Margin="0,3,0,0"
+                    Command="{Binding ViewModel.OpenAppFolderCommand}"
+                    Icon="{ui:SymbolIcon AppFolder20}">
+                    <ui:CardControl.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ui:TextBlock
+                                Grid.Row="0"
+                                FontTypography="Body"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_FileManagement_OpenAppDir}}" />
+                            <ui:TextBlock
+                                Grid.Row="1"
+                                Appearance="Secondary"
+                                FontTypography="Caption"
+                                Text="{Binding ViewModel.AppFolderPath}" />
+                        </Grid>
+                    </ui:CardControl.Header>
+                </ui:CardControl>
+
+                <!--  File Management - Open Log Folder  -->
+                <ui:CardControl
+                    Margin="0,3,0,0"
+                    Command="{Binding ViewModel.OpenLogFolderCommand}"
+                    Icon="{ui:SymbolIcon Record20}">
+                    <ui:CardControl.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ui:TextBlock
+                                Grid.Row="0"
+                                FontTypography="Body"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_FileManagement_OpenLogDir}}" />
+                            <ui:TextBlock
+                                Grid.Row="1"
+                                Appearance="Secondary"
+                                FontTypography="Caption"
+                                Text="{Binding ViewModel.LogFolderPath}" />
+                        </Grid>
+                    </ui:CardControl.Header>
+                </ui:CardControl>
+
+                <!--  File Management - Open Crushes Folder  -->
+                <ui:CardControl
+                    Margin="0,3,0,0"
+                    Command="{Binding ViewModel.OpenCrushesFolderCommand}"
+                    Icon="{ui:SymbolIcon CircleOff20}">
+                    <ui:CardControl.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ui:TextBlock
+                                Grid.Row="0"
+                                FontTypography="Body"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_FileManagement_OpenCrushesDir}}" />
+                            <ui:TextBlock
+                                Grid.Row="1"
+                                Appearance="Secondary"
+                                FontTypography="Caption"
+                                Text="{Binding ViewModel.CrushesFolderPath}" />
+                        </Grid>
+                    </ui:CardControl.Header>
+                </ui:CardControl>
+
+                <!--  File Management - Reset Config  -->
+                <ui:CardExpander Margin="0,3,0,0" Icon="{ui:SymbolIcon ArrowReset20}">
+                    <ui:CardExpander.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ui:TextBlock
+                                Grid.Row="0"
+                                FontTypography="Body"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_FileManagement_ResetConfig}}" />
+                            <ui:TextBlock
+                                Grid.Row="1"
+                                Appearance="Secondary"
+                                FontTypography="Caption"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_FileManagement_ResetConfig_Subtitle}}" />
+                        </Grid>
+                    </ui:CardExpander.Header>
+                    <ui:Button
+                        Appearance="Danger"
+                        Command="{Binding ViewModel.ResetConfigurationCommand}"
+                        Content="{I18N {x:Static lang:LangKeys.Settings_FileManagement_ResetConfig}}"
+                        Icon="{ui:SymbolIcon ArrowReset20}" />
+                </ui:CardExpander>
+            </StackPanel>
+        </ui:Card>
     </StackPanel>
 </Page>

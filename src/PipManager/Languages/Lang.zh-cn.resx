@@ -678,16 +678,13 @@
   <data name="SearchDetail_ProjectDescription_LoadFailed" xml:space="preserve">
     <value>无法在线获取项目描述</value>
   </data>
-  <data name="Settings_PersonalizationTitle_WebViewSettings" xml:space="preserve">
-    <value>WebView2 设置</value>
+  <data name="Settings_FileManagement_WebViewSettings_ClearCache" xml:space="preserve">
+    <value>清除 WebView2 缓存</value>
   </data>
-  <data name="Settings_PersonalizationTitle_WebViewSettings_ClearCache" xml:space="preserve">
-    <value>清除缓存</value>
-  </data>
-  <data name="Settings_PersonalizationTitle_WebViewSettings_CacheCleared" xml:space="preserve">
+  <data name="Settings_FileManagement_WebViewSettings_CacheCleared" xml:space="preserve">
     <value>缓存已清除</value>
   </data>
-  <data name="Settings_PersonalizationTitle_WebViewSettings_CacheIsUsing" xml:space="preserve">
+  <data name="Settings_FileManagement_WebViewSettings_CacheIsUsing" xml:space="preserve">
     <value>WebView仍在使用，无法清除缓存</value>
   </data>
   <data name="SearchDetail_DownloadDistributions" xml:space="preserve">
@@ -704,5 +701,23 @@
   </data>
   <data name="SearchDetail_LatestUpdatedTime" xml:space="preserve">
     <value>更新时间:</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_Language_Subtitle" xml:space="preserve">
+    <value>设置语言</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_Theme_Subtitle" xml:space="preserve">
+    <value>设置窗口主题色</value>
+  </data>
+  <data name="Settings_Category_Network" xml:space="preserve">
+    <value>网络</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_LogAutoDeletion_Subtitle" xml:space="preserve">
+    <value>设置日志文件数量限制</value>
+  </data>
+  <data name="Settings_FileManagement_WebViewSettings_ClearCache_Subtitle" xml:space="preserve">
+    <value>清空用于如搜索页面的 WebView2 缓存</value>
+  </data>
+  <data name="Settings_FileManagement_ResetConfig_Subtitle" xml:space="preserve">
+    <value>所有配置项 (config.json) 将被恢复到初始状态</value>
   </data>
 </root>

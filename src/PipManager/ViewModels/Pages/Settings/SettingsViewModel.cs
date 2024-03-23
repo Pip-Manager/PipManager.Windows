@@ -254,7 +254,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
 
     #endregion Log and Crushes Auto Deletion
 
-    #region WebView
+    #region File Management
 
     [RelayCommand]
     private void WebViewClearCache()
@@ -262,44 +262,49 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         try
         {
             Directory.Delete(Path.Combine(AppInfo.CachesDir, "EBWebView"), true);
-            _toastService.Success(Lang.Settings_PersonalizationTitle_WebViewSettings_CacheCleared);
+            _toastService.Success(Lang.Settings_FileManagement_WebViewSettings_CacheCleared);
             Log.Information($"[Settings] WebView cache removed");
         }
         catch (DirectoryNotFoundException)
         {
-            _toastService.Success(Lang.Settings_PersonalizationTitle_WebViewSettings_CacheCleared);
+            _toastService.Success(Lang.Settings_FileManagement_WebViewSettings_CacheCleared);
         }
         catch (IOException)
         {
-            _toastService.Error(Lang.Settings_PersonalizationTitle_WebViewSettings_CacheIsUsing);
+            _toastService.Error(Lang.Settings_FileManagement_WebViewSettings_CacheIsUsing);
         }
     }
 
-    #endregion WebView
-
-    #region File Management
+    [ObservableProperty]
+    private string _appFolderPath = System.Environment.CurrentDirectory;
 
     [RelayCommand]
-    private static void OpenAppFolder()
+    private void OpenAppFolder()
     {
-        Process.Start("explorer.exe", System.Environment.CurrentDirectory);
+        Process.Start("explorer.exe", AppFolderPath);
         Log.Information("[Settings] App folder opened");
     }
 
+    [ObservableProperty]
+    private string _logFolderPath = AppInfo.LogDir;
+
     [RelayCommand]
-    private static void OpenLogFolder()
+    private void OpenLogFolder()
     {
-        if (!Directory.Exists(AppInfo.LogDir)) return;
-        Process.Start("explorer.exe", AppInfo.LogDir);
+        if (!Directory.Exists(LogFolderPath)) return;
+        Process.Start("explorer.exe", LogFolderPath);
         Log.Information("[Settings] Log folder opened");
     }
+
+    [ObservableProperty]
+    private string _crushesFolderPath = AppInfo.CrushesDir;
 
     [RelayCommand]
     private void OpenCrushesFolder()
     {
-        if (Directory.Exists(AppInfo.CrushesDir))
+        if (Directory.Exists(CrushesFolderPath))
         {
-            Process.Start("explorer.exe", AppInfo.CrushesDir);
+            Process.Start("explorer.exe", CrushesFolderPath);
         }
         else
         {
