@@ -88,10 +88,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
                 _themeTypeInInteger = 856343;
                 break;
         }
-        SearchDetailPage.ProjectDescriptionWebView!.DefaultBackgroundColor = Color.FromArgb(_themeTypeInInteger);
-
-        _maskService.Show(Lang.LibraryInstall_Add_Verifying);
-        
+        SearchDetailPage.ProjectDescriptionWebView!.DefaultBackgroundColor = Color.FromArgb(_themeTypeInInteger);        
     }
 
     public void OnNavigatedFrom()
@@ -132,8 +129,8 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
 
         SearchDetailPage.ProjectDescriptionWebView!.Loaded += async (sender, e) =>
         {
+            ProjectDescriptionVisibility = false;
             var packageVersions = await _environmentService.GetVersions(Package!.Name);
-            _maskService.Hide();
             switch (packageVersions.Status)
             {
                 case 1:
@@ -146,9 +143,9 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
 
                 default:
                     AvailableVersions = new ObservableCollection<string>(packageVersions.Versions!.Reverse());
+                    TargetVersion = AvailableVersions.First();
                     break;
             }
-            ProjectDescriptionVisibility = false;
             var webView2Environment = await CoreWebView2Environment.CreateAsync(null, AppInfo.CachesDir);
             await SearchDetailPage.ProjectDescriptionWebView!.EnsureCoreWebView2Async().ConfigureAwait(true);
             try
