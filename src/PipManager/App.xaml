@@ -10,7 +10,6 @@
     <Application.Resources>
         <ResourceDictionary>
             <!--  UI  -->
-
             <ResourceDictionary.MergedDictionaries>
                 <ui:ThemesDictionary Theme="Dark" />
                 <ui:ControlsDictionary />
@@ -39,7 +38,7 @@
                         FontSize="16" />
                 </StackPanel>
             </Grid>
-
+            
             <!--  Value Converters  -->
 
             <valueConverters:ValueConverterGroup x:Key="NullToVisibility">

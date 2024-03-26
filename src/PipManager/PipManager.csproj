@@ -55,9 +55,6 @@
 			<AutoGen>True</AutoGen>
 			<DependentUpon>Lang.resx</DependentUpon>
 		</Compile>
-		<Compile Update="Views\Windows\Action\ActionExceptionWindow.xaml.cs">
-		  <SubType>Code</SubType>
-		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>

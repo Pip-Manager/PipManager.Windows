@@ -8,6 +8,7 @@
     xmlns:lang="clr-namespace:PipManager.Languages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    x:Name="ActionException"
     Title="ActionExceptionPage"
     d:DataContext="{d:DesignInstance action:ActionExceptionPage,
                                      IsDesignTimeCreatable=False}"
@@ -15,7 +16,7 @@
     d:DesignWidth="1200"
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    ui:NavigationView.HeaderContent="{I18N {x:Static lang:LangKeys.ActionException_Header}}"
+    ui:NavigationView.HeaderContent="{I18N {x:Static lang:LangKeys.ActionException_Exception}}"
     FontFamily="/PipManager;component/Resources/Fonts/MiSans-Regular.ttf#MiSans"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
@@ -24,20 +25,10 @@
         <ItemsControl ItemsSource="{Binding ViewModel.Exceptions, UpdateSourceTrigger=PropertyChanged}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type action1:ActionListItem}">
-                    <Border
-                        Margin="0,5,0,0"
-                        Padding="15"
-                        BorderBrush="Gray"
-                        BorderThickness="2"
-                        CornerRadius="5">
-                        <Grid>
+                    <ui:CardExpander Margin="0,5,0,0">
+                        <ui:CardExpander.Header>
                             <StackPanel>
-                                <ui:TextBlock
-                                    HorizontalAlignment="Left"
-                                    FontTypography="Body"
-                                    Foreground="Gray"
-                                    Text="{Binding OperationId, StringFormat=#{0}}" />
-                                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal">
                                     <ui:SymbolIcon VerticalAlignment="Center" Symbol="{Binding Path=OperationIcon.Symbol}" />
                                     <ui:TextBlock
                                         Margin="5,3,0,0"
@@ -72,18 +63,64 @@
                                         FontTypography="Body"
                                         Text="{Binding OperationTimestamp}" />
                                 </StackPanel>
-                                <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
-                                    <ui:Button
-                                        VerticalAlignment="Center"
-                                        Appearance="Danger"
-                                        Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Page}, Path=DataContext.ViewModel.ShowExceptionCommand}"
-                                        CommandParameter="{Binding}"
-                                        Content="{I18N {x:Static lang:LangKeys.Action_Button_Exceptions}}"
-                                        Icon="{ui:SymbolIcon Bug24}" />
-                                </StackPanel>
                             </StackPanel>
+                        </ui:CardExpander.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="170" />
+                                <RowDefinition Height="45" />
+                            </Grid.RowDefinitions>
+                            <ui:TextBlock
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="0,5,0,0"
+                                Style="{StaticResource BodyLargeTextBlockStyle}"
+                                Text="{I18N {x:Static lang:LangKeys.ActionException_Exception}}" />
+                            <ui:TextBox
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                IsReadOnly="True"
+                                Text="{Binding ConsoleError}" />
+                            <ui:TextBlock
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="0,20,0,0"
+                                Style="{StaticResource BodyLargeTextBlockStyle}"
+                                Text="{I18N {x:Static lang:LangKeys.ActionException_Operation}}" />
+                            <StackPanel
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                VerticalAlignment="Bottom"
+                                Orientation="Horizontal">
+                                <ui:HyperlinkButton
+                                    Grid.Column="0"
+                                    Command="{Binding ElementName=ActionException, Path=ViewModel.ExceptionBingSearchCommand}"
+                                    CommandParameter="{Binding ConsoleError}"
+                                    Content="{I18N {x:Static lang:LangKeys.ActionException_BingSearch}}"
+                                    Icon="{ui:SymbolIcon Search24}" />
+                                <ui:HyperlinkButton
+                                    Grid.Column="1"
+                                    Margin="3,0,0,0"
+                                    Command="{Binding ElementName=ActionException, Path=ViewModel.ExceptionGoogleSearchCommand}"
+                                    CommandParameter="{Binding ConsoleError}"
+                                    Content="{I18N {x:Static lang:LangKeys.ActionException_GoogleSearch}}"
+                                    Icon="{ui:SymbolIcon Search24}" />
+                                <ui:HyperlinkButton
+                                    Grid.Column="3"
+                                    Margin="3,0,0,0"
+                                    Appearance="Primary"
+                                    Command="{Binding ElementName=ActionException, Path=ViewModel.ExceptionCopyToClipboardCommand}"
+                                    CommandParameter="{Binding ConsoleError}"
+                                    Content="{I18N {x:Static lang:LangKeys.ActionException_CopyToClipboard}}" />
+                            </StackPanel>
+
                         </Grid>
-                    </Border>
+                    </ui:CardExpander>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

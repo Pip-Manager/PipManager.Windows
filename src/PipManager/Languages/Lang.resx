@@ -528,9 +528,6 @@
   <data name="MainWindow_NavigationContent_Lab" xml:space="preserve">
     <value>Lab</value>
   </data>
-  <data name="ActionException_Header" xml:space="preserve">
-    <value>Exceptions</value>
-  </data>
   <data name="Action_Button_Exceptions" xml:space="preserve">
     <value>Exceptions</value>
   </data>
@@ -543,37 +540,10 @@
   <data name="Action_IssueDetectedToast" xml:space="preserve">
     <value>Issue detected in Action</value>
   </data>
-  <data name="ActionExceptionWindow_Title" xml:space="preserve">
-    <value>Action Exception</value>
+  <data name="ActionException_CopyToClipboard" xml:space="preserve">
+    <value>Copy to clipboard</value>
   </data>
-  <data name="ActionExceptionWindow_CopyToClipboard" xml:space="preserve">
-    <value>Please copy the error message to find a solution.</value>
-  </data>
-  <data name="ActionExceptionAnalyze_NoMatchingDistFound_VersionMatching" xml:space="preserve">
-    <value>Package {0} with version {1} was not found, check the spelling of the package name and make sure the package (and its version) exists.</value>
-  </data>
-  <data name="ActionExceptionAnalyze_NoMatchingDistFound_Compatible" xml:space="preserve">
-    <value>No compatible packages {0} with at least version {1} were found, check that the package name is spelled correctly and that the package (and its version) exists.</value>
-  </data>
-  <data name="ActionExceptionAnalyze_NoMatchingDistFound_InclusiveOrderedMore" xml:space="preserve">
-    <value>No package {0} with version greater than or equal to {1} was found, please check that the package name is spelled correctly and that the package (and its version) exists.</value>
-  </data>
-  <data name="ActionExceptionAnalyze_NoMatchingDistFound_InclusiveOrderedLess" xml:space="preserve">
-    <value>No package {0} with version less than or equal to {1} was found, please check that the package name is spelled correctly and that the package (and its version) exists.</value>
-  </data>
-  <data name="ActionExceptionAnalyze_NoMatchingDistFound_ExclusiveOrderedMore" xml:space="preserve">
-    <value>No package {0} with version greater than {1} was found, please check that the package name is spelled correctly and that the package (and its version) exists.</value>
-  </data>
-  <data name="ActionExceptionAnalyze_NoMatchingDistFound_ExclusiveOrderedLess" xml:space="preserve">
-    <value>No packages {0} with version less than {1} were found, please check that the package name is spelled correctly and that the package (and its version) exists.</value>
-  </data>
-  <data name="ActionExceptionAnalyze_NoMatchingDistFound_ArbitraryEquality" xml:space="preserve">
-    <value>No package {0} with version strictly equal to {1} was found, please check that the package name is spelled correctly and that the package (and its version) exists.</value>
-  </data>
-  <data name="ActionExceptionWindow_Speculation" xml:space="preserve">
-    <value>Speculation</value>
-  </data>
-  <data name="ActionExceptionWindow_Exception" xml:space="preserve">
+  <data name="ActionException_Exception" xml:space="preserve">
     <value>Exception</value>
   </data>
   <data name="Action_Operation_Install" xml:space="preserve">
@@ -719,5 +689,17 @@
   </data>
   <data name="Settings_FileManagement_ResetConfig_Subtitle" xml:space="preserve">
     <value>All configuration settings (config.json) will be restored to the initial state</value>
+  </data>
+  <data name="ActionException_Operation" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="ActionException_BingSearch" xml:space="preserve">
+    <value>Bing Search</value>
+  </data>
+  <data name="ActionException_GoogleSearch" xml:space="preserve">
+    <value>Google Search</value>
+  </data>
+  <data name="ActionException_CopyToClipboardNotice" xml:space="preserve">
+    <value>Copied to clipboard</value>
   </data>
 </root>

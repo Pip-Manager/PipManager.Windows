@@ -100,6 +100,11 @@
             Grid.Row="0"
             Grid.RowSpan="2" />
 
+        <mask:MaskPresenter
+            x:Name="MaskActionExceptionPresenter"
+            Grid.Row="0"
+            Grid.RowSpan="2" />
+
         <ContentPresenter
             x:Name="RootContentDialog"
             Grid.Row="0"

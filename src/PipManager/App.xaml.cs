@@ -25,7 +25,6 @@ using PipManager.Views.Pages.Search;
 using PipManager.Views.Pages.Settings;
 using PipManager.Views.Pages.Tools;
 using PipManager.Views.Windows;
-using PipManager.Views.Windows.Action;
 using Serilog;
 using System.IO;
 using System.Net;
@@ -69,8 +68,6 @@ public partial class App
             // Window
             services.AddSingleton<MainWindow>();
             services.AddSingleton<MainWindowViewModel>();
-
-            services.AddSingleton<ActionExceptionWindow>();
 
             // Services
             services.AddSingleton<INavigationService, NavigationService>();
