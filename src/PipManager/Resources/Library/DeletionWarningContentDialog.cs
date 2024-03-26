@@ -3,7 +3,7 @@ using PipManager.Models.Pages;
 using System.Windows.Controls;
 using Wpf.Ui.Controls;
 
-namespace PipManager.Controls.Library;
+namespace PipManager.Resources.Library;
 
 public class DeletionWarningContentDialog
 {

@@ -5,6 +5,7 @@ using PipManager.Services.Toast;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Text;
 
 namespace PipManager.Services.Action;
 
@@ -27,7 +28,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
             if (ActionList.Count > 0)
             {
                 var errorDetection = false;
-                var consoleError = "";
+                var consoleError = new StringBuilder(512);
                 var currentAction = ActionList[0];
                 currentAction.ConsoleOutput = Lang.Action_ConsoleOutput_Empty;
                 switch (currentAction.OperationType)
@@ -66,7 +67,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                 {
                                     errorDetection = true;
                                     currentAction.DetectIssue = true;
-                                    consoleError += result.Message + '\n';
+                                    consoleError.AppendLine(result.Message);
                                 }
                                 Log.Information(result.Success
                                     ? $"[Runner] {item} install sub-task completed"
@@ -88,7 +89,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                             {
                                 errorDetection = true;
                                 currentAction.DetectIssue = true;
-                                consoleError += result.Message + '\n';
+                                consoleError.AppendLine(result.Message);
                             }
                             Log.Information($"[Runner] Task {currentAction.OperationType} Completed");
                             break;
@@ -108,7 +109,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                 {
                                     errorDetection = true;
                                     currentAction.DetectIssue = true;
-                                    consoleError += result.Message + '\n';
+                                    consoleError.AppendLine(result.Message);
                                 }
                                 Log.Information(result.Success
                                     ? $"[Runner] {item} download sub-task completed"
@@ -132,7 +133,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                 {
                                     errorDetection = true;
                                     currentAction.DetectIssue = true;
-                                    consoleError += result.Message + '\n';
+                                    consoleError.AppendLine(result.Message);
                                 }
                                 Log.Information(result.Success
                                     ? $"[Runner] {item} update sub-task completed"
@@ -152,7 +153,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                     {
                         toastService.Error(Lang.Action_IssueDetectedToast);
                     });
-                    currentAction.ConsoleError = consoleError.TrimEnd();
+                    currentAction.ConsoleError = consoleError.ToString();
                     ExceptionList.Add(currentAction);
                 }
                 Thread.Sleep(100);

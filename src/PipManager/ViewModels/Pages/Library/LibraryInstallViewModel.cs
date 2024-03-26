@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Win32;
-using PipManager.Controls.Library;
+using PipManager.Resources.Library;
 using PipManager.Languages;
 using PipManager.Models.Action;
 using PipManager.Models.Pages;

@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using Wpf.Ui.Controls;
 using TextBox = System.Windows.Controls.TextBox;
 
-namespace PipManager.Controls.Library;
+namespace PipManager.Resources.Library;
 
 public class InstallAddContentDialog(ContentPresenter contentPresenter)
 {

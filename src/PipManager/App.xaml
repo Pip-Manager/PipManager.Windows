@@ -14,7 +14,7 @@
                 <ui:ThemesDictionary Theme="Dark" />
                 <ui:ControlsDictionary />
 
-                <ResourceDictionary Source="/PipManager;component/Controls/Library/LibraryStyles.xaml" />
+                <ResourceDictionary Source="/PipManager;component/Resources/Library/LibraryStyles.xaml" />
                 <ResourceDictionary Source="/PipManager;component/Resources/FluentDesignComplements.xaml" />
             </ResourceDictionary.MergedDictionaries>
 

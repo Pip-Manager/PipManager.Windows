@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using Wpf.Ui.Controls;
 using TextBlock = System.Windows.Controls.TextBlock;
 
-namespace PipManager.Controls.Library;
+namespace PipManager.Resources.Library;
 
 public class CheckUpdateContentDialog
 {

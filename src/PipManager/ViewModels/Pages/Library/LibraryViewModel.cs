@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using PipManager.Controls.Library;
+using PipManager.Resources.Library;
 using PipManager.Languages;
 using PipManager.Models.Action;
 using PipManager.Models.Package;

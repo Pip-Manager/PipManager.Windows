@@ -40,25 +40,24 @@
                     FontSize="24"
                     Foreground="{Binding IconForeground}"
                     Symbol="{Binding Icon}" />
-                <TextBlock
+                <ui:TextBlock
                     x:Name="ToastTitle"
                     MaxWidth="{Binding TextWidth}"
                     Margin="12,0,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     FontFamily="{Binding FontFamily}"
-                    FontSize="14"
-                    FontWeight="SemiBold"
+                    FontTypography="BodyStrong"
                     Foreground="{Binding Foreground}"
                     Text="{Binding Title}" />
 
-                <TextBlock
+                <ui:TextBlock
                     x:Name="ToastMessage"
-                    Margin="14,0,0,0"
+                    Margin="10,-2,0,0"
                     HorizontalAlignment="{Binding HorizontalContentAlignment}"
                     VerticalAlignment="Center"
                     FontFamily="{Binding FontFamily}"
-                    FontSize="14"
+                    FontTypography="Body"
                     FontWeight="{Binding FontWeight}"
                     Foreground="{Binding Foreground}"
                     Text="{Binding Message}" />
