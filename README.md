@@ -110,7 +110,7 @@ See the [Open Issues](https://github.com/AuroraZiling/PipManager/issues) for a f
 1. Fork the Project
 2. Create your Feature Branch
 3. Commit your Changes
-4. Push to the Branch
+4. Push to the Branch `development`
 5. Open a Pull Request
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
