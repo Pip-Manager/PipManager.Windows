@@ -74,8 +74,8 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
             var value = System.Environment.GetEnvironmentVariable("Path")!.Split(';');
             foreach (var item in value)
             {
-                if (!item.Contains("Python") || item.Contains("Scripts") ||
-                    !File.Exists(Path.Combine(item, "python.exe"))) continue;
+                if (!File.Exists(Path.Combine(item, "python.exe")))
+                    continue;
                 var environmentItem =
                     _configurationService.GetEnvironmentItem(Path.Combine(item, "python.exe"));
                 if (environmentItem == null) continue;
