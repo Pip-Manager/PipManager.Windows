@@ -48,14 +48,41 @@ public partial class ConfigurationService : IConfigurationService
     [GeneratedRegex("__version__ = \"(.*?)\"", RegexOptions.IgnoreCase, "zh-CN")]
     private static partial Regex GetPipVersionInInitFile();
 
+    /// <summary>
+    /// Get the pip directory
+    /// </summary>
+    /// <param name="pythonDirectory">Python path</param>
+    /// <returns>Pip directory if exists, otherwise null</returns>
+    private string? GetPipDirectories(string pythonDirectory)
+    {
+        var sitePackageDirectory = Path.Combine(pythonDirectory, @"Lib\site-packages");
+        if (!Directory.Exists(sitePackageDirectory))
+        {
+            return null;
+        }
+
+        var pipDirectory = Path.Combine(sitePackageDirectory, "pip");
+        if (!Directory.Exists(pipDirectory))
+        {
+            return null;
+        }
+
+        return pipDirectory;
+    }
+
     public EnvironmentItem? GetEnvironmentItem(string pythonPath)
     {
         var pythonVersion = FileVersionInfo.GetVersionInfo(pythonPath).FileVersion!;
         var pythonDirectory = Directory.GetParent(pythonPath)!.FullName;
-        var pipDirectory = Path.Combine(pythonDirectory, @"Lib\site-packages");
-        var pipDir = Directory.GetDirectories(pipDirectory, "pip")[0];
-        var pipVersion = GetPipVersionInInitFile().Match(File.ReadAllText(Path.Combine(pipDir, @"__init__.py"))).Groups[1].Value;
-        return pipDir.Length > 0 ? new EnvironmentItem(pipVersion, pythonPath, pythonVersion) : null;
+        var pipDirectory = GetPipDirectories(pythonDirectory);
+
+        if (pipDirectory == null)
+        {
+            return null;
+        }
+
+        var pipVersion = GetPipVersionInInitFile().Match(File.ReadAllText(Path.Combine(pipDirectory, @"__init__.py"))).Groups[1].Value;
+        return new EnvironmentItem(pipVersion, pythonPath, pythonVersion);
     }
 
     public EnvironmentItem? GetEnvironmentItemFromCommand(string command, string arguments)
