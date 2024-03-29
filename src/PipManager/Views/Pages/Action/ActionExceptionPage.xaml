@@ -33,7 +33,7 @@
                                     <ui:TextBlock
                                         Margin="5,3,0,0"
                                         VerticalAlignment="Center"
-                                        FontTypography="BodyStrong"
+                                        Style="{StaticResource BodyLargeTextBlockStyle}"
                                         Text="{Binding OperationDescription}" />
                                     <ui:Badge
                                         Margin="5,0,0,0"

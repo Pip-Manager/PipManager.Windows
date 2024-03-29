@@ -80,7 +80,7 @@ public partial class ActionListItem : ObservableObject
     }
 
     [ObservableProperty] private string _operationStatus = Lang.Action_CurrentStatus_WaitingInQueue;
-    [ObservableProperty] private string _consoleOutput = Lang.Action_ConsoleOutput_Empty;
+    [ObservableProperty] private string _consoleOutput = Lang.Action_CurrentStatus_WaitingInQueue;
     [ObservableProperty] private string _consoleError;
     [ObservableProperty] private bool _completed;
     [ObservableProperty] private bool _detectIssue;

@@ -588,9 +588,6 @@
   <data name="Action_CurrentStatus_WaitingInQueue" xml:space="preserve">
     <value>等待执行</value>
   </data>
-  <data name="Action_ConsoleOutput_Empty" xml:space="preserve">
-    <value>当前无输出</value>
-  </data>
   <data name="LibraryInstall_Add_Header" xml:space="preserve">
     <value>默认</value>
   </data>

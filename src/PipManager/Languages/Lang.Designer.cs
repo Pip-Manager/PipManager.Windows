@@ -214,15 +214,6 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No output currently.
-        /// </summary>
-        public static string Action_ConsoleOutput_Empty {
-            get {
-                return ResourceManager.GetString("Action_ConsoleOutput_Empty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Current Status.
         /// </summary>
         public static string Action_CurrentStatus {

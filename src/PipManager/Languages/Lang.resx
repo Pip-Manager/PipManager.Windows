@@ -588,9 +588,6 @@
   <data name="Action_CurrentStatus_WaitingInQueue" xml:space="preserve">
     <value>Waiting in queue</value>
   </data>
-  <data name="Action_ConsoleOutput_Empty" xml:space="preserve">
-    <value>No output currently</value>
-  </data>
   <data name="LibraryInstall_Add_Header" xml:space="preserve">
     <value>Default</value>
   </data>
