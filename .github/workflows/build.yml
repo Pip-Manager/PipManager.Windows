@@ -3,7 +3,7 @@ name: "PipManager Continuous Integration"
 on:
   push:
      branches:
-        - main
+        - development
     
 jobs:
   build:
