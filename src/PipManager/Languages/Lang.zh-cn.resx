@@ -699,4 +699,13 @@
   <data name="ActionException_CopyToClipboardNotice" xml:space="preserve">
     <value>已复制</value>
   </data>
+  <data name="Action_OperationCanceled_Success" xml:space="preserve">
+    <value>任务已取消</value>
+  </data>
+  <data name="Action_OperationCanceled_AlreadyRunning" xml:space="preserve">
+    <value>任务已运行</value>
+  </data>
+  <data name="Action_Operation_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
 </root>

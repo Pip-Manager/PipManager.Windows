@@ -699,4 +699,13 @@
   <data name="ActionException_CopyToClipboardNotice" xml:space="preserve">
     <value>Copied to clipboard</value>
   </data>
+  <data name="Action_OperationCanceled_Success" xml:space="preserve">
+    <value>Action Cancelled</value>
+  </data>
+  <data name="Action_OperationCanceled_AlreadyRunning" xml:space="preserve">
+    <value>Action Already Running</value>
+  </data>
+  <data name="Action_Operation_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
 </root>

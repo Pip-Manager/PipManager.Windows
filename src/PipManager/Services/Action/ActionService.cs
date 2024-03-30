@@ -6,19 +6,32 @@ using Serilog;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
+using Meziantou.Framework.WPF.Collections;
+using System.Buffers;
 
 namespace PipManager.Services.Action;
 
 public class ActionService(IEnvironmentService environmentService, IToastService toastService)
     : IActionService
 {
-    public ObservableCollection<ActionListItem> ActionList { get; set; } = [];
+    public ConcurrentObservableCollection<ActionListItem> ActionList { get; set; } = [];
     public ObservableCollection<ActionListItem> ExceptionList { get; set; } = [];
 
     public void AddOperation(ActionListItem actionListItem)
     {
         toastService.Info(string.Format(Lang.Action_AddOperation_Toast, actionListItem.TotalSubTaskNumber));
         ActionList.Add(actionListItem);
+    }
+
+    public string TryCancelOperation(string operationId)
+    {
+        var targetAction = ActionList.ToList().FindIndex(action => action.OperationId == operationId);
+        if (ActionList[targetAction].OperationStatus != Lang.Action_CurrentStatus_WaitingInQueue)
+        {
+            return Lang.Action_OperationCanceled_AlreadyRunning;
+        }
+        ActionList.Remove(ActionList[targetAction]);
+        return Lang.Action_OperationCanceled_Success;
     }
 
     public void Runner()

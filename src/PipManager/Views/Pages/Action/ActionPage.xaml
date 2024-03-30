@@ -1,4 +1,5 @@
 <Page
+    x:Name="Action"
     x:Class="PipManager.Views.Pages.Action.ActionPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -35,12 +36,13 @@
         <ItemsControl
             x:Name="ActionList"
             Grid.Row="1"
-            ItemsSource="{Binding ViewModel.Actions}">
+            ItemsSource="{Binding ViewModel.Actions.AsObservable}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type pages:ActionListItem}">
                     <ui:CardExpander Margin="0,5,0,0" IsExpanded="True">
                         <ui:CardExpander.Header>
                             <Grid>
+                                <ui:Button Icon="{ui:SymbolIcon RecordStop24}" Content="{I18N {x:Static lang:LangKeys.Action_Operation_Cancel}}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 0, 10, 10" Command="{Binding ViewModel.CancelActionCommand, ElementName=Action}" CommandParameter="{Binding OperationId}"/>
                                 <StackPanel>
                                     <ui:TextBlock
                                         HorizontalAlignment="Left"
@@ -118,7 +120,7 @@
                             <ui:TextBox
                                 x:Name="ActionConsoleOutputTextbox"
                                 Grid.Column="2"
-                                MaxHeight="270"
+                                MaxHeight="220"
                                 IsReadOnly="True"
                                 Text="{Binding ConsoleOutput}">
                                 <behaviors:Interaction.Triggers>

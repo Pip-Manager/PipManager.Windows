@@ -1,5 +1,8 @@
-﻿using PipManager.Models.Action;
+﻿using Meziantou.Framework.WPF.Collections;
+using PipManager.Languages;
+using PipManager.Models.Action;
 using PipManager.Services.Action;
+using PipManager.Services.Toast;
 using PipManager.Views.Pages.Action;
 using Serilog;
 using System.Collections.ObjectModel;
@@ -13,15 +16,17 @@ public partial class ActionViewModel : ObservableObject, INavigationAware
     private bool _isInitialized;
 
     [ObservableProperty]
-    private ObservableCollection<ActionListItem> _actions;
+    private ConcurrentObservableCollection<ActionListItem> _actions;
 
     private readonly IActionService _actionService;
+    private readonly IToastService _toastService;
     private readonly INavigationService _navigationService;
 
-    public ActionViewModel(IActionService actionService, INavigationService navigationService)
+    public ActionViewModel(IActionService actionService, INavigationService navigationService, IToastService toastService)
     {
         _actionService = actionService;
         _navigationService = navigationService;
+        _toastService = toastService;
         Actions = _actionService.ActionList;
     }
 
@@ -45,5 +50,23 @@ public partial class ActionViewModel : ObservableObject, INavigationAware
     private void ShowExceptions()
     {
         _navigationService.NavigateWithHierarchy(typeof(ActionExceptionPage));
+    }
+
+    [RelayCommand]
+    private void CancelAction(string? operationId)
+    {
+        if (!string.IsNullOrEmpty(operationId))
+        {
+            var result = _actionService.TryCancelOperation(operationId);
+            if(result == Lang.Action_OperationCanceled_AlreadyRunning)
+            {
+                _toastService.Error(Lang.Action_OperationCanceled_AlreadyRunning);
+            }
+            else
+            {
+                _toastService.Success(Lang.Action_OperationCanceled_Success);
+
+            }
+        }
     }
 }
