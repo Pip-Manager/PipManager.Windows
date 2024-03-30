@@ -5,6 +5,7 @@
     xmlns:action="clr-namespace:PipManager.Views.Pages.Action"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:lang="clr-namespace:PipManager.Languages"
+    xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pages="clr-namespace:PipManager.Models.Action"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -115,10 +116,17 @@
                                 Style="{StaticResource BodyLargeTextBlockStyle}"
                                 Text="Console Output" />
                             <ui:TextBox
+                                x:Name="ActionConsoleOutputTextbox"
                                 Grid.Column="2"
-                                MaxHeight="300"
+                                MaxHeight="270"
                                 IsReadOnly="True"
-                                Text="{Binding ConsoleOutput}" />
+                                Text="{Binding ConsoleOutput}">
+                                <behaviors:Interaction.Triggers>
+                                    <behaviors:DataTrigger Binding="{Binding Text.Length, ElementName=ActionConsoleOutputTextbox}" Comparison="NotEqual" Value="0">
+                                        <behaviors:CallMethodAction MethodName="ScrollToEnd" />
+                                    </behaviors:DataTrigger>
+                                </behaviors:Interaction.Triggers>
+                            </ui:TextBox>
                         </Grid>
                     </ui:CardExpander>
                 </DataTemplate>

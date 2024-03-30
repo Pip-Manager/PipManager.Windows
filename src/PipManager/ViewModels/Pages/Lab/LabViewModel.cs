@@ -16,7 +16,7 @@ public partial class LabViewModel(IActionService actionService)
         actionService.AddOperation(new ActionListItem
         (
             ActionType.Install,
-            "114514==114",
+            "pytorch",
             totalSubTaskNumber: 1,
             progressIntermediate: false
         ));

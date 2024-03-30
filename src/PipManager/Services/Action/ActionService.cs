@@ -31,7 +31,8 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                 var errorDetection = false;
                 var consoleError = new StringBuilder(512);
                 var currentAction = ActionList[0];
-                currentAction.ConsoleOutput = Lang.Action_CurrentStatus_WaitingInQueue + '\n';
+                var currentActionRunning = false;
+                currentAction.ConsoleOutput = Lang.Action_CurrentStatus_WaitingInQueue;
                 switch (currentAction.OperationType)
                 {
                     case ActionType.Uninstall:
@@ -42,7 +43,15 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                 currentAction.OperationStatus = $"Uninstalling {item}";
                                 var result = environmentService.Uninstall(item, (sender, eventArgs) =>
                                 {
-                                    currentAction.ConsoleOutput += string.IsNullOrEmpty(eventArgs.Data) ? Lang.Action_CurrentStatus_WaitingInQueue : eventArgs.Data.Trim() + '\n';
+                                    if (!currentActionRunning && !string.IsNullOrEmpty(eventArgs.Data))
+                                    {
+                                        currentAction.ConsoleOutput = eventArgs.Data.Trim();
+                                        currentActionRunning = true;
+                                    }
+                                    else if (!string.IsNullOrEmpty(eventArgs.Data))
+                                    {
+                                        currentAction.ConsoleOutput += '\n' + eventArgs.Data.Trim();
+                                    }
                                 });
                                 currentAction.CompletedSubTaskNumber++;
                                 Log.Information(result.Success
@@ -61,7 +70,15 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                 currentAction.OperationStatus = $"Installing {item}";
                                 var result = environmentService.Install(item, (sender, eventArgs) =>
                                 {
-                                    currentAction.ConsoleOutput += string.IsNullOrEmpty(eventArgs.Data) ? Lang.Action_CurrentStatus_WaitingInQueue : eventArgs.Data.Trim() + '\n';
+                                    if (!currentActionRunning && !string.IsNullOrEmpty(eventArgs.Data))
+                                    {
+                                        currentAction.ConsoleOutput = eventArgs.Data.Trim();
+                                        currentActionRunning = true;
+                                    }
+                                    else if (!string.IsNullOrEmpty(eventArgs.Data))
+                                    {
+                                        currentAction.ConsoleOutput += '\n' + eventArgs.Data.Trim();
+                                    }
                                 });
                                 currentAction.CompletedSubTaskNumber++;
                                 if (!result.Success)
@@ -84,7 +101,15 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                             currentAction.OperationStatus = $"Installing from requirements.txt";
                             var result = environmentService.InstallByRequirements(requirementsTempFilePath, (sender, eventArgs) =>
                             {
-                                currentAction.ConsoleOutput += string.IsNullOrEmpty(eventArgs.Data) ? Lang.Action_CurrentStatus_WaitingInQueue : eventArgs.Data.Trim() + '\n';
+                                if (!currentActionRunning && !string.IsNullOrEmpty(eventArgs.Data))
+                                {
+                                    currentAction.ConsoleOutput = eventArgs.Data.Trim();
+                                    currentActionRunning = true;
+                                }
+                                else if (!string.IsNullOrEmpty(eventArgs.Data))
+                                {
+                                    currentAction.ConsoleOutput += '\n' + eventArgs.Data.Trim();
+                                }
                             });
                             if (!result.Success)
                             {
@@ -103,7 +128,15 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                 currentAction.OperationStatus = $"Downloading {item}";
                                 var result = environmentService.Download(item, currentAction.Path, (sender, eventArgs) =>
                                 {
-                                    currentAction.ConsoleOutput += string.IsNullOrEmpty(eventArgs.Data) ? Lang.Action_CurrentStatus_WaitingInQueue : eventArgs.Data.Trim() + '\n';
+                                    if (!currentActionRunning && !string.IsNullOrEmpty(eventArgs.Data))
+                                    {
+                                        currentAction.ConsoleOutput = eventArgs.Data.Trim();
+                                        currentActionRunning = true;
+                                    }
+                                    else if (!string.IsNullOrEmpty(eventArgs.Data))
+                                    {
+                                        currentAction.ConsoleOutput += '\n' + eventArgs.Data.Trim();
+                                    }
                                 }, extraParameters: currentAction.ExtraParameters);
                                 currentAction.CompletedSubTaskNumber++;
                                 if (!result.Success)
@@ -127,7 +160,15 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                 currentAction.OperationStatus = $"Updating {item}";
                                 var result = environmentService.Update(item, (sender, eventArgs) =>
                                 {
-                                    currentAction.ConsoleOutput += string.IsNullOrEmpty(eventArgs.Data) ? Lang.Action_CurrentStatus_WaitingInQueue : eventArgs.Data.Trim() + '\n';
+                                    if (!currentActionRunning && !string.IsNullOrEmpty(eventArgs.Data))
+                                    {
+                                        currentAction.ConsoleOutput = eventArgs.Data.Trim();
+                                        currentActionRunning = true;
+                                    }
+                                    else if (!string.IsNullOrEmpty(eventArgs.Data))
+                                    {
+                                        currentAction.ConsoleOutput += '\n' + eventArgs.Data.Trim();
+                                    }
                                 });
                                 currentAction.CompletedSubTaskNumber++;
                                 if (!result.Success)
