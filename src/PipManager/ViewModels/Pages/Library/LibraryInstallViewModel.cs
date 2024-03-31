@@ -11,8 +11,14 @@ using PipManager.Services.Toast;
 using PipManager.Views.Pages.Action;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.IO.Compression;
+using System.Text;
+using ICSharpCode.SharpZipLib.GZip;
+using ICSharpCode.SharpZipLib.Tar;
+using Serilog;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
+using TarEntry = System.Formats.Tar.TarEntry;
 
 namespace PipManager.ViewModels.Pages.Library;
 
@@ -36,6 +42,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
         _contentDialogService = contentDialogService;
         _environmentService = environmentService;
         _toastService = toastService;
+        _installWheelDependencies = false;
         _navigationService = navigationService;
         WeakReferenceMessenger.Default.Register<InstalledPackagesMessage>(this, Receive);
     }
@@ -44,6 +51,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
     {
         if (!_isInitialized)
             InitializeViewModel();
+        InstallWheelDependencies = true;
     }
 
     public void OnNavigatedFrom()
@@ -118,7 +126,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
         _actionService.AddOperation(new ActionListItem
         (
             ActionType.Install,
-            string.Join(' ', operationCommand),
+            operationCommand.ToArray(),
             totalSubTaskNumber: operationCommand.Count
         ));
         PreInstallPackages.Clear();
@@ -172,7 +180,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
         _actionService.AddOperation(new ActionListItem
         (
             ActionType.InstallByRequirements,
-            Requirements,
+            [Requirements],
             displayCommand: "requirements.txt"
         ));
         Requirements = "";
@@ -185,8 +193,8 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
 
     [ObservableProperty] private ObservableCollection<LibraryInstallPackageItem> _preDownloadPackages = [];
     [ObservableProperty] private string _downloadDistributionsFolderPath = "";
-    [ObservableProperty] private bool _downloadDistributionsEnabled = false;
-    [ObservableProperty] private bool _downloadDependencies = false;
+    [ObservableProperty] private bool _downloadDistributionsEnabled;
+    [ObservableProperty] private bool _downloadWheelDependencies;
 
     [RelayCommand]
     private async Task DownloadDistributionsTask()
@@ -251,9 +259,9 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
         _actionService.AddOperation(new ActionListItem
         (
             ActionType.Download,
-            string.Join(' ', operationCommand),
+            operationCommand.ToArray(),
             path: DownloadDistributionsFolderPath,
-            extraParameters: DownloadDependencies ? null : ["--no-deps"],
+            extraParameters: DownloadWheelDependencies ? null : ["--no-deps"],
             totalSubTaskNumber: operationCommand.Count
         ));
         PreDownloadPackages.Clear();
@@ -280,4 +288,145 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
     }
 
     #endregion Download Wheel File
+
+    #region Install via distributions
+    [ObservableProperty] private ObservableCollection<LibraryInstallPackageItem> _preInstallDistributions = [];
+    [ObservableProperty] private bool _installWheelDependencies;
+
+    [RelayCommand]
+    private async Task SelectDistributions()
+    {
+        var openFileDialog = new OpenFileDialog
+        {
+            Filter = "Wheel Files|*.whl;*.tar.gz",
+            Multiselect = true
+        };
+        if (openFileDialog.ShowDialog() != true)
+        {
+            return;
+        }
+
+        foreach (var fileName in openFileDialog.FileNames)
+        {
+            var packageName = "";
+            var packageVersion = "";
+            try
+            {
+                if (fileName.EndsWith(".whl"))
+                {
+                    await using var wheelFileStream = new FileStream(fileName, FileMode.Open);
+                    using var wheelFileArchive = new ZipArchive(wheelFileStream, ZipArchiveMode.Read);
+                    foreach (ZipArchiveEntry entry in wheelFileArchive.Entries)
+                    {
+                        if (!entry.FullName.Contains(".dist-info/METADATA") || !entry.FullName.Contains("PKG-INFO"))
+                        {
+                            continue;
+                        }
+
+                        using var streamReader = new StreamReader(entry.Open());
+                        while (await streamReader.ReadLineAsync() is { } line)
+                        {
+                            if (line.StartsWith("Name: "))
+                            {
+                                packageName = line[6..];
+                            }
+                            else if (line.StartsWith("Version: "))
+                            {
+                                packageVersion = line[9..];
+                                break;
+                            }
+                        }
+                    }
+                }
+                else if (fileName.EndsWith(".tar.gz"))
+                {
+                    var inStream = File.OpenRead(fileName);
+                    var gzipStream = new GZipInputStream(inStream);
+                    var tarArchive = TarArchive.CreateInputTarArchive(gzipStream, Encoding.UTF8);
+                    var randomizedDirectory = Path.Combine(AppInfo.CachesDir, $"tempTarGz-{Guid.NewGuid():N}");
+                    tarArchive.ExtractContents(randomizedDirectory);
+                    tarArchive.Close();
+                    gzipStream.Close();
+                    inStream.Close();
+                    string targetDirectory = Directory.GetDirectories(randomizedDirectory)[0];
+
+                    if (File.Exists(Path.Combine(targetDirectory, "PKG-INFO")))
+                    {
+                        using var streamReader = File.OpenText(Path.Combine(targetDirectory, "PKG-INFO"));
+                        while (await streamReader.ReadLineAsync() is { } line)
+                        {
+                            if (line.StartsWith("Name: "))
+                            {
+                                packageName = line[6..];
+                            }
+                            else if (line.StartsWith("Version: "))
+                            {
+                                packageVersion = line[9..];
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e) when (e is IOException or InvalidDataException)
+            {
+                _toastService.Error(Lang.LibraryInstall_InstallDistributions_IOError);
+                return;
+            }
+
+            if (packageName == "" || packageVersion == "")
+            {
+                _toastService.Error(Lang.LibraryInstall_InstallDistributions_InvalidFile);
+                return;
+            }
+
+            if (PreInstallDistributions.Any(item => item.PackageName == packageName))
+            {
+                _toastService.Error(Lang.LibraryInstall_InstallDistributions_AlreadyExists);
+                return;
+            }
+            
+            PreInstallDistributions.Add(new LibraryInstallPackageItem
+            {
+                PackageName = packageName,
+                TargetVersion = packageVersion,
+                DistributionFilePath = fileName
+            });
+        }
+    }
+    
+    [RelayCommand]
+    private void DeleteInstallDistributions(object? parameter)
+    {
+        var target = -1;
+        for (int index = 0; index < PreInstallDistributions.Count; index++)
+        {
+            if (ReferenceEquals(PreInstallDistributions[index].PackageName, parameter))
+            {
+                target = index;
+            }
+        }
+
+        if (target != -1)
+        {
+            PreInstallDistributions.RemoveAt(target);
+        }
+    }
+
+    [RelayCommand]
+    private void InstallDistributionsToAction()
+    {
+        List<string> operationCommand = [];
+        operationCommand.AddRange(PreInstallDistributions.Select(preInstallPackage => preInstallPackage.DistributionFilePath)!);
+        _actionService.AddOperation(new ActionListItem
+        (
+            ActionType.Install,
+            operationCommand.ToArray(),
+            totalSubTaskNumber: operationCommand.Count,
+            extraParameters: DownloadWheelDependencies ? null : ["--no-deps"]
+        ));
+        PreInstallDistributions.Clear();
+    }
+
+    #endregion
 }

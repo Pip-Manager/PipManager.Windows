@@ -115,6 +115,17 @@ public partial class AppStarting
         var directoryInfo = new DirectoryInfo(AppInfo.CachesDir);
         var filesInfo = directoryInfo.GetFileSystemInfos();
         var cacheFileAmount = 0;
+        foreach (var subDir in directoryInfo.GetDirectories("tempTarGz-*", SearchOption.AllDirectories))
+        {
+            try
+            {
+                subDir.Delete(true);
+            }
+            catch (Exception ex)
+            {
+                // ignored
+            }
+        }
         foreach (var file in filesInfo)
         {
             if (file.Name.StartsWith("temp_"))
@@ -126,7 +137,7 @@ public partial class AppStarting
                 }
                 catch
                 {
-                    continue;
+                    // ignored
                 }
             }
         }

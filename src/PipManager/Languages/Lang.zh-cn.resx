@@ -708,4 +708,19 @@
   <data name="Action_Operation_Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="LibraryInstall_InstallDistributions_IOError" xml:space="preserve">
+    <value>在读取文件时出现错误，检查文件是否被占用</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_InvalidFile" xml:space="preserve">
+    <value>该发行文件不可用</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_AlreadyExists" xml:space="preserve">
+    <value>该发行文件已在列表中</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_Header" xml:space="preserve">
+    <value>通过发行文件安装</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_InstallDependencies" xml:space="preserve">
+    <value>安装依赖包</value>
+  </data>
 </root>
