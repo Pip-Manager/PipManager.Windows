@@ -5,6 +5,8 @@ using PipManager.Services.Toast;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
+using System.Text;
 using System.Web;
 using Wpf.Ui.Controls;
 
@@ -44,9 +46,27 @@ public partial class ActionExceptionViewModel : ObservableObject, INavigationAwa
         Log.Information("[Action][Exceptions] Initialized");
     }
 
-    public void UpdateActionExceptionList()
+    private void UpdateActionExceptionList()
     {
         Exceptions = new ObservableCollection<ActionListItem>(_actionService.ExceptionList);
+    }
+
+    private static string ExceptionFilter(string parameter)
+    {
+        var exceptionBuilder = new StringBuilder();
+        using (StringReader reader = new (parameter))
+        {
+            while (reader.ReadLine() is { } line)
+            {
+                line = line.Trim();
+                if (line.StartsWith("ERROR"))
+                {
+                    exceptionBuilder.Append(line).Append(' ');
+                }
+            }
+        }
+
+        return exceptionBuilder.ToString();
     }
 
     [RelayCommand]
@@ -54,7 +74,7 @@ public partial class ActionExceptionViewModel : ObservableObject, INavigationAwa
     {
         if (parameter != null)
         {
-            Process.Start(new ProcessStartInfo($"https://bing.com/search?q={HttpUtility.UrlEncode(parameter)}") { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo($"https://bing.com/search?q={HttpUtility.UrlEncode(ExceptionFilter(parameter))}") { UseShellExecute = true });
         }
     }
 
@@ -63,17 +83,19 @@ public partial class ActionExceptionViewModel : ObservableObject, INavigationAwa
     {
         if (parameter != null)
         {
-            Process.Start(new ProcessStartInfo($"https://www.google.com/search?q={HttpUtility.UrlEncode(parameter)}") { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo($"https://www.google.com/search?q={HttpUtility.UrlEncode(ExceptionFilter(parameter))}") { UseShellExecute = true });
         }
     }
 
     [RelayCommand]
     private void ExceptionCopyToClipboard(string? parameter)
     {
-        if (parameter != null)
+        if (parameter == null)
         {
-            Clipboard.SetDataObject(parameter);
-            _toastService.Success(Lang.ActionException_CopyToClipboardNotice);
+            return;
         }
+
+        Clipboard.SetDataObject(ExceptionFilter(parameter));
+        _toastService.Success(Lang.ActionException_CopyToClipboardNotice);
     }
 }

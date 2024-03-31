@@ -39,6 +39,7 @@ public partial class AboutViewModel(IConfigurationService configurationService) 
         new AboutNugetLibraryListItem("Antelcat.I18N.WPF", "MIT", "Copyright (c) 2023 Feast", "https://github.com/Antelcat/Antelcat.I18N"),
         new AboutNugetLibraryListItem("CommunityToolkit.Mvvm", "MIT", "Copyright © .NET Foundation and Contributors", "https://github.com/CommunityToolkit/dotnet"),
         new AboutNugetLibraryListItem("HtmlAgilityPack", "MIT", "Copyright © ZZZ Projects Inc.", "https://github.com/zzzprojects/html-agility-pack"),
+        new AboutNugetLibraryListItem("Meziantou.Framework.WPF", "MIT", "Copyright (c) 2019 Gérald Barré", "https://github.com/meziantou/Meziantou.Framework"),
         new AboutNugetLibraryListItem("Microsoft.Extensions.Hosting", "MIT", "Copyright © .NET Foundation and Contributors", "https://github.com/dotnet/runtime"),
         new AboutNugetLibraryListItem("Microsoft.Web.WebView2", "Custom License", "© Microsoft Corporation. All rights reserved.", "https://github.com/dotnet/runtime"),
         new AboutNugetLibraryListItem("Microsoft.Xaml.Behaviors.Wpf", "MIT", "Copyright (c) 2015 Microsoft", "https://github.com/microsoft/XamlBehaviorsWpf"),

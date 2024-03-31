@@ -36,7 +36,6 @@ public class ActionService(IEnvironmentService environmentService, IToastService
 
     public void Runner()
     {
-        // TODO: Refactor (FUCKING MESSY COMMAND and output)
         while (true)
         {
             if (ActionList.Count > 0)
@@ -208,7 +207,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                     {
                         toastService.Error(Lang.Action_IssueDetectedToast);
                     });
-                    currentAction.ConsoleError = consoleError.ToString();
+                    currentAction.ConsoleError = consoleError.ToString().TrimEnd();
                     ExceptionList.Add(currentAction);
                 }
                 Thread.Sleep(100);
