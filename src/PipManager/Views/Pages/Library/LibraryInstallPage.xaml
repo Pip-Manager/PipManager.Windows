@@ -100,7 +100,6 @@
                                         </StackPanel>
                                         <StackPanel
                                             Grid.Column="2"
-                                            Margin="0,0,10,0"
                                             HorizontalAlignment="Center"
                                             Orientation="Horizontal">
                                             <ui:Button
@@ -196,8 +195,8 @@
                                     <Grid Height="37">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="0.25*" />
-                                            <ColumnDefinition Width="0.7*" />
-                                            <ColumnDefinition Width="0.05*" />
+                                            <ColumnDefinition Width="0.65*" />
+                                            <ColumnDefinition Width="0.1*" />
                                         </Grid.ColumnDefinitions>
                                         <ui:TextBlock
                                             Grid.Column="0"
@@ -222,7 +221,7 @@
                                                 SelectedItem="{Binding TargetVersion, Mode=TwoWay}"
                                                 Visibility="{Binding ElementName=DownloadDistributionsVersionSpecifiedCheckbox, Path=IsChecked, Converter={StaticResource BoolToVisibility}}" />
                                             <ui:TextBlock
-                                                Margin="7,0,0,0"
+                                                Margin="15,0,0,0"
                                                 VerticalAlignment="Center"
                                                 FontTypography="Body"
                                                 Foreground="Gray"

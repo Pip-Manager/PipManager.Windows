@@ -74,36 +74,8 @@ Double click `PipManager.exe` or `PipManager_withRuntime.exe` *If you have not i
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Roadmap
-
-### Features
-
-- [x] Install Package
-    - [x] Default *pip install*
-    - [x] requirements.txt Import
-    - [x] Download Distributions
-    - [ ] Install via distributions
-    - [ ] Install via VCS
-- [x] Update Package
-- [x] Delete Package
-- [x] Show Packages in list
-- [x] Multi-environment Management
-- [x] Search Package
-- [ ] Dependency Completion Check
-- [ ] Scenario Recommendation
-- [ ] Cache Management
-- [ ] Tools
-    - [ ] Embedded Lite Python Script Editor
-
-### Long-term
-
-- Logging
-- Localization
-- Rules of action exceptions
-
 See the [Open Issues](https://github.com/AuroraZiling/PipManager/issues) for a full list of proposed features (and known issues).
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Contributing
 
@@ -112,8 +84,6 @@ See the [Open Issues](https://github.com/AuroraZiling/PipManager/issues) for a f
 3. Commit your Changes
 4. Push to the Branch `development`
 5. Open a Pull Request
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## License
 
