@@ -129,7 +129,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
                 actionService.AddOperation(new ActionListItem
                 (
                     ActionType.Update,
-                    "pip",
+                    ["pip"],
                     progressIntermediate: false,
                     totalSubTaskNumber: 1
                 ));

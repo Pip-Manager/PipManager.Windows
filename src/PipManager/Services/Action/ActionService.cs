@@ -49,7 +49,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                 {
                     case ActionType.Uninstall:
                         {
-                            var queue = currentAction.OperationCommand.Split(' ');
+                            var queue = currentAction.OperationCommand;
                             foreach (var item in queue)
                             {
                                 currentAction.OperationStatus = $"Uninstalling {item}";
@@ -76,7 +76,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
 
                     case ActionType.Install:
                         {
-                            var queue = currentAction.OperationCommand.Split(' ');
+                            var queue = currentAction.OperationCommand;
                             foreach (var item in queue)
                             {
                                 currentAction.OperationStatus = $"Installing {item}";
@@ -91,7 +91,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                     {
                                         currentAction.ConsoleOutput += '\n' + eventArgs.Data.Trim();
                                     }
-                                });
+                                }, extraParameters: currentAction.ExtraParameters);
                                 currentAction.CompletedSubTaskNumber++;
                                 if (!result.Success)
                                 {
@@ -109,8 +109,8 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                     case ActionType.InstallByRequirements:
                         {
                             var requirementsTempFilePath = Path.Combine(AppInfo.CachesDir, $"temp_install_requirements_{currentAction.OperationId}.txt");
-                            File.WriteAllText(requirementsTempFilePath, currentAction.OperationCommand);
-                            currentAction.OperationStatus = $"Installing from requirements.txt";
+                            File.WriteAllText(requirementsTempFilePath, currentAction.OperationCommand[0]);
+                            currentAction.OperationStatus = "Installing from requirements.txt";
                             var result = environmentService.InstallByRequirements(requirementsTempFilePath, (sender, eventArgs) =>
                             {
                                 if (!currentActionRunning && !string.IsNullOrEmpty(eventArgs.Data))
@@ -134,7 +134,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                         }
                     case ActionType.Download:
                         {
-                            var queue = currentAction.OperationCommand.Split(' ');
+                            var queue = currentAction.OperationCommand;
                             foreach (var item in queue)
                             {
                                 currentAction.OperationStatus = $"Downloading {item}";
@@ -166,7 +166,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                         }
                     case ActionType.Update:
                         {
-                            var queue = currentAction.OperationCommand.Split(' ');
+                            var queue = currentAction.OperationCommand;
                             foreach (var item in queue)
                             {
                                 currentAction.OperationStatus = $"Updating {item}";

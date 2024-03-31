@@ -229,15 +229,16 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         }
     }
 
-    public ActionResponse Install(string packageName, DataReceivedEventHandler consoleOutputCallback)
+    public ActionResponse Install(string packageName, DataReceivedEventHandler consoleOutputCallback, string[]? extraParameters = null)
     {
+        string? extra = extraParameters != null ? string.Join(" ", extraParameters) : null;
         var process = new Process
         {
             StartInfo = new ProcessStartInfo
             {
                 FileName = configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
                 Arguments =
-                    $"-m pip install \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
+                    $"-m pip install \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6 {extra}",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,

@@ -5,7 +5,7 @@ namespace PipManager.Models.Action;
 
 public partial class ActionListItem : ObservableObject
 {
-    public ActionListItem(ActionType operationType, string operationCommand, string displayCommand = "", string path = "", string[]? extraParameters = null, bool progressIntermediate = false, int totalSubTaskNumber = 1)
+    public ActionListItem(ActionType operationType, string[] operationCommand, string displayCommand = "", string path = "", string[]? extraParameters = null, bool progressIntermediate = false, int totalSubTaskNumber = 1)
     {
         OperationType = operationType;
         OperationCommand = operationCommand;
@@ -15,7 +15,7 @@ public partial class ActionListItem : ObservableObject
         ExtraParameters = extraParameters;
         DisplayCommand = displayCommand switch
         {
-            "" => operationCommand,
+            "" => string.Join(' ', operationCommand),
             _ => displayCommand,
         };
         OperationDescription = operationType switch
@@ -55,7 +55,7 @@ public partial class ActionListItem : ObservableObject
     public ActionType OperationType { get; set; }
     public string OperationDescription { get; set; }
     public string OperationTimestamp { get; set; } = DateTime.Now.ToLocalTime().ToString("yyyy-M-d HH:mm:ss");
-    public string OperationCommand { get; set; }
+    public string[] OperationCommand { get; set; }
     public string DisplayCommand { get; set; }
     public string Path { get; set; }
     public string[]? ExtraParameters { get; set; }

@@ -94,7 +94,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         _actionService.AddOperation(new ActionListItem
         (
             ActionType.Uninstall,
-            command.Trim(),
+            command.Trim().Split(' '),
             progressIntermediate: false,
             totalSubTaskNumber: selected.Count
         ));
@@ -141,7 +141,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             _actionService.AddOperation(new ActionListItem
             (
                 ActionType.Update,
-                operationList.Trim(),
+                operationList.Trim().Split(' '),
                 progressIntermediate: false,
                 totalSubTaskNumber: msgList.Count
             ));
