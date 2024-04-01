@@ -76,7 +76,7 @@
                             FontSize="22"
                             Text="{I18N {x:Static lang:LangKeys.EnvironmentAdd_EnvironmentVariable_NotFound}}"
                             Visibility="{Binding ViewModel.Found, Converter={StaticResource BoolToVisibility}}" />
-                        <ListView
+                        <ui:ListView
                             x:Name="ByEnvironmentVariablesList"
                             Grid.Row="1"
                             Margin="0,0,0,50"
@@ -85,7 +85,7 @@
                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                             SelectedItem="{Binding ViewModel.EnvironmentItemInList}"
                             Visibility="{Binding ViewModel.Loading, Converter={StaticResource InverseBoolToVisibility}}">
-                            <ListView.ItemTemplate>
+                            <ui:ListView.ItemTemplate>
                                 <DataTemplate DataType="{x:Type appConfigModels:EnvironmentItem}">
                                     <Grid x:Name="ByEnvironmentVariableGrid" Margin="0,8,0,0">
                                         <Grid.ColumnDefinitions>
@@ -114,8 +114,8 @@
                                         </StackPanel>
                                     </Grid>
                                 </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
                     </Grid>
                     <ui:Button
                         Margin="0,0,0,13"

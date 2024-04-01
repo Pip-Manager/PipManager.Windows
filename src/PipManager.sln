@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决方案项", "{B7B16EC6-9787-477B-B84A-7DACBEB96277}"
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
+		.github\workflows\qodana_code_quality.yml = .github\workflows\qodana_code_quality.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipManager.PackageSearch", "PipManager.PackageSearch\PipManager.PackageSearch.csproj", "{759DBA08-4418-474E-BD6F-773829A81368}"

@@ -59,12 +59,12 @@
             IsIndeterminate="True"
             Visibility="{Binding ViewModel.OnQuerying, Converter={StaticResource BoolToVisibility}}" />
 
-        <ListView
+        <ui:ListView
             x:Name="SearchList"
             Grid.Row="1"
             Margin="0,7,0,7"
             ItemsSource="{Binding ViewModel.QueryList, Mode=TwoWay}">
-            <ListView.ItemTemplate>
+            <ui:ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type query:QueryListItemModel}">
                     <Grid Margin="5,0,0,0">
                         <StackPanel Margin="5">
@@ -98,8 +98,8 @@
                             Icon="{ui:SymbolIcon ChevronRight24}" />
                     </Grid>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </ui:ListView.ItemTemplate>
+        </ui:ListView>
         <StackPanel
             Grid.Row="2"
             HorizontalAlignment="Center"
