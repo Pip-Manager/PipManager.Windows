@@ -208,10 +208,10 @@
     <value>添加环境</value>
   </data>
   <data name="Environment_Operation_RemoveEnvironment" xml:space="preserve">
-    <value>从列表中移除环境</value>
+    <value>从列表中移除</value>
   </data>
   <data name="Environment_Operation_VerifyEnvironment" xml:space="preserve">
-    <value>验证环境可用性</value>
+    <value>验证可用性</value>
   </data>
   <data name="Settings_Category_PackageSource" xml:space="preserve">
     <value>包源</value>
@@ -722,5 +722,8 @@
   </data>
   <data name="LibraryInstall_InstallDistributions_InstallDependencies" xml:space="preserve">
     <value>安装依赖包</value>
+  </data>
+  <data name="Environment_Operation_ClearEnvironmentCache" xml:space="preserve">
+    <value>清除缓存</value>
   </data>
 </root>

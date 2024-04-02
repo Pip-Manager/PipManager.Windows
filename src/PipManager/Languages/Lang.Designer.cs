@@ -645,7 +645,16 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove Environment (from list).
+        ///   Looks up a localized string similar to Clear Cache.
+        /// </summary>
+        public static string Environment_Operation_ClearEnvironmentCache {
+            get {
+                return ResourceManager.GetString("Environment_Operation_ClearEnvironmentCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove from list.
         /// </summary>
         public static string Environment_Operation_RemoveEnvironment {
             get {
@@ -654,7 +663,7 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verify Environment.
+        ///   Looks up a localized string similar to Verify Availability.
         /// </summary>
         public static string Environment_Operation_VerifyEnvironment {
             get {

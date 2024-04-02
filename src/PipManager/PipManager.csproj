@@ -101,10 +101,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="E:\pipManager\PipManager\src\PipManager\.editorconfig" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\PipManager.PackageSearch\PipManager.PackageSearch.csproj" />
 	</ItemGroup>
 </Project>

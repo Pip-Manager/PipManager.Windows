@@ -74,10 +74,10 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         EnvironmentItems.Remove(CurrentEnvironment!);
         CurrentEnvironment = null;
         configurationService.AppConfig.CurrentEnvironment = null;
-        configurationService.AppConfig.EnvironmentItems = new List<EnvironmentItem>(EnvironmentItems);
+        configurationService.AppConfig.EnvironmentItems = [..EnvironmentItems];
         configurationService.Save();
         var mainWindowViewModel = App.GetService<MainWindowViewModel>();
-        mainWindowViewModel.ApplicationTitle = $"Pip Manager";
+        mainWindowViewModel.ApplicationTitle = "Pip Manager";
         EnvironmentSelected = false;
     }
 

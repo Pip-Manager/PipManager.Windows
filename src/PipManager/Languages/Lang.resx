@@ -208,10 +208,10 @@
     <value>Add Environment</value>
   </data>
   <data name="Environment_Operation_RemoveEnvironment" xml:space="preserve">
-    <value>Remove Environment (from list)</value>
+    <value>Remove from list</value>
   </data>
   <data name="Environment_Operation_VerifyEnvironment" xml:space="preserve">
-    <value>Verify Environment</value>
+    <value>Verify Availability</value>
   </data>
   <data name="Settings_Category_PackageSource" xml:space="preserve">
     <value>Package Source</value>
@@ -722,5 +722,8 @@
   </data>
   <data name="LibraryInstall_InstallDistributions_InstallDependencies" xml:space="preserve">
     <value>Install dependencies</value>
+  </data>
+  <data name="Environment_Operation_ClearEnvironmentCache" xml:space="preserve">
+    <value>Clear Cache</value>
   </data>
 </root>
