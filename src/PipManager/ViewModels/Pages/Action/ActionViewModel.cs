@@ -5,7 +5,6 @@ using PipManager.Services.Action;
 using PipManager.Services.Toast;
 using PipManager.Views.Pages.Action;
 using Serilog;
-using System.Collections.ObjectModel;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 

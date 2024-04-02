@@ -7,7 +7,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using Meziantou.Framework.WPF.Collections;
-using System.Buffers;
 
 namespace PipManager.Services.Action;
 
@@ -53,7 +52,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                             foreach (var item in queue)
                             {
                                 currentAction.OperationStatus = $"Uninstalling {item}";
-                                var result = environmentService.Uninstall(item, (sender, eventArgs) =>
+                                var result = environmentService.Uninstall(item, (_, eventArgs) =>
                                 {
                                     if (!currentActionRunning && !string.IsNullOrEmpty(eventArgs.Data))
                                     {
@@ -80,7 +79,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                             foreach (var item in queue)
                             {
                                 currentAction.OperationStatus = $"Installing {item}";
-                                var result = environmentService.Install(item, (sender, eventArgs) =>
+                                var result = environmentService.Install(item, (_, eventArgs) =>
                                 {
                                     if (!currentActionRunning && !string.IsNullOrEmpty(eventArgs.Data))
                                     {
@@ -111,7 +110,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                             var requirementsTempFilePath = Path.Combine(AppInfo.CachesDir, $"temp_install_requirements_{currentAction.OperationId}.txt");
                             File.WriteAllText(requirementsTempFilePath, currentAction.OperationCommand[0]);
                             currentAction.OperationStatus = "Installing from requirements.txt";
-                            var result = environmentService.InstallByRequirements(requirementsTempFilePath, (sender, eventArgs) =>
+                            var result = environmentService.InstallByRequirements(requirementsTempFilePath, (_, eventArgs) =>
                             {
                                 if (!currentActionRunning && !string.IsNullOrEmpty(eventArgs.Data))
                                 {
@@ -138,7 +137,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                             foreach (var item in queue)
                             {
                                 currentAction.OperationStatus = $"Downloading {item}";
-                                var result = environmentService.Download(item, currentAction.Path, (sender, eventArgs) =>
+                                var result = environmentService.Download(item, currentAction.Path, (_, eventArgs) =>
                                 {
                                     if (!currentActionRunning && !string.IsNullOrEmpty(eventArgs.Data))
                                     {
@@ -170,7 +169,7 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                             foreach (var item in queue)
                             {
                                 currentAction.OperationStatus = $"Updating {item}";
-                                var result = environmentService.Update(item, (sender, eventArgs) =>
+                                var result = environmentService.Update(item, (_, eventArgs) =>
                                 {
                                     if (!currentActionRunning && !string.IsNullOrEmpty(eventArgs.Data))
                                     {

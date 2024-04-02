@@ -6,6 +6,9 @@ namespace PipManager.ViewModels.Pages.Tools;
 public partial class ToolsViewModel : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
+    
+    [ObservableProperty]
+    private string? _testProperty;
 
     public void OnNavigatedTo()
     {

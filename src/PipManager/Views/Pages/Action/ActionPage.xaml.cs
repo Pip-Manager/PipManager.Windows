@@ -14,9 +14,4 @@ public partial class ActionPage : INavigableView<ActionViewModel>
 
         InitializeComponent();
     }
-
-    private void TextBox_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
-    {
-
-    }
 }

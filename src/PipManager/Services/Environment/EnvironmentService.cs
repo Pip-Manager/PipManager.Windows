@@ -42,7 +42,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
+                FileName = configurationService.AppConfig.CurrentEnvironment!.PythonPath,
                 Arguments = "-m pip cache purge",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
@@ -229,7 +229,6 @@ public partial class EnvironmentService(IConfigurationService configurationServi
             packageName = PackageNameNormalizerRegex().Replace(packageName, "-").ToLower();
             if (!PackageNameVerificationRegex().IsMatch(packageName))
                 return new GetVersionsResponse { Status = 2, Versions = [] };
-            var sth = $"{configurationService.GetUrlFromPackageSourceType("pypi")}{packageName}/json";
             var responseMessage =
                 await _httpClient.GetAsync($"{configurationService.GetUrlFromPackageSourceType("pypi")}{packageName}/json");
             var response = await responseMessage.Content.ReadAsStringAsync();
@@ -238,13 +237,13 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 ?.Releases?
                 .Where(item => item.Value.Count != 0).OrderBy(e => e.Value[0].UploadTime)
                 .ThenBy(e => e.Value[0].UploadTime).ToDictionary(pair => pair.Key, pair => pair.Value);
-            if (pypiPackageInfo == null || pypiPackageInfo?.Count == 0)
+            if (pypiPackageInfo == null || pypiPackageInfo.Count == 0)
             {
                 Log.Warning($"[EnvironmentService] {packageName} package not found");
                 return new GetVersionsResponse { Status = 1, Versions = [] };
             }
             Log.Information($"[EnvironmentService] Found {packageName}");
-            return new GetVersionsResponse { Status = 0, Versions = pypiPackageInfo?.Keys.ToArray() };
+            return new GetVersionsResponse { Status = 0, Versions = pypiPackageInfo.Keys.ToArray() };
         }
         catch (Exception)
         {
@@ -260,7 +259,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
+                FileName = configurationService.AppConfig.CurrentEnvironment!.PythonPath,
                 Arguments =
                     $"-m pip install \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6 {extra}",
                 UseShellExecute = false,
@@ -285,7 +284,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
+                FileName = configurationService.AppConfig.CurrentEnvironment!.PythonPath,
                 Arguments =
                     $"-m pip install -r \"{requirementsFilePath}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
                 UseShellExecute = false,
@@ -311,7 +310,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
+                FileName = configurationService.AppConfig.CurrentEnvironment!.PythonPath,
                 Arguments =
                     $"-m pip download -d \"{downloadPath}\" \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6 {extra}",
                 UseShellExecute = false,
@@ -336,7 +335,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
+                FileName = configurationService.AppConfig.CurrentEnvironment!.PythonPath,
                 Arguments =
                     $"-m pip install --upgrade \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
                 UseShellExecute = false,
@@ -361,7 +360,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
+                FileName = configurationService.AppConfig.CurrentEnvironment!.PythonPath,
                 Arguments = $"-m pip uninstall -y \"{packageName}\"",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,

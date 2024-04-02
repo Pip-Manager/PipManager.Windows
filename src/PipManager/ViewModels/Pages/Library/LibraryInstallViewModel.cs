@@ -15,10 +15,8 @@ using System.IO.Compression;
 using System.Text;
 using ICSharpCode.SharpZipLib.GZip;
 using ICSharpCode.SharpZipLib.Tar;
-using Serilog;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
-using TarEntry = System.Formats.Tar.TarEntry;
 
 namespace PipManager.ViewModels.Pages.Library;
 

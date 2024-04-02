@@ -5,16 +5,14 @@ namespace PipManager.ViewModels.Windows;
 
 public partial class MainWindowViewModel : ObservableObject
 {
-    private readonly IConfigurationService _configurationService;
     [ObservableProperty] private bool _experimentMode;
 
     public MainWindowViewModel(IConfigurationService configurationService)
     {
-        _configurationService = configurationService;
-        if (_configurationService.AppConfig.CurrentEnvironment != null)
+        if (configurationService.AppConfig.CurrentEnvironment != null)
         {
-            Log.Information($"[MainWindow] Environment loaded ({_configurationService.AppConfig.CurrentEnvironment.PipVersion} for {_configurationService.AppConfig.CurrentEnvironment.PythonVersion})");
-            ApplicationTitle = $"Pip Manager | {_configurationService.AppConfig.CurrentEnvironment.PipVersion} for {_configurationService.AppConfig.CurrentEnvironment.PythonVersion}";
+            Log.Information($"[MainWindow] Environment loaded ({configurationService.AppConfig.CurrentEnvironment.PipVersion} for {configurationService.AppConfig.CurrentEnvironment.PythonVersion})");
+            ApplicationTitle = $"Pip Manager | {configurationService.AppConfig.CurrentEnvironment.PipVersion} for {configurationService.AppConfig.CurrentEnvironment.PythonVersion}";
         }
         else
         {

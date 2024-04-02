@@ -129,7 +129,7 @@ public partial class App
 
     [LibraryImport("kernel32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial bool FreeConsole();
+    private static partial void FreeConsole();
 
     private bool _showConsoleWindow;
     private bool _experimentMode;

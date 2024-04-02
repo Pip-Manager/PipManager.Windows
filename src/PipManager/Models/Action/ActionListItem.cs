@@ -72,7 +72,7 @@ public partial class ActionListItem : ObservableObject
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ProgressBarValue))]
-    private int _completedSubTaskNumber = 0;
+    private int _completedSubTaskNumber;
 
     public double ProgressBarValue
     {

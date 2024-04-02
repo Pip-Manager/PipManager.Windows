@@ -1,12 +1,11 @@
 ﻿using HtmlAgilityPack;
 using PipManager.PackageSearch.Wrappers.Query;
-using Serilog;
 
 namespace PipManager.PackageSearch;
 
 public class PackageSearchService(HttpClient httpClient) : IPackageSearchService
 {
-    public Dictionary<(string, int), QueryWrapper> QueryCaches { get; set; } = [];
+    private Dictionary<(string, int), QueryWrapper> QueryCaches { get; } = [];
 
     public async Task<QueryWrapper> Query(string name, int page = 1)
     {
@@ -14,12 +13,12 @@ public class PackageSearchService(HttpClient httpClient) : IPackageSearchService
         {
             return QueryCaches[(name, page)];
         }
-        var htmlContent = "";
+        string htmlContent;
         try
         {
             htmlContent = await httpClient.GetStringAsync($"https://pypi.org/search/?q={name}&page={page}");
         }
-        catch (Exception exception) when (exception is TaskCanceledException || exception is HttpRequestException)
+        catch (Exception exception) when (exception is TaskCanceledException or HttpRequestException)
         {
             return new QueryWrapper
             {
@@ -53,6 +52,7 @@ public class PackageSearchService(HttpClient httpClient) : IPackageSearchService
                     Version = resultItem.ChildNodes[1].ChildNodes[3].InnerText,
                     Description = resultItem.ChildNodes[3].InnerText,
                     Url = $"https://pypi.org{resultItem.Attributes["href"].Value}",
+                    // ReSharper disable once StringLiteralTypo
                     UpdateTime = DateTime.ParseExact(resultItem.ChildNodes[1].ChildNodes[5].ChildNodes[0].Attributes["datetime"].Value, "yyyy-MM-ddTHH:mm:sszzz", null, System.Globalization.DateTimeStyles.RoundtripKind)
                 });
             }

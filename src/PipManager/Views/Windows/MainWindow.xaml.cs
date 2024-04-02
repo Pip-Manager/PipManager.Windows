@@ -18,7 +18,6 @@ public partial class MainWindow
         MainWindowViewModel viewModel,
         INavigationService navigationService,
         IServiceProvider serviceProvider,
-        ISnackbarService snackbarService,
         IContentDialogService contentDialogService,
         IMaskService maskPresenter,
         IActionService actionService
