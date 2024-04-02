@@ -726,4 +726,10 @@
   <data name="Environment_Operation_ClearEnvironmentCache" xml:space="preserve">
     <value>清除缓存</value>
   </data>
+  <data name="ContentDialog_Message_CacheCleared" xml:space="preserve">
+    <value>已清除 {0} 个缓存文件</value>
+  </data>
+  <data name="ContentDialog_Message_CacheClearFailed" xml:space="preserve">
+    <value>清除缓存失败</value>
+  </data>
 </root>

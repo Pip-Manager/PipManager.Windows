@@ -456,6 +456,24 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Caches Cleared.
+        /// </summary>
+        public static string ContentDialog_Message_CacheCleared {
+            get {
+                return ResourceManager.GetString("ContentDialog_Message_CacheCleared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to clear caches.
+        /// </summary>
+        public static string ContentDialog_Message_CacheClearFailed {
+            get {
+                return ResourceManager.GetString("ContentDialog_Message_CacheClearFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Environment already exists.
         /// </summary>
         public static string ContentDialog_Message_EnvironmentAlreadyExists {

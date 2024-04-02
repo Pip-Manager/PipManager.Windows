@@ -36,6 +36,30 @@ public partial class EnvironmentService(IConfigurationService configurationServi
             : new ActionResponse { Success = false, Exception = ExceptionType.Environment_Broken };
     }
 
+    public ActionResponse PurgeEnvironmentCache(EnvironmentItem environmentItem)
+    {
+        var process = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = configurationService.AppConfig!.CurrentEnvironment!.PythonPath,
+                Arguments = "-m pip cache purge",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
+            }
+        };
+        process.Start();
+        var output = process.StandardOutput.ReadToEnd();
+        var error = process.StandardError.ReadToEnd();
+        process.WaitForExit();
+        process.Close();
+        process.Dispose();
+        error = error.Replace("WARNING: No matching packages", "").Trim();
+        return !string.IsNullOrEmpty(error) ? new ActionResponse { Success = false, Exception = ExceptionType.Process_Error, Message = error } : new ActionResponse { Success = true, Message = output[15..].TrimEnd()};
+    }
+
     public async Task<List<PackageItem>?> GetLibraries()
     {
         if (configurationService.AppConfig.CurrentEnvironment is null)

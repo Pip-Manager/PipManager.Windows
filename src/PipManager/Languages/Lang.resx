@@ -726,4 +726,10 @@
   <data name="Environment_Operation_ClearEnvironmentCache" xml:space="preserve">
     <value>Clear Cache</value>
   </data>
+  <data name="ContentDialog_Message_CacheCleared" xml:space="preserve">
+    <value>{0} Caches Cleared</value>
+  </data>
+  <data name="ContentDialog_Message_CacheClearFailed" xml:space="preserve">
+    <value>Failed to clear caches</value>
+  </data>
 </root>

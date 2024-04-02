@@ -11,6 +11,8 @@ public interface IEnvironmentService
 
     public ActionResponse CheckEnvironmentAvailable(EnvironmentItem environmentItem);
 
+    public ActionResponse PurgeEnvironmentCache(EnvironmentItem environmentItem);
+
     public Task<List<PackageItem>?> GetLibraries();
 
     public Task<GetVersionsResponse> GetVersions(string packageName);

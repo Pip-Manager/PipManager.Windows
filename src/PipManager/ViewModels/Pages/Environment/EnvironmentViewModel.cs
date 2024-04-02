@@ -64,7 +64,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
     private bool _environmentSelected;
 
     [RelayCommand]
-    private async Task DeleteEnvironmentAsync()
+    private async Task DeleteEnvironment()
     {
         var result = await contentDialogService.ShowSimpleDialogAsync(
             ContentDialogCreateOptions.Warning(Lang.ContentDialog_Message_EnvironmentDeletion,
@@ -98,7 +98,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
                     Lang.ContentDialog_PrimaryButton_EnvironmentDeletion));
             if (result == ContentDialogResult.Primary)
             {
-                await DeleteEnvironmentAsync();
+                await DeleteEnvironment();
             }
         }
     }
@@ -144,6 +144,22 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         else
         {
             toastService.Info(Lang.ContentDialog_Message_EnvironmentIsLatest);
+        }
+    }
+
+    [RelayCommand]
+    private void ClearCache()
+    {
+        var result = environmentService.PurgeEnvironmentCache(CurrentEnvironment!);
+        if (result.Success)
+        {
+            Log.Information($"[Environment] Cache cleared ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
+            toastService.Info(string.Format(Lang.ContentDialog_Message_CacheCleared, result.Message));
+        }
+        else
+        {
+            Log.Error($"[Environment] Cache clear failed ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
+            toastService.Error(Lang.ContentDialog_Message_CacheClearFailed);
         }
     }
 

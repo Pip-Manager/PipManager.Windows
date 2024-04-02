@@ -46,6 +46,12 @@
                 Icon="{ui:SymbolIcon ArrowUp24}"
                 IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}"
                 Margin="5,0,0,0" />
+            <ui:Button
+                Command="{Binding ViewModel.ClearCacheCommand}"
+                Content="{I18N {x:Static lang:LangKeys.Environment_Operation_ClearEnvironmentCache}}"
+                Icon="{ui:SymbolIcon Eraser24}"
+                IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}"
+                Margin="5,0,0,0" />
         </StackPanel>
         <ui:ListView
             ItemsSource="{Binding ViewModel.EnvironmentItems}"
