@@ -14,10 +14,6 @@ namespace PipManager.ViewModels.Pages.Environment;
 public partial class AddEnvironmentViewModel(INavigationService navigationService, IConfigurationService configurationService, IEnvironmentService environmentService, IToastService toastService) : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
-    private readonly INavigationService _navigationService = navigationService;
-    private readonly IConfigurationService _configurationService = configurationService;
-    private readonly IEnvironmentService _environmentService = environmentService;
-    private readonly IToastService _toastService = toastService;
 
     public void OnNavigatedTo()
     {
@@ -77,7 +73,7 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
                 if (!File.Exists(Path.Combine(item, "python.exe")))
                     continue;
                 var environmentItem =
-                    _configurationService.GetEnvironmentItem(Path.Combine(item, "python.exe"));
+                    configurationService.GetEnvironmentItem(Path.Combine(item, "python.exe"));
                 if (environmentItem == null) continue;
                 EnvironmentItems.Add(environmentItem);
             }
@@ -133,83 +129,83 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
         switch (ByWay)
         {
             case 0 when EnvironmentItemInList == null:
-                _toastService.Error(Lang.ContentDialog_Message_EnvironmentNoSelection);
+                toastService.Error(Lang.ContentDialog_Message_EnvironmentNoSelection);
                 break;
 
             case 0:
                 {
-                    var result = _environmentService.CheckEnvironmentAvailable(EnvironmentItemInList);
-                    var alreadyExists = _environmentService.CheckEnvironmentExists(EnvironmentItemInList);
+                    var result = environmentService.CheckEnvironmentAvailable(EnvironmentItemInList);
+                    var alreadyExists = environmentService.CheckEnvironmentExists(EnvironmentItemInList);
                     if (result.Success)
                     {
                         if (alreadyExists)
                         {
-                            _toastService.Error(Lang.ContentDialog_Message_EnvironmentAlreadyExists);
+                            toastService.Error(Lang.ContentDialog_Message_EnvironmentAlreadyExists);
                         }
                         else
                         {
-                            _configurationService.AppConfig.CurrentEnvironment = EnvironmentItemInList;
-                            _configurationService.AppConfig.EnvironmentItems.Add(EnvironmentItemInList);
-                            _configurationService.Save();
+                            configurationService.AppConfig.CurrentEnvironment = EnvironmentItemInList;
+                            configurationService.AppConfig.EnvironmentItems.Add(EnvironmentItemInList);
+                            configurationService.Save();
                             Log.Information($"[AddEnvironment] Environment added ({EnvironmentItemInList.PipVersion} for {EnvironmentItemInList.PythonVersion})");
-                            _navigationService.GoBack();
+                            navigationService.GoBack();
                         }
                     }
                     else
                     {
-                        _toastService.Error(result.Message);
+                        toastService.Error(result.Message);
                     }
 
                     break;
                 }
             case 1:
                 {
-                    var result = _configurationService.GetEnvironmentItemFromCommand(PipCommand, "-V");
+                    var result = configurationService.GetEnvironmentItemFromCommand(PipCommand, "-V");
                     if (result != null)
                     {
-                        var alreadyExists = _environmentService.CheckEnvironmentExists(result);
+                        var alreadyExists = environmentService.CheckEnvironmentExists(result);
                         if (alreadyExists)
                         {
-                            _toastService.Error(Lang.ContentDialog_Message_EnvironmentAlreadyExists);
+                            toastService.Error(Lang.ContentDialog_Message_EnvironmentAlreadyExists);
                         }
                         else
                         {
-                            _configurationService.AppConfig.CurrentEnvironment = result;
-                            _configurationService.AppConfig.EnvironmentItems.Add(result);
+                            configurationService.AppConfig.CurrentEnvironment = result;
+                            configurationService.AppConfig.EnvironmentItems.Add(result);
                             Log.Information($"[AddEnvironment] Environment added ({result.PipVersion} for {result.PythonVersion})");
-                            _configurationService.Save();
-                            _navigationService.GoBack();
+                            configurationService.Save();
+                            navigationService.GoBack();
                         }
                     }
                     else
                     {
-                        _toastService.Error(Lang.ContentDialog_Message_EnvironmentInvaild);
+                        toastService.Error(Lang.ContentDialog_Message_EnvironmentInvaild);
                     }
 
                     break;
                 }
             case 2:
                 {
-                    var result = _configurationService.GetEnvironmentItem(PythonPath);
+                    var result = configurationService.GetEnvironmentItem(PythonPath);
                     if (result != null)
                     {
-                        var alreadyExists = _environmentService.CheckEnvironmentExists(result);
+                        var alreadyExists = environmentService.CheckEnvironmentExists(result);
                         if (alreadyExists)
                         {
-                            _toastService.Error(Lang.ContentDialog_Message_EnvironmentAlreadyExists);
+                            toastService.Error(Lang.ContentDialog_Message_EnvironmentAlreadyExists);
                         }
                         else
                         {
-                            _configurationService.AppConfig.CurrentEnvironment = result;
-                            _configurationService.AppConfig.EnvironmentItems.Add(result);
+                            configurationService.AppConfig.CurrentEnvironment = result;
+                            configurationService.AppConfig.EnvironmentItems.Add(result);
                             Log.Information($"[AddEnvironment] Environment added ({result.PipVersion} for {result.PythonVersion})");
-                            _configurationService.Save();
-                            _navigationService.GoBack();
+                            configurationService.Save();
+                            navigationService.GoBack();
                         }
                     }
                     else
                     {
-                        _toastService.Error(Lang.ContentDialog_Message_EnvironmentInvaild);
+                        toastService.Error(Lang.ContentDialog_Message_EnvironmentInvaild);
                     }
 
                     break;

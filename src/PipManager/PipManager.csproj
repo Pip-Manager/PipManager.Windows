@@ -29,6 +29,7 @@
 	<ItemGroup>
 		<PackageReference Include="Antelcat.I18N.WPF" Version="1.0.1" />
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.59" />
+		<PackageReference Include="Meziantou.Framework.WPF" Version="1.5.5" />
 		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2365.46" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -36,11 +37,12 @@
 		<PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
 		<PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
 		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+		<PackageReference Include="SharpZipLib" Version="1.4.2" />
 		<PackageReference Include="ValueConverters" Version="3.0.26" />
-		<PackageReference Include="WPF-UI" Version="3.0.1" />
+		<PackageReference Include="WPF-UI" Version="3.0.3" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="WPF-UI.Tray" Version="3.0.0-preview.11" />
+		<PackageReference Include="WPF-UI.Tray" Version="3.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -96,10 +98,6 @@
 
 	<ItemGroup>
 	  <EditorConfigFiles Remove="E:\pipManager\PipManager\src\PipManager\.editorconfig" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="E:\pipManager\PipManager\src\PipManager\.editorconfig" />
 	</ItemGroup>
 
 	<ItemGroup>

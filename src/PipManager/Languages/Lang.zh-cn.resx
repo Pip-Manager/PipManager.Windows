@@ -208,10 +208,10 @@
     <value>添加环境</value>
   </data>
   <data name="Environment_Operation_RemoveEnvironment" xml:space="preserve">
-    <value>从列表中移除环境</value>
+    <value>从列表中移除</value>
   </data>
   <data name="Environment_Operation_VerifyEnvironment" xml:space="preserve">
-    <value>验证环境可用性</value>
+    <value>验证可用性</value>
   </data>
   <data name="Settings_Category_PackageSource" xml:space="preserve">
     <value>包源</value>
@@ -698,5 +698,38 @@
   </data>
   <data name="ActionException_CopyToClipboardNotice" xml:space="preserve">
     <value>已复制</value>
+  </data>
+  <data name="Action_OperationCanceled_Success" xml:space="preserve">
+    <value>任务已取消</value>
+  </data>
+  <data name="Action_OperationCanceled_AlreadyRunning" xml:space="preserve">
+    <value>任务已运行</value>
+  </data>
+  <data name="Action_Operation_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_IOError" xml:space="preserve">
+    <value>在读取文件时出现错误，检查文件是否被占用</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_InvalidFile" xml:space="preserve">
+    <value>该发行文件不可用</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_AlreadyExists" xml:space="preserve">
+    <value>该发行文件已在列表中</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_Header" xml:space="preserve">
+    <value>通过发行文件安装</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_InstallDependencies" xml:space="preserve">
+    <value>安装依赖包</value>
+  </data>
+  <data name="Environment_Operation_ClearEnvironmentCache" xml:space="preserve">
+    <value>清除缓存</value>
+  </data>
+  <data name="ContentDialog_Message_CacheCleared" xml:space="preserve">
+    <value>已清除 {0} 个缓存文件</value>
+  </data>
+  <data name="ContentDialog_Message_CacheClearFailed" xml:space="preserve">
+    <value>清除缓存失败</value>
   </data>
 </root>

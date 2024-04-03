@@ -208,10 +208,10 @@
     <value>Add Environment</value>
   </data>
   <data name="Environment_Operation_RemoveEnvironment" xml:space="preserve">
-    <value>Remove Environment (from list)</value>
+    <value>Remove from list</value>
   </data>
   <data name="Environment_Operation_VerifyEnvironment" xml:space="preserve">
-    <value>Verify Environment</value>
+    <value>Verify Availability</value>
   </data>
   <data name="Settings_Category_PackageSource" xml:space="preserve">
     <value>Package Source</value>
@@ -698,5 +698,38 @@
   </data>
   <data name="ActionException_CopyToClipboardNotice" xml:space="preserve">
     <value>Copied to clipboard</value>
+  </data>
+  <data name="Action_OperationCanceled_Success" xml:space="preserve">
+    <value>Action Cancelled</value>
+  </data>
+  <data name="Action_OperationCanceled_AlreadyRunning" xml:space="preserve">
+    <value>Action Already Running</value>
+  </data>
+  <data name="Action_Operation_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_IOError" xml:space="preserve">
+    <value>Error while reading a file, check if the file is occupied</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_InvalidFile" xml:space="preserve">
+    <value>Invalid Distribution File</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_AlreadyExists" xml:space="preserve">
+    <value>Distribution File already added to the list</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_Header" xml:space="preserve">
+    <value>Install via distributions</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_InstallDependencies" xml:space="preserve">
+    <value>Install dependencies</value>
+  </data>
+  <data name="Environment_Operation_ClearEnvironmentCache" xml:space="preserve">
+    <value>Clear Cache</value>
+  </data>
+  <data name="ContentDialog_Message_CacheCleared" xml:space="preserve">
+    <value>{0} Caches Cleared</value>
+  </data>
+  <data name="ContentDialog_Message_CacheClearFailed" xml:space="preserve">
+    <value>Failed to clear caches</value>
   </data>
 </root>

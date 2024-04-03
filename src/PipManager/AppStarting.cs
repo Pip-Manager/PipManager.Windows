@@ -4,6 +4,7 @@ using Serilog;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
+using PipManager.Helpers;
 
 namespace PipManager;
 
@@ -11,14 +12,14 @@ public partial class AppStarting
 {
     [LibraryImport("kernel32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial bool AllocConsole();
+    private static partial void AllocConsole();
 
-    public readonly AppConfig Config;
+    private readonly AppConfig _config;
     public bool ShowConsoleWindow = false;
 
     public AppStarting()
     {
-        Config = ConfigurationService.LoadConfiguration();
+        _config = ConfigurationService.LoadConfiguration();
         Directory.CreateDirectory(AppInfo.CrushesDir);
         Directory.CreateDirectory(AppInfo.LogDir);
         Directory.CreateDirectory(AppInfo.CachesDir);
@@ -26,7 +27,7 @@ public partial class AppStarting
 
     public void LoadLanguage()
     {
-        var language = Config.Personalization.Language;
+        var language = _config.Personalization.Language;
         if (language != "Auto")
         {
             I18NExtension.Culture = new CultureInfo(language);
@@ -61,10 +62,10 @@ public partial class AppStarting
 
     public void LogDeletion()
     {
-        if (!Config.Personalization.LogAutoDeletion || !Directory.Exists(AppInfo.LogDir)) return;
+        if (!_config.Personalization.LogAutoDeletion || !Directory.Exists(AppInfo.LogDir)) return;
         var fileList = Directory.GetFileSystemEntries(AppInfo.LogDir);
         var logFileAmount = fileList.Count(file => File.Exists(file) && file.EndsWith(".txt"));
-        if (logFileAmount >= Config.Personalization.LogAutoDeletionTimes)
+        if (logFileAmount >= _config.Personalization.LogAutoDeletionTimes)
         {
             var directoryInfo = new DirectoryInfo(AppInfo.LogDir);
             var filesInfo = directoryInfo.GetFileSystemInfos();
@@ -77,7 +78,7 @@ public partial class AppStarting
                 }
                 catch
                 {
-                    continue;
+                    // ignored
                 }
             }
             Log.Information($"{logFileAmount} log file(s) deleted");
@@ -86,27 +87,29 @@ public partial class AppStarting
 
     public void CrushesDeletion()
     {
-        if (!Config.Personalization.CrushesAutoDeletion || !Directory.Exists(AppInfo.CrushesDir)) return;
+        if (!_config.Personalization.CrushesAutoDeletion || !Directory.Exists(AppInfo.CrushesDir)) return;
         var fileList = Directory.GetFileSystemEntries(AppInfo.CrushesDir);
         var crushFileAmount = fileList.Count(file => File.Exists(file) && file.EndsWith(".txt"));
-        if (crushFileAmount >= Config.Personalization.CrushesAutoDeletionTimes)
+        if (crushFileAmount < _config.Personalization.CrushesAutoDeletionTimes)
         {
-            var directoryInfo = new DirectoryInfo(AppInfo.CrushesDir);
-            var filesInfo = directoryInfo.GetFileSystemInfos();
-            foreach (var file in filesInfo)
-            {
-                if (file.Extension != ".txt") continue;
-                try
-                {
-                    File.Delete(file.FullName);
-                }
-                catch
-                {
-                    continue;
-                }
-            }
-            Log.Information($"{crushFileAmount} crush file(s) deleted");
+            return;
         }
+
+        var directoryInfo = new DirectoryInfo(AppInfo.CrushesDir);
+        var filesInfo = directoryInfo.GetFileSystemInfos();
+        foreach (var file in filesInfo)
+        {
+            if (file.Extension != ".txt") continue;
+            try
+            {
+                File.Delete(file.FullName);
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+        Log.Information($"{crushFileAmount} crush file(s) deleted");
     }
 
     public void CachesDeletion()
@@ -115,19 +118,32 @@ public partial class AppStarting
         var directoryInfo = new DirectoryInfo(AppInfo.CachesDir);
         var filesInfo = directoryInfo.GetFileSystemInfos();
         var cacheFileAmount = 0;
+        foreach (var subDir in directoryInfo.GetDirectories("tempTarGz-*", SearchOption.AllDirectories))
+        {
+            try
+            {
+                subDir.Delete(true);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+        }
         foreach (var file in filesInfo)
         {
-            if (file.Name.StartsWith("temp_"))
+            if (!file.Name.StartsWith("temp_"))
             {
-                try
-                {
-                    File.Delete(file.FullName);
-                    cacheFileAmount++;
-                }
-                catch
-                {
-                    continue;
-                }
+                continue;
+            }
+
+            try
+            {
+                File.Delete(file.FullName);
+                cacheFileAmount++;
+            }
+            catch
+            {
+                // ignored
             }
         }
         Log.Information($"{cacheFileAmount} cache file(s) deleted");

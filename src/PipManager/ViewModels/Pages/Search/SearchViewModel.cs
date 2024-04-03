@@ -27,16 +27,16 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
     private string _totalResultNumber = "";
 
     [ObservableProperty]
-    private bool _onQuerying = false;
+    private bool _onQuerying;
 
     [ObservableProperty]
-    private bool _successQueried = false;
+    private bool _successQueried;
 
     [ObservableProperty]
     private bool _reachesFirstPage = true;
 
     [ObservableProperty]
-    private bool _reachesLastPage = false;
+    private bool _reachesLastPage;
 
     [ObservableProperty]
     private int _currentPage = 1;
@@ -65,7 +65,6 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
     [RelayCommand]
     private void ToDetailPage(object parameter)
     {
-        if (QueryList is null) return;
         navigationService.Navigate(typeof(SearchDetailPage));
         var current = QueryList.Where(searchListItem => searchListItem.Name == parameter as string).ToList()[0];
         WeakReferenceMessenger.Default.Send(new SearchDetailMessage(current));
@@ -157,7 +156,7 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
             MaxPage = 1;
             CurrentPage = 1;
             QueryPackageName = parameter;
-            var result = await packageSearchService.Query(parameter, 1);
+            var result = await packageSearchService.Query(parameter);
             Process(result);
             OnQuerying = false;
         }

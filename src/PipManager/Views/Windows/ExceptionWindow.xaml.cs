@@ -16,7 +16,10 @@ public partial class ExceptionWindow
     {
         TypeTextBlock.Text = exception.GetType().ToString();
         MessageTextBlock.Text = exception.Message;
-        StackTraceTextBox.Text = exception.StackTrace;
+        if (exception.StackTrace != null)
+        {
+            StackTraceTextBox.Text = exception.StackTrace;
+        }
     }
 
     private void ReportButton_OnClick(object sender, RoutedEventArgs e)

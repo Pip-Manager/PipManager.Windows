@@ -1,4 +1,5 @@
-﻿using Microsoft.Web.WebView2.Wpf;
+﻿using Microsoft.Web.WebView2.Core;
+using Microsoft.Web.WebView2.Wpf;
 using Wpf.Ui.Controls;
 using SearchDetailViewModel = PipManager.ViewModels.Pages.Search.SearchDetailViewModel;
 
@@ -6,7 +7,7 @@ namespace PipManager.Views.Pages.Search;
 
 public partial class SearchDetailPage : INavigableView<SearchDetailViewModel>
 {
-    public static WebView2? ProjectDescriptionWebView { get; set; }
+    public static WebView2? ProjectDescriptionWebView { get; private set; }
 
     public SearchDetailViewModel ViewModel { get; }
 
@@ -15,10 +16,10 @@ public partial class SearchDetailPage : INavigableView<SearchDetailViewModel>
         ViewModel = viewModel;
         DataContext = this;
         InitializeComponent();
-        ProjectDescriptionWebView = SearchDetailProjectDesciptionWebView;
+        ProjectDescriptionWebView = SearchDetailProjectDescriptionWebView;
     }
 
-    private void SearchDetailProjectDesciptionWebView_NavigationStarting(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs e)
+    private void SearchDetailProjectDescriptionWebView_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
     {
         if (e.Uri.StartsWith("http://") || e.Uri.StartsWith("https://"))
         {
@@ -26,9 +27,9 @@ public partial class SearchDetailPage : INavigableView<SearchDetailViewModel>
         }
     }
 
-    private void SearchDetailProjectDesciptionWebView_CoreWebView2InitializationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2InitializationCompletedEventArgs e)
+    private void SearchDetailProjectDescriptionWebView_CoreWebView2InitializationCompleted(object sender, CoreWebView2InitializationCompletedEventArgs? e)
     {
-        if (e != null && e.IsSuccess)
+        if (e is { IsSuccess: true })
         {
             ProjectDescriptionWebView!.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync(
                "document.addEventListener('contextmenu', event => event.preventDefault());");

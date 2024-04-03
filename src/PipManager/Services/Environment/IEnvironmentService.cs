@@ -11,11 +11,13 @@ public interface IEnvironmentService
 
     public ActionResponse CheckEnvironmentAvailable(EnvironmentItem environmentItem);
 
+    public ActionResponse PurgeEnvironmentCache(EnvironmentItem environmentItem);
+
     public Task<List<PackageItem>?> GetLibraries();
 
     public Task<GetVersionsResponse> GetVersions(string packageName);
 
-    public ActionResponse Install(string packageName, DataReceivedEventHandler consoleOutputCallback);
+    public ActionResponse Install(string packageName, DataReceivedEventHandler consoleOutputCallback, string[]? extraParameters = null);
 
     public ActionResponse InstallByRequirements(string requirementsFilePath, DataReceivedEventHandler consoleOutputCallback);
 

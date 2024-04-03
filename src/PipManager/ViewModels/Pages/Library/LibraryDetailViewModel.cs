@@ -3,7 +3,6 @@ using PipManager.Languages;
 using PipManager.Models.Package;
 using PipManager.Models.Pages;
 using System.Collections.ObjectModel;
-using Wpf.Ui;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Library;
@@ -12,7 +11,6 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
 {
     public record LibraryDetailMessage(PackageItem Package);
     private bool _isInitialized;
-    private readonly INavigationService _navigationService;
 
     [ObservableProperty]
     private PackageItem? _package;
@@ -38,9 +36,8 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
 
     #endregion Classifier
 
-    public LibraryDetailViewModel(INavigationService navigationService)
+    public LibraryDetailViewModel()
     {
-        _navigationService = navigationService;
         WeakReferenceMessenger.Default.Register<LibraryDetailMessage>(this, Receive);
     }
 

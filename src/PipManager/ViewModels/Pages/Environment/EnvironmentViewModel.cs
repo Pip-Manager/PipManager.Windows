@@ -36,13 +36,15 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         var currentEnvironment = configurationService.AppConfig.CurrentEnvironment;
         foreach (var environmentItem in EnvironmentItems)
         {
-            if (currentEnvironment is not null && environmentItem.PythonPath == currentEnvironment.PythonPath)
+            if (currentEnvironment is null || environmentItem.PythonPath != currentEnvironment.PythonPath)
             {
-                CurrentEnvironment = environmentItem;
-                var mainWindowViewModel = App.GetService<MainWindowViewModel>();
-                mainWindowViewModel.ApplicationTitle = $"Pip Manager | {CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion}";
-                Log.Information($"[Environment] Current Environment changed: {CurrentEnvironment.PythonPath}");
+                continue;
             }
+
+            CurrentEnvironment = environmentItem;
+            var mainWindowViewModel = App.GetService<MainWindowViewModel>();
+            mainWindowViewModel.ApplicationTitle = $"Pip Manager | {CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion}";
+            Log.Information($"[Environment] Current Environment changed: {CurrentEnvironment.PythonPath}");
         }
     }
 
@@ -64,7 +66,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
     private bool _environmentSelected;
 
     [RelayCommand]
-    private async Task DeleteEnvironmentAsync()
+    private async Task DeleteEnvironment()
     {
         var result = await contentDialogService.ShowSimpleDialogAsync(
             ContentDialogCreateOptions.Warning(Lang.ContentDialog_Message_EnvironmentDeletion,
@@ -74,10 +76,10 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         EnvironmentItems.Remove(CurrentEnvironment!);
         CurrentEnvironment = null;
         configurationService.AppConfig.CurrentEnvironment = null;
-        configurationService.AppConfig.EnvironmentItems = new List<EnvironmentItem>(EnvironmentItems);
+        configurationService.AppConfig.EnvironmentItems = [..EnvironmentItems];
         configurationService.Save();
         var mainWindowViewModel = App.GetService<MainWindowViewModel>();
-        mainWindowViewModel.ApplicationTitle = $"Pip Manager";
+        mainWindowViewModel.ApplicationTitle = "Pip Manager";
         EnvironmentSelected = false;
     }
 
@@ -98,7 +100,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
                     Lang.ContentDialog_PrimaryButton_EnvironmentDeletion));
             if (result == ContentDialogResult.Primary)
             {
-                await DeleteEnvironmentAsync();
+                await DeleteEnvironment();
             }
         }
     }
@@ -129,7 +131,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
                 actionService.AddOperation(new ActionListItem
                 (
                     ActionType.Update,
-                    "pip",
+                    ["pip"],
                     progressIntermediate: false,
                     totalSubTaskNumber: 1
                 ));
@@ -140,10 +142,28 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         else if (latest == string.Empty)
         {
             toastService.Error(Lang.ContentDialog_Message_NetworkError);
+            Log.Error("[Environment] Network error while checking for updates (environment: {environment})", CurrentEnvironment!.PipVersion);
         }
         else
         {
             toastService.Info(Lang.ContentDialog_Message_EnvironmentIsLatest);
+            Log.Information("[Environment] Environment is already up to date (environment: {environment})", CurrentEnvironment!.PipVersion);
+        }
+    }
+
+    [RelayCommand]
+    private void ClearCache()
+    {
+        var result = environmentService.PurgeEnvironmentCache(CurrentEnvironment!);
+        if (result.Success)
+        {
+            Log.Information($"[Environment] Cache cleared ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
+            toastService.Info(string.Format(Lang.ContentDialog_Message_CacheCleared, result.Message));
+        }
+        else
+        {
+            Log.Error($"[Environment] Cache clear failed ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
+            toastService.Error(Lang.ContentDialog_Message_CacheClearFailed);
         }
     }
 

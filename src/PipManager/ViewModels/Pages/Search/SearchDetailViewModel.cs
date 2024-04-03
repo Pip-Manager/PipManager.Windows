@@ -4,7 +4,6 @@ using Microsoft.Web.WebView2.Core;
 using PipManager.Languages;
 using PipManager.PackageSearch.Wrappers.Query;
 using PipManager.Services.Environment;
-using PipManager.Services.Mask;
 using PipManager.Services.Toast;
 using PipManager.Views.Pages.Search;
 using Serilog;
@@ -24,11 +23,10 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     private readonly HttpClient _httpClient;
     private readonly IThemeService _themeService;
     private readonly IToastService _toastService;
-    private readonly IMaskService _maskService;
     private readonly IEnvironmentService _environmentService;
 
     [ObservableProperty]
-    private bool _projectDescriptionVisibility = false;
+    private bool _projectDescriptionVisibility;
 
     private string _themeType = "light";
 
@@ -56,13 +54,12 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     [ObservableProperty]
     private QueryListItemModel? _package;
 
-    public SearchDetailViewModel(INavigationService navigationService, HttpClient httpClient, IThemeService themeService, IToastService toastService, IMaskService maskService, IEnvironmentService environmentService)
+    public SearchDetailViewModel(INavigationService navigationService, HttpClient httpClient, IThemeService themeService, IToastService toastService, IEnvironmentService environmentService)
     {
         _navigationService = navigationService;
         _httpClient = httpClient;
         _themeService = themeService;
         _toastService = toastService;
-        _maskService = maskService;
         _environmentService = environmentService;
 
         WeakReferenceMessenger.Default.Register<SearchDetailMessage>(this, Receive);
@@ -118,7 +115,6 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
         if (installedPackages.Any(item => item.Name == Package!.Name))
         {
             _toastService.Error(Lang.LibraryInstall_Add_AlreadyInstalled);
-            return;
         }
     }
 
@@ -126,7 +122,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     {
         Package = message.Package;
 
-        SearchDetailPage.ProjectDescriptionWebView!.Loaded += async (sender, e) =>
+        SearchDetailPage.ProjectDescriptionWebView!.Loaded += async (_, _) =>
         {
             ProjectDescriptionVisibility = false;
             var packageVersions = await _environmentService.GetVersions(Package!.Name);
@@ -145,8 +141,8 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
                     TargetVersion = AvailableVersions.First();
                     break;
             }
-            var webView2Environment = await CoreWebView2Environment.CreateAsync(null, AppInfo.CachesDir);
-            await SearchDetailPage.ProjectDescriptionWebView!.EnsureCoreWebView2Async().ConfigureAwait(true);
+            await CoreWebView2Environment.CreateAsync(null, AppInfo.CachesDir);
+            await SearchDetailPage.ProjectDescriptionWebView.EnsureCoreWebView2Async().ConfigureAwait(true);
             try
             {
                 var projectDescriptionUrl = message.Package.Url;
@@ -155,8 +151,8 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
                 htmlDocument.LoadHtml(html);
                 string projectDescriptionHtml = string.Format(_htmlModel, _themeType, ThemeTypeInHex, htmlDocument.DocumentNode.SelectSingleNode("//*[@id=\"description\"]/div").InnerHtml);
 
-                SearchDetailPage.ProjectDescriptionWebView!.CoreWebView2.Profile.PreferredColorScheme = CoreWebView2PreferredColorScheme.Dark;
-                SearchDetailPage.ProjectDescriptionWebView!.NavigateToString(projectDescriptionHtml);
+                SearchDetailPage.ProjectDescriptionWebView.CoreWebView2.Profile.PreferredColorScheme = CoreWebView2PreferredColorScheme.Dark;
+                SearchDetailPage.ProjectDescriptionWebView.NavigateToString(projectDescriptionHtml);
             }
             catch (Exception ex)
             {
@@ -164,8 +160,8 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
                 _toastService.Error(Lang.SearchDetail_ProjectDescription_LoadFailed);
                 string projectDescriptionHtml = string.Format(_htmlModel, _themeType, ThemeTypeInHex, $"<p>{Lang.SearchDetail_ProjectDescription_LoadFailed}</p>");
 
-                SearchDetailPage.ProjectDescriptionWebView!.CoreWebView2.Profile.PreferredColorScheme = CoreWebView2PreferredColorScheme.Dark;
-                SearchDetailPage.ProjectDescriptionWebView!.NavigateToString(projectDescriptionHtml);
+                SearchDetailPage.ProjectDescriptionWebView.CoreWebView2.Profile.PreferredColorScheme = CoreWebView2PreferredColorScheme.Dark;
+                SearchDetailPage.ProjectDescriptionWebView.NavigateToString(projectDescriptionHtml);
             }
             finally
             {
