@@ -49,6 +49,7 @@ public partial class ActionExceptionViewModel : ObservableObject, INavigationAwa
     private void UpdateActionExceptionList()
     {
         Exceptions = new ObservableCollection<ActionListItem>(_actionService.ExceptionList);
+        Log.Information("[Action][Exceptions] Exception List updated ({Count} items)", Exceptions.Count);
     }
 
     private static string ExceptionFilter(string parameter)
@@ -97,5 +98,6 @@ public partial class ActionExceptionViewModel : ObservableObject, INavigationAwa
 
         Clipboard.SetDataObject(ExceptionFilter(parameter));
         _toastService.Success(Lang.ActionException_CopyToClipboardNotice);
+        Log.Information("[Action][Exceptions] Copied exception to clipboard");
     }
 }

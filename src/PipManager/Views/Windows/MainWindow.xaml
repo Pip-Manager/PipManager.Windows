@@ -110,12 +110,12 @@
             Grid.RowSpan="2"
             x:Name="RootContentDialog" />
 
+        <!--  TODO: Wait merge https://github.com/lepoco/wpfui/pull/1017  -->
         <ui:TitleBar
             CloseWindowByDoubleClickOnIcon="True"
             Grid.Row="0"
             ShowMaximize="False"
-            Title="{Binding ViewModel.ApplicationTitle}"
-            x:Name="TitleBar">
+            Title="{Binding ViewModel.ApplicationTitle}">
             <ui:TitleBar.Icon>
                 <ui:ImageIcon Source="pack://application:,,,/Assets/icon.png" />
             </ui:TitleBar.Icon>

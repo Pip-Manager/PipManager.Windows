@@ -54,18 +54,21 @@ public partial class ActionViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private void CancelAction(string? operationId)
     {
-        if (!string.IsNullOrEmpty(operationId))
+        if (string.IsNullOrEmpty(operationId))
         {
-            var result = _actionService.TryCancelOperation(operationId);
-            if(result == Lang.Action_OperationCanceled_AlreadyRunning)
-            {
-                _toastService.Error(Lang.Action_OperationCanceled_AlreadyRunning);
-            }
-            else
-            {
-                _toastService.Success(Lang.Action_OperationCanceled_Success);
+            return;
+        }
 
-            }
+        var result = _actionService.TryCancelOperation(operationId);
+        if(result == Lang.Action_OperationCanceled_AlreadyRunning)
+        {
+            _toastService.Error(Lang.Action_OperationCanceled_AlreadyRunning);
+            Log.Warning("[Action] Operation cancellation failed (already running): {OperationId}", operationId);
+        }
+        else
+        {
+            _toastService.Success(Lang.Action_OperationCanceled_Success);
+            Log.Information("[Action] Operation canceled: {OperationId}", operationId);
         }
     }
 }

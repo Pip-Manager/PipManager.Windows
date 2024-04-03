@@ -36,13 +36,15 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         var currentEnvironment = configurationService.AppConfig.CurrentEnvironment;
         foreach (var environmentItem in EnvironmentItems)
         {
-            if (currentEnvironment is not null && environmentItem.PythonPath == currentEnvironment.PythonPath)
+            if (currentEnvironment is null || environmentItem.PythonPath != currentEnvironment.PythonPath)
             {
-                CurrentEnvironment = environmentItem;
-                var mainWindowViewModel = App.GetService<MainWindowViewModel>();
-                mainWindowViewModel.ApplicationTitle = $"Pip Manager | {CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion}";
-                Log.Information($"[Environment] Current Environment changed: {CurrentEnvironment.PythonPath}");
+                continue;
             }
+
+            CurrentEnvironment = environmentItem;
+            var mainWindowViewModel = App.GetService<MainWindowViewModel>();
+            mainWindowViewModel.ApplicationTitle = $"Pip Manager | {CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion}";
+            Log.Information($"[Environment] Current Environment changed: {CurrentEnvironment.PythonPath}");
         }
     }
 
@@ -140,10 +142,12 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         else if (latest == string.Empty)
         {
             toastService.Error(Lang.ContentDialog_Message_NetworkError);
+            Log.Error("[Environment] Network error while checking for updates (environment: {environment})", CurrentEnvironment!.PipVersion);
         }
         else
         {
             toastService.Info(Lang.ContentDialog_Message_EnvironmentIsLatest);
+            Log.Information("[Environment] Environment is already up to date (environment: {environment})", CurrentEnvironment!.PipVersion);
         }
     }
 
