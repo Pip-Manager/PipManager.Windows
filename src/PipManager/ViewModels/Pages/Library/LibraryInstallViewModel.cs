@@ -316,7 +316,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
                     using var wheelFileArchive = new ZipArchive(wheelFileStream, ZipArchiveMode.Read);
                     foreach (ZipArchiveEntry entry in wheelFileArchive.Entries)
                     {
-                        if (!entry.FullName.Contains(".dist-info/METADATA") || !entry.FullName.Contains("PKG-INFO"))
+                        if (!entry.FullName.Contains(".dist-info/METADATA") && !entry.FullName.Contains("PKG-INFO"))
                         {
                             continue;
                         }
@@ -334,6 +334,8 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
                                 break;
                             }
                         }
+
+
                     }
                 }
                 else if (fileName.EndsWith(".tar.gz"))
