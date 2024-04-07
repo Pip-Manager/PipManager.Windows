@@ -10,7 +10,6 @@
     WindowBackdropType="Mica"
     WindowCornerPreference="Round"
     WindowStartupLocation="CenterScreen"
-    WindowState="Normal"
     d:DataContext="{d:DesignInstance local:MainWindow,
                                      IsDesignTimeCreatable=True}"
     d:DesignHeight="700"
@@ -114,8 +113,8 @@
         <ui:TitleBar
             CloseWindowByDoubleClickOnIcon="True"
             Grid.Row="0"
-            ShowMaximize="False"
-            Title="{Binding ViewModel.ApplicationTitle}">
+            Title="{Binding ViewModel.ApplicationTitle}"
+            x:Name="TitleBar">
             <ui:TitleBar.Icon>
                 <ui:ImageIcon Source="pack://application:,,,/Assets/icon.png" />
             </ui:TitleBar.Icon>
