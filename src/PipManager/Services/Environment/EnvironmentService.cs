@@ -70,6 +70,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         var packageDirInfo = new DirectoryInfo(Path.Combine(
             Path.GetDirectoryName(configurationService.AppConfig.CurrentEnvironment!.PythonPath)!,
             @"Lib\site-packages"));
+        
         var packages = new ConcurrentBag<PackageItem>();
         var ioTaskList = new List<Task>();
         var distInfoDirectories = packageDirInfo.GetDirectories()
