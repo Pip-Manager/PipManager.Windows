@@ -371,9 +371,11 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         };
         process.OutputDataReceived += consoleOutputCallback;
         process.Start();
+        process.BeginOutputReadLine();
         var error = process.StandardError.ReadToEnd();
         process.WaitForExit();
         process.Close();
+        process.Dispose();
         return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.Process_Error, Message = error };
     }
 
