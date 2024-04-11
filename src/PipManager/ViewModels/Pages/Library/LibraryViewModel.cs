@@ -95,8 +95,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         (
             ActionType.Uninstall,
             command.Trim().Split(' '),
-            progressIntermediate: false,
-            totalSubTaskNumber: selected.Count
+            progressIntermediate: false
         ));
         _navigationService.Navigate(typeof(ActionPage));
     }
@@ -142,8 +141,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             (
                 ActionType.Update,
                 operationList.Trim().Split(' '),
-                progressIntermediate: false,
-                totalSubTaskNumber: msgList.Count
+                progressIntermediate: false
             ));
             _navigationService.Navigate(typeof(ActionPage));
         }

@@ -124,8 +124,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
         _actionService.AddOperation(new ActionListItem
         (
             ActionType.Install,
-            operationCommand.ToArray(),
-            totalSubTaskNumber: operationCommand.Count
+            operationCommand.ToArray()
         ));
         PreInstallPackages.Clear();
     }
@@ -259,8 +258,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
             ActionType.Download,
             operationCommand.ToArray(),
             path: DownloadDistributionsFolderPath,
-            extraParameters: DownloadWheelDependencies ? null : ["--no-deps"],
-            totalSubTaskNumber: operationCommand.Count
+            extraParameters: DownloadWheelDependencies ? null : ["--no-deps"]
         ));
         PreDownloadPackages.Clear();
         _navigationService.Navigate(typeof(ActionPage));
@@ -422,7 +420,6 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
         (
             ActionType.Install,
             operationCommand.ToArray(),
-            totalSubTaskNumber: operationCommand.Count,
             extraParameters: DownloadWheelDependencies ? null : ["--no-deps"]
         ));
         PreInstallDistributions.Clear();

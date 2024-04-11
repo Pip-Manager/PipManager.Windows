@@ -5,12 +5,12 @@ namespace PipManager.Models.Action;
 
 public partial class ActionListItem : ObservableObject
 {
-    public ActionListItem(ActionType operationType, string[] operationCommand, string displayCommand = "", string path = "", string[]? extraParameters = null, bool progressIntermediate = false, int totalSubTaskNumber = 1)
+    public ActionListItem(ActionType operationType, string[] operationCommand, string displayCommand = "", string path = "", string[]? extraParameters = null, bool progressIntermediate = false)
     {
         OperationType = operationType;
         OperationCommand = operationCommand;
         ProgressIntermediate = progressIntermediate;
-        TotalSubTaskNumber = totalSubTaskNumber;
+        TotalSubTaskNumber = operationCommand.Length;
         Path = path;
         ExtraParameters = extraParameters;
         DisplayCommand = displayCommand switch
@@ -68,7 +68,7 @@ public partial class ActionListItem : ObservableObject
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ProgressBarValue))]
-    private int _totalSubTaskNumber = 1;
+    private int _totalSubTaskNumber;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ProgressBarValue))]
