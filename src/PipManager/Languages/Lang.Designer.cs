@@ -312,11 +312,11 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Action Already Running.
+        ///   Looks up a localized string similar to Failed to cancel.
         /// </summary>
-        public static string Action_OperationCanceled_AlreadyRunning {
+        public static string Action_OperationCanceled_Failed {
             get {
-                return ResourceManager.GetString("Action_OperationCanceled_AlreadyRunning", resourceCulture);
+                return ResourceManager.GetString("Action_OperationCanceled_Failed", resourceCulture);
             }
         }
         

@@ -702,8 +702,8 @@
   <data name="Action_OperationCanceled_Success" xml:space="preserve">
     <value>Action Cancelled</value>
   </data>
-  <data name="Action_OperationCanceled_AlreadyRunning" xml:space="preserve">
-    <value>Action Already Running</value>
+  <data name="Action_OperationCanceled_Failed" xml:space="preserve">
+    <value>Failed to cancel</value>
   </data>
   <data name="Action_Operation_Cancel" xml:space="preserve">
     <value>Cancel</value>

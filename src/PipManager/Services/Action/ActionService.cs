@@ -22,15 +22,15 @@ public class ActionService(IEnvironmentService environmentService, IToastService
         ActionList.Add(actionListItem);
     }
 
-    public string TryCancelOperation(string operationId)
+    public bool TryCancelOperation(string operationId)
     {
         var targetAction = ActionList.ToList().FindIndex(action => action.OperationId == operationId);
         if (ActionList[targetAction].OperationStatus != Lang.Action_CurrentStatus_WaitingInQueue)
         {
-            return Lang.Action_OperationCanceled_AlreadyRunning;
+            return environmentService.TryKillProcess();
         }
         ActionList.Remove(ActionList[targetAction]);
-        return Lang.Action_OperationCanceled_Success;
+        return true;
     }
     
     private static void ConsoleOutputUpdater(ref bool currentActionRunning, ref ActionListItem currentAction, string? data)

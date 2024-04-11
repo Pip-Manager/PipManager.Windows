@@ -252,6 +252,48 @@ public partial class EnvironmentService(IConfigurationService configurationServi
             return new GetVersionsResponse { Status = 1, Versions = [] };
         }
     }
+    
+    private Process? BasicCommandProcess { get; set; }
+    
+    public bool TryKillProcess()
+    {
+        if (BasicCommandProcess is null) return false;
+        try
+        {
+            BasicCommandProcess.Kill();
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+    
+    private ActionResponse RaiseProcess(string arguments, DataReceivedEventHandler consoleOutputCallback,
+        string[]? extraParameters = null)
+    {
+        string? extra = extraParameters != null ? string.Join(" ", extraParameters) : null;
+        BasicCommandProcess = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = configurationService.AppConfig.CurrentEnvironment!.PythonPath,
+                Arguments = $"{arguments} {extra}",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
+            }
+        };
+        BasicCommandProcess.OutputDataReceived += consoleOutputCallback;
+        BasicCommandProcess.Start();
+        BasicCommandProcess.BeginOutputReadLine();
+        var error = BasicCommandProcess.StandardError.ReadToEnd();
+        BasicCommandProcess.WaitForExit();
+        BasicCommandProcess.Close();
+        BasicCommandProcess.Dispose();
+        return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.Process_Error, Message = error };
+    }
 
     #region Basic Command
 
@@ -282,32 +324,6 @@ public partial class EnvironmentService(IConfigurationService configurationServi
             $"-m pip uninstall -y \"{packageName}\"", consoleOutputCallback);
 
     #endregion
-
-    private ActionResponse RaiseProcess(string arguments, DataReceivedEventHandler consoleOutputCallback,
-        string[]? extraParameters = null)
-    {
-        string? extra = extraParameters != null ? string.Join(" ", extraParameters) : null;
-        var process = new Process
-        {
-            StartInfo = new ProcessStartInfo
-            {
-                FileName = configurationService.AppConfig.CurrentEnvironment!.PythonPath,
-                Arguments = $"{arguments} {extra}",
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true
-            }
-        };
-        process.OutputDataReceived += consoleOutputCallback;
-        process.Start();
-        process.BeginOutputReadLine();
-        var error = process.StandardError.ReadToEnd();
-        process.WaitForExit();
-        process.Close();
-        process.Dispose();
-        return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.Process_Error, Message = error };
-    }
 
     #region Package Version Validation
 

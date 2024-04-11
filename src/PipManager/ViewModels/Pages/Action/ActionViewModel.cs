@@ -59,10 +59,9 @@ public partial class ActionViewModel : ObservableObject, INavigationAware
             return;
         }
 
-        var result = _actionService.TryCancelOperation(operationId);
-        if(result == Lang.Action_OperationCanceled_AlreadyRunning)
+        if(!_actionService.TryCancelOperation(operationId))
         {
-            _toastService.Error(Lang.Action_OperationCanceled_AlreadyRunning);
+            _toastService.Error(Lang.Action_OperationCanceled_Failed);
             Log.Warning("[Action] Operation cancellation failed (already running): {OperationId}", operationId);
         }
         else
