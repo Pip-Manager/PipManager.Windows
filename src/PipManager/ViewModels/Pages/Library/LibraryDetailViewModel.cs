@@ -56,7 +56,7 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
         _isInitialized = true;
     }
 
-    public void Receive(object recipient, LibraryDetailMessage message)
+    private void Receive(object recipient, LibraryDetailMessage message)
     {
         Package = message.Package;
 

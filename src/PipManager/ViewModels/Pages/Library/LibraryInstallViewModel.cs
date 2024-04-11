@@ -62,7 +62,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
         _isInitialized = true;
     }
 
-    public void Receive(object recipient, InstalledPackagesMessage message)
+    private void Receive(object recipient, InstalledPackagesMessage message)
     {
         _installedPackages = message.InstalledPackages;
     }

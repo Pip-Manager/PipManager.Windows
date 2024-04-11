@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Net.Http;
 using Wpf.Ui;
+using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Search;
@@ -35,7 +36,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
 
     private int _themeTypeInInteger = 16448250;
 
-    private const string _htmlModel = """
+    private const string HtmlModel = """
         <!DOCTYPE html>
             <html>
             <head>
@@ -72,17 +73,21 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
         _navigationService.GetNavigationControl().BreadcrumbBar!.Visibility = Visibility.Collapsed;
         switch (_themeService.GetTheme())
         {
-            case Wpf.Ui.Appearance.ApplicationTheme.Light:
+            case ApplicationTheme.Light:
                 _themeType = "light";
                 ThemeTypeInHex = "#FFFFFF";
                 _themeTypeInInteger = 16777215;
                 break;
 
-            case Wpf.Ui.Appearance.ApplicationTheme.Dark:
+            case ApplicationTheme.Dark:
                 _themeType = "dark";
                 ThemeTypeInHex = "#0D1117";
                 _themeTypeInInteger = 856343;
                 break;
+            case ApplicationTheme.Unknown:
+            case ApplicationTheme.HighContrast:
+            default:
+                throw new ArgumentOutOfRangeException();
         }
         SearchDetailPage.ProjectDescriptionWebView!.DefaultBackgroundColor = Color.FromArgb(_themeTypeInInteger);
     }
@@ -118,7 +123,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
         }
     }
 
-    public void Receive(object recipient, SearchDetailMessage message)
+    private void Receive(object recipient, SearchDetailMessage message)
     {
         Package = message.Package;
 
@@ -149,7 +154,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
                 var html = await _httpClient.GetStringAsync(projectDescriptionUrl);
                 var htmlDocument = new HtmlDocument();
                 htmlDocument.LoadHtml(html);
-                string projectDescriptionHtml = string.Format(_htmlModel, _themeType, ThemeTypeInHex, htmlDocument.DocumentNode.SelectSingleNode("//*[@id=\"description\"]/div").InnerHtml);
+                string projectDescriptionHtml = string.Format(HtmlModel, _themeType, ThemeTypeInHex, htmlDocument.DocumentNode.SelectSingleNode("//*[@id=\"description\"]/div").InnerHtml);
 
                 SearchDetailPage.ProjectDescriptionWebView.CoreWebView2.Profile.PreferredColorScheme = CoreWebView2PreferredColorScheme.Dark;
                 SearchDetailPage.ProjectDescriptionWebView.NavigateToString(projectDescriptionHtml);
@@ -158,7 +163,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
             {
                 Log.Error(ex.Message);
                 _toastService.Error(Lang.SearchDetail_ProjectDescription_LoadFailed);
-                string projectDescriptionHtml = string.Format(_htmlModel, _themeType, ThemeTypeInHex, $"<p>{Lang.SearchDetail_ProjectDescription_LoadFailed}</p>");
+                string projectDescriptionHtml = string.Format(HtmlModel, _themeType, ThemeTypeInHex, $"<p>{Lang.SearchDetail_ProjectDescription_LoadFailed}</p>");
 
                 SearchDetailPage.ProjectDescriptionWebView.CoreWebView2.Profile.PreferredColorScheme = CoreWebView2PreferredColorScheme.Dark;
                 SearchDetailPage.ProjectDescriptionWebView.NavigateToString(projectDescriptionHtml);

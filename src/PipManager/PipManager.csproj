@@ -65,7 +65,7 @@
 			<LastGenOutput>Lang.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Languages\Lang.zh-cn.resx">
-		  <Generator></Generator>
+			<Generator>PublicResXFileCodeGenerator</Generator>
 		</EmbeddedResource>
 	</ItemGroup>
 
