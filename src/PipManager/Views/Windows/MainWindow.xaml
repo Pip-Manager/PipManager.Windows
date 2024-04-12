@@ -34,7 +34,8 @@
     xmlns:tools="clr-namespace:PipManager.Views.Pages.Tools"
     xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:overlay="clr-namespace:PipManager.Views.Pages.Overlay">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -98,11 +99,8 @@
             Grid.Row="0"
             Grid.RowSpan="2"
             x:Name="MaskPresenter" />
-
-        <mask:MaskPresenter
-            Grid.Row="0"
-            Grid.RowSpan="2"
-            x:Name="MaskActionExceptionPresenter" />
+        
+        <overlay:OverlayPage Grid.Row="0" Grid.RowSpan="2"/>
 
         <ContentPresenter
             Grid.Row="0"

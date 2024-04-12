@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="PipManager.Views.Pages.Overlay.OverlayPage"
+             x:Name="OverlayPageControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:PipManager.Views.Pages.Overlay"
+             xmlns:xamlFlair="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
+             d:DataContext="{d:DesignInstance local:OverlayPage,
+                                     IsDesignTimeCreatable=False}"
+             Visibility="{Binding ViewModel.IsOverlayVisible, Converter={StaticResource BoolToVisibility}}"
+             mc:Ignorable="d">
+    <Grid
+        xamlFlair:Animations.Primary="{StaticResource FadeInAndSlideFromBottom}"
+        xamlFlair:Animations.PrimaryBinding="{Binding ViewModel.IsOverlayVisible}"
+        xamlFlair:Animations.StartWith="{StaticResource FadeInAndSlideFromBottom}">
+        <Grid.Background>
+            <SolidColorBrush Color="Aqua"></SolidColorBrush>
+        </Grid.Background>
+        <TextBlock Text="{Binding ViewModel.TestValue}"></TextBlock>
+        <Button Command="{Binding ViewModel.CloseOverlayCommand}">Close</Button>
+    </Grid>
+</UserControl>

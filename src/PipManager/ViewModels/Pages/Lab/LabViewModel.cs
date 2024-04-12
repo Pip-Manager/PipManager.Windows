@@ -1,11 +1,12 @@
 ﻿using PipManager.Models.Action;
 using PipManager.Services.Action;
+using PipManager.Services.Overlay;
 using Serilog;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Lab;
 
-public partial class LabViewModel(IActionService actionService)
+public partial class LabViewModel(IActionService actionService, IOverlayService overlayService)
     : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
@@ -19,6 +20,12 @@ public partial class LabViewModel(IActionService actionService)
             ["pytorch"],
             progressIntermediate: false
         ));
+    }
+
+    [RelayCommand]
+    private void OverlayTest()
+    {
+        overlayService.ShowOverlay();
     }
 
     public void OnNavigatedTo()

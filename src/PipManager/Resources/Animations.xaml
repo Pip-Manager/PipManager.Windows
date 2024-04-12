@@ -1,0 +1,259 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:cor="clr-namespace:System;assembly=mscorlib"
+					xmlns:xamlFlair="clr-namespace:XamlFlair;assembly=XamlFlair.WPF">
+
+	<cor:Double x:Key="BlurRadius">24</cor:Double>
+	<cor:Double x:Key="SmallScaleFactor">0.75</cor:Double>
+	<cor:Double x:Key="LargeScaleFactor">1.25</cor:Double>
+	<xamlFlair:Offset x:Key="PositiveOffset"
+			   OffsetValue="50" />
+	<xamlFlair:Offset x:Key="NegativeOffset"
+			   OffsetValue="-50" />
+
+	<!-- ========================================================== -->
+	<!-- ================== SIMPLE ANIMATIONS ===================== -->
+	<!-- ========================================================== -->
+
+	<xamlFlair:AnimationSettings x:Key="FadeIn"
+						  Kind="FadeFrom"
+						  Opacity="0" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeOut"
+						  Kind="FadeTo"
+						  Opacity="0" />
+
+	<xamlFlair:AnimationSettings x:Key="Unblur"
+						  Kind="BlurFrom"
+						  BlurRadius="{StaticResource BlurRadius}" />
+
+	<xamlFlair:AnimationSettings x:Key="Blur"
+						  Kind="BlurTo"
+						  BlurRadius="{StaticResource BlurRadius}" />
+
+	<!-- Scale to a larger value -->
+	<xamlFlair:AnimationSettings x:Key="Expand"
+						  Kind="ScaleXTo,ScaleYTo"
+						  ScaleX="{StaticResource LargeScaleFactor}"
+						  ScaleY="{StaticResource LargeScaleFactor}" />
+
+	<!-- Scale from a larger value -->
+	<xamlFlair:AnimationSettings x:Key="Contract"
+						  Kind="ScaleXFrom,ScaleYFrom"
+						  ScaleX="{StaticResource LargeScaleFactor}"
+						  ScaleY="{StaticResource LargeScaleFactor}" />
+
+	<!-- Scale from a smaller value -->
+	<xamlFlair:AnimationSettings x:Key="Grow"
+						  Kind="ScaleXFrom,ScaleYFrom"
+						  ScaleX="{StaticResource SmallScaleFactor}"
+						  ScaleY="{StaticResource SmallScaleFactor}" />
+
+	<!-- Scale to a smaller value -->
+	<xamlFlair:AnimationSettings x:Key="Shrink"
+						  Kind="ScaleXTo,ScaleYTo"
+						  ScaleX="{StaticResource SmallScaleFactor}"
+						  ScaleY="{StaticResource SmallScaleFactor}" />
+
+	<xamlFlair:AnimationSettings x:Key="ScaleToLeft"
+						  Kind="ScaleXTo"
+						  ScaleX="0"
+						  TransformCenterPoint="0,0.5" />
+
+	<xamlFlair:AnimationSettings x:Key="ScaleToTop"
+						  Kind="ScaleYTo"
+						  ScaleY="0"
+						  TransformCenterPoint="0.5,0" />
+
+	<xamlFlair:AnimationSettings x:Key="ScaleToRight"
+						  Kind="ScaleXTo"
+						  ScaleX="0"
+						  TransformCenterPoint="1,0.5" />
+
+	<xamlFlair:AnimationSettings x:Key="ScaleToBottom"
+						  Kind="ScaleYTo"
+						  ScaleY="0"
+						  TransformCenterPoint="0.5,1" />
+
+	<xamlFlair:AnimationSettings x:Key="ScaleFromLeft"
+						  Kind="ScaleXFrom"
+						  ScaleX="0"
+						  TransformCenterPoint="0,0.5" />
+
+	<xamlFlair:AnimationSettings x:Key="ScaleFromTop"
+						  Kind="ScaleYFrom"
+						  ScaleY="0"
+						  TransformCenterPoint="0.5,0" />
+
+	<xamlFlair:AnimationSettings x:Key="ScaleFromRight"
+						  Kind="ScaleXFrom"
+						  ScaleX="0"
+						  TransformCenterPoint="1,0.5" />
+
+	<xamlFlair:AnimationSettings x:Key="ScaleFromBottom"
+						  Kind="ScaleYFrom"
+						  ScaleY="0"
+						  TransformCenterPoint="0.5,1" />
+
+	<xamlFlair:AnimationSettings x:Key="ScaleHorizontally"
+						  Kind="ScaleXFrom"
+						  ScaleX="0" />
+
+	<xamlFlair:AnimationSettings x:Key="ScaleVertically"
+						  Kind="ScaleYFrom"
+						  ScaleY="0" />
+
+	<xamlFlair:AnimationSettings x:Key="SlideFromLeft"
+						  Kind="TranslateXFrom"
+						  OffsetX="{StaticResource NegativeOffset}" />
+
+	<xamlFlair:AnimationSettings x:Key="SlideFromTop"
+						  Kind="TranslateYFrom"
+						  OffsetY="{StaticResource NegativeOffset}" />
+
+	<xamlFlair:AnimationSettings x:Key="SlideFromRight"
+						  Kind="TranslateXFrom"
+						  OffsetX="{StaticResource PositiveOffset}" />
+
+	<xamlFlair:AnimationSettings x:Key="SlideFromBottom"
+						  Kind="TranslateYFrom"
+						  OffsetY="{StaticResource PositiveOffset}" />
+
+	<xamlFlair:AnimationSettings x:Key="SlideToLeft"
+						  Kind="TranslateXTo"
+						  OffsetX="{StaticResource NegativeOffset}" />
+
+	<xamlFlair:AnimationSettings x:Key="SlideToTop"
+						  Kind="TranslateYTo"
+						  OffsetY="{StaticResource NegativeOffset}" />
+
+	<xamlFlair:AnimationSettings x:Key="SlideToRight"
+						  Kind="TranslateXTo"
+						  OffsetX="{StaticResource PositiveOffset}" />
+
+	<xamlFlair:AnimationSettings x:Key="SlideToBottom"
+						  Kind="TranslateYTo"
+						  OffsetY="{StaticResource PositiveOffset}" />
+
+	<xamlFlair:AnimationSettings x:Key="RotateClockwise"
+						  Kind="RotateTo"
+						  Rotation="360" />
+
+	<xamlFlair:AnimationSettings x:Key="RotateCounterClockwise"
+						  Kind="RotateTo"
+						  Rotation="-360" />
+
+	<!-- ========================================================== -->
+	<!-- ================= COMPOSITE ANIMATIONS =================== -->
+	<!-- ========================================================== -->
+
+	<xamlFlair:AnimationSettings x:Key="FadeInAndSlideFromLeft"
+						  Kind="FadeFrom,TranslateXFrom"
+						  Opacity="0"
+						  OffsetX="{StaticResource NegativeOffset}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeInAndSlideFromTop"
+						  Kind="FadeFrom,TranslateYFrom"
+						  Opacity="0"
+						  OffsetY="{StaticResource NegativeOffset}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeInAndSlideFromRight"
+						  Kind="FadeFrom,TranslateXFrom"
+						  Opacity="0"
+						  OffsetX="{StaticResource PositiveOffset}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeInAndSlideFromBottom"
+						  Kind="FadeFrom,TranslateYFrom"
+						  Opacity="0"
+						  OffsetY="{StaticResource PositiveOffset}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeOutAndSlideToLeft"
+						  Kind="FadeTo,TranslateXTo"
+						  Opacity="0"
+						  OffsetX="{StaticResource NegativeOffset}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeOutAndSlideToTop"
+						  Kind="FadeTo,TranslateYTo"
+						  Opacity="0"
+						  OffsetY="{StaticResource NegativeOffset}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeOutAndSlideToRight"
+						  Kind="FadeTo,TranslateXTo"
+						  Opacity="0"
+						  OffsetX="{StaticResource PositiveOffset}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeOutAndSlideToBottom"
+						  Kind="FadeTo,TranslateYTo"
+						  Opacity="0"
+						  OffsetY="{StaticResource PositiveOffset}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeInAndGrow"
+						  Kind="FadeFrom,ScaleXFrom,ScaleYFrom"
+						  Opacity="0"
+						  ScaleX="{StaticResource SmallScaleFactor}"
+						  ScaleY="{StaticResource SmallScaleFactor}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeInAndGrowHorizontally"
+						  Kind="FadeFrom,ScaleXFrom"
+						  Opacity="0"
+						  ScaleX="{StaticResource SmallScaleFactor}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeInAndGrowVertically"
+						  Kind="FadeFrom,ScaleYFrom"
+						  Opacity="0"
+						  ScaleY="{StaticResource SmallScaleFactor}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeInAndContract"
+						  Kind="FadeFrom,ScaleXFrom,ScaleYFrom"
+						  Opacity="0"
+						  ScaleX="{StaticResource LargeScaleFactor}"
+						  ScaleY="{StaticResource LargeScaleFactor}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeInAndContractHorizontally"
+						  Kind="FadeFrom,ScaleXFrom"
+						  Opacity="0"
+						  ScaleX="{StaticResource LargeScaleFactor}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeInAndContractVertically"
+						  Kind="FadeFrom,ScaleYFrom"
+						  Opacity="0"
+						  ScaleY="{StaticResource LargeScaleFactor}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeOutAndShrink"
+						  Kind="FadeTo,ScaleXTo,ScaleYTo"
+						  Opacity="0"
+						  ScaleX="{StaticResource SmallScaleFactor}"
+						  ScaleY="{StaticResource SmallScaleFactor}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeOutAndShrinkHorizontally"
+						  Kind="FadeTo,ScaleXTo"
+						  Opacity="0"
+						  ScaleX="{StaticResource SmallScaleFactor}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeOutAndShrinkVertically"
+						  Kind="FadeTo,ScaleYTo"
+						  Opacity="0"
+						  ScaleY="{StaticResource SmallScaleFactor}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeOutAndExpand"
+						  Kind="FadeTo,ScaleXTo,ScaleYTo"
+						  Opacity="0"
+						  ScaleX="{StaticResource LargeScaleFactor}"
+						  ScaleY="{StaticResource LargeScaleFactor}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeOutAndExpandHorizontally"
+						  Kind="FadeTo,ScaleXTo"
+						  Opacity="0"
+						  ScaleX="{StaticResource LargeScaleFactor}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeOutAndExpandVertically"
+						  Kind="FadeTo,ScaleYTo"
+						  Opacity="0"
+						  ScaleY="{StaticResource LargeScaleFactor}" />
+
+	<xamlFlair:AnimationSettings x:Key="FadeInAndRotate"
+						  Kind="FadeFrom,RotateTo"
+						  Opacity="0"
+						  Rotation="360" />
+
+</ResourceDictionary>

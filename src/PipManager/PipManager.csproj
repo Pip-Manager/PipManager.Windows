@@ -43,6 +43,7 @@
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="WPF-UI.Tray" Version="3.0.3" />
+		<PackageReference Include="XamlFlair.WPF" Version="1.2.13" />
 	</ItemGroup>
 
 	<ItemGroup>
