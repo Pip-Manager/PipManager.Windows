@@ -107,16 +107,18 @@
             Grid.RowSpan="2"
             x:Name="RootContentDialog" />
 
-        <!--  TODO: Wait merge https://github.com/lepoco/wpfui/pull/1017  -->
         <ui:TitleBar
-            CloseWindowByDoubleClickOnIcon="True"
             Grid.Row="0"
-            Title="{Binding ViewModel.ApplicationTitle}"
-            x:Name="TitleBar">
+            CloseWindowByDoubleClickOnIcon="True"
+            Title="{Binding ViewModel.ApplicationTitle}">
             <ui:TitleBar.Icon>
                 <ui:ImageIcon Source="pack://application:,,,/Assets/icon.png" />
             </ui:TitleBar.Icon>
         </ui:TitleBar>
+        
+        <!-- Strange Workaround -->
+        <Grid x:Name="TitleBarCoverageGrid" Grid.Row="0" Margin="0, 0, 300, 15" Background="{DynamicResource ApplicationBackgroundBrush}" Visibility="Collapsed" />
+        
         <tray:NotifyIcon
             Focusable="False"
             Grid.Row="0"
