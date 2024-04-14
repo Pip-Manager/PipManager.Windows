@@ -8,23 +8,13 @@ namespace PipManager.Controls
 {
     public class ToastOptions
     {
-        public double ToastWidth { get; set; }
-        public double ToastHeight { get; set; }
-        public double TextWidth { get; set; }
-        public int Time { get; set; } = 2000;
-        public SymbolRegular Icon { get; set; } = SymbolRegular.Info24;
-        public Brush Foreground { get; set; } = new SolidColorBrush(Colors.Black);
-        public Brush IconForeground { get; set; } = new SolidColorBrush(Colors.Black);
-        public FontFamily FontFamily { get; set; } = new("Microsoft YaHei");
-        public FontWeight FontWeight { get; set; } = SystemFonts.MenuFontWeight;
-        public Brush BorderBrush { get; set; } = new SolidColorBrush(Color.FromRgb(229, 229, 229));
-        public Thickness BorderThickness { get; set; } = new(2);
-        public Brush Background { get; set; } = new SolidColorBrush(Color.FromArgb(40, 0, 255, 0));
-        public ApplicationTheme Theme { get; set; } = ApplicationTheme.Light;
-        public ToastType ToastType { get; set; } = ToastType.Info;
-        public EventHandler<EventArgs>? Closed { get; internal set; }
-        public EventHandler<EventArgs>? Click { get; internal set; }
-        public Thickness ToastMargin { get; set; } = new(0, 120, 0, 0);
+        public int Time { get; init; } = 2000;
+        public FontFamily FontFamily { get; } = new(new Uri("pack://application:,,,/"), "./Resources/Fonts/MiSans-Regular.ttf#MiSans");
+        public FontWeight FontWeight { get; } = SystemFonts.MenuFontWeight;
+        public Thickness BorderThickness { get; } = new(2);
+        public ApplicationTheme Theme { get; init; } = ApplicationTheme.Light;
+        public ToastType ToastType { get; init; } = ToastType.Info;
+        public Thickness ToastMargin { get; } = new(0, 120, 0, 0);
     }
 
     public enum ToastType
@@ -34,10 +24,7 @@ namespace PipManager.Controls
         Error,
         Success
     }
-
-    /// <summary>
-    /// Toast.xaml 的交互逻辑
-    /// </summary>
+    
     public partial class Toast
     {
         private readonly Window? _owner;
@@ -58,13 +45,7 @@ namespace PipManager.Controls
             InitializeComponent();
             if (options != null)
             {
-                if (options.ToastWidth != 0) ToastWidth = options.ToastWidth;
-                if (options.ToastHeight != 0) ToastHeight = options.ToastHeight;
-                if (options.TextWidth != 0) TextWidth = options.TextWidth;
-
                 Time = options.Time;
-                Closed += options.Closed;
-                Click += options.Click;
                 FontFamily = options.FontFamily;
                 FontWeight = options.FontWeight;
                 BorderThickness = options.BorderThickness;
@@ -283,7 +264,7 @@ namespace PipManager.Controls
             popup.VerticalOffset = margin.Top;
         }
 
-        public void Close()
+        private void Close()
         {
             _timer?.Stop();
             _timer = null;
@@ -357,7 +338,7 @@ namespace PipManager.Controls
         private double ToastWidth
         {
             get => (double)GetValue(ToastWidthProperty);
-            set => SetValue(ToastWidthProperty, value);
+            init => SetValue(ToastWidthProperty, value);
         }
 
         private static readonly DependencyProperty ToastWidthProperty =
@@ -366,7 +347,7 @@ namespace PipManager.Controls
         private double ToastHeight
         {
             get => (double)GetValue(ToastHeightProperty);
-            set => SetValue(ToastHeightProperty, value);
+            init => SetValue(ToastHeightProperty, value);
         }
 
         private static readonly DependencyProperty ToastHeightProperty =
@@ -384,7 +365,7 @@ namespace PipManager.Controls
         private int Time
         {
             get => (int)GetValue(TimeProperty);
-            set => SetValue(TimeProperty, value);
+            init => SetValue(TimeProperty, value);
         }
 
         private static readonly DependencyProperty TimeProperty =
@@ -402,7 +383,7 @@ namespace PipManager.Controls
         public Thickness ToastMargin
         {
             get => (Thickness)GetValue(ToastMarginProperty);
-            set => SetValue(ToastMarginProperty, value);
+            init => SetValue(ToastMarginProperty, value);
         }
 
         public static readonly DependencyProperty ToastMarginProperty =
