@@ -10,6 +10,9 @@ using Serilog;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Net.Http;
+using PipManager.Models.Action;
+using PipManager.Services.Action;
+using PipManager.Services.Mask;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -24,6 +27,8 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     private readonly HttpClient _httpClient;
     private readonly IThemeService _themeService;
     private readonly IToastService _toastService;
+    private readonly IMaskService _maskService;
+    private readonly IActionService _actionService;
     private readonly IEnvironmentService _environmentService;
 
     [ObservableProperty]
@@ -55,13 +60,15 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     [ObservableProperty]
     private QueryListItemModel? _package;
 
-    public SearchDetailViewModel(INavigationService navigationService, HttpClient httpClient, IThemeService themeService, IToastService toastService, IEnvironmentService environmentService)
+    public SearchDetailViewModel(INavigationService navigationService, HttpClient httpClient, IThemeService themeService, IToastService toastService, IEnvironmentService environmentService, IMaskService maskService, IActionService actionService)
     {
         _navigationService = navigationService;
         _httpClient = httpClient;
         _themeService = themeService;
         _toastService = toastService;
         _environmentService = environmentService;
+        _maskService = maskService;
+        _actionService = actionService;
 
         WeakReferenceMessenger.Default.Register<SearchDetailMessage>(this, Receive);
     }
@@ -109,6 +116,12 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     private string _targetVersion = "";
 
     [RelayCommand]
+    private async Task DownloadPackage()
+    {
+        
+    }
+
+    [RelayCommand]
     private async Task InstallPackage()
     {
         var installedPackages = await _environmentService.GetLibraries();
@@ -120,7 +133,13 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
         if (installedPackages.Any(item => item.Name == Package!.Name))
         {
             _toastService.Error(Lang.LibraryInstall_Add_AlreadyInstalled);
+            return;
         }
+        _actionService.AddOperation(new ActionListItem
+        (
+            ActionType.Install,
+            [$"{Package!.Name}=={TargetVersion}"]
+        ));
     }
 
     private void Receive(object recipient, SearchDetailMessage message)
