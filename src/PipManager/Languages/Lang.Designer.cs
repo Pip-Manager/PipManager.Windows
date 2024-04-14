@@ -645,6 +645,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open download folder (for wheel files).
+        /// </summary>
+        public static string Dialog_Title_DownloadDistributions {
+            get {
+                return ResourceManager.GetString("Dialog_Title_DownloadDistributions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Environment.
         /// </summary>
         public static string Environment_Operation_AddEnvironment {

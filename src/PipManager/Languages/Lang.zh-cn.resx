@@ -732,4 +732,7 @@
   <data name="ContentDialog_Message_CacheClearFailed" xml:space="preserve">
     <value>清除缓存失败</value>
   </data>
+  <data name="Dialog_Title_DownloadDistributions" xml:space="preserve">
+    <value>打开下载文件夹</value>
+  </data>
 </root>

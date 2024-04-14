@@ -236,14 +236,16 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
     {
         var openFolderDialog = new OpenFolderDialog
         {
-            Title = "Download Folder (for wheel files)"
+            Title = Lang.Dialog_Title_DownloadDistributions
         };
         var result = openFolderDialog.ShowDialog();
-        if (result == true)
+        if (result != true)
         {
-            DownloadDistributionsFolderPath = openFolderDialog.FolderName;
-            DownloadDistributionsEnabled = PreDownloadPackages.Count > 0;
+            return;
         }
+
+        DownloadDistributionsFolderPath = openFolderDialog.FolderName;
+        DownloadDistributionsEnabled = PreDownloadPackages.Count > 0;
     }
 
     [RelayCommand]

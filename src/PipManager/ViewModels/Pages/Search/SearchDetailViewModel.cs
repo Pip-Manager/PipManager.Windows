@@ -10,6 +10,7 @@ using Serilog;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Net.Http;
+using Microsoft.Win32;
 using PipManager.Models.Action;
 using PipManager.Services.Action;
 using PipManager.Services.Mask;
@@ -116,9 +117,24 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     private string _targetVersion = "";
 
     [RelayCommand]
-    private async Task DownloadPackage()
+    private void DownloadPackage()
     {
-        
+        var openFolderDialog = new OpenFolderDialog
+        {
+            Title = Lang.Dialog_Title_DownloadDistributions
+        };
+        var result = openFolderDialog.ShowDialog();
+        if (result != true)
+        {
+            return;
+        }
+        _actionService.AddOperation(new ActionListItem
+        (
+            ActionType.Download,
+            [$"{Package!.Name}=={TargetVersion}"],
+            path: openFolderDialog.FolderName,
+            extraParameters: ["--no-deps"]
+        ));
     }
 
     [RelayCommand]
