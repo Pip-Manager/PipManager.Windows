@@ -13,7 +13,6 @@ using System.Net.Http;
 using Microsoft.Win32;
 using PipManager.Models.Action;
 using PipManager.Services.Action;
-using PipManager.Services.Mask;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -28,7 +27,6 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     private readonly HttpClient _httpClient;
     private readonly IThemeService _themeService;
     private readonly IToastService _toastService;
-    private readonly IMaskService _maskService;
     private readonly IActionService _actionService;
     private readonly IEnvironmentService _environmentService;
 
@@ -61,14 +59,13 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     [ObservableProperty]
     private QueryListItemModel? _package;
 
-    public SearchDetailViewModel(INavigationService navigationService, HttpClient httpClient, IThemeService themeService, IToastService toastService, IEnvironmentService environmentService, IMaskService maskService, IActionService actionService)
+    public SearchDetailViewModel(INavigationService navigationService, HttpClient httpClient, IThemeService themeService, IToastService toastService, IEnvironmentService environmentService, IActionService actionService)
     {
         _navigationService = navigationService;
         _httpClient = httpClient;
         _themeService = themeService;
         _toastService = toastService;
         _environmentService = environmentService;
-        _maskService = maskService;
         _actionService = actionService;
 
         WeakReferenceMessenger.Default.Register<SearchDetailMessage>(this, Receive);

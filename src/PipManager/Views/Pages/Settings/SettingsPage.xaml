@@ -18,8 +18,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:settings="clr-namespace:PipManager.Views.Pages.Settings"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:xamlFlair="clr-namespace:XamlFlair;assembly=XamlFlair.WPF">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Page.Resources>
         <converters:ThemeEnumToBooleanConverter x:Key="ThemeEnumToBooleanConverter" />
         <converters:PackageSourceEnumToBooleanConverter x:Key="PackageSourceEnumToBooleanConverter" />

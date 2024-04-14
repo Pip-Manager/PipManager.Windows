@@ -1,5 +1,4 @@
-﻿using System.Windows.Controls;
-using PipManager.ViewModels.Pages.Overlay;
+﻿using PipManager.ViewModels.Pages.Overlay;
 
 namespace PipManager.Views.Pages.Overlay;
 

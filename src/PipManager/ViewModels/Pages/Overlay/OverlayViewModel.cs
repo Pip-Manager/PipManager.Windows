@@ -1,13 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using PipManager.Models.Package;
-using PipManager.Views.Pages.Overlay;
 using PipManager.Views.Windows;
 
 namespace PipManager.ViewModels.Pages.Overlay;
 
 public partial class OverlayViewModel: ObservableObject
 {
-    private System.Action? ConfirmCallback;
+    private System.Action? _confirmCallback;
     
     [ObservableProperty]
     private bool _isOverlayVisible;
@@ -29,7 +28,7 @@ public partial class OverlayViewModel: ObservableObject
 
     public void ShowPackageUpdateOverlay(List<PackageUpdateItem> packageUpdates, System.Action callback)
     {
-        ConfirmCallback = callback;
+        _confirmCallback = callback;
         PackageUpdateItems = new ObservableCollection<PackageUpdateItem>(packageUpdates);
         ShowOverlay();
     }
@@ -38,6 +37,6 @@ public partial class OverlayViewModel: ObservableObject
     private void Confirm()
     {
         CloseOverlay();
-        ConfirmCallback?.Invoke();
+        _confirmCallback?.Invoke();
     }
 }

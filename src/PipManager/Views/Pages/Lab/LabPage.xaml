@@ -18,6 +18,5 @@
     mc:Ignorable="d">
 
     <Grid>
-        <ui:Button Command="{Binding ViewModel.OverlayTestCommand}" Content="Overlay Test" />
     </Grid>
 </Page>

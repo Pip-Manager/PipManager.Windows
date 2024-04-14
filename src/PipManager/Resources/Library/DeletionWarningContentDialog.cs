@@ -8,7 +8,7 @@ namespace PipManager.Resources.Library;
 public class DeletionWarningContentDialog
 {
     private readonly ContentDialog _contentDialog;
-    public List<LibraryListItem> LibraryList { get; set; }
+    private List<LibraryListItem> LibraryList { get; set; }
 
     public DeletionWarningContentDialog(ContentPresenter? contentPresenter, List<LibraryListItem> libraryList)
     {

@@ -14,7 +14,6 @@ using PipManager.Views.Pages.Environment;
 using PipManager.Views.Pages.Library;
 using Serilog;
 using System.Collections.ObjectModel;
-using System.IO.Packaging;
 using PipManager.ViewModels.Pages.Overlay;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
