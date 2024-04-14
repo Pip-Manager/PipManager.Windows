@@ -1455,6 +1455,33 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Overlay_Button_Cancel {
+            get {
+                return ResourceManager.GetString("Overlay_Button_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string Overlay_Button_Update {
+            get {
+                return ResourceManager.GetString("Overlay_Button_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Versions Found.
+        /// </summary>
+        public static string Overlay_Title_PackageUpdate {
+            get {
+                return ResourceManager.GetString("Overlay_Title_PackageUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The newest and compatible version will be selected.
         /// </summary>
         public static string Search_DefaultVersion {

@@ -36,60 +36,6 @@
         </ScrollViewer>
     </Grid>
 
-    <Grid x:Key="LibraryCheckUpdateContentDialogContent" VerticalAlignment="Top">
-        <Grid.Resources>
-            <valueConverters:BoolToVisibilityConverter x:Key="BoolToVisibility" FalseValue="Collapsed" />
-            <valueConverters:ValueConverterGroup x:Key="InverseBoolToVisibility">
-                <valueConverters:InverseBoolConverter />
-                <valueConverters:BoolToVisibilityConverter FalseValue="Collapsed" />
-            </valueConverters:ValueConverterGroup>
-        </Grid.Resources>
-        <TextBlock
-            VerticalAlignment="Top"
-            FontSize="16"
-            Text="{I18N {x:Static lang:LangKeys.ContentDialog_Message_FindUpdate}}"
-            Visibility="Collapsed" />
-        <TextBlock
-            VerticalAlignment="Top"
-            FontSize="16"
-            Text="{I18N {x:Static lang:LangKeys.ContentDialog_Message_PackageIsLatest}}"
-            Visibility="Collapsed" />
-        <ScrollViewer Margin="0,30,0,0" VerticalAlignment="Top">
-            <ItemsControl x:Name="LibraryCheckUpdateContentDialogContentListView">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type library:LibraryCheckUpdateContentDialogContentListItem}">
-                        <StackPanel>
-                            <StackPanel Margin="7,0,0,0" Orientation="Horizontal">
-                                <ui:SymbolIcon Symbol="TabDesktopNewPage20" Visibility="{Binding NeedUpdate, Converter={StaticResource InverseBoolToVisibility}}" />
-                                <ui:SymbolIcon
-                                    Foreground="LimeGreen"
-                                    Symbol="ArrowCircleUp24"
-                                    Visibility="{Binding NeedUpdate, Converter={StaticResource BoolToVisibility}}" />
-                                <TextBlock
-                                    Margin="3,0,0,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="14"
-                                    Text="{Binding PackageName}" />
-                                <TextBlock FontSize="14" Text=" " />
-                            </StackPanel>
-                            <StackPanel Margin="20,3,0,0" Orientation="Horizontal">
-                                <ui:Badge
-                                    Appearance="Primary"
-                                    Content="{Binding PackageVersion}"
-                                    FontSize="12" />
-                                <ui:Badge
-                                    Appearance="Success"
-                                    Content="{Binding NewVersion}"
-                                    FontSize="12"
-                                    Visibility="{Binding NeedUpdate, Converter={StaticResource BoolToVisibility}}" />
-                            </StackPanel>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
-    </Grid>
-
     <Grid
         x:Key="LibraryInstallAddContentDialogContent"
         MinWidth="200"

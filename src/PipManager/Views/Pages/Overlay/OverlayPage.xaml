@@ -8,6 +8,7 @@
              xmlns:xamlFlair="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:package="clr-namespace:PipManager.Models.Package"
+             xmlns:lang="clr-namespace:PipManager.Languages"
              d:DesignHeight="700"
              d:DesignWidth="1200"
              d:DataContext="{d:DesignInstance local:OverlayPage,
@@ -26,7 +27,7 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
-        <ui:TextBlock Text="New Versions" FontTypography="TitleLarge"/>
+        <ui:TextBlock Text="{I18N {x:Static lang:LangKeys.Overlay_Title_PackageUpdate}}" FontTypography="TitleLarge"/>
         <ScrollViewer Grid.Row="1" >
             <ItemsControl ItemsSource="{Binding ViewModel.PackageUpdateItems}">
                 <ItemsControl.ItemTemplate>
@@ -41,7 +42,7 @@
                             <StackPanel Grid.Column="1" Orientation="Horizontal">
                                 <ui:TextBlock Text="{Binding PackageVersion}" Foreground="Gray"></ui:TextBlock>
                                 <ui:SymbolIcon Margin="10, 0, 0, 0" Symbol="ChevronRight24"/>
-                                <ui:TextBlock Margin="10, 0, 0, 0" Text="{Binding NewVersion}" Foreground="Gray"></ui:TextBlock>
+                                <ui:TextBlock Margin="10, 0, 0, 0" Text="{Binding NewVersion}"></ui:TextBlock>
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
@@ -49,9 +50,8 @@
             </ItemsControl>
         </ScrollViewer>
         <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
-            <ui:Button Appearance="Secondary" Content="Close"  Command="{Binding ViewModel.CloseOverlayCommand}"></ui:Button>
-            <ui:Button Appearance="Success" Margin="5, 0, 0, 0" Content="Update"  Command="{Binding ViewModel.ConfirmCommand}"></ui:Button>
-
+            <ui:Button Appearance="Secondary" Icon="{ui:SymbolIcon Dismiss24}" Content="{I18N {x:Static lang:LangKeys.Overlay_Button_Cancel}}"  Command="{Binding ViewModel.CloseOverlayCommand}"></ui:Button>
+            <ui:Button Appearance="Success" Icon="{ui:SymbolIcon ArrowCircleUp24}" Margin="7, 0, 0, 0" Content="{I18N {x:Static lang:LangKeys.Overlay_Button_Update}}"  Command="{Binding ViewModel.ConfirmCommand}"></ui:Button>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -735,4 +735,13 @@
   <data name="Dialog_Title_DownloadDistributions" xml:space="preserve">
     <value>打开下载文件夹</value>
   </data>
+  <data name="Overlay_Title_PackageUpdate" xml:space="preserve">
+    <value>发现新版本</value>
+  </data>
+  <data name="Overlay_Button_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Overlay_Button_Update" xml:space="preserve">
+    <value>更新</value>
+  </data>
 </root>
