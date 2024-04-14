@@ -132,8 +132,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
                 (
                     ActionType.Update,
                     ["pip"],
-                    progressIntermediate: false,
-                    totalSubTaskNumber: 1
+                    progressIntermediate: false
                 ));
                 navigationService.Navigate(typeof(ActionPage));
                 configurationService.RefreshAllEnvironmentVersions();

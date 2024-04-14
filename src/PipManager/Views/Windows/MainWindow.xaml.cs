@@ -32,7 +32,7 @@ public partial class MainWindow
         InitializeComponent();
         navigationService.SetNavigationControl(NavigationView);
         maskPresenter.SetMaskPresenter(MaskPresenter);
-        contentDialogService.SetContentPresenter(RootContentDialog);
+        contentDialogService.SetDialogHost(RootContentDialog);
         var runnerThread = new Thread(actionService.Runner)
         {
             IsBackground = true,

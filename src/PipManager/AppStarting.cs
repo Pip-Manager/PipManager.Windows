@@ -65,24 +65,26 @@ public partial class AppStarting
         if (!_config.Personalization.LogAutoDeletion || !Directory.Exists(AppInfo.LogDir)) return;
         var fileList = Directory.GetFileSystemEntries(AppInfo.LogDir);
         var logFileAmount = fileList.Count(file => File.Exists(file) && file.EndsWith(".txt"));
-        if (logFileAmount >= _config.Personalization.LogAutoDeletionTimes)
+        if (logFileAmount < _config.Personalization.LogAutoDeletionTimes)
         {
-            var directoryInfo = new DirectoryInfo(AppInfo.LogDir);
-            var filesInfo = directoryInfo.GetFileSystemInfos();
-            foreach (var file in filesInfo)
-            {
-                if (file.Extension != ".txt") continue;
-                try
-                {
-                    File.Delete(file.FullName);
-                }
-                catch
-                {
-                    // ignored
-                }
-            }
-            Log.Information($"{logFileAmount} log file(s) deleted");
+            return;
         }
+
+        var directoryInfo = new DirectoryInfo(AppInfo.LogDir);
+        var filesInfo = directoryInfo.GetFileSystemInfos();
+        foreach (var file in filesInfo)
+        {
+            if (file.Extension != ".txt") continue;
+            try
+            {
+                File.Delete(file.FullName);
+            }
+            catch
+            {
+                Log.Warning("Failed to delete log: {FileFullName}", file.FullName);
+            }
+        }
+        Log.Information($"{logFileAmount} log file(s) deleted");
     }
 
     public void CrushesDeletion()
@@ -106,7 +108,7 @@ public partial class AppStarting
             }
             catch
             {
-                // ignored
+                Log.Warning("Failed to delete crush file: {FileFullName}", file.FullName);
             }
         }
         Log.Information($"{crushFileAmount} crush file(s) deleted");
@@ -124,9 +126,9 @@ public partial class AppStarting
             {
                 subDir.Delete(true);
             }
-            catch (Exception)
+            catch
             {
-                // ignored
+                Log.Warning("Failed to delete cache directory: {DirFullName}", subDir.FullName);
             }
         }
         foreach (var file in filesInfo)
@@ -143,7 +145,7 @@ public partial class AppStarting
             }
             catch
             {
-                // ignored
+                Log.Warning("Failed to delete cache file: {FileFullName}", file.FullName);
             }
         }
         Log.Information($"{cacheFileAmount} cache file(s) deleted");

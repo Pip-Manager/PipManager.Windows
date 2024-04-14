@@ -31,6 +31,8 @@ using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
+using PipManager.ViewModels.Pages.Overlay;
+using PipManager.Views.Pages.Overlay;
 using Wpf.Ui;
 using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
 using ActionViewModel = PipManager.ViewModels.Pages.Action.ActionViewModel;
@@ -89,6 +91,9 @@ public partial class App
             services.AddSingleton<LibraryDetailViewModel>();
             services.AddSingleton<LibraryInstallPage>();
             services.AddSingleton<LibraryInstallViewModel>();
+
+            services.AddSingleton<OverlayPage>();
+            services.AddSingleton<OverlayViewModel>();
 
             services.AddSingleton<ActionPage>();
             services.AddSingleton<ActionViewModel>();

@@ -11,7 +11,7 @@ public interface IActionService
 
     public void AddOperation(ActionListItem actionListItem);
 
-    public string? TryCancelOperation(string operationId);
+    public bool TryCancelOperation(string operationId);
 
     public void Runner();
 }

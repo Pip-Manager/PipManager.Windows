@@ -702,8 +702,8 @@
   <data name="Action_OperationCanceled_Success" xml:space="preserve">
     <value>Action Cancelled</value>
   </data>
-  <data name="Action_OperationCanceled_AlreadyRunning" xml:space="preserve">
-    <value>Action Already Running</value>
+  <data name="Action_OperationCanceled_Failed" xml:space="preserve">
+    <value>Failed to cancel</value>
   </data>
   <data name="Action_Operation_Cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -731,5 +731,17 @@
   </data>
   <data name="ContentDialog_Message_CacheClearFailed" xml:space="preserve">
     <value>Failed to clear caches</value>
+  </data>
+  <data name="Dialog_Title_DownloadDistributions" xml:space="preserve">
+    <value>Open download folder (for wheel files)</value>
+  </data>
+  <data name="Overlay_Title_PackageUpdate" xml:space="preserve">
+    <value>New Versions Found</value>
+  </data>
+  <data name="Overlay_Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Overlay_Button_Update" xml:space="preserve">
+    <value>Update</value>
   </data>
 </root>

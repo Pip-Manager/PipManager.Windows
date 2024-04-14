@@ -5,7 +5,7 @@ using TextBox = System.Windows.Controls.TextBox;
 
 namespace PipManager.Resources.Library;
 
-public class InstallAddContentDialog(ContentPresenter contentPresenter)
+public class InstallAddContentDialog(ContentPresenter? contentPresenter)
 {
     private readonly ContentDialog _contentDialog = new(contentPresenter)
     {

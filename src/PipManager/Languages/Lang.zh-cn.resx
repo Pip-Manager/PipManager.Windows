@@ -702,8 +702,8 @@
   <data name="Action_OperationCanceled_Success" xml:space="preserve">
     <value>任务已取消</value>
   </data>
-  <data name="Action_OperationCanceled_AlreadyRunning" xml:space="preserve">
-    <value>任务已运行</value>
+  <data name="Action_OperationCanceled_Failed" xml:space="preserve">
+    <value>任务终止失败</value>
   </data>
   <data name="Action_Operation_Cancel" xml:space="preserve">
     <value>取消</value>
@@ -731,5 +731,17 @@
   </data>
   <data name="ContentDialog_Message_CacheClearFailed" xml:space="preserve">
     <value>清除缓存失败</value>
+  </data>
+  <data name="Dialog_Title_DownloadDistributions" xml:space="preserve">
+    <value>打开下载文件夹</value>
+  </data>
+  <data name="Overlay_Title_PackageUpdate" xml:space="preserve">
+    <value>发现新版本</value>
+  </data>
+  <data name="Overlay_Button_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Overlay_Button_Update" xml:space="preserve">
+    <value>更新</value>
   </data>
 </root>

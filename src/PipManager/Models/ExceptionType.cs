@@ -3,8 +3,8 @@
 public enum ExceptionType
 {
     // Environment
-    Environment_Broken,
+    EnvironmentBroken,
 
     // Process
-    Process_Error
+    ProcessError
 }

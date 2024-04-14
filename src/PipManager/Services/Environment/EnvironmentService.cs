@@ -33,7 +33,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         var verify = configurationService.GetEnvironmentItemFromCommand(environmentItem.PythonPath!, "-m pip -V");
         return verify != null && environmentItem.PythonPath != string.Empty
             ? new ActionResponse { Success = true }
-            : new ActionResponse { Success = false, Exception = ExceptionType.Environment_Broken };
+            : new ActionResponse { Success = false, Exception = ExceptionType.EnvironmentBroken };
     }
 
     public ActionResponse PurgeEnvironmentCache(EnvironmentItem environmentItem)
@@ -57,7 +57,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         process.Close();
         process.Dispose();
         error = error.Replace("WARNING: No matching packages", "").Trim();
-        return !string.IsNullOrEmpty(error) ? new ActionResponse { Success = false, Exception = ExceptionType.Process_Error, Message = error } : new ActionResponse { Success = true, Message = output[15..].TrimEnd()};
+        return !string.IsNullOrEmpty(error) ? new ActionResponse { Success = false, Exception = ExceptionType.ProcessError, Message = error } : new ActionResponse { Success = true, Message = output[15..].TrimEnd()};
     }
 
     public async Task<List<PackageItem>?> GetLibraries()
@@ -70,6 +70,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         var packageDirInfo = new DirectoryInfo(Path.Combine(
             Path.GetDirectoryName(configurationService.AppConfig.CurrentEnvironment!.PythonPath)!,
             @"Lib\site-packages"));
+        
         var packages = new ConcurrentBag<PackageItem>();
         var ioTaskList = new List<Task>();
         var distInfoDirectories = packageDirInfo.GetDirectories()
@@ -251,132 +252,80 @@ public partial class EnvironmentService(IConfigurationService configurationServi
             return new GetVersionsResponse { Status = 1, Versions = [] };
         }
     }
-
-    public ActionResponse Install(string packageName, DataReceivedEventHandler consoleOutputCallback, string[]? extraParameters = null)
+    
+    private Process? BasicCommandProcess { get; set; }
+    
+    public bool TryKillProcess()
+    {
+        if (BasicCommandProcess is null) return false;
+        try
+        {
+            BasicCommandProcess.Kill();
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+    
+    private ActionResponse RaiseProcess(string arguments, DataReceivedEventHandler consoleOutputCallback,
+        string[]? extraParameters = null)
     {
         string? extra = extraParameters != null ? string.Join(" ", extraParameters) : null;
-        var process = new Process
+        BasicCommandProcess = new Process
         {
             StartInfo = new ProcessStartInfo
             {
                 FileName = configurationService.AppConfig.CurrentEnvironment!.PythonPath,
-                Arguments =
-                    $"-m pip install \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6 {extra}",
+                Arguments = $"{arguments} {extra}",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 CreateNoWindow = true
             }
         };
-        process.OutputDataReceived += consoleOutputCallback;
-        process.Start();
-        process.BeginOutputReadLine();
-        var error = process.StandardError.ReadToEnd();
-        process.WaitForExit();
-        process.Close();
-        process.Dispose();
-        return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.Process_Error, Message = error };
+        BasicCommandProcess.OutputDataReceived += consoleOutputCallback;
+        BasicCommandProcess.Start();
+        BasicCommandProcess.BeginOutputReadLine();
+        var error = BasicCommandProcess.StandardError.ReadToEnd();
+        BasicCommandProcess.WaitForExit();
+        BasicCommandProcess.Close();
+        BasicCommandProcess.Dispose();
+        return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.ProcessError, Message = error };
     }
 
-    public ActionResponse InstallByRequirements(string requirementsFilePath, DataReceivedEventHandler consoleOutputCallback)
-    {
-        var process = new Process
-        {
-            StartInfo = new ProcessStartInfo
-            {
-                FileName = configurationService.AppConfig.CurrentEnvironment!.PythonPath,
-                Arguments =
-                    $"-m pip install -r \"{requirementsFilePath}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true
-            }
-        };
-        process.OutputDataReceived += consoleOutputCallback;
-        process.Start();
-        process.BeginOutputReadLine();
-        var error = process.StandardError.ReadToEnd();
-        process.WaitForExit();
-        process.Close();
-        process.Dispose();
-        return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.Process_Error, Message = error };
-    }
+    #region Basic Command
+
+    public ActionResponse Install(string packageName, DataReceivedEventHandler consoleOutputCallback,
+        string[]? extraParameters = null)
+        => RaiseProcess(
+            $"-m pip install \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
+            consoleOutputCallback, extraParameters);
+    
+    public ActionResponse InstallByRequirements(string requirementsFilePath,
+        DataReceivedEventHandler consoleOutputCallback)
+        => RaiseProcess(
+            $"-m pip install -r \"{requirementsFilePath}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
+            consoleOutputCallback);
 
     public ActionResponse Download(string packageName, string downloadPath, DataReceivedEventHandler consoleOutputCallback, string[]? extraParameters = null)
-    {
-        string? extra = extraParameters != null ? string.Join(" ", extraParameters) : null;
-        var process = new Process
-        {
-            StartInfo = new ProcessStartInfo
-            {
-                FileName = configurationService.AppConfig.CurrentEnvironment!.PythonPath,
-                Arguments =
-                    $"-m pip download -d \"{downloadPath}\" \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6 {extra}",
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true
-            }
-        };
-        process.OutputDataReceived += consoleOutputCallback;
-        process.Start();
-        process.BeginOutputReadLine();
-        var error = process.StandardError.ReadToEnd();
-        process.WaitForExit();
-        process.Close();
-        process.Dispose();
-        return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.Process_Error, Message = error };
-    }
+        => RaiseProcess(
+            $"-m pip download -d \"{downloadPath}\" \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
+            consoleOutputCallback, extraParameters);
 
     public ActionResponse Update(string packageName, DataReceivedEventHandler consoleOutputCallback)
-    {
-        var process = new Process
-        {
-            StartInfo = new ProcessStartInfo
-            {
-                FileName = configurationService.AppConfig.CurrentEnvironment!.PythonPath,
-                Arguments =
-                    $"-m pip install --upgrade \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true
-            }
-        };
-        process.OutputDataReceived += consoleOutputCallback;
-        process.Start();
-        process.BeginOutputReadLine();
-        var error = process.StandardError.ReadToEnd();
-        process.WaitForExit();
-        process.Close();
-        process.Dispose();
-        return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.Process_Error, Message = error };
-    }
+        => RaiseProcess(
+            $"-m pip install --upgrade \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
+            consoleOutputCallback);
 
     public ActionResponse Uninstall(string packageName, DataReceivedEventHandler consoleOutputCallback)
-    {
-        var process = new Process
-        {
-            StartInfo = new ProcessStartInfo
-            {
-                FileName = configurationService.AppConfig.CurrentEnvironment!.PythonPath,
-                Arguments = $"-m pip uninstall -y \"{packageName}\"",
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true
-            }
-        };
-        process.OutputDataReceived += consoleOutputCallback;
-        process.Start();
-        var error = process.StandardError.ReadToEnd();
-        process.WaitForExit();
-        process.Close();
-        return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.Process_Error, Message = error };
-    }
+        => RaiseProcess(
+            $"-m pip uninstall -y \"{packageName}\"", consoleOutputCallback);
 
-    // Package Version Validation
+    #endregion
+
+    #region Package Version Validation
 
     [GeneratedRegex("[-_.]+", RegexOptions.IgnoreCase)]
     private static partial Regex PackageNameNormalizerRegex();
@@ -386,4 +335,6 @@ public partial class EnvironmentService(IConfigurationService configurationServi
 
     [GeneratedRegex("^([A-Z0-9]|[A-Z0-9][A-Z0-9._-]*[A-Z0-9])$", RegexOptions.IgnoreCase)]
     private static partial Regex PackageNameVerificationRegex();
+
+    #endregion 
 }

@@ -14,6 +14,7 @@ using PipManager.Views.Pages.Environment;
 using PipManager.Views.Pages.Library;
 using Serilog;
 using System.Collections.ObjectModel;
+using PipManager.ViewModels.Pages.Overlay;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -33,8 +34,9 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private readonly IMaskService _maskService;
     private readonly IToastService _toastService;
     private readonly IContentDialogService _contentDialogService;
+    private readonly OverlayViewModel _overlayViewModel;
 
-    public LibraryViewModel(INavigationService navigationService, IEnvironmentService environmentService,
+    public LibraryViewModel(INavigationService navigationService, IEnvironmentService environmentService, OverlayViewModel overlayViewModel,
         IConfigurationService configurationService, IActionService actionService, IThemeService themeService, IMaskService maskService, IToastService toastService, IContentDialogService contentDialogService)
     {
         _navigationService = navigationService;
@@ -44,6 +46,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         _maskService = maskService;
         _toastService = toastService;
         _contentDialogService = contentDialogService;
+        _overlayViewModel = overlayViewModel;
 
         themeService.SetTheme(_configurationService.AppConfig.Personalization.Theme switch
         {
@@ -87,7 +90,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private async Task DeletePackageAsync()
     {
         var selected = LibraryList.Where(libraryListItem => libraryListItem.IsSelected).ToList();
-        var custom = new DeletionWarningContentDialog(_contentDialogService.GetContentPresenter(), selected);
+        var custom = new DeletionWarningContentDialog(_contentDialogService.GetDialogHost(), selected);
         var result = await custom.ShowAsync();
         var command = selected.Aggregate("", (current, item) => current + (item.PackageName + ' '));
         if (result != ContentDialogResult.Primary) return;
@@ -95,8 +98,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         (
             ActionType.Uninstall,
             command.Trim().Split(' '),
-            progressIntermediate: false,
-            totalSubTaskNumber: selected.Count
+            progressIntermediate: false
         ));
         _navigationService.Navigate(typeof(ActionPage));
     }
@@ -109,7 +111,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private async Task CheckUpdate()
     {
         _maskService.Show(Lang.Library_Operation_CheckUpdate);
-        var msgList = new List<LibraryCheckUpdateContentDialogContentListItem>();
+        var msgList = new List<PackageUpdateItem>();
         var operationList = "";
         var ioTaskList = new List<Task>();
         var msgListLock = new object();
@@ -123,7 +125,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
                 lock (msgListLock)
                 {
                     operationList += $"{item.PackageName}=={latest.Versions!.Last()} ";
-                    msgList.Add(new LibraryCheckUpdateContentDialogContentListItem(item, latest.Versions!.Last()));
+                    msgList.Add(new PackageUpdateItem(item, latest.Versions!.Last()));
                 }
             })));
             Task.WaitAll([.. ioTaskList]);
@@ -135,17 +137,16 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         }
         else
         {
-            var custom = new CheckUpdateContentDialog(_contentDialogService.GetContentPresenter(), msgList);
-            var result = await custom.ShowAsync();
-            if (result != ContentDialogResult.Primary) return;
-            _actionService.AddOperation(new ActionListItem
-            (
-                ActionType.Update,
-                operationList.Trim().Split(' '),
-                progressIntermediate: false,
-                totalSubTaskNumber: msgList.Count
-            ));
-            _navigationService.Navigate(typeof(ActionPage));
+            _overlayViewModel.ShowPackageUpdateOverlay(msgList, () =>
+            {
+                _actionService.AddOperation(new ActionListItem
+                (
+                    ActionType.Update,
+                    operationList.Trim().Split(' '),
+                    progressIntermediate: false
+                ));
+                _navigationService.Navigate(typeof(ActionPage));
+            });
         }
     }
 
@@ -169,7 +170,6 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     [ObservableProperty] private ObservableCollection<LibraryListItem> _libraryList = [];
 
     [ObservableProperty] private bool _environmentFoundVisible;
-    [ObservableProperty] private bool _listVisible;
 
     [RelayCommand]
     private void NavigateToAddEnvironment()

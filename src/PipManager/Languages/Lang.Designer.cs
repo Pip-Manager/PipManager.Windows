@@ -312,11 +312,11 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Action Already Running.
+        ///   Looks up a localized string similar to Failed to cancel.
         /// </summary>
-        public static string Action_OperationCanceled_AlreadyRunning {
+        public static string Action_OperationCanceled_Failed {
             get {
-                return ResourceManager.GetString("Action_OperationCanceled_AlreadyRunning", resourceCulture);
+                return ResourceManager.GetString("Action_OperationCanceled_Failed", resourceCulture);
             }
         }
         
@@ -641,6 +641,15 @@ namespace PipManager.Languages {
         public static string Development_Developing {
             get {
                 return ResourceManager.GetString("Development_Developing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open download folder (for wheel files).
+        /// </summary>
+        public static string Dialog_Title_DownloadDistributions {
+            get {
+                return ResourceManager.GetString("Dialog_Title_DownloadDistributions", resourceCulture);
             }
         }
         
@@ -1442,6 +1451,33 @@ namespace PipManager.Languages {
         public static string Mask_Loading {
             get {
                 return ResourceManager.GetString("Mask_Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Overlay_Button_Cancel {
+            get {
+                return ResourceManager.GetString("Overlay_Button_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string Overlay_Button_Update {
+            get {
+                return ResourceManager.GetString("Overlay_Button_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Versions Found.
+        /// </summary>
+        public static string Overlay_Title_PackageUpdate {
+            get {
+                return ResourceManager.GetString("Overlay_Title_PackageUpdate", resourceCulture);
             }
         }
         

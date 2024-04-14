@@ -74,7 +74,7 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
     #endregion Details
 
     [RelayCommand]
-    public async Task ToPreviousPage()
+    private async Task ToPreviousPage()
     {
         if (CurrentPage == 1)
         {
@@ -89,7 +89,7 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
     }
 
     [RelayCommand]
-    public async Task ToNextPage()
+    private async Task ToNextPage()
     {
         if (CurrentPage == MaxPage)
         {
@@ -113,12 +113,9 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
     {
         if (queryWrapper.Status == QueryStatus.Success)
         {
-            foreach (var resultItem in queryWrapper.Results!)
+            foreach (var resultItem in queryWrapper.Results!.Where(resultItem => string.IsNullOrEmpty(resultItem.Description)))
             {
-                if (string.IsNullOrEmpty(resultItem.Description))
-                {
-                    resultItem.Description = Lang.Search_List_NoDescription;
-                }
+                resultItem.Description = Lang.Search_List_NoDescription;
             }
             QueryList = new ObservableCollection<QueryListItemModel>(queryWrapper.Results!);
             TotalResultNumber = queryWrapper.ResultCount!;
@@ -128,13 +125,18 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
         }
         else
         {
-            if (queryWrapper.Status == QueryStatus.NoResults)
+            switch (queryWrapper.Status)
             {
-                toastService.Error(Lang.Search_Query_NoResults);
-            }
-            else if (queryWrapper.Status == QueryStatus.Timeout)
-            {
-                toastService.Error(Lang.Search_Query_Timeout);
+                case QueryStatus.NoResults:
+                    toastService.Error(Lang.Search_Query_NoResults);
+                    break;
+                case QueryStatus.Timeout:
+                    toastService.Error(Lang.Search_Query_Timeout);
+                    break;
+                case QueryStatus.Success:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
             QueryList.Clear();
             TotalResultNumber = "";
@@ -144,7 +146,7 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
     }
 
     [RelayCommand]
-    public async Task Search(string? parameter)
+    private async Task Search(string? parameter)
     {
         if (parameter != null && !string.IsNullOrEmpty(parameter))
         {

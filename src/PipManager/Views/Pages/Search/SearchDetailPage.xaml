@@ -1,4 +1,5 @@
-﻿<Page
+﻿<!-- ReSharper disable Xaml.PossibleNullReferenceException -->
+<Page
     FontFamily="/PipManager;component/Resources/Fonts/MiSans-Regular.ttf#MiSans"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     Title="SearchDetailPage"
@@ -99,13 +100,15 @@
                         Appearance="Secondary"
                         Content="{I18N {x:Static lang:LangKeys.SearchDetail_DownloadDistributions}}"
                         Icon="{ui:SymbolIcon ArrowCircleDown24}"
-                        IsEnabled="False"
+                        IsEnabled="{Binding ViewModel.ProjectDescriptionVisibility}"
+                        Command="{Binding ViewModel.DownloadPackageCommand}"
                         Margin="15,0,0,0" />
                     <ui:Button
+                        IsEnabled="{Binding ViewModel.ProjectDescriptionVisibility}"
                         Appearance="Success"
                         Content="{I18N {x:Static lang:LangKeys.SearchDetail_Install}}"
                         Icon="{ui:SymbolIcon AddCircle24}"
-                        IsEnabled="False"
+                        Command="{Binding ViewModel.InstallPackageCommand}"
                         Margin="15,0,0,0" />
                 </StackPanel>
             </Grid>

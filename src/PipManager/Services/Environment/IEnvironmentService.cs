@@ -16,6 +16,7 @@ public interface IEnvironmentService
     public Task<List<PackageItem>?> GetLibraries();
 
     public Task<GetVersionsResponse> GetVersions(string packageName);
+    public bool TryKillProcess();
 
     public ActionResponse Install(string packageName, DataReceivedEventHandler consoleOutputCallback, string[]? extraParameters = null);
 

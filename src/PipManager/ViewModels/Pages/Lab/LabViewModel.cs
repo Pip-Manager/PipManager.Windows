@@ -17,11 +17,9 @@ public partial class LabViewModel(IActionService actionService)
         (
             ActionType.Install,
             ["pytorch"],
-            totalSubTaskNumber: 1,
             progressIntermediate: false
         ));
     }
-
     public void OnNavigatedTo()
     {
         if (!_isInitialized)

@@ -62,7 +62,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
         _isInitialized = true;
     }
 
-    public void Receive(object recipient, InstalledPackagesMessage message)
+    private void Receive(object recipient, InstalledPackagesMessage message)
     {
         _installedPackages = message.InstalledPackages;
     }
@@ -75,7 +75,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
     [RelayCommand]
     private async Task AddDefaultTask()
     {
-        var custom = new InstallAddContentDialog(_contentDialogService.GetContentPresenter());
+        var custom = new InstallAddContentDialog(_contentDialogService.GetDialogHost());
         var packageName = await custom.ShowAsync();
         if (packageName == "")
         {
@@ -124,8 +124,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
         _actionService.AddOperation(new ActionListItem
         (
             ActionType.Install,
-            operationCommand.ToArray(),
-            totalSubTaskNumber: operationCommand.Count
+            operationCommand.ToArray()
         ));
         PreInstallPackages.Clear();
     }
@@ -197,7 +196,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
     [RelayCommand]
     private async Task DownloadDistributionsTask()
     {
-        var custom = new InstallAddContentDialog(_contentDialogService.GetContentPresenter());
+        var custom = new InstallAddContentDialog(_contentDialogService.GetDialogHost());
         var packageName = await custom.ShowAsync();
         if (packageName == "")
         {
@@ -237,14 +236,16 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
     {
         var openFolderDialog = new OpenFolderDialog
         {
-            Title = "Download Folder (for wheel files)"
+            Title = Lang.Dialog_Title_DownloadDistributions
         };
         var result = openFolderDialog.ShowDialog();
-        if (result == true)
+        if (result != true)
         {
-            DownloadDistributionsFolderPath = openFolderDialog.FolderName;
-            DownloadDistributionsEnabled = PreDownloadPackages.Count > 0;
+            return;
         }
+
+        DownloadDistributionsFolderPath = openFolderDialog.FolderName;
+        DownloadDistributionsEnabled = PreDownloadPackages.Count > 0;
     }
 
     [RelayCommand]
@@ -259,8 +260,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
             ActionType.Download,
             operationCommand.ToArray(),
             path: DownloadDistributionsFolderPath,
-            extraParameters: DownloadWheelDependencies ? null : ["--no-deps"],
-            totalSubTaskNumber: operationCommand.Count
+            extraParameters: DownloadWheelDependencies ? null : ["--no-deps"]
         ));
         PreDownloadPackages.Clear();
         _navigationService.Navigate(typeof(ActionPage));
@@ -316,7 +316,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
                     using var wheelFileArchive = new ZipArchive(wheelFileStream, ZipArchiveMode.Read);
                     foreach (ZipArchiveEntry entry in wheelFileArchive.Entries)
                     {
-                        if (!entry.FullName.Contains(".dist-info/METADATA") || !entry.FullName.Contains("PKG-INFO"))
+                        if (!entry.FullName.Contains(".dist-info/METADATA") && !entry.FullName.Contains("PKG-INFO"))
                         {
                             continue;
                         }
@@ -334,6 +334,8 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
                                 break;
                             }
                         }
+
+
                     }
                 }
                 else if (fileName.EndsWith(".tar.gz"))
@@ -420,7 +422,6 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
         (
             ActionType.Install,
             operationCommand.ToArray(),
-            totalSubTaskNumber: operationCommand.Count,
             extraParameters: DownloadWheelDependencies ? null : ["--no-deps"]
         ));
         PreInstallDistributions.Clear();
