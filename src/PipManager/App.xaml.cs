@@ -31,7 +31,6 @@ using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
-using PipManager.Services.Overlay;
 using PipManager.ViewModels.Pages.Overlay;
 using PipManager.Views.Pages.Overlay;
 using Wpf.Ui;
@@ -77,7 +76,6 @@ public partial class App
             services.AddSingleton<ISnackbarService, SnackbarService>();
             services.AddSingleton<IMaskService, MaskService>();
             services.AddSingleton<IToastService, ToastService>();
-            services.AddSingleton<IOverlayService, OverlayService>();
             services.AddSingleton<IConfigurationService, ConfigurationService>();
             services.AddSingleton<IEnvironmentService, EnvironmentService>();
             services.AddSingleton<IActionService, ActionService>();

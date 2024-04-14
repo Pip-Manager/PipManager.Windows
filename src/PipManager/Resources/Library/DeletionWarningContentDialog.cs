@@ -10,7 +10,7 @@ public class DeletionWarningContentDialog
     private readonly ContentDialog _contentDialog;
     public List<LibraryListItem> LibraryList { get; set; }
 
-    public DeletionWarningContentDialog(ContentPresenter contentPresenter, List<LibraryListItem> libraryList)
+    public DeletionWarningContentDialog(ContentPresenter? contentPresenter, List<LibraryListItem> libraryList)
     {
         LibraryList = libraryList;
         _contentDialog = new ContentDialog(contentPresenter)

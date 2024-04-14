@@ -75,7 +75,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
     [RelayCommand]
     private async Task AddDefaultTask()
     {
-        var custom = new InstallAddContentDialog(_contentDialogService.GetContentPresenter());
+        var custom = new InstallAddContentDialog(_contentDialogService.GetDialogHost());
         var packageName = await custom.ShowAsync();
         if (packageName == "")
         {
@@ -196,7 +196,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
     [RelayCommand]
     private async Task DownloadDistributionsTask()
     {
-        var custom = new InstallAddContentDialog(_contentDialogService.GetContentPresenter());
+        var custom = new InstallAddContentDialog(_contentDialogService.GetDialogHost());
         var packageName = await custom.ShowAsync();
         if (packageName == "")
         {
