@@ -17,34 +17,37 @@
              Visibility="{Binding ViewModel.IsOverlayVisible, Converter={StaticResource BoolToVisibility}}"
              xamlFlair:Animations.Primary="{xamlFlair:Animate BasedOn={StaticResource FadeInAndSlideFromBottom}, Duration=500, Event=None}"
              xamlFlair:Animations.AllowOpacityReset="True"
+             ScrollViewer.CanContentScroll="False"
              xamlFlair:Animations.PrimaryBinding="{Binding ViewModel.IsOverlayVisible}"
              mc:Ignorable="d">
-    <Grid Margin="24">
+    <Grid Margin="36">
         <Grid.RowDefinitions>
             <RowDefinition Height="90"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
         <ui:TextBlock Text="New Versions" FontTypography="TitleLarge"/>
-        <ui:ListView Grid.Row="1" ItemsSource="{Binding ViewModel.PackageUpdateItems}">
-            <ui:ListView.ItemTemplate>
-                <DataTemplate DataType="{x:Type package:PackageUpdateItem}">
-                    <Grid Margin="5, 7, 5, 7">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="300"/>
-                            <ColumnDefinition Width="100"/>
-                        </Grid.ColumnDefinitions>
-                        <ui:TextBlock Text="{Binding PackageName}" Style="{StaticResource BodyLargeTextBlockStyle}" Grid.Column="0"></ui:TextBlock>
-                        <StackPanel Grid.Column="1" Orientation="Horizontal">
-                            <ui:TextBlock Text="{Binding PackageVersion}" Foreground="Gray"></ui:TextBlock>
-                            <ui:SymbolIcon Margin="10, 0, 0, 0" Symbol="ChevronRight24"/>
-                            <ui:TextBlock Margin="10, 0, 0, 0" Text="{Binding NewVersion}" Foreground="Gray"></ui:TextBlock>
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </ui:ListView.ItemTemplate>
-        </ui:ListView>
+        <ScrollViewer Grid.Row="1" >
+            <ItemsControl ItemsSource="{Binding ViewModel.PackageUpdateItems}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type package:PackageUpdateItem}">
+                        <Grid Margin="5, 7, 5, 7">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="500"/>
+                                <ColumnDefinition Width="300"/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+                            <ui:TextBlock Text="{Binding PackageName}" Style="{StaticResource BodyLargeTextBlockStyle}" Grid.Column="0"></ui:TextBlock>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <ui:TextBlock Text="{Binding PackageVersion}" Foreground="Gray"></ui:TextBlock>
+                                <ui:SymbolIcon Margin="10, 0, 0, 0" Symbol="ChevronRight24"/>
+                                <ui:TextBlock Margin="10, 0, 0, 0" Text="{Binding NewVersion}" Foreground="Gray"></ui:TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
         <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
             <ui:Button Appearance="Secondary" Content="Close"  Command="{Binding ViewModel.CloseOverlayCommand}"></ui:Button>
             <ui:Button Appearance="Success" Margin="5, 0, 0, 0" Content="Update"  Command="{Binding ViewModel.ConfirmCommand}"></ui:Button>

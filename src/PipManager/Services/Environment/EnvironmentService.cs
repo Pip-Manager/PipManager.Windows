@@ -33,7 +33,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         var verify = configurationService.GetEnvironmentItemFromCommand(environmentItem.PythonPath!, "-m pip -V");
         return verify != null && environmentItem.PythonPath != string.Empty
             ? new ActionResponse { Success = true }
-            : new ActionResponse { Success = false, Exception = ExceptionType.Environment_Broken };
+            : new ActionResponse { Success = false, Exception = ExceptionType.EnvironmentBroken };
     }
 
     public ActionResponse PurgeEnvironmentCache(EnvironmentItem environmentItem)
@@ -57,7 +57,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         process.Close();
         process.Dispose();
         error = error.Replace("WARNING: No matching packages", "").Trim();
-        return !string.IsNullOrEmpty(error) ? new ActionResponse { Success = false, Exception = ExceptionType.Process_Error, Message = error } : new ActionResponse { Success = true, Message = output[15..].TrimEnd()};
+        return !string.IsNullOrEmpty(error) ? new ActionResponse { Success = false, Exception = ExceptionType.ProcessError, Message = error } : new ActionResponse { Success = true, Message = output[15..].TrimEnd()};
     }
 
     public async Task<List<PackageItem>?> GetLibraries()
@@ -292,7 +292,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         BasicCommandProcess.WaitForExit();
         BasicCommandProcess.Close();
         BasicCommandProcess.Dispose();
-        return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.Process_Error, Message = error };
+        return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.ProcessError, Message = error };
     }
 
     #region Basic Command

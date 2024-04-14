@@ -4,7 +4,6 @@ namespace PipManager.Models.Package;
 
 public class PackageItem
 {
-    public string? Priority { get; set; }
     public string? Name { get; set; }
     public string? Version { get; set; }
     public PackageVersion? DetailedVersion { get; set; }
