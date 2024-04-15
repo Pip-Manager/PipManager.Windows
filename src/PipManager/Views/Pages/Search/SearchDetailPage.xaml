@@ -55,7 +55,11 @@
 
         <ui:Card Grid.Row="0">
             <Grid>
-                <StackPanel>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="350"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
                     <StackPanel Orientation="Horizontal">
                         <ui:TextBlock
                             FontTypography="Subtitle"
@@ -85,7 +89,7 @@
                             Text="{Binding ViewModel.Package.UpdateTime}" />
                     </StackPanel>
                 </StackPanel>
-                <StackPanel
+                <StackPanel Grid.Column="1"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal"
                     VerticalAlignment="Center">
