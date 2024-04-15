@@ -7,7 +7,7 @@ public class PackageSearchService(HttpClient httpClient) : IPackageSearchService
 {
     private Dictionary<(string, int), QueryWrapper> QueryCaches { get; } = [];
 
-    public async Task<QueryWrapper> Query(string name, int page = 1)
+    public async ValueTask<QueryWrapper> Query(string name, int page = 1)
     {
         if (QueryCaches.ContainsKey((name, page)))
         {

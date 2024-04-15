@@ -4,5 +4,5 @@ namespace PipManager.PackageSearch;
 
 public interface IPackageSearchService
 {
-    public Task<QueryWrapper> Query(string name, int page = 1);
+    public ValueTask<QueryWrapper> Query(string name, int page = 1);
 }
