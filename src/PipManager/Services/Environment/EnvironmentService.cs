@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Text.RegularExpressions;
+using Python.Runtime;
 using Wpf.Ui.Controls;
 using Path = System.IO.Path;
 
@@ -220,6 +221,37 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         await Task.WhenAll([.. ioTaskList]);
         Log.Information($"[EnvironmentService] Found {packages.Count} packages");
         return [.. packages.OrderBy(x => x.Name)];
+    }
+
+    public ParseRequirementsResponse ParseRequirements(IEnumerable<string> requirements)
+    {
+        var parsedRequirements = new ParseRequirementsResponse { Success = true, Requirements = [] };
+        Runtime.PythonDLL = configurationService.AppConfig.CurrentEnvironment!.PythonDllPath!;
+        PythonEngine.Initialize();
+        using (Py.GIL())
+        {
+            try
+            {
+                dynamic packagingModule = Py.Import("packaging.requirements");
+                dynamic requirementClass = packagingModule.Requirement;
+                foreach (var requirement in requirements)
+                {
+                    dynamic requirementParser = requirementClass(requirement);
+                    parsedRequirements.Requirements.Add(new ParsedRequirement
+                    {
+                        Name = requirementParser.name.ToString(),
+                        Specifier = requirementParser.specifier.ToString()
+                    });
+                }
+            }
+            catch (PythonException ex)
+            {
+                Log.Error(ex.Message);
+            }
+            
+        }
+
+        return parsedRequirements;
     }
 
     public async Task<GetVersionsResponse> GetVersions(string packageName)

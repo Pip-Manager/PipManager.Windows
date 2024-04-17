@@ -73,16 +73,17 @@ public partial class ConfigurationService : IConfigurationService
     public EnvironmentItem? GetEnvironmentItem(string pythonPath)
     {
         var pythonVersion = FileVersionInfo.GetVersionInfo(pythonPath).FileVersion!;
-        var pythonDirectory = Directory.GetParent(pythonPath)!.FullName;
-        var pipDirectory = GetPipDirectories(pythonDirectory);
-
-        if (pipDirectory == null)
+        var pythonDirectory = Directory.GetParent(pythonPath)!;
+        var pipDirectory = GetPipDirectories(pythonDirectory.FullName);
+        var pythonDllName = $"{pythonDirectory.Name.ToLower().Replace(".", "")}.dll";
+        var pythonDllPath = pythonDirectory.GetFiles(pythonDllName, SearchOption.AllDirectories).FirstOrDefault();
+        if (pythonDllPath == null || pipDirectory == null)
         {
             return null;
         }
 
         var pipVersion = GetPipVersionInInitFile().Match(File.ReadAllText(Path.Combine(pipDirectory, @"__init__.py"))).Groups[1].Value;
-        return new EnvironmentItem(pipVersion, pythonPath, pythonVersion);
+        return new EnvironmentItem(pipVersion, pythonPath, pythonVersion, pythonDllPath.FullName);
     }
 
     public EnvironmentItem? GetEnvironmentItemFromCommand(string command, string arguments)
@@ -137,9 +138,12 @@ public partial class ConfigurationService : IConfigurationService
         }
         pipVersion = pipVersion.Trim();
         var pythonPath = FindPythonPathByPipDir(pipDir.Trim());
+        var pythonDirectory = Directory.GetParent(pythonPath)!;
+        var pythonDllName = $"{pythonDirectory.Name.ToLower().Replace(".", "")}.dll";
+        var pythonDllPath = pythonDirectory.GetFiles(pythonDllName, SearchOption.AllDirectories).FirstOrDefault();
         pythonVersion = pythonVersion.Trim();
         proc.Close();
-        return pipDir.Length > 0 ? new EnvironmentItem(pipVersion, pythonPath, pythonVersion) : null;
+        return pipDir.Length > 0 && pythonDllPath != null ? new EnvironmentItem(pipVersion, pythonPath, pythonVersion, pythonDllPath.FullName) : null;
     }
 
     public void RefreshAllEnvironmentVersions()
