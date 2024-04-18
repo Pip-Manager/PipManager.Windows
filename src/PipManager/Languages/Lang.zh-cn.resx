@@ -744,4 +744,7 @@
   <data name="Overlay_Button_Update" xml:space="preserve">
     <value>更新</value>
   </data>
+  <data name="SearchDetail_Exception_NetworkError" xml:space="preserve">
+    <value>网络请求错误</value>
+  </data>
 </root>

@@ -1563,6 +1563,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Network Request Error.
+        /// </summary>
+        public static string SearchDetail_Exception_NetworkError {
+            get {
+                return ResourceManager.GetString("SearchDetail_Exception_NetworkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Details.
         /// </summary>
         public static string SearchDetail_Header {

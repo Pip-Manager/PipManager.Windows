@@ -3,6 +3,7 @@ using PipManager.Languages;
 using PipManager.Models.Package;
 using PipManager.Models.Pages;
 using System.Collections.ObjectModel;
+using Serilog;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Library;
@@ -67,7 +68,7 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
         ProjectUrl = new ObservableCollection<LibraryDetailProjectUrlModel>(Package.ProjectUrl!);
 
         #endregion Contact
-
+        
         #region Classifier
 
         // Development Status

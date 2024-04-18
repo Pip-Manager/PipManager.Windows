@@ -165,13 +165,11 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
             var packageVersions = await _environmentService.GetVersions(Package!.Name);
             switch (packageVersions.Status)
             {
-                case 1:
-                    _toastService.Error(Lang.LibraryInstall_Add_PackageNotFound);
-                    break;
-
-                case 2:
-                    _toastService.Error(Lang.LibraryInstall_Add_InvalidPackageName);
-                    break;
+                case 1 or 2:
+                    _toastService.Error(Lang.SearchDetail_Exception_NetworkError);
+                    await Task.Delay(1000);
+                    _navigationService.GoBack();
+                    return;
 
                 default:
                     AvailableVersions = new ObservableCollection<string>(packageVersions.Versions!.Reverse());
