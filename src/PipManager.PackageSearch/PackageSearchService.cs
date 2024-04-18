@@ -30,19 +30,19 @@ public class PackageSearchService(HttpClient httpClient) : IPackageSearchService
 
         var queryWrapper = new QueryWrapper
         {
-            ResultCount = htmlDocument.DocumentNode.SelectSingleNode("/html/body/main/div/div/div[2]/form/div[1]/div[1]/p/strong").InnerText
+            ResultCount = htmlDocument.DocumentNode.SelectSingleNode("//div[@class='left-layout__main']//strong").InnerText
         };
         queryWrapper.Status = queryWrapper.ResultCount != "0" ? QueryStatus.Success : QueryStatus.NoResults;
         if (queryWrapper.Status == QueryStatus.NoResults)
         {
             return queryWrapper;
         }
-        var pageNode = htmlDocument.DocumentNode.SelectSingleNode("/html/body/main/div/div/div[2]/form/div[3]/div");
+        var pageNode = htmlDocument.DocumentNode.SelectSingleNode("//div[contains(@class, 'button-group')]");
         queryWrapper.MaxPageNumber = pageNode == null ? 1 : int.Parse(pageNode.ChildNodes[^4].InnerText);
 
         try
         {
-            var resultList = htmlDocument.DocumentNode.SelectSingleNode("/html/body/main/div/div/div[2]/form/div[3]/ul").ChildNodes.Where(result => result.InnerLength != 15).Select(result => result.ChildNodes[1]);
+            var resultList = htmlDocument.DocumentNode.SelectSingleNode("//ul[@aria-label='Search results']").ChildNodes.Where(result => result.InnerLength != 15).Select(result => result.ChildNodes[1]);
             queryWrapper.Results = [];
             foreach (var resultItem in resultList)
             {
