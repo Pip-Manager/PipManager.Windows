@@ -14,6 +14,7 @@ public interface IEnvironmentService
     public ActionResponse PurgeEnvironmentCache(EnvironmentItem environmentItem);
 
     public Task<List<PackageItem>?> GetLibraries();
+    public void RefreshPythonEngine();
 
     public Task<GetVersionsResponse> GetVersions(string packageName);
     public bool TryKillProcess();

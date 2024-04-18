@@ -1,4 +1,5 @@
 ﻿using PipManager.Models.Pages;
+using PipManager.Services.Environment.Response;
 
 namespace PipManager.Models.Package;
 
@@ -14,6 +15,7 @@ public class PackageItem
     public string? AuthorEmail { get; set; }
     public List<LibraryDetailProjectUrlModel>? ProjectUrl { get; set; }
     public Dictionary<string, List<string>>? Classifier { get; set; }
+    public List<string>? RequiresDist { get; init; }
     public Dictionary<string, List<string>>? Metadata { get; set; }
     public List<string>? Record { get; set; }
 }

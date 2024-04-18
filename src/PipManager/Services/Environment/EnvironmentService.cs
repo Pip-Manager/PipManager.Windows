@@ -128,7 +128,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                         metadataDict[lastValidKey][lastValidPos] = string.Join(metadataDict[lastValidKey][lastValidPos], "\n", value);
                     }
                 }
-
+                
                 foreach (var item in metadataDict.GetValueOrDefault("classifier", []))
                 {
                     var keyValues = item.Split(" :: ");
@@ -200,6 +200,8 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                         Url = ""
                     });
                 }
+
+                
                 packages.Add(new PackageItem
                 {
                     Name = packageName,
@@ -212,6 +214,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                     AuthorEmail = metadataDict.GetValueOrDefault("author-email", [""])[0],
                     ProjectUrl = projectUrlDictionary,
                     Classifier = classifiers,
+                    RequiresDist = metadataDict.GetValueOrDefault("requires-dist", []),
                     Metadata = metadataDict,
                     Record = record
                 });
@@ -223,11 +226,19 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         return [.. packages.OrderBy(x => x.Name)];
     }
 
+    public void RefreshPythonEngine()
+    {
+        if (PythonEngine.IsInitialized)
+        {
+            PythonEngine.Shutdown();
+        }
+        Runtime.PythonDLL = configurationService.AppConfig.CurrentEnvironment!.PythonDllPath!;
+        PythonEngine.Initialize();
+    }
+
     public ParseRequirementsResponse ParseRequirements(IEnumerable<string> requirements)
     {
         var parsedRequirements = new ParseRequirementsResponse { Success = true, Requirements = [] };
-        Runtime.PythonDLL = configurationService.AppConfig.CurrentEnvironment!.PythonDllPath!;
-        PythonEngine.Initialize();
         using (Py.GIL())
         {
             try
@@ -248,7 +259,6 @@ public partial class EnvironmentService(IConfigurationService configurationServi
             {
                 Log.Error(ex.Message);
             }
-            
         }
 
         return parsedRequirements;

@@ -3,6 +3,8 @@ using PipManager.Languages;
 using PipManager.Models.Package;
 using PipManager.Models.Pages;
 using System.Collections.ObjectModel;
+using PipManager.Services.Environment;
+using PipManager.Services.Environment.Response;
 using Serilog;
 using Wpf.Ui.Controls;
 
@@ -10,6 +12,7 @@ namespace PipManager.ViewModels.Pages.Library;
 
 public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
 {
+    private readonly IEnvironmentService _environmentService;
     public record LibraryDetailMessage(PackageItem Package);
     private bool _isInitialized;
 
@@ -23,6 +26,8 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
     [ObservableProperty] private ObservableCollection<LibraryDetailProjectUrlModel>? _projectUrl;
 
     #endregion Contact
+    
+    [ObservableProperty] private ObservableCollection<ParsedRequirement>? _requireDist;
 
     #region Classifier
 
@@ -37,8 +42,9 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
 
     #endregion Classifier
 
-    public LibraryDetailViewModel()
+    public LibraryDetailViewModel(IEnvironmentService environmentService)
     {
+        _environmentService = environmentService;
         WeakReferenceMessenger.Default.Register<LibraryDetailMessage>(this, Receive);
     }
 
@@ -68,6 +74,9 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
         ProjectUrl = new ObservableCollection<LibraryDetailProjectUrlModel>(Package.ProjectUrl!);
 
         #endregion Contact
+
+        RequireDist = new ObservableCollection<ParsedRequirement>(_environmentService.ParseRequirements(Package.RequiresDist).Requirements);
+        
         
         #region Classifier
 
