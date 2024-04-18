@@ -747,4 +747,13 @@
   <data name="SearchDetail_Exception_NetworkError" xml:space="preserve">
     <value>Network Request Error</value>
   </data>
+  <data name="LibraryDetail_Dependency_Header" xml:space="preserve">
+    <value>Dependencies</value>
+  </data>
+  <data name="LibraryDetail_Dependency_Empty" xml:space="preserve">
+    <value>No dependency packages required</value>
+  </data>
+  <data name="LibraryDetail_Dependency_Caption" xml:space="preserve">
+    <value>Found {0} dependency packages</value>
+  </data>
 </root>

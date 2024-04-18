@@ -1140,6 +1140,33 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Found {0} dependency packages.
+        /// </summary>
+        public static string LibraryDetail_Dependency_Caption {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Dependency_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No dependency packages required.
+        /// </summary>
+        public static string LibraryDetail_Dependency_Empty {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Dependency_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dependencies.
+        /// </summary>
+        public static string LibraryDetail_Dependency_Header {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Dependency_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Details.
         /// </summary>
         public static string LibraryDetail_Header {

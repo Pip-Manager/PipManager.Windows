@@ -747,4 +747,13 @@
   <data name="SearchDetail_Exception_NetworkError" xml:space="preserve">
     <value>网络请求错误</value>
   </data>
+  <data name="LibraryDetail_Dependency_Header" xml:space="preserve">
+    <value>依赖包</value>
+  </data>
+  <data name="LibraryDetail_Dependency_Empty" xml:space="preserve">
+    <value>没有所需的依赖包</value>
+  </data>
+  <data name="LibraryDetail_Dependency_Caption" xml:space="preserve">
+    <value>找到 {0} 个依赖包</value>
+  </data>
 </root>
