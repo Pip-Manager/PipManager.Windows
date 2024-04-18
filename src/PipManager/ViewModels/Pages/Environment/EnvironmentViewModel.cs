@@ -13,7 +13,6 @@ using PipManager.Views.Pages.Environment;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using Python.Runtime;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;

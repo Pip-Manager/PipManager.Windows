@@ -96,28 +96,31 @@
                         </ui:TextBlock>
                     </StackPanel>
                 </ui:CardExpander.Header>
-                <ItemsControl ItemsSource="{Binding ViewModel.RequireDist}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="300" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <ui:TextBlock
-                                    FontTypography="Body"
-                                    Grid.Column="0"
-                                    Margin="3,5,0,5"
-                                    Text="{Binding Name}" />
-                                <ui:TextBlock
-                                    FontTypography="Body"
-                                    Grid.Column="1"
-                                    Margin="3,5,0,5"
-                                    Text="{Binding Specifier}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                <Grid>
+                    <ui:TextBlock Text="{I18N {x:Static lang:LangKeys.LibraryDetail_Dependency_Empty}}" Visibility="{Binding ViewModel.RequireDist.Count, Converter={StaticResource IntegerToVisibility}}" />
+                    <ItemsControl ItemsSource="{Binding ViewModel.RequireDist}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="300" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <ui:TextBlock
+                                        FontTypography="Body"
+                                        Grid.Column="0"
+                                        Margin="3,5,0,5"
+                                        Text="{Binding Name}" />
+                                    <ui:TextBlock
+                                        FontTypography="Body"
+                                        Grid.Column="1"
+                                        Margin="3,5,0,5"
+                                        Text="{Binding Specifier}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
 
             </ui:CardExpander>
 

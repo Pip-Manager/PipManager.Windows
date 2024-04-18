@@ -48,6 +48,8 @@ public partial class AboutViewModel(IConfigurationService configurationService) 
                 "https://github.com/microsoft/XamlBehaviorsWpf"),
             new AboutNugetLibraryListItem("Newtonsoft.Json", "MIT", "Copyright (c) 2007 James Newton-King",
                 "https://github.com/JamesNK/Newtonsoft.Json"),
+            new AboutNugetLibraryListItem("pythonnet", "MIT", "Copyright (c) 2006-2021 the contributors of the Python.NET project",
+                "https://github.com/pythonnet/pythonnet"),
             new AboutNugetLibraryListItem("Serilog", "Apache-2.0", "Copyright © 2013-2020 Serilog Contributors",
                 "https://github.com/serilog/serilog"),
             new AboutNugetLibraryListItem("Serilog.Extensions.Logging", "Apache-2.0",
@@ -66,6 +68,9 @@ public partial class AboutViewModel(IConfigurationService configurationService) 
             new AboutNugetLibraryListItem("WPF-UI.Tray", "MIT",
                 "Copyright (c) 2021-2023 Leszek Pomianowski and WPF UI Contributors",
                 "https://github.com/lepoco/wpfui"),
+            new AboutNugetLibraryListItem("XamlFlair.WPF", "MIT",
+                "Copyright (c) 2019 XamlFlair",
+                "https://github.com/XamlFlair/XamlFlair")
         ];
         Log.Information("[About] Initialized");
     }

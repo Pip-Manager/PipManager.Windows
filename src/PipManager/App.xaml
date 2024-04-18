@@ -64,12 +64,6 @@
                 <valueConverters:IntegerToBoolConverter />
                 <valueConverters:BoolToVisibilityConverter FalseValue="Collapsed" />
             </valueConverters:ValueConverterGroup>
-            <valueConverters:ValueConverterGroup x:Key="InverseIntegerToVisibility">
-                <valueConverters:IntegerToBoolConverter />
-                <valueConverters:InverseBoolConverter />
-                <valueConverters:BoolToVisibilityConverter FalseValue="Collapsed" />
-            </valueConverters:ValueConverterGroup>
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>
