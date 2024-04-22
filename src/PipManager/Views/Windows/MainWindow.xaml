@@ -29,13 +29,13 @@
     xmlns:local="clr-namespace:PipManager.Views.Windows"
     xmlns:mask="clr-namespace:PipManager.Controls.Mask"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:overlay="clr-namespace:PipManager.Views.Pages.Overlay"
     xmlns:search="clr-namespace:PipManager.Views.Pages.Search"
     xmlns:settings="clr-namespace:PipManager.Views.Pages.Settings"
     xmlns:tools="clr-namespace:PipManager.Views.Pages.Tools"
     xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:overlay="clr-namespace:PipManager.Views.Pages.Overlay">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -99,8 +99,8 @@
             Grid.Row="0"
             Grid.RowSpan="2"
             x:Name="MaskPresenter" />
-        
-        <overlay:OverlayPage Grid.Row="0" Grid.RowSpan="2"/>
+
+        <overlay:OverlayPage Grid.Row="0" Grid.RowSpan="2" />
 
         <ContentPresenter
             Grid.Row="0"
@@ -108,17 +108,22 @@
             x:Name="RootContentDialog" />
 
         <ui:TitleBar
-            Grid.Row="0"
             CloseWindowByDoubleClickOnIcon="True"
+            Grid.Row="0"
             Title="{Binding ViewModel.ApplicationTitle}">
             <ui:TitleBar.Icon>
                 <ui:ImageIcon Source="pack://application:,,,/Assets/icon.png" />
             </ui:TitleBar.Icon>
         </ui:TitleBar>
-        
-        <!-- Strange Workaround -->
-        <Grid x:Name="TitleBarCoverageGrid" Grid.Row="0" Margin="0, 0, 300, 15" Background="{DynamicResource ApplicationBackgroundBrush}" Visibility="Collapsed" />
-        
+
+        <!--  Strange Workaround  -->
+        <Grid
+            Background="{DynamicResource ApplicationBackgroundBrush}"
+            Grid.Row="0"
+            Margin="0,0,300,15"
+            Visibility="{Binding ViewModel.IsTitleBarCoverageGridVisible, Converter={StaticResource InverseBoolToVisibility}}"
+            x:Name="TitleBarCoverageGrid" />
+
         <tray:NotifyIcon
             Focusable="False"
             Grid.Row="0"

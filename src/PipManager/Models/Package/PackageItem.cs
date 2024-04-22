@@ -1,21 +1,20 @@
 ﻿using PipManager.Models.Pages;
-using PipManager.Services.Environment.Response;
 
 namespace PipManager.Models.Package;
 
 public class PackageItem
 {
-    public string? Name { get; set; }
-    public string? Version { get; set; }
-    public PackageVersion? DetailedVersion { get; set; }
-    public string? Path { get; set; }
-    public string? DistInfoPath { get; set; }
-    public string? Summary { get; set; }
-    public List<string>? Author { get; set; }
-    public string? AuthorEmail { get; set; }
-    public List<LibraryDetailProjectUrlModel>? ProjectUrl { get; set; }
-    public Dictionary<string, List<string>>? Classifier { get; set; }
+    public string? Name { get; init; }
+    public string? Version { get; init; }
+    public PackageVersion? DetailedVersion { get; init; }
+    public string? Path { get; init; }
+    public string? DistInfoPath { get; init; }
+    public string? Summary { get; init; }
+    public List<string>? Author { get; init; }
+    public string? AuthorEmail { get; init; }
+    public List<LibraryDetailProjectUrlModel>? ProjectUrl { get; init; }
+    public Dictionary<string, List<string>>? Classifier { get; init; }
     public List<string>? RequiresDist { get; init; }
-    public Dictionary<string, List<string>>? Metadata { get; set; }
-    public List<string>? Record { get; set; }
+    public Dictionary<string, List<string>>? Metadata { get; init; }
+    public List<string>? Record { get; init; }
 }

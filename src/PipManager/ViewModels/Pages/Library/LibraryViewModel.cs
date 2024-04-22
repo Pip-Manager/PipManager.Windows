@@ -14,6 +14,7 @@ using PipManager.Views.Pages.Environment;
 using PipManager.Views.Pages.Library;
 using Serilog;
 using System.Collections.ObjectModel;
+using PipManager.Services.Overlay;
 using PipManager.ViewModels.Pages.Overlay;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
@@ -34,9 +35,9 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private readonly IMaskService _maskService;
     private readonly IToastService _toastService;
     private readonly IContentDialogService _contentDialogService;
-    private readonly OverlayViewModel _overlayViewModel;
+    private readonly IOverlayService _overlayService;
 
-    public LibraryViewModel(INavigationService navigationService, IEnvironmentService environmentService, OverlayViewModel overlayViewModel,
+    public LibraryViewModel(INavigationService navigationService, IEnvironmentService environmentService, IOverlayService overlayService,
         IConfigurationService configurationService, IActionService actionService, IThemeService themeService, IMaskService maskService, IToastService toastService, IContentDialogService contentDialogService)
     {
         _navigationService = navigationService;
@@ -46,7 +47,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         _maskService = maskService;
         _toastService = toastService;
         _contentDialogService = contentDialogService;
-        _overlayViewModel = overlayViewModel;
+        _overlayService = overlayService;
 
         themeService.SetTheme(_configurationService.AppConfig.Personalization.Theme switch
         {
@@ -137,7 +138,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         }
         else
         {
-            _overlayViewModel.ShowPackageUpdateOverlay(msgList, () =>
+            _overlayService.ShowPackageUpdateOverlay(msgList, () =>
             {
                 _actionService.AddOperation(new ActionListItem
                 (

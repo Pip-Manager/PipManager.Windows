@@ -6,7 +6,7 @@ namespace PipManager.ViewModels.Pages.Overlay;
 
 public partial class OverlayViewModel: ObservableObject
 {
-    private System.Action? _confirmCallback;
+    public System.Action? ConfirmCallback { get; set; }
     
     [ObservableProperty]
     private bool _isOverlayVisible;
@@ -17,26 +17,13 @@ public partial class OverlayViewModel: ObservableObject
         IsOverlayVisible = false;
         App.GetService<MainWindow>().TitleBarCoverageGrid.Visibility = Visibility.Collapsed;
     }
-    
-    private void ShowOverlay()
-    {
-        IsOverlayVisible = true;
-        App.GetService<MainWindow>().TitleBarCoverageGrid.Visibility = Visibility.Visible;
-    }
 
     [ObservableProperty] private ObservableCollection<PackageUpdateItem> _packageUpdateItems = [];
-
-    public void ShowPackageUpdateOverlay(List<PackageUpdateItem> packageUpdates, System.Action callback)
-    {
-        _confirmCallback = callback;
-        PackageUpdateItems = new ObservableCollection<PackageUpdateItem>(packageUpdates);
-        ShowOverlay();
-    }
 
     [RelayCommand]
     private void Confirm()
     {
         CloseOverlay();
-        _confirmCallback?.Invoke();
+        ConfirmCallback?.Invoke();
     }
 }

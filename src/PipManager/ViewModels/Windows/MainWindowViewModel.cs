@@ -23,6 +23,9 @@ public partial class MainWindowViewModel : ObservableObject
             ApplicationTitle = "Pip Manager";
         }
     }
+    
+    [ObservableProperty]
+    private bool _isTitleBarCoverageGridVisible;
 
     [ObservableProperty]
     private string _applicationTitle = "Pip Manager";

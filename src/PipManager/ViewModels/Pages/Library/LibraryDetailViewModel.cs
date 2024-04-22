@@ -5,7 +5,6 @@ using PipManager.Models.Pages;
 using System.Collections.ObjectModel;
 using PipManager.Services.Environment;
 using PipManager.Services.Environment.Response;
-using Serilog;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Library;
@@ -75,8 +74,10 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
 
         #endregion Contact
 
-        RequireDist = new ObservableCollection<ParsedRequirement>(_environmentService.ParseRequirements(Package.RequiresDist).Requirements);
-        
+        if (Package.RequiresDist != null)
+        {
+            RequireDist = new ObservableCollection<ParsedRequirement>(_environmentService.ParseRequirements(Package.RequiresDist).Requirements!);
+        }
         
         #region Classifier
 

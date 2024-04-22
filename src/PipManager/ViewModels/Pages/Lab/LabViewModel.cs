@@ -1,11 +1,6 @@
-﻿using System.IO;
-using System.Windows.Shapes;
-using Microsoft.Extensions.Configuration;
-using PipManager.Models.Action;
+﻿using PipManager.Models.Action;
 using PipManager.Services.Action;
-using PipManager.Services.Configuration;
 using PipManager.Services.Environment;
-using Python.Runtime;
 using Serilog;
 using Wpf.Ui.Controls;
 
@@ -20,7 +15,7 @@ public partial class LabViewModel(IActionService actionService, IEnvironmentServ
     private void ParseTest()
     {
         var parsed = environmentService.ParseRequirements(["requests", "numpy"]);
-        parsed.Requirements.ForEach(item => Log.Information(item.Specifier));
+        parsed.Requirements?.ForEach(item => Log.Information(item.Specifier));
     }
 
     [RelayCommand]

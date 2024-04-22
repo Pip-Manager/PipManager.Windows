@@ -96,7 +96,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 // Metadata
                 var metadataDict = new Dictionary<string, List<string>>();
                 var lastValidKey = "";
-                var lastValidPos = 0;
+                var lastValidIndex = 0;
                 var classifiers = new Dictionary<string, List<string>>();
                 await foreach (var line in File.ReadLinesAsync(Path.Combine(distInfoDirectoryFullName, "METADATA")))
                 {
@@ -114,18 +114,18 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                         {
                             metadataDict.Add(key, []);
                             lastValidKey = key;
-                            lastValidPos = 0;
+                            lastValidIndex = 0;
                         }
                         else
                         {
-                            lastValidPos++;
+                            lastValidIndex++;
                         }
 
                         metadataDict[key].Add(value);
                     }
                     else
                     {
-                        metadataDict[lastValidKey][lastValidPos] = string.Join(metadataDict[lastValidKey][lastValidPos], "\n", value);
+                        metadataDict[lastValidKey][lastValidIndex] += "\n" + value;
                     }
                 }
                 
@@ -133,19 +133,21 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 {
                     var keyValues = item.Split(" :: ");
 
-                    if (keyValues.Length >= 2)
+                    if (keyValues.Length < 2)
                     {
-                        var key = keyValues[0];
-                        var value = string.Join(" :: ", keyValues[1..]);
-
-                        if (!classifiers.TryGetValue(key, out var existingList))
-                        {
-                            existingList = [];
-                            classifiers.Add(key, existingList);
-                        }
-
-                        existingList.Add(value);
+                        continue;
                     }
+
+                    var key = keyValues[0];
+                    var value = string.Join(" :: ", keyValues[1..]);
+
+                    if (!classifiers.TryGetValue(key, out var existingList))
+                    {
+                        existingList = [];
+                        classifiers.Add(key, existingList);
+                    }
+
+                    existingList.Add(value);
                 }
 
                 // Record
@@ -260,7 +262,6 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 Log.Error(ex.Message);
             }
         }
-
         return parsedRequirements;
     }
 
