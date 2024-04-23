@@ -119,9 +119,9 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         await Task.Run(() =>
         {
             var selected = LibraryList.Where(libraryListItem => libraryListItem.IsSelected).ToList();
-            ioTaskList.AddRange(selected.Select(item => Task.Run(() =>
+            ioTaskList.AddRange(selected.Select(item => Task.Run(async () =>
             {
-                var latest = _environmentService.GetVersions(item.PackageName.ToLower().Replace('_', '-')).Result;
+                var latest = await _environmentService.GetVersions(item.PackageName.ToLower().Replace('_', '-'), new CancellationToken());
                 if (latest.Status != 0 || item.PackageVersion == latest.Versions!.Last()) return;
                 lock (msgListLock)
                 {

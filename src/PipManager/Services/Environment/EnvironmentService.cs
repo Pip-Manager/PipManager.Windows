@@ -265,7 +265,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         return parsedRequirements;
     }
 
-    public async Task<GetVersionsResponse> GetVersions(string packageName)
+    public async Task<GetVersionsResponse> GetVersions(string packageName, CancellationToken cancellationToken)
     {
         try
         {
@@ -274,8 +274,9 @@ public partial class EnvironmentService(IConfigurationService configurationServi
             if (!PackageNameVerificationRegex().IsMatch(packageName))
                 return new GetVersionsResponse { Status = 2, Versions = [] };
             var responseMessage =
-                await _httpClient.GetAsync($"{configurationService.GetUrlFromPackageSourceType("pypi")}{packageName}/json");
-            var response = await responseMessage.Content.ReadAsStringAsync();
+                await _httpClient.GetAsync(
+                    $"{configurationService.GetUrlFromPackageSourceType("pypi")}{packageName}/json", cancellationToken);
+            var response = await responseMessage.Content.ReadAsStringAsync(cancellationToken);
 
             var pypiPackageInfo = JsonConvert.DeserializeObject<PypiPackageInfo>(response)
                 ?.Releases?
@@ -286,8 +287,13 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 Log.Warning($"[EnvironmentService] {packageName} package not found");
                 return new GetVersionsResponse { Status = 1, Versions = [] };
             }
+
             Log.Information($"[EnvironmentService] Found {packageName}");
             return new GetVersionsResponse { Status = 0, Versions = pypiPackageInfo.Keys.ToArray() };
+        }
+        catch (TaskCanceledException)
+        {
+            return new GetVersionsResponse { Status = 1, Versions = [] };
         }
         catch (Exception)
         {

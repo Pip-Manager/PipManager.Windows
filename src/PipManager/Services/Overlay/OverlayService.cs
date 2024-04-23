@@ -11,7 +11,7 @@ public class OverlayService(OverlayViewModel overlayViewModel, MainWindowViewMod
     private void ShowOverlay()
     {
         overlayViewModel.IsOverlayVisible = true;
-        mainWindowViewModel.IsTitleBarCoverageGridVisible = false;
+        mainWindowViewModel.IsTitleBarCoverageGridVisible = true;
     }
     
     public void ShowPackageUpdateOverlay(List<PackageUpdateItem> packageUpdates, System.Action callback)

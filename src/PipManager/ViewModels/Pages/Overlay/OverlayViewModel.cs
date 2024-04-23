@@ -1,10 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using PipManager.Models.Package;
+using PipManager.ViewModels.Windows;
 using PipManager.Views.Windows;
 
 namespace PipManager.ViewModels.Pages.Overlay;
 
-public partial class OverlayViewModel: ObservableObject
+public partial class OverlayViewModel(MainWindowViewModel mainWindowViewModel): ObservableObject
 {
     public System.Action? ConfirmCallback { get; set; }
     
@@ -15,7 +16,7 @@ public partial class OverlayViewModel: ObservableObject
     private void CloseOverlay()
     {
         IsOverlayVisible = false;
-        App.GetService<MainWindow>().TitleBarCoverageGrid.Visibility = Visibility.Collapsed;
+        mainWindowViewModel.IsTitleBarCoverageGridVisible = false;
     }
 
     [ObservableProperty] private ObservableCollection<PackageUpdateItem> _packageUpdateItems = [];

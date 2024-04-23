@@ -121,7 +121,7 @@
             Background="{DynamicResource ApplicationBackgroundBrush}"
             Grid.Row="0"
             Margin="0,0,300,15"
-            Visibility="{Binding ViewModel.IsTitleBarCoverageGridVisible, Converter={StaticResource InverseBoolToVisibility}}"
+            Visibility="{Binding ViewModel.IsTitleBarCoverageGridVisible, Converter={StaticResource BoolToVisibility}}"
             x:Name="TitleBarCoverageGrid" />
 
         <tray:NotifyIcon

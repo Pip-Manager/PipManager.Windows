@@ -92,7 +92,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
             return;
         }
         _maskService.Show(Lang.LibraryInstall_Add_Verifying);
-        var packageVersions = await _environmentService.GetVersions(packageName);
+        var packageVersions = await _environmentService.GetVersions(packageName, new CancellationToken());
         _maskService.Hide();
         switch (packageVersions.Status)
         {
@@ -208,7 +208,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
             return;
         }
         _maskService.Show(Lang.LibraryInstall_Add_Verifying);
-        var packageVersions = await _environmentService.GetVersions(packageName);
+        var packageVersions = await _environmentService.GetVersions(packageName, new CancellationToken());
         _maskService.Hide();
         switch (packageVersions.Status)
         {
