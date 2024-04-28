@@ -13,6 +13,7 @@ using PipManager.Views.Pages.Environment;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
@@ -27,25 +28,36 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
 {
     private bool _isInitialized;
 
+    [ObservableProperty] private bool _loadingEnvironmentList = true;
+
     public void OnNavigatedTo()
     {
+        LoadingEnvironmentList = true;
         if (!_isInitialized)
             InitializeViewModel();
-        configurationService.RefreshAllEnvironmentVersions();
-        EnvironmentItems = new ObservableCollection<EnvironmentItem>(configurationService.AppConfig.EnvironmentItems);
-        var currentEnvironment = configurationService.AppConfig.CurrentEnvironment;
-        foreach (var environmentItem in EnvironmentItems)
+        Task.Run(() =>
         {
-            if (currentEnvironment is null || environmentItem.PythonPath != currentEnvironment.PythonPath)
+            configurationService.RefreshAllEnvironmentVersions();
+            EnvironmentItems =
+                new ObservableCollection<EnvironmentItem>(configurationService.AppConfig.EnvironmentItems);
+            var currentEnvironment = configurationService.AppConfig.CurrentEnvironment;
+            foreach (var environmentItem in EnvironmentItems)
             {
-                continue;
-            }
+                if (currentEnvironment is null || environmentItem.PythonPath != currentEnvironment.PythonPath)
+                {
+                    continue;
+                }
 
-            CurrentEnvironment = environmentItem;
-            var mainWindowViewModel = App.GetService<MainWindowViewModel>();
-            mainWindowViewModel.ApplicationTitle = $"Pip Manager | {CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion}";
-            Log.Information($"[Environment] Current Environment changed: {CurrentEnvironment.PythonPath}");
-        }
+                CurrentEnvironment = environmentItem;
+                var mainWindowViewModel = App.GetService<MainWindowViewModel>();
+                mainWindowViewModel.ApplicationTitle =
+                    $"Pip Manager | {CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion}";
+                Log.Information($"[Environment] Current Environment changed: {CurrentEnvironment.PythonPath}");
+            }
+        }).ContinueWith((_ =>
+        {
+            LoadingEnvironmentList = false;
+        }));
     }
 
     public void OnNavigatedFrom()
