@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/AuroraZiling/PipManager">
-    <img src="https://raw.githubusercontent.com/AuroraZiling/PipManager/main/src/PipManager/Assets/icon.png" alt="Logo" width="80" height="80">
+    <img src="https://raw.staticdn.net/Pip-Manager/Pip-Manager.github.io/main/docs/.vuepress/public/assets/icon.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Pip Manager</h3>
@@ -50,9 +50,7 @@ Features:
 
 Easier operation of Pip is the goal of Pip Manager.
 
-### Technology
-
-<img height="200" alt="language csharp" src="https://raw.githubusercontent.com/SAWARATSUKI/ServiceLogos/main/C%23/C%23%20Purple.png"/>
+### Technology Stack
 
 Pip Manager is based on the following technology stacks:
 
@@ -90,8 +88,6 @@ See the [Open Issues](https://github.com/AuroraZiling/PipManager/issues) for a f
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
-
-Kawaii `C#` Logo in [Technology Stack](#technology-stack) is created by [SAWATSUKI](https://github.com/SAWARATSUKI)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
