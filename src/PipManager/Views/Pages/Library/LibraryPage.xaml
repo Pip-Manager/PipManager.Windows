@@ -117,7 +117,7 @@
                                     Style="{StaticResource BodyLargeTextBlockStyle}"
                                     Text="{Binding PackageName}"
                                     VerticalAlignment="Center" />
-                                <Grid Margin="5,0,0,0">
+                                <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                     <ui:Badge Appearance="Primary">
                                         <ui:TextBlock FontTypography="Caption" Text="{Binding PackageVersion}" />
                                     </ui:Badge>
@@ -130,7 +130,7 @@
                                     <ui:Badge Appearance="Danger" Visibility="{Binding PackageDetailedVersion.DevL, Converter={StaticResource NullToVisibility}}">
                                         <ui:TextBlock FontTypography="Caption" Text="{I18N {x:Static lang:LangKeys.Library_Version_Dev}}" />
                                     </ui:Badge>
-                                </Grid>
+                                </StackPanel>
 
                             </StackPanel>
 
