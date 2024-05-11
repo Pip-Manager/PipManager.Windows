@@ -52,7 +52,7 @@ Easier operation of Pip is the goal of Pip Manager.
 
 ### Technology
 
-<img height="200" alt="language csharp" src="https://raw.githubusercontent.com/SAWARATSUKI/ServiceLogos/main/C%23/C%23%20Purple.png"/>
+<img height="200" alt="language csharp" src="https://raw.githubusercontent.com/jonacruz89/SAWARATSUKI.ServiceLogos/main/C%23/C%23%20Purple.png"/>
 
 Pip Manager is based on the following technology stacks:
 
