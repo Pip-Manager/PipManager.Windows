@@ -762,4 +762,7 @@
   <data name="Settings_DetectNonReleaseVersion_Subtitle" xml:space="preserve">
     <value>Alpha、Beta等测试版本的包将不会被忽略</value>
   </data>
+  <data name="LibraryDetail_Toast_PackageNotFound" xml:space="preserve">
+    <value>未在库中找到该依赖</value>
+  </data>
 </root>

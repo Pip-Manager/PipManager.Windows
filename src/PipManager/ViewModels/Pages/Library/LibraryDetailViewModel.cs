@@ -5,6 +5,9 @@ using PipManager.Models.Pages;
 using System.Collections.ObjectModel;
 using PipManager.Services.Environment;
 using PipManager.Services.Environment.Response;
+using PipManager.Services.Toast;
+using PipManager.Views.Pages.Library;
+using Wpf.Ui;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Library;
@@ -12,11 +15,14 @@ namespace PipManager.ViewModels.Pages.Library;
 public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
 {
     private readonly IEnvironmentService _environmentService;
-    public record LibraryDetailMessage(PackageItem Package);
+    private readonly INavigationService _navigationService;
+    private readonly IToastService _toastService;
+    public record LibraryDetailMessage(PackageItem Package, List<PackageItem> Library);
     private bool _isInitialized;
 
     [ObservableProperty]
     private PackageItem? _package;
+    [ObservableProperty] private List<PackageItem>? _library;
 
     #region Contact
 
@@ -41,9 +47,11 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
 
     #endregion Classifier
 
-    public LibraryDetailViewModel(IEnvironmentService environmentService)
+    public LibraryDetailViewModel(IEnvironmentService environmentService, INavigationService navigationService, IToastService toastService)
     {
         _environmentService = environmentService;
+        _navigationService = navigationService;
+        _toastService = toastService;
         WeakReferenceMessenger.Default.Register<LibraryDetailMessage>(this, Receive);
     }
 
@@ -61,11 +69,25 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
     {
         _isInitialized = true;
     }
+    
+    [RelayCommand]
+    private void NavigateToDependency(string name)
+    {
+        var targetPackage = Library!.FirstOrDefault(item => item!.Name == name, null);
+        if (targetPackage is null)
+        {
+            _toastService.Error(Lang.LibraryDetail_Toast_PackageNotFound);
+            return;
+        }
+        _navigationService.NavigateWithHierarchy(typeof(LibraryDetailPage));
+        WeakReferenceMessenger.Default.Send(new LibraryDetailMessage(targetPackage!, Library!));
+    }
 
     private void Receive(object recipient, LibraryDetailMessage message)
     {
         Package = message.Package;
-
+        Library = message.Library;
+        
         #region Contact
 
         Author = Package.Author!.Count == 0 ? Lang.LibraryDetail_Unknown : string.Join(", ", Package.Author!);

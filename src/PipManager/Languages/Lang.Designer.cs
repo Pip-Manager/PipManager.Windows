@@ -1203,6 +1203,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dependency Not Found.
+        /// </summary>
+        public static string LibraryDetail_Toast_PackageNotFound {
+            get {
+                return ResourceManager.GetString("LibraryDetail_Toast_PackageNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown.
         /// </summary>
         public static string LibraryDetail_Unknown {

@@ -762,4 +762,7 @@
   <data name="Settings_DetectNonReleaseVersion_Subtitle" xml:space="preserve">
     <value>Packages that are in Alpha, Beta, etc. test versions will not be ignored</value>
   </data>
+  <data name="LibraryDetail_Toast_PackageNotFound" xml:space="preserve">
+    <value>Dependency Not Found</value>
+  </data>
 </root>

@@ -162,7 +162,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         if (_library is null) return;
         _navigationService.NavigateWithHierarchy(typeof(LibraryDetailPage));
         var current = _library.Where(libraryListItem => libraryListItem.Name == parameter as string).ToList()[0];
-        WeakReferenceMessenger.Default.Send(new LibraryDetailMessage(current));
+        WeakReferenceMessenger.Default.Send(new LibraryDetailMessage(current, _library));
         Log.Information($"[Library] Turn to detail page: {current.Name}");
     }
 
