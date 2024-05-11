@@ -230,10 +230,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
 
     public void RefreshPythonEngine()
     {
-        if (PythonEngine.IsInitialized)
-        {
-            PythonEngine.Shutdown();
-        }
+        PythonEngine.Shutdown();
         Runtime.PythonDLL = configurationService.AppConfig.CurrentEnvironment!.PythonDllPath!;
         PythonEngine.Initialize();
     }

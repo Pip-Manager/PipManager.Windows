@@ -22,13 +22,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Grid>
-        <ui:ProgressRing
-            Height="80"
-            HorizontalAlignment="Center"
-            IsIndeterminate="True"
-            VerticalAlignment="Center"
-            Visibility="{Binding ViewModel.LoadingEnvironmentList, Converter={StaticResource BoolToVisibility}}"
-            Width="80" />
         <StackPanel Visibility="{Binding ViewModel.LoadingEnvironmentList, Converter={StaticResource InverseBoolToVisibility}}">
             <StackPanel Orientation="Horizontal">
                 <ui:Button
