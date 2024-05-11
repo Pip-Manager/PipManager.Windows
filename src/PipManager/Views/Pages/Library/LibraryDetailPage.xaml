@@ -105,19 +105,13 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="300" />
                                         <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <ui:TextBlock
-                                        FontTypography="Body"
-                                        Grid.Column="0"
-                                        Margin="3,5,0,5"
-                                        Text="{Binding Name}" />
+                                    <ui:HyperlinkButton Grid.Column="0" Content="{Binding Name}" Command="{Binding ElementName=LibraryDetail, Path=ViewModel.NavigateToDependencyCommand}" CommandParameter="{Binding Name}"></ui:HyperlinkButton>
                                     <ui:TextBlock
                                         FontTypography="Body"
                                         Grid.Column="1"
                                         Margin="3,5,0,5"
                                         Text="{Binding Specifier}" />
-                                    <ui:HyperlinkButton Grid.Column="2" Icon="{ui:SymbolIcon Link24}" Content="{I18N {x:Static lang:LangKeys.Library_Operation_Details}}" Command="{Binding ElementName=LibraryDetail, Path=ViewModel.NavigateToDependencyCommand}" CommandParameter="{Binding Name}"></ui:HyperlinkButton>
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

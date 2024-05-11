@@ -73,14 +73,14 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private void NavigateToDependency(string name)
     {
-        var targetPackage = Library!.FirstOrDefault(item => item!.Name == name, null);
+        var targetPackage = Library!.FirstOrDefault(item => item!.Name!.Equals(name, StringComparison.CurrentCultureIgnoreCase), null);
         if (targetPackage is null)
         {
             _toastService.Error(Lang.LibraryDetail_Toast_PackageNotFound);
             return;
         }
         _navigationService.NavigateWithHierarchy(typeof(LibraryDetailPage));
-        WeakReferenceMessenger.Default.Send(new LibraryDetailMessage(targetPackage!, Library!));
+        WeakReferenceMessenger.Default.Send(new LibraryDetailMessage(targetPackage, Library!));
     }
 
     private void Receive(object recipient, LibraryDetailMessage message)
