@@ -28,9 +28,9 @@
         <!--  Network  -->
         <ui:Card>
             <StackPanel>
-                <ui:TextBlock Style="{StaticResource BodyLargeTextBlockStyle}" Text="{I18N {x:Static lang:LangKeys.Settings_Category_Network}}" />
+                <ui:TextBlock Style="{StaticResource BodyLargeTextBlockStyle}" Text="{I18N {x:Static lang:LangKeys.Settings_Category_Package}}" />
 
-                <!--  Network - Package Source  -->
+                <!--  Package - Package Source  -->
                 <ui:CardExpander Icon="{ui:SymbolIcon Box24}" Margin="0,5,0,0">
                     <ui:CardExpander.Header>
                         <Grid>
@@ -133,6 +133,28 @@
                             Margin="0,10,0,0" />
                     </StackPanel>
                 </ui:CardExpander>
+                
+                <!--  Package - Detect Non-release Update  -->
+                <ui:CardControl Icon="{ui:SymbolIcon Warning24}" Margin="0,3,0,0">
+                    <ui:CardControl.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ui:TextBlock
+                                FontTypography="Body"
+                                Grid.Row="0"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_DetectNonReleaseVersion}}" />
+                            <ui:TextBlock
+                                Appearance="Secondary"
+                                FontTypography="Caption"
+                                Grid.Row="1"
+                                Text="{I18N {x:Static lang:LangKeys.Settings_DetectNonReleaseVersion_Subtitle}}" />
+                        </Grid>
+                    </ui:CardControl.Header>
+                    <ui:ToggleSwitch Command="{Binding ViewModel.ChangeDetectNonReleaseVersionCommand}" IsChecked="{Binding ViewModel.DetectNonReleaseVersion, Mode=TwoWay}"></ui:ToggleSwitch>
+                </ui:CardControl>
             </StackPanel>
         </ui:Card>
 

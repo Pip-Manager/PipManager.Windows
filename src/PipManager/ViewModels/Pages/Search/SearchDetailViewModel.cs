@@ -13,6 +13,7 @@ using System.Net.Http;
 using Microsoft.Win32;
 using PipManager.Models.Action;
 using PipManager.Services.Action;
+using PipManager.Services.Configuration;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -29,6 +30,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     private readonly IToastService _toastService;
     private readonly IActionService _actionService;
     private readonly IEnvironmentService _environmentService;
+    private readonly IConfigurationService _configurationService;
 
     [ObservableProperty]
     private bool _projectDescriptionVisibility;
@@ -59,7 +61,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     [ObservableProperty]
     private QueryListItemModel? _package;
 
-    public SearchDetailViewModel(INavigationService navigationService, HttpClient httpClient, IThemeService themeService, IToastService toastService, IEnvironmentService environmentService, IActionService actionService)
+    public SearchDetailViewModel(INavigationService navigationService, HttpClient httpClient, IThemeService themeService, IToastService toastService, IEnvironmentService environmentService, IActionService actionService, IConfigurationService configurationService)
     {
         _navigationService = navigationService;
         _httpClient = httpClient;
@@ -67,6 +69,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
         _toastService = toastService;
         _environmentService = environmentService;
         _actionService = actionService;
+        _configurationService = configurationService;
 
         WeakReferenceMessenger.Default.Register<SearchDetailMessage>(this, Receive);
     }
@@ -162,7 +165,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
         SearchDetailPage.ProjectDescriptionWebView!.Loaded += async (_, _) =>
         {
             ProjectDescriptionVisibility = false;
-            var packageVersions = await _environmentService.GetVersions(Package!.Name, new CancellationToken());
+            var packageVersions = await _environmentService.GetVersions(Package!.Name, new CancellationToken(), _configurationService.AppConfig.PackageSource.DetectNonReleaseVersion);
             switch (packageVersions.Status)
             {
                 case 1 or 2:

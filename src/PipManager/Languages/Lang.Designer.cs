@@ -1653,11 +1653,11 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Network.
+        ///   Looks up a localized string similar to Package.
         /// </summary>
-        public static string Settings_Category_Network {
+        public static string Settings_Category_Package {
             get {
-                return ResourceManager.GetString("Settings_Category_Network", resourceCulture);
+                return ResourceManager.GetString("Settings_Category_Package", resourceCulture);
             }
         }
         
@@ -1676,6 +1676,24 @@ namespace PipManager.Languages {
         public static string Settings_Category_Personalization {
             get {
                 return ResourceManager.GetString("Settings_Category_Personalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detecting Test Versions.
+        /// </summary>
+        public static string Settings_DetectNonReleaseVersion {
+            get {
+                return ResourceManager.GetString("Settings_DetectNonReleaseVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Packages that are in Alpha, Beta, etc. test versions will not be ignored.
+        /// </summary>
+        public static string Settings_DetectNonReleaseVersion_Subtitle {
+            get {
+                return ResourceManager.GetString("Settings_DetectNonReleaseVersion_Subtitle", resourceCulture);
             }
         }
         

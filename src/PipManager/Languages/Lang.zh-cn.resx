@@ -675,8 +675,8 @@
   <data name="Settings_PersonalizationTitle_Theme_Subtitle" xml:space="preserve">
     <value>设置窗口主题色</value>
   </data>
-  <data name="Settings_Category_Network" xml:space="preserve">
-    <value>网络</value>
+  <data name="Settings_Category_Package" xml:space="preserve">
+    <value>包</value>
   </data>
   <data name="Settings_PersonalizationTitle_LogAutoDeletion_Subtitle" xml:space="preserve">
     <value>设置日志文件数量限制</value>
@@ -755,5 +755,11 @@
   </data>
   <data name="LibraryDetail_Dependency_Caption" xml:space="preserve">
     <value>找到 {0} 个依赖包</value>
+  </data>
+  <data name="Settings_DetectNonReleaseVersion" xml:space="preserve">
+    <value>检测测试版本</value>
+  </data>
+  <data name="Settings_DetectNonReleaseVersion_Subtitle" xml:space="preserve">
+    <value>Alpha、Beta等测试版本的包将不会被忽略</value>
   </data>
 </root>

@@ -675,8 +675,8 @@
   <data name="Settings_PersonalizationTitle_Theme_Subtitle" xml:space="preserve">
     <value>Change window theme</value>
   </data>
-  <data name="Settings_Category_Network" xml:space="preserve">
-    <value>Network</value>
+  <data name="Settings_Category_Package" xml:space="preserve">
+    <value>Package</value>
   </data>
   <data name="Settings_PersonalizationTitle_LogAutoDeletion_Subtitle" xml:space="preserve">
     <value>Set the log file number limit</value>
@@ -755,5 +755,11 @@
   </data>
   <data name="LibraryDetail_Dependency_Caption" xml:space="preserve">
     <value>Found {0} dependency packages</value>
+  </data>
+  <data name="Settings_DetectNonReleaseVersion" xml:space="preserve">
+    <value>Detecting Test Versions</value>
+  </data>
+  <data name="Settings_DetectNonReleaseVersion_Subtitle" xml:space="preserve">
+    <value>Packages that are in Alpha, Beta, etc. test versions will not be ignored</value>
   </data>
 </root>

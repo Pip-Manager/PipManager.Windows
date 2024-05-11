@@ -262,7 +262,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         return parsedRequirements;
     }
 
-    public async Task<GetVersionsResponse> GetVersions(string packageName, CancellationToken cancellationToken)
+    public async Task<GetVersionsResponse> GetVersions(string packageName, CancellationToken cancellationToken, bool detectNonRelease = true)
     {
         try
         {
@@ -279,6 +279,12 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 ?.Releases?
                 .Where(item => item.Value.Count != 0).OrderBy(e => e.Value[0].UploadTime)
                 .ThenBy(e => e.Value[0].UploadTime).ToDictionary(pair => pair.Key, pair => pair.Value);
+
+            if (!detectNonRelease && pypiPackageInfo != null)
+            {
+                pypiPackageInfo = pypiPackageInfo.Where(item => PackageValidator.IsReleaseVersion(item.Key)).ToDictionary();
+            }
+            
             if (pypiPackageInfo == null || pypiPackageInfo.Count == 0)
             {
                 Log.Warning($"[EnvironmentService] {packageName} package not found");

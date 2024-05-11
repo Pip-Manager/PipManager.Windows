@@ -58,6 +58,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     private void InitializeViewModel()
     {
         CurrentPackageSource = _configurationService.AppConfig.PackageSource.PackageSourceType;
+        DetectNonReleaseVersion = _configurationService.AppConfig.PackageSource.DetectNonReleaseVersion;
         var language = _configurationService.AppConfig.Personalization.Language;
         Language = language != "Auto" ? GetLanguage.LanguageList.Select(x => x.Key).ToList()[GetLanguage.LanguageList.Select(x => x.Value).ToList().IndexOf(language)] : "Auto";
         CurrentTheme = _configurationService.AppConfig.Personalization.Theme switch
@@ -161,6 +162,17 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
 
         await Task.WhenAll(OfficialTask(), TsinghuaTask(), AliyunTask(), DoubanTask());
         Log.Information($"[Settings] Package Source network tested: Official({OfficialPackageSourceNetwork}) Tsinghua({TsinghuaPackageSourceNetwork}) Aliyun({AliyunPackageSourceNetwork}) Douban({DoubanPackageSourceNetwork})");
+    }
+    
+    [ObservableProperty]
+    private bool _detectNonReleaseVersion;
+    
+    [RelayCommand]
+    private void OnChangeDetectNonReleaseVersion()
+    {
+        _configurationService.AppConfig.PackageSource.DetectNonReleaseVersion = DetectNonReleaseVersion;
+        _configurationService.Save();
+        Log.Information($"[Settings] Detect non-release update changes to {DetectNonReleaseVersion}");
     }
 
     #endregion Package Source

@@ -15,6 +15,8 @@ using System.IO.Compression;
 using System.Text;
 using ICSharpCode.SharpZipLib.GZip;
 using ICSharpCode.SharpZipLib.Tar;
+using Microsoft.Extensions.Configuration;
+using PipManager.Services.Configuration;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
@@ -32,8 +34,9 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
     private readonly IEnvironmentService _environmentService;
     private readonly IToastService _toastService;
     private readonly INavigationService _navigationService;
+    private readonly IConfigurationService _configurationService;
 
-    public LibraryInstallViewModel(IActionService actionService, IMaskService maskService, IContentDialogService contentDialogService, IEnvironmentService environmentService, IToastService toastService, INavigationService navigationService)
+    public LibraryInstallViewModel(IActionService actionService, IMaskService maskService, IContentDialogService contentDialogService, IEnvironmentService environmentService, IToastService toastService, INavigationService navigationService, IConfigurationService configurationService)
     {
         _actionService = actionService;
         _maskService = maskService;
@@ -42,6 +45,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
         _toastService = toastService;
         _installWheelDependencies = false;
         _navigationService = navigationService;
+        _configurationService = configurationService;
         WeakReferenceMessenger.Default.Register<InstalledPackagesMessage>(this, Receive);
     }
 
@@ -55,6 +59,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
     public void OnNavigatedFrom()
     {
         PreInstallPackages.Clear();
+        PreDownloadPackages.Clear();
     }
 
     private void InitializeViewModel()
@@ -92,7 +97,8 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
             return;
         }
         _maskService.Show(Lang.LibraryInstall_Add_Verifying);
-        var packageVersions = await _environmentService.GetVersions(packageName, new CancellationToken());
+        var detectNonRelease = _configurationService.AppConfig.PackageSource.DetectNonReleaseVersion;
+        var packageVersions = await _environmentService.GetVersions(packageName, new CancellationToken(), detectNonRelease);
         _maskService.Hide();
         switch (packageVersions.Status)
         {
@@ -208,7 +214,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
             return;
         }
         _maskService.Show(Lang.LibraryInstall_Add_Verifying);
-        var packageVersions = await _environmentService.GetVersions(packageName, new CancellationToken());
+        var packageVersions = await _environmentService.GetVersions(packageName, new CancellationToken(), _configurationService.AppConfig.PackageSource.DetectNonReleaseVersion);
         _maskService.Hide();
         switch (packageVersions.Status)
         {

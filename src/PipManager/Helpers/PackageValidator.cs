@@ -27,6 +27,17 @@ public static partial class PackageValidator
 
         return new PackageVersion();
     }
+    
+    public static bool IsReleaseVersion(string version)
+    {
+        var match = VersionRegex().Match(version);
+        if (match.Success)
+        {
+            return string.IsNullOrEmpty(match.Groups["pre_l"].Value) && string.IsNullOrEmpty(match.Groups["post_l"].Value) && string.IsNullOrEmpty(match.Groups["dev_l"].Value);
+        }
+
+        return false;
+    }
 
     [GeneratedRegex(
         "^\\s*\r\n            v?\r\n            (?:\r\n                (?:(?<epoch>[0-9]+)!)?\r\n                (?<release>[0-9]+(?:\\.[0-9]+)*)\r\n                (?<pre>\r\n                    [-_\\.]?\r\n                    (?<pre_l>(a|b|c|rc|alpha|beta|pre|preview))\r\n                    [-_\\.]?\r\n                    (?<pre_n>[0-9]+)?\r\n                )?\r\n                (?<post>\r\n                    (?:-(?<post_n1>[0-9]+))\r\n                    |\r\n                    (?:\r\n                        [-_\\.]?\r\n                        (?<post_l>post|rev|r)\r\n                        [-_\\.]?\r\n                        (?<post_n2>[0-9]+)?\r\n                    )\r\n                )?\r\n                (?<dev>\r\n                    [-_\\.]?\r\n                    (?<dev_l>dev)\r\n                    [-_\\.]?\r\n                    (?<dev_n>[0-9]+)?\r\n                )?\r\n            )\r\n            (?:\\+(?<local>[a-z0-9]+(?:[-_\\.][a-z0-9]+)*))?\\s*$",

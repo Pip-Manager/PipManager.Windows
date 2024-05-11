@@ -16,7 +16,7 @@ public interface IEnvironmentService
     public Task<List<PackageItem>?> GetLibraries();
     public void RefreshPythonEngine();
 
-    public Task<GetVersionsResponse> GetVersions(string packageName, CancellationToken cancellationToken);
+    public Task<GetVersionsResponse> GetVersions(string packageName, CancellationToken cancellationToken, bool detectNonRelease = true);
     public bool TryKillProcess();
     public ParseRequirementsResponse ParseRequirements(IEnumerable<string> requirements);
 

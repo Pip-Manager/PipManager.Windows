@@ -13,7 +13,6 @@ using PipManager.Views.Pages.Environment;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
@@ -28,13 +27,11 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
 {
     private bool _isInitialized;
 
-    [ObservableProperty] private bool _loadingEnvironmentList = true;
-
     public void OnNavigatedTo()
     {
-        LoadingEnvironmentList = false;
         if (!_isInitialized)
             InitializeViewModel();
+        
         configurationService.RefreshAllEnvironmentVersions();
         EnvironmentItems =
             new ObservableCollection<EnvironmentItem>(configurationService.AppConfig.EnvironmentItems);
@@ -47,11 +44,12 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
             }
 
             CurrentEnvironment = environmentItem;
-                
+        
             var mainWindowViewModel = App.GetService<MainWindowViewModel>();
             mainWindowViewModel.ApplicationTitle =
                 $"Pip Manager | {CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion}";
             Log.Information($"[Environment] Current Environment changed: {CurrentEnvironment.PythonPath}");
+            break;
         }
     }
 
@@ -119,7 +117,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         var latest = "";
         await Task.Run(async () =>
         {
-            var versions = await environmentService.GetVersions("pip", new CancellationToken());
+            var versions = await environmentService.GetVersions("pip", new CancellationToken(), configurationService.AppConfig.PackageSource.DetectNonReleaseVersion);
             if (versions.Status == 0)
             {
                 latest = versions.Versions!.Last();

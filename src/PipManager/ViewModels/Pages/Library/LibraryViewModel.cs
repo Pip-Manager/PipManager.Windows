@@ -116,12 +116,13 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         var operationList = "";
         var ioTaskList = new List<Task>();
         var msgListLock = new object();
+        var detectNonRelease = _configurationService.AppConfig.PackageSource.DetectNonReleaseVersion;
         await Task.Run(() =>
         {
             var selected = LibraryList.Where(libraryListItem => libraryListItem.IsSelected).ToList();
             ioTaskList.AddRange(selected.Select(item => Task.Run(async () =>
             {
-                var latest = await _environmentService.GetVersions(item.PackageName.ToLower().Replace('_', '-'), new CancellationToken());
+                var latest = await _environmentService.GetVersions(item.PackageName.ToLower().Replace('_', '-'), new CancellationToken(), detectNonRelease);
                 if (latest.Status != 0 || item.PackageVersion == latest.Versions!.Last()) return;
                 lock (msgListLock)
                 {
