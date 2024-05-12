@@ -12,7 +12,9 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Documents;
 using Python.Runtime;
 using Wpf.Ui.Controls;
 using Path = System.IO.Path;
@@ -94,7 +96,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 if (packageName == "pip") return;
 
                 // Metadata
-                var metadataDict = new Dictionary<string, List<string>>();
+                var metadataDict = new Dictionary<string, List<StringBuilder>>();
                 var lastValidKey = "";
                 var lastValidIndex = 0;
                 var classifiers = new Dictionary<string, List<string>>();
@@ -121,15 +123,18 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                             lastValidIndex++;
                         }
 
-                        metadataDict[key].Add(value);
+                        metadataDict[key].Add(new StringBuilder(value));
                     }
                     else
                     {
-                        metadataDict[lastValidKey][lastValidIndex] += "\n" + value;
+                        metadataDict[lastValidKey][lastValidIndex].Append('\n').Append(value);
                     }
                 }
-                
-                foreach (var item in metadataDict.GetValueOrDefault("classifier", []))
+                var metadata = metadataDict.ToDictionary(
+                    pair => pair.Key, 
+                    pair => pair.Value.Select(sb => sb.ToString()).ToList()
+                );
+                foreach (var item in metadata.GetValueOrDefault("classifier", []))
                 {
                     var keyValues = item.Split(" :: ");
 
@@ -165,7 +170,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                 }
 
                 // Extra
-                var projectUrl = metadataDict.GetValueOrDefault("project-url", []);
+                var projectUrl = metadata.GetValueOrDefault("project-url", []);
                 var projectUrlDictionary = new List<LibraryDetailProjectUrlModel>();
 
                 if (projectUrl.Count != 0)
@@ -211,13 +216,13 @@ public partial class EnvironmentService(IConfigurationService configurationServi
                     DetailedVersion = PackageValidator.CheckVersion(packageVersion),
                     Path = actualPath,
                     DistInfoPath = distInfoDirectoryFullName,
-                    Summary = metadataDict.GetValueOrDefault("summary", [""])[0],
-                    Author = metadataDict.GetValueOrDefault("author", []),
-                    AuthorEmail = metadataDict.GetValueOrDefault("author-email", [""])[0],
+                    Summary = metadata.GetValueOrDefault("summary", [""])[0],
+                    Author = metadata.GetValueOrDefault("author", []),
+                    AuthorEmail = metadata.GetValueOrDefault("author-email", [""])[0],
                     ProjectUrl = projectUrlDictionary,
                     Classifier = classifiers,
-                    RequiresDist = metadataDict.GetValueOrDefault("requires-dist", []),
-                    Metadata = metadataDict,
+                    RequiresDist = metadata.GetValueOrDefault("requires-dist", []),
+                    Metadata = metadata,
                     Record = record
                 });
             });
