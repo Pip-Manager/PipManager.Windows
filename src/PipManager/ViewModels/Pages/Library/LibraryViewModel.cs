@@ -14,6 +14,7 @@ using PipManager.Views.Pages.Environment;
 using PipManager.Views.Pages.Library;
 using Serilog;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using PipManager.Services.Overlay;
 using PipManager.ViewModels.Pages.Overlay;
 using Wpf.Ui;
@@ -180,9 +181,15 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         _navigationService.Navigate(typeof(AddEnvironmentPage));
     }
 
+    [ObservableProperty] private double _refreshTimeUsage;
+    
+    private readonly Stopwatch _refreshStopwatch = new();
+
     [RelayCommand]
     private async Task RefreshLibrary()
     {
+        _refreshStopwatch.Reset();
+        _refreshStopwatch.Start();
         LibraryList = [];
         EnvironmentFoundVisible = true;
         _maskService.Show(Lang.MainWindow_NavigationContent_Library);
@@ -210,7 +217,11 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
                 ));
             }
             LibraryListLength = _library.Count;
+            _refreshStopwatch.Stop();
+            RefreshTimeUsage = Math.Round(_refreshStopwatch.Elapsed.TotalMilliseconds / 1000.0, 3);
             Log.Information("[Library] Package list refreshed successfully");
+            return;
         }
+        RefreshTimeUsage = 0;
     }
 }

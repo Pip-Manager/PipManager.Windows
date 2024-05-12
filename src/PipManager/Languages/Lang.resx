@@ -765,4 +765,7 @@
   <data name="LibraryDetail_Toast_PackageNotFound" xml:space="preserve">
     <value>Dependency Not Found</value>
   </data>
+  <data name="Library_Data_RefreshTimeUsage" xml:space="preserve">
+    <value>{0}s used</value>
+  </data>
 </root>

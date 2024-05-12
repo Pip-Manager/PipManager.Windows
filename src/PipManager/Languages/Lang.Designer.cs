@@ -834,6 +834,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}s used.
+        /// </summary>
+        public static string Library_Data_RefreshTimeUsage {
+            get {
+                return ResourceManager.GetString("Library_Data_RefreshTimeUsage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} item(s) selected.
         /// </summary>
         public static string Library_Data_SelectedItemsCount {

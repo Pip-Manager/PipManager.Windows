@@ -85,6 +85,23 @@
                         </ui:TextBlock>
                     </StackPanel>
                 </Border>
+                <Border
+                    Background="Transparent"
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    CornerRadius="5"
+                    Margin="0,0,5,0"
+                    Visibility="{Binding ViewModel.LibraryList, Converter={StaticResource NotNullToVisibility}}">
+                    <StackPanel Margin="7,0,7,0" Orientation="Horizontal">
+                        <ui:TextBlock FontTypography="Body" VerticalAlignment="Center">
+                            <TextBlock.Text>
+                                <I18N Key="{x:Static lang:LangKeys.Library_Data_RefreshTimeUsage}">
+                                    <Binding Path="ViewModel.RefreshTimeUsage" />
+                                </I18N>
+                            </TextBlock.Text>
+                        </ui:TextBlock>
+                    </StackPanel>
+                </Border>
                 <ui:Button
                     Command="{Binding ViewModel.RefreshLibraryCommand}"
                     Content="{I18N {x:Static lang:LangKeys.Common_Button_Refresh}}"
