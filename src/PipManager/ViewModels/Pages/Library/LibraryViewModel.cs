@@ -16,7 +16,6 @@ using Serilog;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using PipManager.Services.Overlay;
-using PipManager.ViewModels.Pages.Overlay;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;

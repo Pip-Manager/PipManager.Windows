@@ -15,7 +15,6 @@ using System.IO.Compression;
 using System.Text;
 using ICSharpCode.SharpZipLib.GZip;
 using ICSharpCode.SharpZipLib.Tar;
-using Microsoft.Extensions.Configuration;
 using PipManager.Services.Configuration;
 using Wpf.Ui;
 using Wpf.Ui.Controls;

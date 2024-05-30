@@ -1,80 +1,72 @@
-<Page
-    FontFamily="/PipManager;component/Resources/Fonts/MiSans-Regular.ttf#MiSans"
-    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    ScrollViewer.CanContentScroll="False"
-    Title="EnvironmentPage"
-    d:DataContext="{d:DesignInstance environment:EnvironmentPage,
-                                     IsDesignTimeCreatable=False}"
-    d:DesignHeight="700"
-    d:DesignWidth="1200"
-    mc:Ignorable="d"
-    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
-    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    x:Class="PipManager.Views.Pages.Environment.EnvironmentPage"
-    x:Name="Environment"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:appConfigModels="clr-namespace:PipManager.Models.AppConfigModels"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:environment="clr-namespace:PipManager.Views.Pages.Environment"
-    xmlns:lang="clr-namespace:PipManager.Languages"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Page x:Class="PipManager.Views.Pages.Environment.EnvironmentPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:appConfigModels="clr-namespace:PipManager.Models.AppConfigModels"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:environment="clr-namespace:PipManager.Views.Pages.Environment"
+      xmlns:lang="clr-namespace:PipManager.Languages"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      x:Name="Environment"
+      Title="EnvironmentPage"
+      d:DataContext="{d:DesignInstance environment:EnvironmentPage,
+                                       IsDesignTimeCreatable=False}"
+      d:DesignHeight="700"
+      d:DesignWidth="1200"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      FontFamily="/PipManager;component/Resources/Fonts/MiSans-Regular.ttf#MiSans"
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      ScrollViewer.CanContentScroll="False"
+      mc:Ignorable="d">
 
     <Grid>
-        <StackPanel Visibility="{Binding ViewModel.LoadingEnvironmentList, Converter={StaticResource InverseBoolToVisibility}}">
+        <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <ui:Button
-                    Appearance="Primary"
-                    Command="{Binding ViewModel.AddEnvironmentCommand}"
-                    Content="{I18N {x:Static lang:LangKeys.Environment_Operation_AddEnvironment}}"
-                    Icon="{ui:SymbolIcon Add24}" />
-                <ui:Button
-                    Command="{Binding ViewModel.DeleteEnvironmentCommand}"
-                    Content="{I18N {x:Static lang:LangKeys.Environment_Operation_RemoveEnvironment}}"
-                    Icon="{ui:SymbolIcon Delete24}"
-                    IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}"
-                    Margin="5,0,0,0" />
-                <ui:Button
-                    Command="{Binding ViewModel.CheckEnvironmentCommand}"
-                    Content="{I18N {x:Static lang:LangKeys.Environment_Operation_VerifyEnvironment}}"
-                    Icon="{ui:SymbolIcon Check24}"
-                    IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}"
-                    Margin="5,0,0,0" />
-                <ui:Button
-                    Command="{Binding ViewModel.CheckEnvironmentUpdateCommand}"
-                    Content="{I18N {x:Static lang:LangKeys.Environment_Operation_CheckEnvironmentUpdate}}"
-                    Icon="{ui:SymbolIcon ArrowUp24}"
-                    IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}"
-                    Margin="5,0,0,0" />
-                <ui:Button
-                    Command="{Binding ViewModel.ClearCacheCommand}"
-                    Content="{I18N {x:Static lang:LangKeys.Environment_Operation_ClearEnvironmentCache}}"
-                    Icon="{ui:SymbolIcon Eraser24}"
-                    IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}"
-                    Margin="5,0,0,0" />
+                <ui:Button Appearance="Primary"
+                           Command="{Binding ViewModel.AddEnvironmentCommand}"
+                           Content="{I18N {x:Static lang:LangKeys.Environment_Operation_AddEnvironment}}"
+                           Icon="{ui:SymbolIcon Add24}" />
+                <ui:Button Margin="5,0,0,0"
+                           Command="{Binding ViewModel.DeleteEnvironmentCommand}"
+                           Content="{I18N {x:Static lang:LangKeys.Environment_Operation_RemoveEnvironment}}"
+                           Icon="{ui:SymbolIcon Delete24}"
+                           IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}" />
+                <ui:Button Margin="5,0,0,0"
+                           Command="{Binding ViewModel.CheckEnvironmentCommand}"
+                           Content="{I18N {x:Static lang:LangKeys.Environment_Operation_VerifyEnvironment}}"
+                           Icon="{ui:SymbolIcon Check24}"
+                           IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}" />
+                <ui:Button Margin="5,0,0,0"
+                           Command="{Binding ViewModel.CheckEnvironmentUpdateCommand}"
+                           Content="{I18N {x:Static lang:LangKeys.Environment_Operation_CheckEnvironmentUpdate}}"
+                           Icon="{ui:SymbolIcon ArrowUp24}"
+                           IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}" />
+                <ui:Button Margin="5,0,0,0"
+                           Command="{Binding ViewModel.ClearCacheCommand}"
+                           Content="{I18N {x:Static lang:LangKeys.Environment_Operation_ClearEnvironmentCache}}"
+                           Icon="{ui:SymbolIcon Eraser24}"
+                           IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}" />
             </StackPanel>
-            <ui:ListView
-                ItemsSource="{Binding ViewModel.EnvironmentItems}"
-                Margin="0,10,0,0"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                SelectedItem="{Binding ViewModel.CurrentEnvironment}"
-                VerticalAlignment="Stretch">
+            <ui:ListView Margin="0,10,0,0"
+                         VerticalAlignment="Stretch"
+                         ItemsSource="{Binding ViewModel.EnvironmentItems}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         SelectedItem="{Binding ViewModel.CurrentEnvironment}">
                 <ui:ListView.ItemTemplate>
                     <DataTemplate DataType="{x:Type appConfigModels:EnvironmentItem}">
-                        <Grid Margin="0,8,0,0" x:Name="ByEnvironmentVariableGrid">
+                        <Grid x:Name="ByEnvironmentVariableGrid" Margin="0,8,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="48" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="180" />
                             </Grid.ColumnDefinitions>
-                            <Image
-                                Grid.Column="0"
-                                Height="48"
-                                HorizontalAlignment="Right"
-                                RenderOptions.BitmapScalingMode="HighQuality"
-                                Source="../../../Assets/logo/python-logo-only.png"
-                                Width="48" />
+                            <Image Grid.Column="0"
+                                   Width="48"
+                                   Height="48"
+                                   HorizontalAlignment="Right"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Source="../../../Assets/logo/python-logo-only.png" />
                             <StackPanel Grid.Column="1" Margin="7,0,0,0">
                                 <StackPanel Orientation="Horizontal">
                                     <ui:TextBlock FontTypography="BodyStrong" Text="{Binding PipVersion, Mode=TwoWay}" />
@@ -82,11 +74,10 @@
                                     <ui:TextBlock FontTypography="BodyStrong" Text="{Binding PythonVersion, StringFormat=for Python {0}}" />
                                 </StackPanel>
 
-                                <ui:TextBlock
-                                    FontTypography="Body"
-                                    Foreground="Gray"
-                                    Text="{Binding PythonPath}"
-                                    TextWrapping="Wrap" />
+                                <ui:TextBlock FontTypography="Body"
+                                              Foreground="Gray"
+                                              Text="{Binding PythonPath}"
+                                              TextWrapping="Wrap" />
                             </StackPanel>
                         </Grid>
                     </DataTemplate>

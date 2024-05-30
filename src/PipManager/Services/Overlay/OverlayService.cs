@@ -2,7 +2,6 @@
 using PipManager.Models.Package;
 using PipManager.ViewModels.Pages.Overlay;
 using PipManager.ViewModels.Windows;
-using PipManager.Views.Windows;
 
 namespace PipManager.Services.Overlay;
 

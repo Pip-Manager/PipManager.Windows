@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using PipManager.Models.Package;
 using PipManager.ViewModels.Windows;
-using PipManager.Views.Windows;
 
 namespace PipManager.ViewModels.Pages.Overlay;
 
