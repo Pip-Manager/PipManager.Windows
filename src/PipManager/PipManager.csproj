@@ -32,8 +32,7 @@
 		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2365.46" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="pythonnet" Version="3.1.0-preview2024-04-07" />
-		<PackageReference Include="Serilog" Version="3.1.1" />
+		<PackageReference Include="Serilog" Version="4.0.0" />
 		<PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
 		<PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
 		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />

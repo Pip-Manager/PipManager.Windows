@@ -12,13 +12,6 @@ public partial class LabViewModel(IActionService actionService, IEnvironmentServ
     private bool _isInitialized;
 
     [RelayCommand]
-    private void ParseTest()
-    {
-        var parsed = environmentService.ParseRequirements(["requests", "numpy"]);
-        parsed.Requirements?.ForEach(item => Log.Information(item.Specifier));
-    }
-
-    [RelayCommand]
     private void ActionTest()
     {
         actionService.AddOperation(new ActionListItem

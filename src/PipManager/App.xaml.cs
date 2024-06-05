@@ -34,7 +34,6 @@ using System.Windows.Threading;
 using PipManager.Services.Overlay;
 using PipManager.ViewModels.Pages.Overlay;
 using PipManager.Views.Pages.Overlay;
-using Python.Runtime;
 using Wpf.Ui;
 using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
 using ActionViewModel = PipManager.ViewModels.Pages.Action.ActionViewModel;
@@ -188,7 +187,6 @@ public partial class App
         }
         await Host.StopAsync();
         Host.Dispose();
-        PythonEngine.Shutdown();
         Log.Information("Logging ended");
         await Log.CloseAndFlushAsync();
     }

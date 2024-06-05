@@ -14,7 +14,6 @@ public class PackageItem
     public string? AuthorEmail { get; init; }
     public List<LibraryDetailProjectUrlModel>? ProjectUrl { get; init; }
     public Dictionary<string, List<string>>? Classifier { get; init; }
-    public List<string>? RequiresDist { get; init; }
     public Dictionary<string, List<string>>? Metadata { get; init; }
     public List<string>? Record { get; init; }
 }

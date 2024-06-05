@@ -3,7 +3,6 @@ using PipManager.Languages;
 using PipManager.Models.Package;
 using PipManager.Models.Pages;
 using System.Collections.ObjectModel;
-using PipManager.Services.Environment;
 using PipManager.Services.Environment.Response;
 using PipManager.Services.Toast;
 using PipManager.Views.Pages.Library;
@@ -14,14 +13,12 @@ namespace PipManager.ViewModels.Pages.Library;
 
 public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
 {
-    private readonly IEnvironmentService _environmentService;
     private readonly INavigationService _navigationService;
     private readonly IToastService _toastService;
     public record LibraryDetailMessage(PackageItem Package, List<PackageItem> Library);
     private bool _isInitialized;
 
-    [ObservableProperty]
-    private PackageItem? _package;
+    [ObservableProperty] private PackageItem? _package;
     [ObservableProperty] private List<PackageItem>? _library;
 
     #region Contact
@@ -31,8 +28,6 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
     [ObservableProperty] private ObservableCollection<LibraryDetailProjectUrlModel>? _projectUrl;
 
     #endregion Contact
-    
-    [ObservableProperty] private ObservableCollection<ParsedRequirement>? _requireDist;
 
     #region Classifier
 
@@ -47,9 +42,8 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
 
     #endregion Classifier
 
-    public LibraryDetailViewModel(IEnvironmentService environmentService, INavigationService navigationService, IToastService toastService)
+    public LibraryDetailViewModel(INavigationService navigationService, IToastService toastService)
     {
-        _environmentService = environmentService;
         _navigationService = navigationService;
         _toastService = toastService;
         WeakReferenceMessenger.Default.Register<LibraryDetailMessage>(this, Receive);
@@ -95,11 +89,6 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
         ProjectUrl = new ObservableCollection<LibraryDetailProjectUrlModel>(Package.ProjectUrl!);
 
         #endregion Contact
-
-        if (Package.RequiresDist != null)
-        {
-            RequireDist = new ObservableCollection<ParsedRequirement>(_environmentService.ParseRequirements(Package.RequiresDist).Requirements!);
-        }
         
         #region Classifier
 

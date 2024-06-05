@@ -181,7 +181,6 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
             mainWindowViewModel.ApplicationTitle = $"Pip Manager | {CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion}";
             configurationService.AppConfig.CurrentEnvironment = CurrentEnvironment;
             configurationService.Save();
-            environmentService.RefreshPythonEngine();
             Log.Information($"[Environment] Environment changed ({CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion})");
         }
     }

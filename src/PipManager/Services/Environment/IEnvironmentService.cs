@@ -14,11 +14,9 @@ public interface IEnvironmentService
     public ActionResponse PurgeEnvironmentCache(EnvironmentItem environmentItem);
 
     public Task<List<PackageItem>?> GetLibraries();
-    public void RefreshPythonEngine();
 
     public Task<GetVersionsResponse> GetVersions(string packageName, CancellationToken cancellationToken, bool detectNonRelease = true);
     public bool TryKillProcess();
-    public ParseRequirementsResponse ParseRequirements(IEnumerable<string> requirements);
 
     public ActionResponse Install(string packageName, DataReceivedEventHandler consoleOutputCallback, string[]? extraParameters = null);
 
