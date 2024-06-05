@@ -768,4 +768,7 @@
   <data name="Library_Data_RefreshTimeUsage" xml:space="preserve">
     <value>{0}s used</value>
   </data>
+  <data name="MainWindow_NavigationContent_Scenario" xml:space="preserve">
+    <value>Scenario</value>
+  </data>
 </root>

@@ -33,7 +33,9 @@ using System.Runtime.InteropServices;
 using System.Windows.Threading;
 using PipManager.Services.Overlay;
 using PipManager.ViewModels.Pages.Overlay;
+using PipManager.ViewModels.Pages.Scenario;
 using PipManager.Views.Pages.Overlay;
+using PipManager.Views.Pages.Scenario;
 using Wpf.Ui;
 using AboutViewModel = PipManager.ViewModels.Pages.About.AboutViewModel;
 using ActionViewModel = PipManager.ViewModels.Pages.Action.ActionViewModel;
@@ -109,8 +111,12 @@ public partial class App
 
             services.AddSingleton<ToolsPage>();
             services.AddSingleton<ToolsViewModel>();
+            
             services.AddSingleton<LabPage>();
             services.AddSingleton<LabViewModel>();
+            
+            services.AddSingleton<ScenarioPage>();
+            services.AddSingleton<ScenarioViewModel>();
 
             services.AddSingleton<EnvironmentPage>();
             services.AddSingleton<EnvironmentViewModel>();

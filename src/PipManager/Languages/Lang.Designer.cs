@@ -1464,6 +1464,15 @@ namespace PipManager.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scenario.
+        /// </summary>
+        public static string MainWindow_NavigationContent_Scenario {
+            get {
+                return ResourceManager.GetString("MainWindow_NavigationContent_Scenario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string MainWindow_NavigationContent_Search {

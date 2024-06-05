@@ -1,12 +1,11 @@
 ﻿using PipManager.Models.Action;
 using PipManager.Services.Action;
-using PipManager.Services.Environment;
 using Serilog;
 using Wpf.Ui.Controls;
 
 namespace PipManager.ViewModels.Pages.Lab;
 
-public partial class LabViewModel(IActionService actionService, IEnvironmentService environmentService)
+public partial class LabViewModel(IActionService actionService)
     : ObservableObject, INavigationAware
 {
     private bool _isInitialized;

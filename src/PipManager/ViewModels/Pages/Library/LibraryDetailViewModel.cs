@@ -3,7 +3,6 @@ using PipManager.Languages;
 using PipManager.Models.Package;
 using PipManager.Models.Pages;
 using System.Collections.ObjectModel;
-using PipManager.Services.Environment.Response;
 using PipManager.Services.Toast;
 using PipManager.Views.Pages.Library;
 using Wpf.Ui;

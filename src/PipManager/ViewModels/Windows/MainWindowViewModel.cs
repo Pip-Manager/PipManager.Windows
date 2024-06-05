@@ -1,5 +1,4 @@
 ﻿using PipManager.Services.Configuration;
-using PipManager.Services.Environment;
 using Serilog;
 
 namespace PipManager.ViewModels.Windows;
@@ -8,7 +7,7 @@ public partial class MainWindowViewModel : ObservableObject
 {
     [ObservableProperty] private bool _experimentMode;
 
-    public MainWindowViewModel(IConfigurationService configurationService, IEnvironmentService environmentService)
+    public MainWindowViewModel(IConfigurationService configurationService)
     {
 
         if (configurationService.AppConfig.CurrentEnvironment != null)
