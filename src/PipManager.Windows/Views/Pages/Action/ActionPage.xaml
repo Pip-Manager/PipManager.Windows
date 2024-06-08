@@ -1,0 +1,156 @@
+<Page
+    FontFamily="/PipManager.Windows;component/Resources/Fonts/MiSans-Regular.ttf#MiSans"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Title="ActionPage"
+    d:DataContext="{d:DesignInstance action:ActionPage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="700"
+    d:DesignWidth="1200"
+    mc:Ignorable="d"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    x:Class="PipManager.Windows.Views.Pages.Action.ActionPage"
+    x:Name="Action"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:action="clr-namespace:PipManager.Windows.Views.Pages.Action"
+    xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:PipManager.Windows.Languages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:PipManager.Windows.Models.Action"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <ui:Button
+                Appearance="Danger"
+                Command="{Binding ViewModel.ShowExceptionsCommand}"
+                Content="{I18N {x:Static lang:LangKeys.Action_Button_Exceptions}}"
+                Icon="{ui:SymbolIcon Bug24}" />
+        </StackPanel>
+        <ItemsControl
+            Grid.Row="1"
+            ItemsSource="{Binding ViewModel.Actions.AsObservable}"
+            x:Name="ActionList">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type pages:ActionListItem}">
+                    <ui:CardExpander IsExpanded="True" Margin="0,5,0,0">
+                        <ui:CardExpander.Header>
+                            <Grid>
+                                <ui:Button
+                                    Command="{Binding ViewModel.CancelActionCommand, ElementName=Action}"
+                                    CommandParameter="{Binding OperationId}"
+                                    Content="{I18N {x:Static lang:LangKeys.Action_Operation_Cancel}}"
+                                    HorizontalAlignment="Right"
+                                    Icon="{ui:SymbolIcon RecordStop24}"
+                                    Margin="0,0,10,10"
+                                    VerticalAlignment="Top" />
+                                <StackPanel>
+                                    <ui:TextBlock
+                                        FontTypography="Caption"
+                                        Foreground="Gray"
+                                        HorizontalAlignment="Left"
+                                        Text="{Binding OperationId, StringFormat=Action: {0}}" />
+                                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                                        <ui:SymbolIcon Symbol="{Binding Path=OperationIcon.Symbol}" VerticalAlignment="Center" />
+                                        <ui:TextBlock
+                                            Margin="5,3,0,0"
+                                            Style="{StaticResource BodyLargeTextBlockStyle}"
+                                            Text="{Binding OperationDescription}"
+                                            VerticalAlignment="Center" />
+                                        <ui:Badge
+                                            Appearance="{Binding BadgeAppearance}"
+                                            Margin="5,0,0,0"
+                                            VerticalAlignment="Center">
+                                            <ui:TextBlock FontTypography="Caption" Text="{Binding OperationType}" />
+                                        </ui:Badge>
+                                        <ui:Badge
+                                            Appearance="Danger"
+                                            Margin="5,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Visibility="{Binding DetectIssue, Converter={StaticResource BoolToVisibility}}">
+                                            <ui:TextBlock FontTypography="Caption" Text="Error" />
+                                        </ui:Badge>
+                                    </StackPanel>
+                                    <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
+                                        <ProgressBar
+                                            IsIndeterminate="{Binding ProgressIntermediate}"
+                                            Value="{Binding ProgressBarValue, Mode=OneWay}"
+                                            Width="300" />
+                                        <ui:TextBlock
+                                            FontTypography="Body"
+                                            Margin="5,0,0,0"
+                                            Text="{Binding CompletedSubTaskNumber, Mode=TwoWay}" />
+                                        <ui:TextBlock FontTypography="Body" Text="/" />
+                                        <ui:TextBlock FontTypography="Body" Text="{Binding TotalSubTaskNumber}" />
+                                    </StackPanel>
+                                    <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
+                                        <ui:Badge Appearance="Info" VerticalAlignment="Center">
+                                            <ui:TextBlock FontTypography="Caption" Text="{I18N {x:Static lang:LangKeys.Action_Command}}" />
+                                        </ui:Badge>
+                                        <ui:TextBlock
+                                            FontTypography="Body"
+                                            Margin="5,0,0,0"
+                                            Text="{Binding DisplayCommand}"
+                                            TextWrapping="WrapWithOverflow"
+                                            VerticalAlignment="Center" />
+                                    </StackPanel>
+                                    <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
+                                        <ui:Badge Appearance="Caution" VerticalAlignment="Center">
+                                            <ui:TextBlock FontTypography="Caption" Text="{I18N {x:Static lang:LangKeys.Action_CurrentStatus}}" />
+                                        </ui:Badge>
+                                        <ui:TextBlock
+                                            FontTypography="Body"
+                                            Margin="5,0,0,0"
+                                            Text="{Binding OperationStatus}"
+                                            VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </ui:CardExpander.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <ui:TextBlock
+                                Grid.Column="1"
+                                Margin="0,5,0,0"
+                                Style="{StaticResource BodyLargeTextBlockStyle}"
+                                Text="{I18N {x:Static lang:LangKeys.Action_ConsoleOutput}}" />
+                            <ui:TextBox
+                                Grid.Column="2"
+                                IsReadOnly="True"
+                                MaxHeight="220"
+                                Text="{Binding ConsoleOutput}"
+                                x:Name="ActionConsoleOutputTextbox">
+                                <behaviors:Interaction.Triggers>
+                                    <behaviors:DataTrigger
+                                        Binding="{Binding Text.Length, ElementName=ActionConsoleOutputTextbox}"
+                                        Comparison="NotEqual"
+                                        Value="0">
+                                        <behaviors:CallMethodAction MethodName="ScrollToEnd" />
+                                    </behaviors:DataTrigger>
+                                </behaviors:Interaction.Triggers>
+                            </ui:TextBox>
+                        </Grid>
+                    </ui:CardExpander>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <StackPanel
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            Margin="0,-30,0,0"
+            VerticalAlignment="Center"
+            Visibility="{Binding ElementName=ActionList, Path=Items.Count, Converter={StaticResource IntegerToVisibility}}">
+            <ui:TextBlock FontTypography="TitleLarge" Text="{I18N {x:Static lang:LangKeys.Action_NoCurrentOperations}}" />
+        </StackPanel>
+    </Grid>
+</Page>

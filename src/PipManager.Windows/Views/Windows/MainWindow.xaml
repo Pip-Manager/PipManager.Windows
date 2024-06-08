@@ -1,0 +1,146 @@
+﻿<ui:FluentWindow
+    Closing="MainWindow_OnClosing"
+    ExtendsContentIntoTitleBar="True"
+    FontFamily="/PipManager.Windows;component/Resources/Fonts/MiSans-Regular.ttf#MiSans"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    MinHeight="740"
+    MinWidth="1200"
+    ResizeMode="CanResizeWithGrip"
+    Title="{Binding ViewModel.ApplicationTitle, Mode=OneWay}"
+    WindowBackdropType="Mica"
+    WindowCornerPreference="Round"
+    WindowStartupLocation="CenterScreen"
+    d:DataContext="{d:DesignInstance local:MainWindow,
+                                     IsDesignTimeCreatable=True}"
+    d:DesignHeight="700"
+    d:DesignWidth="1200"
+    mc:Ignorable="d"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    x:Class="PipManager.Windows.Views.Windows.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:about="clr-namespace:PipManager.Windows.Views.Pages.About"
+    xmlns:action="clr-namespace:PipManager.Windows.Views.Pages.Action"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:environment="clr-namespace:PipManager.Windows.Views.Pages.Environment"
+    xmlns:lab="clr-namespace:PipManager.Windows.Views.Pages.Lab"
+    xmlns:lang="clr-namespace:PipManager.Windows.Languages"
+    xmlns:library="clr-namespace:PipManager.Windows.Views.Pages.Library"
+    xmlns:local="clr-namespace:PipManager.Windows.Views.Windows"
+    xmlns:mask="clr-namespace:PipManager.Windows.Controls.Mask"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:overlay="clr-namespace:PipManager.Windows.Views.Pages.Overlay"
+    xmlns:scenario="clr-namespace:PipManager.Windows.Views.Pages.Scenario"
+    xmlns:search="clr-namespace:PipManager.Windows.Views.Pages.Search"
+    xmlns:settings="clr-namespace:PipManager.Windows.Views.Pages.Settings"
+    xmlns:tools="clr-namespace:PipManager.Windows.Views.Pages.Tools"
+    xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ui:NavigationView
+            BreadcrumbBar="{Binding ElementName=BreadcrumbBar}"
+            FontSize="14"
+            FrameMargin="0"
+            Grid.Row="1"
+            IsBackButtonVisible="Visible"
+            IsPaneToggleVisible="True"
+            OpenPaneLength="200"
+            Padding="42,0,42,0"
+            Transition="FadeInWithSlide"
+            x:Name="NavigationView">
+            <ui:NavigationView.Header>
+                <ui:BreadcrumbBar Margin="42,32,42,20" x:Name="BreadcrumbBar" />
+            </ui:NavigationView.Header>
+            <ui:NavigationView.MenuItems>
+                <ui:NavigationViewItem
+                    Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_Library}}"
+                    Icon="{ui:SymbolIcon Library24}"
+                    TargetPageType="{x:Type library:LibraryPage}" />
+                <ui:NavigationViewItem
+                    Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_Action}}"
+                    Icon="{ui:SymbolIcon PlayCircle24}"
+                    TargetPageType="{x:Type action:ActionPage}" />
+                <ui:NavigationViewItem
+                    Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_Search}}"
+                    Icon="{ui:SymbolIcon BoxSearch24}"
+                    TargetPageType="{x:Type search:SearchPage}" />
+                <ui:NavigationViewItem
+                    Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_Scenario}}"
+                    Icon="{ui:SymbolIcon Backpack24}"
+                    TargetPageType="{x:Type scenario:ScenarioPage}" />
+                <ui:NavigationViewItem
+                    Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_Tools}}"
+                    Icon="{ui:SymbolIcon Toolbox24}"
+                    TargetPageType="{x:Type tools:ToolsPage}" />
+                <ui:NavigationViewItem
+                    Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_Lab}}"
+                    Icon="{ui:SymbolIcon FormNew24}"
+                    TargetPageType="{x:Type lab:LabPage}"
+                    Visibility="{Binding ViewModel.ExperimentMode, Converter={StaticResource BoolToVisibility}}" />
+            </ui:NavigationView.MenuItems>
+            <ui:NavigationView.FooterMenuItems>
+                <ui:NavigationViewItem
+                    Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_Environment}}"
+                    Icon="{ui:SymbolIcon AlignSpaceEvenlyHorizontal20}"
+                    TargetPageType="{x:Type environment:EnvironmentPage}" />
+                <ui:NavigationViewItem
+                    Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_Settings}}"
+                    Icon="{ui:SymbolIcon Settings24}"
+                    TargetPageType="{x:Type settings:SettingsPage}" />
+                <ui:NavigationViewItem
+                    Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_About}}"
+                    Icon="{ui:SymbolIcon Info24}"
+                    TargetPageType="{x:Type about:AboutPage}" />
+            </ui:NavigationView.FooterMenuItems>
+        </ui:NavigationView>
+
+        <mask:MaskPresenter
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            x:Name="MaskPresenter" />
+
+        <overlay:OverlayPage Grid.Row="0" Grid.RowSpan="2" />
+
+        <ContentPresenter
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            x:Name="RootContentDialog" />
+
+        <ui:TitleBar
+            CloseWindowByDoubleClickOnIcon="True"
+            Grid.Row="0"
+            Title="{Binding ViewModel.ApplicationTitle}">
+            <ui:TitleBar.Icon>
+                <ui:ImageIcon Source="pack://application:,,,/Assets/icon.png" />
+            </ui:TitleBar.Icon>
+        </ui:TitleBar>
+
+        <!--  Strange Workaround  -->
+        <Grid
+            Background="{DynamicResource ApplicationBackgroundBrush}"
+            Grid.Row="0"
+            Margin="0,0,300,15"
+            Visibility="{Binding ViewModel.IsTitleBarCoverageGridVisible, Converter={StaticResource BoolToVisibility}}"
+            x:Name="TitleBarCoverageGrid" />
+
+        <tray:NotifyIcon
+            Focusable="False"
+            Grid.Row="0"
+            Icon="pack://application:,,,/Assets/icon.png"
+            MenuOnRightClick="True"
+            TooltipText="Pip Manager">
+            <tray:NotifyIcon.Menu>
+                <ContextMenu>
+                    <!--  ReSharper disable once Xaml.RedundantResource  -->
+                    <MenuItem Click="InstallMenuItem_OnClick" Header="{I18N {x:Static lang:LangKeys.TrayMenu_Install}}" />
+                </ContextMenu>
+            </tray:NotifyIcon.Menu>
+        </tray:NotifyIcon>
+    </Grid>
+</ui:FluentWindow>
