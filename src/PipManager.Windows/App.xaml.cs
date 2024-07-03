@@ -21,7 +21,6 @@ using PipManager.Windows.ViewModels.Pages.Environment;
 using PipManager.Windows.ViewModels.Pages.Lab;
 using PipManager.Windows.ViewModels.Pages.Library;
 using PipManager.Windows.ViewModels.Pages.Overlay;
-using PipManager.Windows.ViewModels.Pages.Scenario;
 using PipManager.Windows.ViewModels.Pages.Search;
 using PipManager.Windows.ViewModels.Pages.Tools;
 using PipManager.Windows.ViewModels.Windows;
@@ -31,17 +30,11 @@ using PipManager.Windows.Views.Pages.Environment;
 using PipManager.Windows.Views.Pages.Lab;
 using PipManager.Windows.Views.Pages.Library;
 using PipManager.Windows.Views.Pages.Overlay;
-using PipManager.Windows.Views.Pages.Scenario;
 using PipManager.Windows.Views.Pages.Search;
 using PipManager.Windows.Views.Pages.Settings;
 using PipManager.Windows.Views.Pages.Tools;
 using PipManager.Windows.Views.Windows;
 using Wpf.Ui;
-using AboutViewModel = PipManager.Windows.ViewModels.Pages.About.AboutViewModel;
-using ActionViewModel = PipManager.Windows.ViewModels.Pages.Action.ActionViewModel;
-using LibraryViewModel = PipManager.Windows.ViewModels.Pages.Library.LibraryViewModel;
-using SearchViewModel = PipManager.Windows.ViewModels.Pages.Search.SearchViewModel;
-using SettingsViewModel = PipManager.Windows.ViewModels.Pages.Settings.SettingsViewModel;
 
 namespace PipManager.Windows;
 
@@ -120,9 +113,6 @@ public partial class App
             
             services.AddSingleton<LabPage>();
             services.AddSingleton<LabViewModel>();
-            
-            services.AddSingleton<ScenarioPage>();
-            services.AddSingleton<ScenarioViewModel>();
 
             services.AddSingleton<EnvironmentPage>();
             services.AddSingleton<EnvironmentViewModel>();

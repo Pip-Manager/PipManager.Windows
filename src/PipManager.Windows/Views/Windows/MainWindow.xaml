@@ -30,7 +30,6 @@
     xmlns:mask="clr-namespace:PipManager.Windows.Controls.Mask"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:overlay="clr-namespace:PipManager.Windows.Views.Pages.Overlay"
-    xmlns:scenario="clr-namespace:PipManager.Windows.Views.Pages.Scenario"
     xmlns:search="clr-namespace:PipManager.Windows.Views.Pages.Search"
     xmlns:settings="clr-namespace:PipManager.Windows.Views.Pages.Settings"
     xmlns:tools="clr-namespace:PipManager.Windows.Views.Pages.Tools"
@@ -70,10 +69,6 @@
                     Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_Search}}"
                     Icon="{ui:SymbolIcon BoxSearch24}"
                     TargetPageType="{x:Type search:SearchPage}" />
-                <ui:NavigationViewItem
-                    Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_Scenario}}"
-                    Icon="{ui:SymbolIcon Backpack24}"
-                    TargetPageType="{x:Type scenario:ScenarioPage}" />
                 <ui:NavigationViewItem
                     Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_Tools}}"
                     Icon="{ui:SymbolIcon Toolbox24}"

@@ -768,7 +768,4 @@
   <data name="Library_Data_RefreshTimeUsage" xml:space="preserve">
     <value>用时 {0} 秒</value>
   </data>
-  <data name="MainWindow_NavigationContent_Scenario" xml:space="preserve">
-    <value>场景推荐</value>
-  </data>
 </root>
