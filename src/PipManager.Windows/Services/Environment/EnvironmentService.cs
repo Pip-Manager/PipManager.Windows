@@ -288,6 +288,17 @@ public partial class EnvironmentService(IConfigurationService configurationServi
             return false;
         }
     }
+
+    private static string ProcessErrorFilter(string error)
+    {
+        var errorBuilder = new StringBuilder();
+        foreach (var errorLine in error.Split('\n'))
+        {
+            if(!string.IsNullOrWhiteSpace(error) && !errorLine.Contains("[notice]"))
+                errorBuilder.Append(errorLine).Append('\n');
+        }
+        return errorBuilder.ToString().Trim();
+    }
     
     private ActionResponse RaiseProcess(string arguments, DataReceivedEventHandler consoleOutputCallback,
         string[]? extraParameters = null)
@@ -308,11 +319,12 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         BasicCommandProcess.OutputDataReceived += consoleOutputCallback;
         BasicCommandProcess.Start();
         BasicCommandProcess.BeginOutputReadLine();
-        var error = BasicCommandProcess.StandardError.ReadToEnd();
+        var error = ProcessErrorFilter(BasicCommandProcess.StandardError.ReadToEnd());
         BasicCommandProcess.WaitForExit();
         BasicCommandProcess.Close();
         BasicCommandProcess.Dispose();
-        return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.ProcessError, Message = error };
+        return new ActionResponse { Success = string.IsNullOrEmpty(error), Exception = ExceptionType.ProcessError, Message =
+           error };
     }
 
     #region Basic Command
