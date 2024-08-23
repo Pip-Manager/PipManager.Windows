@@ -16,10 +16,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:lang="clr-namespace:PipManager.Windows.Languages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:query="clr-namespace:PipManager.PackageSearch.Wrappers.Query;assembly=PipManager.PackageSearch"
     xmlns:search="clr-namespace:PipManager.Windows.Views.Pages.Search"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:query="clr-namespace:PipManager.Core.Wrappers.PackageSearchQueryWrapper;assembly=PipManager.Core">
 
     <Grid>
         <Grid.RowDefinitions>

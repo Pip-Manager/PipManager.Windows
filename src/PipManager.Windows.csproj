@@ -101,6 +101,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\PipManager.PackageSearch\PipManager.PackageSearch.csproj" />
+	  <ProjectReference Include="..\..\PipManager.Core\PipManager.Core.csproj" />
 	</ItemGroup>
 </Project>

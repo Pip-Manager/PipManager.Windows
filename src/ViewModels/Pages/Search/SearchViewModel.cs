@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using PipManager.PackageSearch;
-using PipManager.PackageSearch.Wrappers.Query;
 using Serilog;
 using System.Collections.ObjectModel;
+using PipManager.Core.Services.PackageSearchService;
+using PipManager.Core.Wrappers.PackageSearchQueryWrapper;
 using PipManager.Windows.Languages;
 using PipManager.Windows.Services.Mask;
 using PipManager.Windows.Services.Toast;

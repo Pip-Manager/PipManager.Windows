@@ -2,13 +2,13 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using PipManager.PackageSearch;
 using Serilog;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
+using PipManager.Core.Services.PackageSearchService;
 using PipManager.Windows.Services;
 using PipManager.Windows.Services.Action;
 using PipManager.Windows.Services.Configuration;

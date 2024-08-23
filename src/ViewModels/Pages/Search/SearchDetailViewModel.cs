@@ -1,12 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using HtmlAgilityPack;
 using Microsoft.Web.WebView2.Core;
-using PipManager.PackageSearch.Wrappers.Query;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Net.Http;
 using Microsoft.Win32;
+using PipManager.Core.Wrappers.PackageSearchQueryWrapper;
 using PipManager.Windows.Languages;
 using PipManager.Windows.Models.Action;
 using PipManager.Windows.Services.Action;
