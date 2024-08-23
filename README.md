@@ -33,9 +33,7 @@
 
 ---
 
-该项目处于早期开发阶段，存在大量Bug
-
-The project is in an early stage of development and has a lot of bugs
+该项目现已依赖[PipManager.Core](https://github.com/Pip-Manager/PipManager.Core)并逐渐迁移
 
 ---
 
