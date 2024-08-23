@@ -2,8 +2,8 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/AuroraZiling/PipManager">
-    <img src="https://raw.staticdn.net/Pip-Manager/Pip-Manager.github.io/main/docs/.vuepress/public/assets/icon.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/Pip-Manager/PipManager.Wpf">
+    <img src="https://raw.githubusercontent.com/Pip-Manager/PipManager.Wpf/main/src/PipManager/Assets/icon.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Pip Manager</h3>
@@ -14,11 +14,11 @@
     <a href="https://pipmanager.dev"><strong>Explore the docs (Chinese Simplified) »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/AuroraZiling/PipManager?tab=readme-ov-file#screenshots">Screenshots</a>
+    <a href="https://github.com/Pip-Manager/PipManager.Wpf?tab=readme-ov-file#screenshots">Screenshots</a>
     ·
-    <a href="https://github.com/AuroraZiling/PipManager/issues">Report Bug</a>
+    <a href="https://github.com/Pip-Manager/PipManager.Wpf/issues">Report Bug</a>
     ·
-    <a href="https://github.com/AuroraZiling/PipManager/pulls">Request Feature</a>
+    <a href="https://github.com/Pip-Manager/PipManager.Wpf/pulls">Request Feature</a>
   </p>
 </div>
 
@@ -33,9 +33,7 @@
 
 ---
 
-该项目处于早期开发阶段，存在大量Bug
-
-The project is in an early stage of development and has a lot of bugs
+该项目现已依赖[PipManager.Core](https://github.com/Pip-Manager/PipManager.Core)并逐渐迁移
 
 ---
 
@@ -50,7 +48,9 @@ Features:
 
 Easier operation of Pip is the goal of Pip Manager.
 
-### Technology Stack
+### Technology
+
+<img height="200" alt="language csharp" src="https://raw.githubusercontent.com/jonacruz89/SAWARATSUKI.ServiceLogos/main/C%23/C%23%20Purple.png"/>
 
 Pip Manager is based on the following technology stacks:
 
@@ -74,7 +74,7 @@ Double click `PipManager.exe` or `PipManager_withRuntime.exe` *If you have not i
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-See the [Open Issues](https://github.com/AuroraZiling/PipManager/issues) for a full list of proposed features (and known issues).
+See the [Open Issues](https://github.com/Pip-Manager/PipManager.Wpf/issues) for a full list of proposed features (and known issues).
 
 
 ## Contributing
@@ -89,16 +89,18 @@ See the [Open Issues](https://github.com/AuroraZiling/PipManager/issues) for a f
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
+Kawaii `C#` Logo in [Technology Stack](#technology-stack) is created by [SAWATSUKI](https://github.com/SAWARATSUKI)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-[github-downloads-shield]: https://img.shields.io/github/downloads/AuroraZiling/PipManager/total.svg?style=for-the-badge&color=blue
-[github-downloads-url]: https://github.com/AuroraZiling/PipManager/releases
-[stars-shield]: https://img.shields.io/github/stars/AuroraZiling/PipManager.svg?style=for-the-badge
-[stars-url]: https://github.com/AuroraZiling/PipManager/stargazers
-[issues-shield]: https://img.shields.io/github/issues/AuroraZiling/PipManager.svg?style=for-the-badge
-[issues-url]: https://github.com/AuroraZiling/PipManager/issues
-[license-shield]: https://img.shields.io/github/license/AuroraZiling/PipManager.svg?style=for-the-badge
-[license-url]: https://github.com/AuroraZiling/PipManager/blob/master/LICENSE.txt
+[github-downloads-shield]: https://img.shields.io/github/downloads/Pip-Manager/PipManager.Wpf/total.svg?style=for-the-badge&color=blue
+[github-downloads-url]: https://github.com/Pip-Manager/PipManager.Wpf/releases
+[stars-shield]: https://img.shields.io/github/stars/Pip-Manager/PipManager.Wpf.svg?style=for-the-badge
+[stars-url]: https://github.com/Pip-Manager/PipManager.Wpf/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Pip-Manager/PipManager.Wpf.svg?style=for-the-badge
+[issues-url]: https://github.com/Pip-Manager/PipManager.Wpf/issues
+[license-shield]: https://img.shields.io/github/license/Pip-Manager/PipManager.Wpf.svg?style=for-the-badge
+[license-url]: https://github.com/Pip-Manager/PipManager.Wpf/blob/master/LICENSE.txt
 [screenshot]: images/screenshot.png
 [.NET Core]: https://img.shields.io/badge/.NET_Core-512BD4?style=for-the-badge&logo=dotnet&logoColor=white
 [.NET-url]: https://dotnet.microsoft.com/

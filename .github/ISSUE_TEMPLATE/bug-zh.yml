@@ -10,8 +10,6 @@ body:
       options:
         - label: 我查找过相关的 Issue
           required: false
-        - label: 我阅读过[提问的艺术](https://github.com/betaseeker/How-To-Ask-Questions)
-          required: false
   - type: textarea
     id: description
     attributes:
@@ -24,7 +22,7 @@ body:
     attributes:
       label: 应用版本
       description: 请填写你正在使用的版本
-      placeholder: 如 0.0.0.1
+      placeholder: 如 0.0.1
     validations:
       required: true
   - type: input

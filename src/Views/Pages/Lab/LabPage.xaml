@@ -1,0 +1,18 @@
+<Page
+    FontFamily="/PipManager.Windows;component/Resources/Fonts/MiSans-Regular.ttf#MiSans"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Title="LabPage"
+    d:DataContext="{d:DesignInstance lab:LabPage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="700"
+    d:DesignWidth="1200"
+    mc:Ignorable="d"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    x:Class="PipManager.Windows.Views.Pages.Lab.LabPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lab="clr-namespace:PipManager.Windows.Views.Pages.Lab"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" />

@@ -1,0 +1,771 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainWindow_NavigationContent_About" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="MainWindow_NavigationContent_Library" xml:space="preserve">
+    <value>库</value>
+  </data>
+  <data name="MainWindow_NavigationContent_Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="MainWindow_NavigationContent_Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Settings_Category_Personalization" xml:space="preserve">
+    <value>个性化</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_Language" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_Theme" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="Settings_PersonalizationTheme_Light" xml:space="preserve">
+    <value>亮色</value>
+  </data>
+  <data name="Settings_PersonalizationTheme_Dark" xml:space="preserve">
+    <value>暗色</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_LogAutoDeletion" xml:space="preserve">
+    <value>日志自动删除</value>
+  </data>
+  <data name="Settings_PersonalizationLogAutoDeletion_Tip" xml:space="preserve">
+    <value>日志文件超过 {0} 个后会被删除</value>
+  </data>
+  <data name="Settings_PersonalizationCrushesAutoDeletion_Tip" xml:space="preserve">
+    <value>崩溃记录文件超过 {0} 个后会被删除</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_CrushesAutoDeletion" xml:space="preserve">
+    <value>崩溃记录自动删除</value>
+  </data>
+  <data name="TrayMenu_Install" xml:space="preserve">
+    <value>安装包</value>
+  </data>
+  <data name="Common_NoticeTitle_Caution" xml:space="preserve">
+    <value>提示</value>
+  </data>
+  <data name="Snackbar_effectAfterRestart" xml:space="preserve">
+    <value>更改将在应用重启后生效</value>
+  </data>
+  <data name="MainWindow_NavigationContent_Tools" xml:space="preserve">
+    <value>工具箱</value>
+  </data>
+  <data name="About_MoreInformation" xml:space="preserve">
+    <value>更多信息</value>
+  </data>
+  <data name="Settings_Category_FileManagement" xml:space="preserve">
+    <value>文件管理</value>
+  </data>
+  <data name="Settings_FileManagement_OpenAppDir" xml:space="preserve">
+    <value>打开应用文件夹</value>
+  </data>
+  <data name="Settings_FileManagement_OpenCrushesDir" xml:space="preserve">
+    <value>打开崩溃记录文件夹</value>
+  </data>
+  <data name="Settings_FileManagement_OpenLogDir" xml:space="preserve">
+    <value>打开日志文件夹</value>
+  </data>
+  <data name="Settings_FileManagement_ResetConfig" xml:space="preserve">
+    <value>重置所有设置</value>
+  </data>
+  <data name="Settings_FileManagement_ResetConfig_DialogContent" xml:space="preserve">
+    <value>此操作会删除所有应用相关设置。你确定要继续执行吗？</value>
+  </data>
+  <data name="ContentDialog_Title_AreYouSure" xml:space="preserve">
+    <value>操作警告</value>
+  </data>
+  <data name="ContentDialog_PrimaryButton_Action" xml:space="preserve">
+    <value>执行</value>
+  </data>
+  <data name="ContentDialog_CloseButton_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Settings_FileManagement_CrushesDirNotFound" xml:space="preserve">
+    <value>崩溃记录文件夹不存在</value>
+  </data>
+  <data name="MainWindow_NavigationContent_Environment" xml:space="preserve">
+    <value>环境</value>
+  </data>
+  <data name="Environment_Operation_AddEnvironment" xml:space="preserve">
+    <value>添加环境</value>
+  </data>
+  <data name="Environment_Operation_RemoveEnvironment" xml:space="preserve">
+    <value>从列表中移除</value>
+  </data>
+  <data name="Environment_Operation_VerifyEnvironment" xml:space="preserve">
+    <value>验证可用性</value>
+  </data>
+  <data name="Settings_Category_PackageSource" xml:space="preserve">
+    <value>包源</value>
+  </data>
+  <data name="Settings_PackageSource_Aliyun" xml:space="preserve">
+    <value>阿里源</value>
+  </data>
+  <data name="Settings_PackageSource_Douban" xml:space="preserve">
+    <value>豆瓣源</value>
+  </data>
+  <data name="Settings_PackageSource_Official" xml:space="preserve">
+    <value>PyPI 官方源</value>
+  </data>
+  <data name="Settings_PackageSource_Tsinghua" xml:space="preserve">
+    <value>清华源</value>
+  </data>
+  <data name="Settings_PackageSource_NetworkTest" xml:space="preserve">
+    <value>网络测试</value>
+  </data>
+  <data name="Settings_PackageSource_NetworkTesting" xml:space="preserve">
+    <value>测试中</value>
+  </data>
+  <data name="Settings_PackageSource_NetworkTestFailed" xml:space="preserve">
+    <value>网络异常</value>
+  </data>
+  <data name="Common_NoticeTitle_Notice" xml:space="preserve">
+    <value>提示</value>
+  </data>
+  <data name="Settings_PackageSource_Notice" xml:space="preserve">
+    <value>如果你身处中国大陆境内，建议选择非PyPI源</value>
+  </data>
+  <data name="EnvironmentAdd_Header" xml:space="preserve">
+    <value>添加环境</value>
+  </data>
+  <data name="EnvironmentAdd_EnvironmentVariable_Header" xml:space="preserve">
+    <value>检测到以下环境</value>
+  </data>
+  <data name="Common_Button_Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="Common_Button_Add" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="EnvironmentAdd_PipCommand_Label" xml:space="preserve">
+    <value>输入 Pip 命令</value>
+  </data>
+  <data name="EnvironmentAdd_PipCommand_Notice" xml:space="preserve">
+    <value>如果使用 "pip install"，请在框中输入 "pip"。同样，如果使用 "pip3.11 install"，请输入 "pip3.11"。</value>
+  </data>
+  <data name="EnvironmentAdd_PythonPath_Label" xml:space="preserve">
+    <value>输入 python.exe 的绝对路径</value>
+  </data>
+  <data name="Common_Button_Browse" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="EnvironmentAdd_EnvironmentVariable_Title" xml:space="preserve">
+    <value>通过环境变量获取</value>
+  </data>
+  <data name="EnvironmentAdd_PipCommand_Title" xml:space="preserve">
+    <value>通过 Pip 命令获取</value>
+  </data>
+  <data name="EnvironmentAdd_PythonPath_Title" xml:space="preserve">
+    <value>通过 Python.exe 路径获取</value>
+  </data>
+  <data name="ContentDialog_Title_Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="ContentDialog_Message_EnvironmentAlreadyExists" xml:space="preserve">
+    <value>环境已存在</value>
+  </data>
+  <data name="ContentDialog_Message_EnvironmentNoSelection" xml:space="preserve">
+    <value>你没有选择环境</value>
+  </data>
+  <data name="EnvironmentAdd_EnvironmentVariable_NotFound" xml:space="preserve">
+    <value>未发现环境</value>
+  </data>
+  <data name="ContentDialog_Title_Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="ContentDialog_Message_EnvironmentDeletion" xml:space="preserve">
+    <value>该环境将被从列表中移除</value>
+  </data>
+  <data name="ContentDialog_Message_EnvironmentInvaild" xml:space="preserve">
+    <value>添加环境时出错</value>
+  </data>
+  <data name="ContentDialog_Title_Success" xml:space="preserve">
+    <value>成功</value>
+  </data>
+  <data name="ContentDialog_Message_EnvironmentCheckPassed" xml:space="preserve">
+    <value>环境可用</value>
+  </data>
+  <data name="ContentDialog_Message_EnvironmentCheckFailed" xml:space="preserve">
+    <value>环境不可用</value>
+  </data>
+  <data name="ContentDialog_PrimaryButton_EnvironmentDeletion" xml:space="preserve">
+    <value>移除环境</value>
+  </data>
+  <data name="Library_Operation_Install" xml:space="preserve">
+    <value>安装</value>
+  </data>
+  <data name="Library_Operation_Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Library_Operation_CheckUpdate" xml:space="preserve">
+    <value>检查更新</value>
+  </data>
+  <data name="Library_Data_PackageFound" xml:space="preserve">
+    <value>已安装 {0} 个包</value>
+  </data>
+  <data name="About_Document" xml:space="preserve">
+    <value>文档</value>
+  </data>
+  <data name="About_GithubRepo" xml:space="preserve">
+    <value>Github 仓库</value>
+  </data>
+  <data name="About_GithubIssue" xml:space="preserve">
+    <value>前往 Github 反馈</value>
+  </data>
+  <data name="About_GithubDiscussion" xml:space="preserve">
+    <value>前往 Github 讨论</value>
+  </data>
+  <data name="About_MoreInformation_OpenSourceLicense" xml:space="preserve">
+    <value>开源许可</value>
+  </data>
+  <data name="About_MoreInformation_Privacy" xml:space="preserve">
+    <value>隐私信息</value>
+  </data>
+  <data name="About_MoreInformation_PrivacyLine3" xml:space="preserve">
+    <value>Pip Manager 不会修改注册表。</value>
+  </data>
+  <data name="About_MoreInformation_PrivacyLine2" xml:space="preserve">
+    <value>Pip Manager 的所有数据收集在本地，且存放在程序目录下的config.json文件中。</value>
+  </data>
+  <data name="About_MoreInformation_PrivacyLine1" xml:space="preserve">
+    <value>Pip Manager 不会上传您的任何信息。</value>
+  </data>
+  <data name="Library_Error_NoEnvironment" xml:space="preserve">
+    <value>未选择环境</value>
+  </data>
+  <data name="Library_Error_AddEnvironment" xml:space="preserve">
+    <value>添加环境</value>
+  </data>
+  <data name="Library_Data_SelectedItemsCount" xml:space="preserve">
+    <value>已选中 {0} 个包</value>
+  </data>
+  <data name="ContentDialog_Message_LibraryDeletionWarning" xml:space="preserve">
+    <value>将从环境中移除：</value>
+  </data>
+  <data name="MainWindow_NavigationContent_Action" xml:space="preserve">
+    <value>任务</value>
+  </data>
+  <data name="Action_Command" xml:space="preserve">
+    <value>命令</value>
+  </data>
+  <data name="Action_CurrentStatus" xml:space="preserve">
+    <value>当前状态</value>
+  </data>
+  <data name="Action_Operation_Uninstall" xml:space="preserve">
+    <value>删除操作</value>
+  </data>
+  <data name="Environment_Operation_CheckEnvironmentUpdate" xml:space="preserve">
+    <value>检查更新</value>
+  </data>
+  <data name="ContentDialog_Message_FindUpdate" xml:space="preserve">
+    <value>检测到新版本，是否更新？</value>
+  </data>
+  <data name="ContentDialog_Title_Notice" xml:space="preserve">
+    <value>提示</value>
+  </data>
+  <data name="Action_Operation_Update" xml:space="preserve">
+    <value>更新操作</value>
+  </data>
+  <data name="ContentDialog_Message_EnvironmentIsLatest" xml:space="preserve">
+    <value>无需更新</value>
+  </data>
+  <data name="ExceptionWindow_Title" xml:space="preserve">
+    <value>Pip Manager - 异常</value>
+  </data>
+  <data name="Mask_Loading" xml:space="preserve">
+    <value>加载中...</value>
+  </data>
+  <data name="LibraryDetail_Header" xml:space="preserve">
+    <value>详情</value>
+  </data>
+  <data name="LibraryDetail_Unknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="LibraryDetail_Classifier_DevelopmentStatus" xml:space="preserve">
+    <value>开发状态</value>
+  </data>
+  <data name="LibraryDetail_Classifier_ProgrammingLanguage" xml:space="preserve">
+    <value>编程语言支持</value>
+  </data>
+  <data name="LibraryDetail_Classifier_OperatingSystem" xml:space="preserve">
+    <value>操作系统支持</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience" xml:space="preserve">
+    <value>受众</value>
+  </data>
+  <data name="LibraryDetail_Package" xml:space="preserve">
+    <value>包名</value>
+  </data>
+  <data name="LibraryDetail_Version" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="LibraryDetail_Path" xml:space="preserve">
+    <value>本地路径</value>
+  </data>
+  <data name="LibraryDetail_Summary" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_Developers" xml:space="preserve">
+    <value>开发者</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_Education" xml:space="preserve">
+    <value>教育</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_EndUsersDesktop" xml:space="preserve">
+    <value>最终用户和桌面端</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_FinancialAndInsuranceIndustry" xml:space="preserve">
+    <value>金融和保险业</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_HealthcareIndustry" xml:space="preserve">
+    <value>医疗保健行业</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_InformationTechonology" xml:space="preserve">
+    <value>信息技术</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_LegalIndustry" xml:space="preserve">
+    <value>法律行业</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_Manufacturing" xml:space="preserve">
+    <value>制造业</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_OtherAudience" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_Religion" xml:space="preserve">
+    <value>宗教</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_ScienceResearch" xml:space="preserve">
+    <value>科研</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_SystemAdministrators" xml:space="preserve">
+    <value>系统管理</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_TelecommunicationsIndustry" xml:space="preserve">
+    <value>通信行业</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_CustomerService" xml:space="preserve">
+    <value>客户服务</value>
+  </data>
+  <data name="LibraryDetail_Classifier_OperatingSystem_OSIndependent" xml:space="preserve">
+    <value>与操作系统无关</value>
+  </data>
+  <data name="Library_Operation_Details" xml:space="preserve">
+    <value>查看详情</value>
+  </data>
+  <data name="LibraryDetail_Classifier_Environment" xml:space="preserve">
+    <value>适用环境</value>
+  </data>
+  <data name="LibraryDetail_Classifier_Topic" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="LibraryDetail_Contact_Author" xml:space="preserve">
+    <value>作者</value>
+  </data>
+  <data name="LibraryDetail_Contact_AuthorEmail" xml:space="preserve">
+    <value>邮箱</value>
+  </data>
+  <data name="LibraryDetail_Contact_ProjectUrl" xml:space="preserve">
+    <value>项目地址</value>
+  </data>
+  <data name="Library_CheckUpdate_Current" xml:space="preserve">
+    <value>当前版本: {0}</value>
+  </data>
+  <data name="Library_CheckUpdate_Latest" xml:space="preserve">
+    <value>最新版本: {0}</value>
+  </data>
+  <data name="ContentDialog_Message_PackageIsLatest" xml:space="preserve">
+    <value>均是最新版本</value>
+  </data>
+  <data name="Action_ConsoleOutput" xml:space="preserve">
+    <value>控制台输出</value>
+  </data>
+  <data name="Action_ConsoleError" xml:space="preserve">
+    <value>错误信息</value>
+  </data>
+  <data name="Action_ConsoleError_Empty" xml:space="preserve">
+    <value>暂未发现错误</value>
+  </data>
+  <data name="Action_Completed" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="Action_IssueDetected" xml:space="preserve">
+    <value>出错</value>
+  </data>
+  <data name="ContentDialog_Message_NetworkError" xml:space="preserve">
+    <value>网络异常</value>
+  </data>
+  <data name="ContentDialog_Message_ActionStillRunning" xml:space="preserve">
+    <value>后台任务仍在运行。您确认退出软件吗？</value>
+  </data>
+  <data name="Library_Version_Pre" xml:space="preserve">
+    <value>不稳定</value>
+  </data>
+  <data name="Library_Version_Post" xml:space="preserve">
+    <value>发布后修补</value>
+  </data>
+  <data name="Library_Version_Dev" xml:space="preserve">
+    <value>开发版</value>
+  </data>
+  <data name="MainWindow_NavigationContent_Lab" xml:space="preserve">
+    <value>实验室</value>
+  </data>
+  <data name="Action_Button_Exceptions" xml:space="preserve">
+    <value>查看异常</value>
+  </data>
+  <data name="Action_NoCurrentOperations" xml:space="preserve">
+    <value>暂无任务</value>
+  </data>
+  <data name="ActionException_Badge_Timestamp" xml:space="preserve">
+    <value>执行时间</value>
+  </data>
+  <data name="Action_IssueDetectedToast" xml:space="preserve">
+    <value>在执行任务中发现异常</value>
+  </data>
+  <data name="ActionException_CopyToClipboard" xml:space="preserve">
+    <value>复制到剪贴板</value>
+  </data>
+  <data name="ActionException_Exception" xml:space="preserve">
+    <value>异常</value>
+  </data>
+  <data name="Action_Operation_Install" xml:space="preserve">
+    <value>安装操作</value>
+  </data>
+  <data name="Action_AddOperation_Toast" xml:space="preserve">
+    <value>新增了{0}个任务</value>
+  </data>
+  <data name="LibraryInstall_Header" xml:space="preserve">
+    <value>安装</value>
+  </data>
+  <data name="LibraryInstall_Add_Notice" xml:space="preserve">
+    <value>输入包名</value>
+  </data>
+  <data name="LibraryInstall_Add_AlreadyInList" xml:space="preserve">
+    <value>该包在列表中，无需添加</value>
+  </data>
+  <data name="LibraryInstall_Add_AlreadyInstalled" xml:space="preserve">
+    <value>该包已安装</value>
+  </data>
+  <data name="LibraryInstall_Add_Verifying" xml:space="preserve">
+    <value>验证中</value>
+  </data>
+  <data name="LibraryInstall_Add_PackageNotFound" xml:space="preserve">
+    <value>该包不存在</value>
+  </data>
+  <data name="LibraryInstall_List_VersionSpecified" xml:space="preserve">
+    <value>指定版本</value>
+  </data>
+  <data name="LibraryInstall_List_DefaultVersion" xml:space="preserve">
+    <value>将会安装最新的兼容版本</value>
+  </data>
+  <data name="LibraryInstall_Add_InvalidPackageName" xml:space="preserve">
+    <value>包名不符合 PEP 508</value>
+  </data>
+  <data name="Development_Developing" xml:space="preserve">
+    <value>开发中</value>
+  </data>
+  <data name="Action_Operation_InstallByRequirements" xml:space="preserve">
+    <value>通过 requirements.txt 安装</value>
+  </data>
+  <data name="Action_CurrentStatus_WaitingInQueue" xml:space="preserve">
+    <value>等待执行</value>
+  </data>
+  <data name="LibraryInstall_Add_Header" xml:space="preserve">
+    <value>默认</value>
+  </data>
+  <data name="LibraryInstall_Requirements_Header" xml:space="preserve">
+    <value>requirements.txt 导入</value>
+  </data>
+  <data name="LibraryInstall_Download_Header" xml:space="preserve">
+    <value>下载发行文件</value>
+  </data>
+  <data name="LibraryInstall_Requirements_DownloadDependencies" xml:space="preserve">
+    <value>下载依赖包</value>
+  </data>
+  <data name="LibraryInstall_Requirements_DownloadFolder" xml:space="preserve">
+    <value>下载文件夹</value>
+  </data>
+  <data name="Action_Operation_Download" xml:space="preserve">
+    <value>下载操作</value>
+  </data>
+  <data name="Search_VersionSpecified" xml:space="preserve">
+    <value>指定版本</value>
+  </data>
+  <data name="Search_DefaultVersion" xml:space="preserve">
+    <value>默认选择最新的兼容版本</value>
+  </data>
+  <data name="LibraryInstall_Requirements_Download" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="Search_List_NoDescription" xml:space="preserve">
+    <value>暂无描述</value>
+  </data>
+  <data name="Search_List_UpdateTime" xml:space="preserve">
+    <value>最后更新于: </value>
+  </data>
+  <data name="Search_List_TotalResultNumber" xml:space="preserve">
+    <value>约 {0} 个结果</value>
+  </data>
+  <data name="Search_Query_NoResults" xml:space="preserve">
+    <value>无结果</value>
+  </data>
+  <data name="Search_Query_Timeout" xml:space="preserve">
+    <value>查询超时</value>
+  </data>
+  <data name="EnvironmentCheckEnvironmentUpdate_CurrentVersion" xml:space="preserve">
+    <value>当前版本: </value>
+  </data>
+  <data name="EnvironmentCheckEnvironmentUpdate_LatestVersion" xml:space="preserve">
+    <value>最新版本: </value>
+  </data>
+  <data name="Search_Operation_Details" xml:space="preserve">
+    <value>查看详情</value>
+  </data>
+  <data name="SearchDetail_Header" xml:space="preserve">
+    <value>详情</value>
+  </data>
+  <data name="SearchDetail_ProjectDescription_LoadFailed" xml:space="preserve">
+    <value>无法在线获取项目描述</value>
+  </data>
+  <data name="Settings_FileManagement_WebViewSettings_ClearCache" xml:space="preserve">
+    <value>清除 WebView2 缓存</value>
+  </data>
+  <data name="Settings_FileManagement_WebViewSettings_CacheCleared" xml:space="preserve">
+    <value>缓存已清除</value>
+  </data>
+  <data name="Settings_FileManagement_WebViewSettings_CacheIsUsing" xml:space="preserve">
+    <value>WebView仍在使用，无法清除缓存</value>
+  </data>
+  <data name="SearchDetail_DownloadDistributions" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="SearchDetail_Install" xml:space="preserve">
+    <value>安装</value>
+  </data>
+  <data name="SearchDetail_Install_CannotGetLibraries" xml:space="preserve">
+    <value>无法获取已安装的包列表</value>
+  </data>
+  <data name="Settings_PackageSource_Subtitle" xml:space="preserve">
+    <value>通过PyPI或其他镜像站安装、下载包</value>
+  </data>
+  <data name="SearchDetail_LatestUpdatedTime" xml:space="preserve">
+    <value>更新时间:</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_Language_Subtitle" xml:space="preserve">
+    <value>设置语言</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_Theme_Subtitle" xml:space="preserve">
+    <value>设置窗口主题色</value>
+  </data>
+  <data name="Settings_Category_Package" xml:space="preserve">
+    <value>包</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_LogAutoDeletion_Subtitle" xml:space="preserve">
+    <value>设置日志文件数量限制</value>
+  </data>
+  <data name="Settings_FileManagement_WebViewSettings_ClearCache_Subtitle" xml:space="preserve">
+    <value>清空用于如搜索页面的 WebView2 缓存</value>
+  </data>
+  <data name="Settings_FileManagement_ResetConfig_Subtitle" xml:space="preserve">
+    <value>所有配置项 (config.json) 将被恢复到初始状态</value>
+  </data>
+  <data name="ActionException_Operation" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="ActionException_BingSearch" xml:space="preserve">
+    <value>必应搜索</value>
+  </data>
+  <data name="ActionException_GoogleSearch" xml:space="preserve">
+    <value>谷歌搜索</value>
+  </data>
+  <data name="ActionException_CopyToClipboardNotice" xml:space="preserve">
+    <value>已复制</value>
+  </data>
+  <data name="Action_OperationCanceled_Success" xml:space="preserve">
+    <value>任务已取消</value>
+  </data>
+  <data name="Action_OperationCanceled_Failed" xml:space="preserve">
+    <value>任务终止失败</value>
+  </data>
+  <data name="Action_Operation_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_IOError" xml:space="preserve">
+    <value>在读取文件时出现错误，检查文件是否被占用</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_InvalidFile" xml:space="preserve">
+    <value>该发行文件不可用</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_AlreadyExists" xml:space="preserve">
+    <value>该发行文件已在列表中</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_Header" xml:space="preserve">
+    <value>通过发行文件安装</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_InstallDependencies" xml:space="preserve">
+    <value>安装依赖包</value>
+  </data>
+  <data name="Environment_Operation_ClearEnvironmentCache" xml:space="preserve">
+    <value>清除缓存</value>
+  </data>
+  <data name="ContentDialog_Message_CacheCleared" xml:space="preserve">
+    <value>已清除 {0} 个缓存文件</value>
+  </data>
+  <data name="ContentDialog_Message_CacheClearFailed" xml:space="preserve">
+    <value>清除缓存失败</value>
+  </data>
+  <data name="Dialog_Title_DownloadDistributions" xml:space="preserve">
+    <value>打开下载文件夹</value>
+  </data>
+  <data name="Overlay_Title_PackageUpdate" xml:space="preserve">
+    <value>发现新版本</value>
+  </data>
+  <data name="Overlay_Button_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Overlay_Button_Update" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="SearchDetail_Exception_NetworkError" xml:space="preserve">
+    <value>网络请求错误</value>
+  </data>
+  <data name="LibraryDetail_Dependency_Header" xml:space="preserve">
+    <value>依赖包</value>
+  </data>
+  <data name="LibraryDetail_Dependency_Empty" xml:space="preserve">
+    <value>没有所需的依赖包</value>
+  </data>
+  <data name="LibraryDetail_Dependency_Caption" xml:space="preserve">
+    <value>找到 {0} 个依赖包</value>
+  </data>
+  <data name="Settings_DetectNonReleaseVersion" xml:space="preserve">
+    <value>检测测试版本</value>
+  </data>
+  <data name="Settings_DetectNonReleaseVersion_Subtitle" xml:space="preserve">
+    <value>Alpha、Beta等测试版本的包将不会被忽略</value>
+  </data>
+  <data name="LibraryDetail_Toast_PackageNotFound" xml:space="preserve">
+    <value>未在库中找到该依赖</value>
+  </data>
+  <data name="Library_Data_RefreshTimeUsage" xml:space="preserve">
+    <value>用时 {0} 秒</value>
+  </data>
+</root>

@@ -1,0 +1,771 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainWindow_NavigationContent_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="MainWindow_NavigationContent_Library" xml:space="preserve">
+    <value>Library</value>
+  </data>
+  <data name="MainWindow_NavigationContent_Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="MainWindow_NavigationContent_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Settings_Category_Personalization" xml:space="preserve">
+    <value>Personalization</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="Settings_PersonalizationTheme_Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Settings_PersonalizationTheme_Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_LogAutoDeletion" xml:space="preserve">
+    <value>Log Auto Deletion</value>
+  </data>
+  <data name="Settings_PersonalizationLogAutoDeletion_Tip" xml:space="preserve">
+    <value>Log files will be deleted after more than {0} items</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_CrushesAutoDeletion" xml:space="preserve">
+    <value>Crushes Auto Deletion</value>
+  </data>
+  <data name="Settings_PersonalizationCrushesAutoDeletion_Tip" xml:space="preserve">
+    <value>Crush files will be deleted after more than {0} items</value>
+  </data>
+  <data name="TrayMenu_Install" xml:space="preserve">
+    <value>Install Package</value>
+  </data>
+  <data name="Common_NoticeTitle_Caution" xml:space="preserve">
+    <value>Caution</value>
+  </data>
+  <data name="Snackbar_effectAfterRestart" xml:space="preserve">
+    <value>Changes will take effect after the application is restarted</value>
+  </data>
+  <data name="MainWindow_NavigationContent_Tools" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="About_MoreInformation" xml:space="preserve">
+    <value>More Information</value>
+  </data>
+  <data name="Settings_Category_FileManagement" xml:space="preserve">
+    <value>File Management</value>
+  </data>
+  <data name="Settings_FileManagement_OpenAppDir" xml:space="preserve">
+    <value>Open App Folder</value>
+  </data>
+  <data name="Settings_FileManagement_OpenLogDir" xml:space="preserve">
+    <value>Open Log Folder</value>
+  </data>
+  <data name="Settings_FileManagement_OpenCrushesDir" xml:space="preserve">
+    <value>Open Crushes Folder</value>
+  </data>
+  <data name="Settings_FileManagement_ResetConfig" xml:space="preserve">
+    <value>Reset Config</value>
+  </data>
+  <data name="Settings_FileManagement_ResetConfig_DialogContent" xml:space="preserve">
+    <value>This action will delete all app-related settings. Are you sure you want to keep going with this?</value>
+  </data>
+  <data name="ContentDialog_Title_AreYouSure" xml:space="preserve">
+    <value>Operation Warning</value>
+  </data>
+  <data name="ContentDialog_PrimaryButton_Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="ContentDialog_CloseButton_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Settings_FileManagement_CrushesDirNotFound" xml:space="preserve">
+    <value>Crushes folder not found</value>
+  </data>
+  <data name="MainWindow_NavigationContent_Environment" xml:space="preserve">
+    <value>Environment</value>
+  </data>
+  <data name="Environment_Operation_AddEnvironment" xml:space="preserve">
+    <value>Add Environment</value>
+  </data>
+  <data name="Environment_Operation_RemoveEnvironment" xml:space="preserve">
+    <value>Remove from list</value>
+  </data>
+  <data name="Environment_Operation_VerifyEnvironment" xml:space="preserve">
+    <value>Verify Availability</value>
+  </data>
+  <data name="Settings_Category_PackageSource" xml:space="preserve">
+    <value>Package Source</value>
+  </data>
+  <data name="Settings_PackageSource_Official" xml:space="preserve">
+    <value>PyPI Official</value>
+  </data>
+  <data name="Settings_PackageSource_Tsinghua" xml:space="preserve">
+    <value>Tsinghua</value>
+  </data>
+  <data name="Settings_PackageSource_Aliyun" xml:space="preserve">
+    <value>Aliyun</value>
+  </data>
+  <data name="Settings_PackageSource_Douban" xml:space="preserve">
+    <value>Douban</value>
+  </data>
+  <data name="Settings_PackageSource_NetworkTest" xml:space="preserve">
+    <value>Test Network</value>
+  </data>
+  <data name="Settings_PackageSource_NetworkTesting" xml:space="preserve">
+    <value>Testing</value>
+  </data>
+  <data name="Settings_PackageSource_NetworkTestFailed" xml:space="preserve">
+    <value>Network Error</value>
+  </data>
+  <data name="Common_NoticeTitle_Notice" xml:space="preserve">
+    <value>Notice</value>
+  </data>
+  <data name="Settings_PackageSource_Notice" xml:space="preserve">
+    <value>If you are in mainland China, we recommend choosing a non-PyPI source</value>
+  </data>
+  <data name="EnvironmentAdd_Header" xml:space="preserve">
+    <value>Add Environment</value>
+  </data>
+  <data name="EnvironmentAdd_EnvironmentVariable_Header" xml:space="preserve">
+    <value>Detected Environment</value>
+  </data>
+  <data name="Common_Button_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Common_Button_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="EnvironmentAdd_PipCommand_Label" xml:space="preserve">
+    <value>Enter Pip command</value>
+  </data>
+  <data name="EnvironmentAdd_PipCommand_Notice" xml:space="preserve">
+    <value>If you are using "pip install", type "pip" in the box. Similarly, for "pip3.11 install", type "pip3.11".</value>
+  </data>
+  <data name="EnvironmentAdd_PythonPath_Label" xml:space="preserve">
+    <value>Enter the absolute path of python.exe</value>
+  </data>
+  <data name="Common_Button_Browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="EnvironmentAdd_EnvironmentVariable_Title" xml:space="preserve">
+    <value>Environment Variables</value>
+  </data>
+  <data name="EnvironmentAdd_PipCommand_Title" xml:space="preserve">
+    <value>Pip Command</value>
+  </data>
+  <data name="EnvironmentAdd_PythonPath_Title" xml:space="preserve">
+    <value>Python Executable Path</value>
+  </data>
+  <data name="ContentDialog_Title_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ContentDialog_Message_EnvironmentAlreadyExists" xml:space="preserve">
+    <value>Environment already exists</value>
+  </data>
+  <data name="ContentDialog_Message_EnvironmentNoSelection" xml:space="preserve">
+    <value>You didn't choose an environment</value>
+  </data>
+  <data name="EnvironmentAdd_EnvironmentVariable_NotFound" xml:space="preserve">
+    <value>Can't find any environment</value>
+  </data>
+  <data name="ContentDialog_Title_Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="ContentDialog_Message_EnvironmentDeletion" xml:space="preserve">
+    <value>The environment will be removed from the list</value>
+  </data>
+  <data name="ContentDialog_Message_EnvironmentInvaild" xml:space="preserve">
+    <value>Error in adding environment</value>
+  </data>
+  <data name="ContentDialog_Title_Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="ContentDialog_Message_EnvironmentCheckPassed" xml:space="preserve">
+    <value>Environment available</value>
+  </data>
+  <data name="ContentDialog_Message_EnvironmentCheckFailed" xml:space="preserve">
+    <value>Environment not available</value>
+  </data>
+  <data name="ContentDialog_PrimaryButton_EnvironmentDeletion" xml:space="preserve">
+    <value>Remove Environment</value>
+  </data>
+  <data name="Library_Operation_Install" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="Library_Operation_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Library_Operation_CheckUpdate" xml:space="preserve">
+    <value>Check Update</value>
+  </data>
+  <data name="Library_Data_PackageFound" xml:space="preserve">
+    <value>{0} package(s) found</value>
+  </data>
+  <data name="About_Document" xml:space="preserve">
+    <value>Document</value>
+  </data>
+  <data name="About_GithubRepo" xml:space="preserve">
+    <value>Github Repo</value>
+  </data>
+  <data name="About_GithubIssue" xml:space="preserve">
+    <value>Github Issue</value>
+  </data>
+  <data name="About_GithubDiscussion" xml:space="preserve">
+    <value>Github Discussion</value>
+  </data>
+  <data name="About_MoreInformation_OpenSourceLicense" xml:space="preserve">
+    <value>Open Source License</value>
+  </data>
+  <data name="About_MoreInformation_Privacy" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="About_MoreInformation_PrivacyLine1" xml:space="preserve">
+    <value>Pip Manager will not upload any of your information.</value>
+  </data>
+  <data name="About_MoreInformation_PrivacyLine2" xml:space="preserve">
+    <value>Pip Manager collects all data locally and stores it in the config.json file in the application directory.</value>
+  </data>
+  <data name="About_MoreInformation_PrivacyLine3" xml:space="preserve">
+    <value>Pip Manager does not modify the registry.</value>
+  </data>
+  <data name="Library_Error_NoEnvironment" xml:space="preserve">
+    <value>No Environment</value>
+  </data>
+  <data name="Library_Error_AddEnvironment" xml:space="preserve">
+    <value>Add environment</value>
+  </data>
+  <data name="Library_Data_SelectedItemsCount" xml:space="preserve">
+    <value>{0} item(s) selected</value>
+  </data>
+  <data name="ContentDialog_Message_LibraryDeletionWarning" xml:space="preserve">
+    <value>Following packages will be removed from the environment:</value>
+  </data>
+  <data name="MainWindow_NavigationContent_Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Action_Command" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="Action_CurrentStatus" xml:space="preserve">
+    <value>Current Status</value>
+  </data>
+  <data name="Action_Operation_Uninstall" xml:space="preserve">
+    <value>Package Uninstallation</value>
+  </data>
+  <data name="Environment_Operation_CheckEnvironmentUpdate" xml:space="preserve">
+    <value>Check Update</value>
+  </data>
+  <data name="ContentDialog_Message_FindUpdate" xml:space="preserve">
+    <value>New version detected. Update now?</value>
+  </data>
+  <data name="ContentDialog_Title_Notice" xml:space="preserve">
+    <value>Notice</value>
+  </data>
+  <data name="Action_Operation_Update" xml:space="preserve">
+    <value>Package Update</value>
+  </data>
+  <data name="ContentDialog_Message_EnvironmentIsLatest" xml:space="preserve">
+    <value>The environment is up to date</value>
+  </data>
+  <data name="ExceptionWindow_Title" xml:space="preserve">
+    <value>Pip Manager - Unexpected Exception</value>
+  </data>
+  <data name="Mask_Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="LibraryDetail_Header" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="LibraryDetail_Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="LibraryDetail_Classifier_DevelopmentStatus" xml:space="preserve">
+    <value>Development Status</value>
+  </data>
+  <data name="LibraryDetail_Classifier_ProgrammingLanguage" xml:space="preserve">
+    <value>Programming Language</value>
+  </data>
+  <data name="LibraryDetail_Classifier_OperatingSystem" xml:space="preserve">
+    <value>Operating System</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience" xml:space="preserve">
+    <value>Intended Audience</value>
+  </data>
+  <data name="LibraryDetail_Package" xml:space="preserve">
+    <value>Package</value>
+  </data>
+  <data name="LibraryDetail_Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="LibraryDetail_Path" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="LibraryDetail_Summary" xml:space="preserve">
+    <value>Summary</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_Developers" xml:space="preserve">
+    <value>Developers</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_Education" xml:space="preserve">
+    <value>Education</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_EndUsersDesktop" xml:space="preserve">
+    <value>End Users &amp; Desktop</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_FinancialAndInsuranceIndustry" xml:space="preserve">
+    <value>Financial and Insurance Industry</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_HealthcareIndustry" xml:space="preserve">
+    <value>Healthcare Industry</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_InformationTechonology" xml:space="preserve">
+    <value>Information Technology</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_LegalIndustry" xml:space="preserve">
+    <value>Legal Industry</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_Manufacturing" xml:space="preserve">
+    <value>Manufacturing</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_OtherAudience" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_Religion" xml:space="preserve">
+    <value>Religion</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_ScienceResearch" xml:space="preserve">
+    <value>Science &amp; Research</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_SystemAdministrators" xml:space="preserve">
+    <value>System Administrators</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_TelecommunicationsIndustry" xml:space="preserve">
+    <value>Telecommunications Industry</value>
+  </data>
+  <data name="LibraryDetail_Classifier_IntendedAudience_CustomerService" xml:space="preserve">
+    <value>Customer Service</value>
+  </data>
+  <data name="LibraryDetail_Classifier_OperatingSystem_OSIndependent" xml:space="preserve">
+    <value>OS Independent</value>
+  </data>
+  <data name="Library_Operation_Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="LibraryDetail_Classifier_Environment" xml:space="preserve">
+    <value>Environment</value>
+  </data>
+  <data name="LibraryDetail_Classifier_Topic" xml:space="preserve">
+    <value>Topic</value>
+  </data>
+  <data name="LibraryDetail_Contact_Author" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="LibraryDetail_Contact_AuthorEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="LibraryDetail_Contact_ProjectUrl" xml:space="preserve">
+    <value>Project Url</value>
+  </data>
+  <data name="Library_CheckUpdate_Current" xml:space="preserve">
+    <value>Current: {0}</value>
+  </data>
+  <data name="Library_CheckUpdate_Latest" xml:space="preserve">
+    <value>Latest: {0}</value>
+  </data>
+  <data name="ContentDialog_Message_PackageIsLatest" xml:space="preserve">
+    <value>Package(s) are up to date</value>
+  </data>
+  <data name="Action_ConsoleOutput" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="Action_ConsoleError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Action_ConsoleError_Empty" xml:space="preserve">
+    <value>No errors detected</value>
+  </data>
+  <data name="Action_Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Action_IssueDetected" xml:space="preserve">
+    <value>Issue</value>
+  </data>
+  <data name="ContentDialog_Message_NetworkError" xml:space="preserve">
+    <value>Network Error</value>
+  </data>
+  <data name="ContentDialog_Message_ActionStillRunning" xml:space="preserve">
+    <value>There are still running background tasks. Do you confirm to exit the software?</value>
+  </data>
+  <data name="Library_Version_Pre" xml:space="preserve">
+    <value>Unstable</value>
+  </data>
+  <data name="Library_Version_Post" xml:space="preserve">
+    <value>Post</value>
+  </data>
+  <data name="Library_Version_Dev" xml:space="preserve">
+    <value>Dev</value>
+  </data>
+  <data name="MainWindow_NavigationContent_Lab" xml:space="preserve">
+    <value>Lab</value>
+  </data>
+  <data name="Action_Button_Exceptions" xml:space="preserve">
+    <value>Exceptions</value>
+  </data>
+  <data name="Action_NoCurrentOperations" xml:space="preserve">
+    <value>No Current Operations</value>
+  </data>
+  <data name="ActionException_Badge_Timestamp" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="Action_IssueDetectedToast" xml:space="preserve">
+    <value>Issue detected in Action</value>
+  </data>
+  <data name="ActionException_CopyToClipboard" xml:space="preserve">
+    <value>Copy to clipboard</value>
+  </data>
+  <data name="ActionException_Exception" xml:space="preserve">
+    <value>Exception</value>
+  </data>
+  <data name="Action_Operation_Install" xml:space="preserve">
+    <value>Package Install</value>
+  </data>
+  <data name="Action_AddOperation_Toast" xml:space="preserve">
+    <value>Added {0} new operation(s)</value>
+  </data>
+  <data name="LibraryInstall_Header" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="LibraryInstall_Add_Notice" xml:space="preserve">
+    <value>Enter Package Name</value>
+  </data>
+  <data name="LibraryInstall_Add_AlreadyInList" xml:space="preserve">
+    <value>Package already in list</value>
+  </data>
+  <data name="LibraryInstall_Add_AlreadyInstalled" xml:space="preserve">
+    <value>Package already installed</value>
+  </data>
+  <data name="LibraryInstall_Add_Verifying" xml:space="preserve">
+    <value>Verifying</value>
+  </data>
+  <data name="LibraryInstall_Add_PackageNotFound" xml:space="preserve">
+    <value>Package not found</value>
+  </data>
+  <data name="LibraryInstall_List_VersionSpecified" xml:space="preserve">
+    <value>Version Specified</value>
+  </data>
+  <data name="LibraryInstall_List_DefaultVersion" xml:space="preserve">
+    <value>The newest and compatible version will be installed</value>
+  </data>
+  <data name="LibraryInstall_Add_InvalidPackageName" xml:space="preserve">
+    <value>Invalid Package Name (PEP 508)</value>
+  </data>
+  <data name="Development_Developing" xml:space="preserve">
+    <value>Developing</value>
+  </data>
+  <data name="Action_Operation_InstallByRequirements" xml:space="preserve">
+    <value>Package Install (via requirements.txt)</value>
+  </data>
+  <data name="Action_CurrentStatus_WaitingInQueue" xml:space="preserve">
+    <value>Waiting in queue</value>
+  </data>
+  <data name="LibraryInstall_Add_Header" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="LibraryInstall_Requirements_Header" xml:space="preserve">
+    <value>requirements.txt Import</value>
+  </data>
+  <data name="LibraryInstall_Download_Header" xml:space="preserve">
+    <value>Download Distributions</value>
+  </data>
+  <data name="LibraryInstall_Requirements_DownloadDependencies" xml:space="preserve">
+    <value>Download dependencies</value>
+  </data>
+  <data name="LibraryInstall_Requirements_DownloadFolder" xml:space="preserve">
+    <value>Download Folder</value>
+  </data>
+  <data name="Action_Operation_Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Search_VersionSpecified" xml:space="preserve">
+    <value>Specify Version</value>
+  </data>
+  <data name="Search_DefaultVersion" xml:space="preserve">
+    <value>The newest and compatible version will be selected</value>
+  </data>
+  <data name="LibraryInstall_Requirements_Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Search_List_NoDescription" xml:space="preserve">
+    <value>No Description</value>
+  </data>
+  <data name="Search_List_UpdateTime" xml:space="preserve">
+    <value>Update Time: </value>
+  </data>
+  <data name="Search_List_TotalResultNumber" xml:space="preserve">
+    <value>About {0} results found</value>
+  </data>
+  <data name="Search_Query_NoResults" xml:space="preserve">
+    <value>No results</value>
+  </data>
+  <data name="Search_Query_Timeout" xml:space="preserve">
+    <value>Timeout</value>
+  </data>
+  <data name="EnvironmentCheckEnvironmentUpdate_CurrentVersion" xml:space="preserve">
+    <value>Current: </value>
+  </data>
+  <data name="EnvironmentCheckEnvironmentUpdate_LatestVersion" xml:space="preserve">
+    <value>Latest: </value>
+  </data>
+  <data name="Search_Operation_Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="SearchDetail_Header" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="SearchDetail_ProjectDescription_LoadFailed" xml:space="preserve">
+    <value>Project description not available online</value>
+  </data>
+  <data name="Settings_FileManagement_WebViewSettings_ClearCache" xml:space="preserve">
+    <value>Clear WebView2 Cache</value>
+  </data>
+  <data name="Settings_FileManagement_WebViewSettings_CacheCleared" xml:space="preserve">
+    <value>Cache cleared</value>
+  </data>
+  <data name="Settings_FileManagement_WebViewSettings_CacheIsUsing" xml:space="preserve">
+    <value>WebView still in use, cannot clear cache</value>
+  </data>
+  <data name="SearchDetail_DownloadDistributions" xml:space="preserve">
+    <value>Download Distributions</value>
+  </data>
+  <data name="SearchDetail_Install" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="SearchDetail_Install_CannotGetLibraries" xml:space="preserve">
+    <value>Failed to get installed libraries</value>
+  </data>
+  <data name="Settings_PackageSource_Subtitle" xml:space="preserve">
+    <value>Installing and downloading packages via PyPI or other mirror sites</value>
+  </data>
+  <data name="SearchDetail_LatestUpdatedTime" xml:space="preserve">
+    <value>Latest Updated:</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_Language_Subtitle" xml:space="preserve">
+    <value>Set language</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_Theme_Subtitle" xml:space="preserve">
+    <value>Change window theme</value>
+  </data>
+  <data name="Settings_Category_Package" xml:space="preserve">
+    <value>Package</value>
+  </data>
+  <data name="Settings_PersonalizationTitle_LogAutoDeletion_Subtitle" xml:space="preserve">
+    <value>Set the log file number limit</value>
+  </data>
+  <data name="Settings_FileManagement_WebViewSettings_ClearCache_Subtitle" xml:space="preserve">
+    <value>Clear the WebView2 cache used for e.g. search pages</value>
+  </data>
+  <data name="Settings_FileManagement_ResetConfig_Subtitle" xml:space="preserve">
+    <value>All configuration settings (config.json) will be restored to the initial state</value>
+  </data>
+  <data name="ActionException_Operation" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="ActionException_BingSearch" xml:space="preserve">
+    <value>Bing Search</value>
+  </data>
+  <data name="ActionException_GoogleSearch" xml:space="preserve">
+    <value>Google Search</value>
+  </data>
+  <data name="ActionException_CopyToClipboardNotice" xml:space="preserve">
+    <value>Copied to clipboard</value>
+  </data>
+  <data name="Action_OperationCanceled_Success" xml:space="preserve">
+    <value>Action Cancelled</value>
+  </data>
+  <data name="Action_OperationCanceled_Failed" xml:space="preserve">
+    <value>Failed to cancel</value>
+  </data>
+  <data name="Action_Operation_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_IOError" xml:space="preserve">
+    <value>Error while reading a file, check if the file is occupied</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_InvalidFile" xml:space="preserve">
+    <value>Invalid Distribution File</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_AlreadyExists" xml:space="preserve">
+    <value>Distribution File already added to the list</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_Header" xml:space="preserve">
+    <value>Install via distributions</value>
+  </data>
+  <data name="LibraryInstall_InstallDistributions_InstallDependencies" xml:space="preserve">
+    <value>Install dependencies</value>
+  </data>
+  <data name="Environment_Operation_ClearEnvironmentCache" xml:space="preserve">
+    <value>Clear Cache</value>
+  </data>
+  <data name="ContentDialog_Message_CacheCleared" xml:space="preserve">
+    <value>{0} Caches Cleared</value>
+  </data>
+  <data name="ContentDialog_Message_CacheClearFailed" xml:space="preserve">
+    <value>Failed to clear caches</value>
+  </data>
+  <data name="Dialog_Title_DownloadDistributions" xml:space="preserve">
+    <value>Open download folder (for wheel files)</value>
+  </data>
+  <data name="Overlay_Title_PackageUpdate" xml:space="preserve">
+    <value>New Versions Found</value>
+  </data>
+  <data name="Overlay_Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Overlay_Button_Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="SearchDetail_Exception_NetworkError" xml:space="preserve">
+    <value>Network Request Error</value>
+  </data>
+  <data name="LibraryDetail_Dependency_Header" xml:space="preserve">
+    <value>Dependencies</value>
+  </data>
+  <data name="LibraryDetail_Dependency_Empty" xml:space="preserve">
+    <value>No dependency packages required</value>
+  </data>
+  <data name="LibraryDetail_Dependency_Caption" xml:space="preserve">
+    <value>Found {0} dependency packages</value>
+  </data>
+  <data name="Settings_DetectNonReleaseVersion" xml:space="preserve">
+    <value>Detecting Test Versions</value>
+  </data>
+  <data name="Settings_DetectNonReleaseVersion_Subtitle" xml:space="preserve">
+    <value>Packages that are in Alpha, Beta, etc. test versions will not be ignored</value>
+  </data>
+  <data name="LibraryDetail_Toast_PackageNotFound" xml:space="preserve">
+    <value>Dependency Not Found</value>
+  </data>
+  <data name="Library_Data_RefreshTimeUsage" xml:space="preserve">
+    <value>{0}s used</value>
+  </data>
+</root>
