@@ -7,10 +7,10 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using PipManager.Core.Configuration.Models;
 using PipManager.Core.PyPackage.Helpers;
+using PipManager.Core.PyPackage.Models;
 using PipManager.Windows.Models;
 using PipManager.Windows.Models.Package;
 using PipManager.Windows.Models.Pages;
-using PipManager.Windows.Models.Pypi;
 using PipManager.Windows.Services.Configuration;
 using PipManager.Windows.Services.Environment.Response;
 using Serilog;
@@ -19,10 +19,8 @@ using Path = System.IO.Path;
 
 namespace PipManager.Windows.Services.Environment;
 
-public partial class EnvironmentService(IConfigurationService configurationService) : IEnvironmentService
+public partial class EnvironmentService(IConfigurationService configurationService, HttpClient httpClient) : IEnvironmentService
 {
-    private readonly HttpClient _httpClient = App.GetService<HttpClient>();
-
     public bool CheckEnvironmentExists(EnvironmentModel environmentModel)
     {
         var environmentItems = configurationService.AppConfig.Environments;
@@ -239,11 +237,11 @@ public partial class EnvironmentService(IConfigurationService configurationServi
             if (!PackageNameVerificationRegex().IsMatch(packageName))
                 return new GetVersionsResponse { Status = 2, Versions = [] };
             var responseMessage =
-                await _httpClient.GetAsync(
+                await httpClient.GetAsync(
                     $"{configurationService.GetUrlFromPackageSourceType("pypi")}{packageName}/json", cancellationToken);
             var response = await responseMessage.Content.ReadAsStringAsync(cancellationToken);
 
-            var pypiPackageInfo = JsonConvert.DeserializeObject<PypiPackageInfo>(response)
+            var pypiPackageInfo = JsonConvert.DeserializeObject<PackageInfo>(response)
                 ?.Releases?
                 .Where(item => item.Value.Count != 0).OrderBy(e => e.Value[0].UploadTime)
                 .ThenBy(e => e.Value[0].UploadTime).ToDictionary(pair => pair.Key, pair => pair.Value);
