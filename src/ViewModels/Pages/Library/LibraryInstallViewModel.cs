@@ -96,7 +96,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
             return;
         }
         _maskService.Show(Lang.LibraryInstall_Add_Verifying);
-        var detectNonRelease = _configurationService.AppConfig.PackageSource.DetectNonReleaseVersion;
+        var detectNonRelease = _configurationService.AppConfig.PackageSource.AllowNonRelease;
         var packageVersions = await _environmentService.GetVersions(packageName, new CancellationToken(), detectNonRelease);
         _maskService.Hide();
         switch (packageVersions.Status)
@@ -113,7 +113,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
                 PreInstallPackages.Add(new LibraryInstallPackageItem
                 {
                     PackageName = packageName,
-                    AvailableVersions = new List<string>(packageVersions.Versions!.Reverse())
+                    AvailableVersions = [..packageVersions.Versions!.Reverse()]
                 });
                 break;
         }
@@ -213,7 +213,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
             return;
         }
         _maskService.Show(Lang.LibraryInstall_Add_Verifying);
-        var packageVersions = await _environmentService.GetVersions(packageName, new CancellationToken(), _configurationService.AppConfig.PackageSource.DetectNonReleaseVersion);
+        var packageVersions = await _environmentService.GetVersions(packageName, new CancellationToken(), _configurationService.AppConfig.PackageSource.AllowNonRelease);
         _maskService.Hide();
         switch (packageVersions.Status)
         {
@@ -229,7 +229,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
                 PreDownloadPackages.Add(new LibraryInstallPackageItem
                 {
                     PackageName = packageName,
-                    AvailableVersions = new List<string>(packageVersions.Versions!.Reverse())
+                    AvailableVersions = [..packageVersions.Versions!.Reverse()]
                 });
                 DownloadDistributionsEnabled = DownloadDistributionsFolderPath.Length > 0;
                 break;

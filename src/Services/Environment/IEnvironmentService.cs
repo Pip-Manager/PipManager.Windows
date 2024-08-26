@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using PipManager.Windows.Models.AppConfigModels;
+using PipManager.Core.Configuration.Models;
 using PipManager.Windows.Models.Package;
 using PipManager.Windows.Services.Environment.Response;
 
@@ -7,11 +7,11 @@ namespace PipManager.Windows.Services.Environment;
 
 public interface IEnvironmentService
 {
-    public bool CheckEnvironmentExists(EnvironmentItem environmentItem);
+    public bool CheckEnvironmentExists(EnvironmentModel environmentModel);
 
-    public ActionResponse CheckEnvironmentAvailable(EnvironmentItem environmentItem);
+    public ActionResponse CheckEnvironmentAvailable(EnvironmentModel environmentModel);
 
-    public ActionResponse PurgeEnvironmentCache(EnvironmentItem environmentItem);
+    public ActionResponse PurgeEnvironmentCache(EnvironmentModel environmentModel);
 
     public Task<List<PackageItem>?> GetLibraries();
 

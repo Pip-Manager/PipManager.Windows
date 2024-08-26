@@ -10,10 +10,10 @@ public partial class MainWindowViewModel : ObservableObject
     public MainWindowViewModel(IConfigurationService configurationService)
     {
 
-        if (configurationService.AppConfig.CurrentEnvironment != null)
+        if (configurationService.AppConfig.SelectedEnvironment != null)
         {
-            Log.Information($"[MainWindow] Environment loaded ({configurationService.AppConfig.CurrentEnvironment.PipVersion} for {configurationService.AppConfig.CurrentEnvironment.PythonVersion})");
-            ApplicationTitle = $"Pip Manager | {configurationService.AppConfig.CurrentEnvironment.PipVersion} for {configurationService.AppConfig.CurrentEnvironment.PythonVersion}";
+            Log.Information($"[MainWindow] Environment loaded ({configurationService.AppConfig.SelectedEnvironment.PipVersion} for {configurationService.AppConfig.SelectedEnvironment.PythonVersion})");
+            ApplicationTitle = $"Pip Manager | {configurationService.AppConfig.SelectedEnvironment.PipVersion} for {configurationService.AppConfig.SelectedEnvironment.PythonVersion}";
         }
         else
         {

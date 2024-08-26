@@ -2,25 +2,24 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
-using PipManager.Windows.Models;
-using PipManager.Windows.Models.AppConfigModels;
+using PipManager.Core.Configuration.Models;
 using PipManager.Windows.Models.Package;
 
 namespace PipManager.Windows.Services.Configuration;
 
 public partial class ConfigurationService : IConfigurationService
 {
-    public AppConfig AppConfig { get; set; } = LoadConfiguration();
+    public ConfigModel AppConfig { get; set; } = LoadConfiguration();
     public bool ExperimentMode { get; set; }
     public bool DebugMode { get; set; }
 
-    public static AppConfig LoadConfiguration()
+    public static ConfigModel LoadConfiguration()
     {
         if (!File.Exists(AppInfo.ConfigPath))
         {
-            File.WriteAllText(AppInfo.ConfigPath, JsonConvert.SerializeObject(new AppConfig(), Formatting.Indented));
+            File.WriteAllText(AppInfo.ConfigPath, JsonConvert.SerializeObject(new ConfigModel(), Formatting.Indented));
         }
-        return JsonConvert.DeserializeObject<AppConfig>(File.ReadAllText(AppInfo.ConfigPath))!;
+        return JsonConvert.DeserializeObject<ConfigModel>(File.ReadAllText(AppInfo.ConfigPath))!;
     }
 
     public void Save()
@@ -70,7 +69,7 @@ public partial class ConfigurationService : IConfigurationService
         return pipDirectory;
     }
 
-    public EnvironmentItem? GetEnvironmentItem(string pythonPath)
+    public EnvironmentModel? GetEnvironmentItem(string pythonPath)
     {
         var pythonVersion = FileVersionInfo.GetVersionInfo(pythonPath).FileVersion!;
         var pythonDirectory = Directory.GetParent(pythonPath)!;
@@ -83,10 +82,16 @@ public partial class ConfigurationService : IConfigurationService
         }
 
         var pipVersion = GetPipVersionInInitFile().Match(File.ReadAllText(Path.Combine(pipDirectory, @"__init__.py"))).Groups[1].Value;
-        return new EnvironmentItem(pipVersion, pythonPath, pythonVersion, pythonDllPath.FullName);
+        return new EnvironmentModel
+        {
+            Identifier = "",
+            PipVersion = pipVersion,
+            PythonPath = pythonPath,
+            PythonVersion = pythonVersion
+        };
     }
 
-    public EnvironmentItem? GetEnvironmentItemFromCommand(string command, string arguments)
+    public EnvironmentModel? GetEnvironmentItemFromCommand(string command, string arguments)
     {
         var proc = new Process
         {
@@ -143,14 +148,19 @@ public partial class ConfigurationService : IConfigurationService
         var pythonDllPath = pythonDirectory.GetFiles(pythonDllName, SearchOption.AllDirectories).FirstOrDefault();
         pythonVersion = pythonVersion.Trim();
         proc.Close();
-        return pipDir.Length > 0 && pythonDllPath != null ? new EnvironmentItem(pipVersion, pythonPath, pythonVersion, pythonDllPath.FullName) : null;
+        return pipDir.Length > 0 && pythonDllPath != null ? new EnvironmentModel {
+            Identifier = "",
+            PipVersion = pipVersion,
+            PythonPath = pythonPath,
+            PythonVersion = pythonVersion
+        } : null;
     }
 
     public void RefreshAllEnvironmentVersions()
     {
-        foreach (var item in AppConfig.EnvironmentItems)
+        foreach (var item in AppConfig.Environments)
         {
-            var environmentItem = GetEnvironmentItem(item.PythonPath!);
+            var environmentItem = GetEnvironmentItem(item.PythonPath);
             if (environmentItem != null)
             {
                 item.PipVersion = environmentItem.PipVersion;
@@ -166,17 +176,17 @@ public partial class ConfigurationService : IConfigurationService
 
     public string GetUrlFromPackageSourceType(string index = "simple")
     {
-        return AppConfig.PackageSource.PackageSourceType switch
+        return AppConfig.PackageSource.Source switch
         {
-            PackageSourceType.Official => $"https://pypi.org/{index}/",
-            PackageSourceType.Tsinghua => $"https://pypi.tuna.tsinghua.edu.cn/{index}/",
-            PackageSourceType.Aliyun => $"https://mirrors.aliyun.com/pypi/{index switch
+            "default" => $"https://pypi.org/{index}/",
+            "tsinghua" => $"https://pypi.tuna.tsinghua.edu.cn/{index}/",
+            "aliyun" => $"https://mirrors.aliyun.com/pypi/{index switch
             {
                 "pypi" => "web/pypi/",
                 _ => index
             }}/",
-            PackageSourceType.Douban => $"https://pypi.doubanio.com/{index}/",
-            _ => throw new ArgumentOutOfRangeException(nameof(AppConfig.PackageSource.PackageSourceType), AppConfig.PackageSource.PackageSourceType, null)
+            "douban" => $"https://pypi.doubanio.com/{index}/",
+            _ => throw new ArgumentOutOfRangeException(nameof(AppConfig.PackageSource), AppConfig.PackageSource, null)
         };
     }
 

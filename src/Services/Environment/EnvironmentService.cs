@@ -1,19 +1,19 @@
-﻿using Newtonsoft.Json;
-using Serilog;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
-using PipManager.Windows.Helpers;
+using Newtonsoft.Json;
+using PipManager.Core.Configuration.Models;
+using PipManager.Core.PyPackage.Helpers;
 using PipManager.Windows.Models;
-using PipManager.Windows.Models.AppConfigModels;
 using PipManager.Windows.Models.Package;
 using PipManager.Windows.Models.Pages;
 using PipManager.Windows.Models.Pypi;
 using PipManager.Windows.Services.Configuration;
 using PipManager.Windows.Services.Environment.Response;
+using Serilog;
 using Wpf.Ui.Controls;
 using Path = System.IO.Path;
 
@@ -23,27 +23,27 @@ public partial class EnvironmentService(IConfigurationService configurationServi
 {
     private readonly HttpClient _httpClient = App.GetService<HttpClient>();
 
-    public bool CheckEnvironmentExists(EnvironmentItem environmentItem)
+    public bool CheckEnvironmentExists(EnvironmentModel environmentModel)
     {
-        var environmentItems = configurationService.AppConfig.EnvironmentItems;
-        return environmentItems.Any(item => item.PythonPath == environmentItem.PythonPath);
+        var environmentItems = configurationService.AppConfig.Environments;
+        return environmentItems.Any(item => item.PythonPath == environmentModel.PythonPath);
     }
 
-    public ActionResponse CheckEnvironmentAvailable(EnvironmentItem environmentItem)
+    public ActionResponse CheckEnvironmentAvailable(EnvironmentModel environmentModel)
     {
-        var verify = configurationService.GetEnvironmentItemFromCommand(environmentItem.PythonPath!, "-m pip -V");
-        return verify != null && environmentItem.PythonPath != string.Empty
+        var verify = configurationService.GetEnvironmentItemFromCommand(environmentModel.PythonPath, "-m pip -V");
+        return verify != null && environmentModel.PythonPath != string.Empty
             ? new ActionResponse { Success = true }
             : new ActionResponse { Success = false, Exception = ExceptionType.EnvironmentBroken };
     }
 
-    public ActionResponse PurgeEnvironmentCache(EnvironmentItem environmentItem)
+    public ActionResponse PurgeEnvironmentCache(EnvironmentModel environmentModel)
     {
         var process = new Process
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = configurationService.AppConfig.CurrentEnvironment!.PythonPath,
+                FileName = configurationService.AppConfig.SelectedEnvironment!.PythonPath,
                 Arguments = "-m pip cache purge",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
@@ -63,13 +63,13 @@ public partial class EnvironmentService(IConfigurationService configurationServi
 
     public async Task<List<PackageItem>?> GetLibraries()
     {
-        if (configurationService.AppConfig.CurrentEnvironment is null)
+        if (configurationService.AppConfig.SelectedEnvironment is null)
         {
             return null;
         }
 
         var packageDirInfo = new DirectoryInfo(Path.Combine(
-            Path.GetDirectoryName(configurationService.AppConfig.CurrentEnvironment!.PythonPath)!,
+            Path.GetDirectoryName(configurationService.AppConfig.SelectedEnvironment!.PythonPath)!,
             @"Lib\site-packages"));
         
         var packages = new ConcurrentBag<PackageItem>();
@@ -308,7 +308,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = configurationService.AppConfig.CurrentEnvironment!.PythonPath,
+                FileName = configurationService.AppConfig.SelectedEnvironment!.PythonPath,
                 Arguments = $"{arguments} {extra}",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Win32;
 using Serilog;
 using System.IO;
+using PipManager.Core.Configuration.Models;
 using PipManager.Windows.Languages;
-using PipManager.Windows.Models.AppConfigModels;
 using PipManager.Windows.Services.Configuration;
 using PipManager.Windows.Services.Environment;
 using PipManager.Windows.Services.Toast;
@@ -48,10 +48,10 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
     #region By Environment Variables
 
     [ObservableProperty]
-    private List<EnvironmentItem> _environmentItems = [];
+    private List<EnvironmentModel> _environmentItems = [];
 
     [ObservableProperty]
-    private EnvironmentItem? _environmentItemInList;
+    private EnvironmentModel? _environmentItemInList;
 
     [ObservableProperty]
     private bool _loading = true;
@@ -72,10 +72,10 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
             {
                 if (!File.Exists(Path.Combine(item, "python.exe")))
                     continue;
-                var environmentItem =
+                var environmentModel =
                     configurationService.GetEnvironmentItem(Path.Combine(item, "python.exe"));
-                if (environmentItem == null) continue;
-                EnvironmentItems.Add(environmentItem);
+                if (environmentModel == null) continue;
+                EnvironmentItems.Add(environmentModel);
             }
         }).ContinueWith(_ => { Loading = false; Found = EnvironmentItems.Count == 0; Log.Information($"[AddEnvironment] Pip list in environment variable refreshed"); });
     }
@@ -144,8 +144,8 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
                         }
                         else
                         {
-                            configurationService.AppConfig.CurrentEnvironment = EnvironmentItemInList;
-                            configurationService.AppConfig.EnvironmentItems.Add(EnvironmentItemInList);
+                            configurationService.AppConfig.SelectedEnvironment = EnvironmentItemInList;
+                            configurationService.AppConfig.Environments.Add(EnvironmentItemInList);
                             configurationService.Save();
                             Log.Information($"[AddEnvironment] Environment added ({EnvironmentItemInList.PipVersion} for {EnvironmentItemInList.PythonVersion})");
                             navigationService.GoBack();
@@ -170,8 +170,8 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
                         }
                         else
                         {
-                            configurationService.AppConfig.CurrentEnvironment = result;
-                            configurationService.AppConfig.EnvironmentItems.Add(result);
+                            configurationService.AppConfig.SelectedEnvironment = result;
+                            configurationService.AppConfig.Environments.Add(result);
                             Log.Information($"[AddEnvironment] Environment added ({result.PipVersion} for {result.PythonVersion})");
                             configurationService.Save();
                             navigationService.GoBack();
@@ -196,8 +196,8 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
                         }
                         else
                         {
-                            configurationService.AppConfig.CurrentEnvironment = result;
-                            configurationService.AppConfig.EnvironmentItems.Add(result);
+                            configurationService.AppConfig.SelectedEnvironment = result;
+                            configurationService.AppConfig.Environments.Add(result);
                             Log.Information($"[AddEnvironment] Environment added ({result.PipVersion} for {result.PythonVersion})");
                             configurationService.Save();
                             navigationService.GoBack();

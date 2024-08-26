@@ -39,9 +39,6 @@ using Wpf.Ui;
 namespace PipManager.Windows;
 
 using AboutViewModel = ViewModels.Pages.About.AboutViewModel;
-using ActionViewModel = ViewModels.Pages.Action.ActionViewModel;
-using LibraryViewModel = ViewModels.Pages.Library.LibraryViewModel;
-using SearchViewModel = ViewModels.Pages.Search.SearchViewModel;
 using SettingsViewModel = ViewModels.Pages.Settings.SettingsViewModel;
 
 /// <summary>
@@ -169,8 +166,6 @@ public partial class App
         };
         appStarting.StartLogging();
         appStarting.LoadLanguage();
-        appStarting.LogDeletion();
-        appStarting.CrushesDeletion();
         appStarting.CachesDeletion();
         Host.Start();
         GetService<IConfigurationService>().DebugMode = _showConsoleWindow;

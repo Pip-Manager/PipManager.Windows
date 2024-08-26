@@ -165,7 +165,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
         SearchDetailPage.ProjectDescriptionWebView!.Loaded += async (_, _) =>
         {
             ProjectDescriptionVisibility = false;
-            var packageVersions = await _environmentService.GetVersions(Package!.Name, new CancellationToken(), _configurationService.AppConfig.PackageSource.DetectNonReleaseVersion);
+            var packageVersions = await _environmentService.GetVersions(Package!.Name, new CancellationToken(), _configurationService.AppConfig.PackageSource.AllowNonRelease);
             switch (packageVersions.Status)
             {
                 case 1 or 2:

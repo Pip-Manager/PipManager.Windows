@@ -4,8 +4,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net.Http;
+using PipManager.Core.Configuration.Models;
 using PipManager.Windows.Languages;
-using PipManager.Windows.Models;
 using PipManager.Windows.Models.Package;
 using PipManager.Windows.Services.Configuration;
 using PipManager.Windows.Services.Toast;
@@ -57,8 +57,8 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
 
     private void InitializeViewModel()
     {
-        CurrentPackageSource = _configurationService.AppConfig.PackageSource.PackageSourceType;
-        DetectNonReleaseVersion = _configurationService.AppConfig.PackageSource.DetectNonReleaseVersion;
+        CurrentPackageSource = _configurationService.AppConfig.PackageSource.Source;
+        AllowNonRelease = _configurationService.AppConfig.PackageSource.AllowNonRelease;
         var language = _configurationService.AppConfig.Personalization.Language;
         Language = language != "Auto" ? GetLanguage.LanguageList.Select(x => x.Key).ToList()[GetLanguage.LanguageList.Select(x => x.Value).ToList().IndexOf(language)] : "Auto";
         CurrentTheme = _configurationService.AppConfig.Personalization.Theme switch
@@ -67,17 +67,13 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
             "dark" => ApplicationTheme.Dark,
             _ => ApplicationTheme.Dark
         };
-        LogAutoDeletion = _configurationService.AppConfig.Personalization.LogAutoDeletion;
-        LogAutoDeletionTimes = _configurationService.AppConfig.Personalization.LogAutoDeletionTimes;
-        CrushesAutoDeletion = _configurationService.AppConfig.Personalization.CrushesAutoDeletion;
-        CrushesAutoDeletionTimes = _configurationService.AppConfig.Personalization.CrushesAutoDeletionTimes;
         _isInitialized = true;
         Log.Information("[Settings] Initialized");
     }
 
     #region Package Source
 
-    [ObservableProperty] private PackageSourceType _currentPackageSource = PackageSourceType.Official;
+    [ObservableProperty] private string _currentPackageSource = "default";
     [ObservableProperty] private string _officialPackageSourceNetwork = string.Empty;
     [ObservableProperty] private string _tsinghuaPackageSourceNetwork = string.Empty;
     [ObservableProperty] private string _aliyunPackageSourceNetwork = string.Empty;
@@ -86,15 +82,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private void OnChangePackageSource(string parameter)
     {
-        CurrentPackageSource = parameter switch
-        {
-            "official" => PackageSourceType.Official,
-            "tsinghua" => PackageSourceType.Tsinghua,
-            "aliyun" => PackageSourceType.Aliyun,
-            "douban" => PackageSourceType.Douban,
-            _ => PackageSourceType.Official
-        };
-        _configurationService.AppConfig.PackageSource.PackageSourceType = CurrentPackageSource;
+        _configurationService.AppConfig.PackageSource.Source = parameter;
         _configurationService.Save();
         Log.Information($"[Settings] Package source changes to {parameter}");
     }
@@ -165,14 +153,14 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     }
     
     [ObservableProperty]
-    private bool _detectNonReleaseVersion;
+    private bool _allowNonRelease;
     
     [RelayCommand]
     private void OnChangeDetectNonReleaseVersion()
     {
-        _configurationService.AppConfig.PackageSource.DetectNonReleaseVersion = DetectNonReleaseVersion;
+        _configurationService.AppConfig.PackageSource.AllowNonRelease = AllowNonRelease;
         _configurationService.Save();
-        Log.Information($"[Settings] Detect non-release update changes to {DetectNonReleaseVersion}");
+        Log.Information($"[Settings] Detect non-release update changes to {AllowNonRelease}");
     }
 
     #endregion Package Source
@@ -224,47 +212,6 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     }
 
     #endregion Theme
-
-    #region Log and Crushes Auto Deletion
-
-    [ObservableProperty] private bool _logAutoDeletion;
-    [ObservableProperty] private bool _crushesAutoDeletion;
-    [ObservableProperty] private int _logAutoDeletionTimes;
-    [ObservableProperty] private int _crushesAutoDeletionTimes;
-
-    [RelayCommand]
-    private void OnChangeLogAutoDeletion()
-    {
-        _configurationService.AppConfig.Personalization.LogAutoDeletion = LogAutoDeletion;
-        _configurationService.Save();
-        Log.Information($"[Settings] Log auto deletion now is {LogAutoDeletion}");
-    }
-
-    [RelayCommand]
-    private void OnChangeLogAutoDeletionTimes()
-    {
-        _configurationService.AppConfig.Personalization.LogAutoDeletionTimes = LogAutoDeletionTimes;
-        _configurationService.Save();
-        Log.Information($"[Settings] Log auto deletion will be executed when the number of files reaches {LogAutoDeletionTimes}");
-    }
-
-    [RelayCommand]
-    private void OnChangeCrushesAutoDeletion()
-    {
-        _configurationService.AppConfig.Personalization.CrushesAutoDeletion = CrushesAutoDeletion;
-        _configurationService.Save();
-        Log.Information($"[Settings] Crushes auto deletion now is {CrushesAutoDeletion}");
-    }
-
-    [RelayCommand]
-    private void OnChangeCrushesAutoDeletionTimes()
-    {
-        _configurationService.AppConfig.Personalization.CrushesAutoDeletionTimes = CrushesAutoDeletionTimes;
-        _configurationService.Save();
-        Log.Information($"[Settings] Crushes auto deletion will be executed when the number of files reaches {CrushesAutoDeletionTimes}");
-    }
-
-    #endregion Log and Crushes Auto Deletion
 
     #region File Management
 
@@ -340,7 +287,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         if (result == Wpf.Ui.Controls.MessageBoxResult.Primary)
         {
             Log.Information("Config reset");
-            await File.WriteAllTextAsync(AppInfo.ConfigPath, JsonConvert.SerializeObject(new AppConfig(), Formatting.Indented));
+            await File.WriteAllTextAsync(AppInfo.ConfigPath, JsonConvert.SerializeObject(new ConfigModel(), Formatting.Indented));
         }
     }
 

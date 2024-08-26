@@ -19,8 +19,6 @@ using PipManager.Windows.Views.Pages.Library;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
-using static PipManager.Windows.ViewModels.Pages.Library.LibraryDetailViewModel;
-using static PipManager.Windows.ViewModels.Pages.Library.LibraryInstallViewModel;
 
 namespace PipManager.Windows.ViewModels.Pages.Library;
 
@@ -116,7 +114,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         var operationList = "";
         var ioTaskList = new List<Task>();
         var msgListLock = new object();
-        var detectNonRelease = _configurationService.AppConfig.PackageSource.DetectNonReleaseVersion;
+        var detectNonRelease = _configurationService.AppConfig.PackageSource.AllowNonRelease;
         await Task.Run(() =>
         {
             var selected = LibraryList.Where(libraryListItem => libraryListItem.IsSelected).ToList();
@@ -193,7 +191,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         EnvironmentFoundVisible = true;
         _maskService.Show(Lang.MainWindow_NavigationContent_Library);
         _library = [];
-        if (_configurationService.AppConfig.CurrentEnvironment == null)
+        if (_configurationService.AppConfig.SelectedEnvironment == null)
         {
             _maskService.Hide();
             EnvironmentFoundVisible = false;

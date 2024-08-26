@@ -8,28 +8,35 @@ internal class PackageSourceEnumToBooleanConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (parameter is not string enumString)
+        if (value == null || parameter == null)
         {
-            throw new ArgumentException("ExceptionPackageSourceTypeToBooleanConverterParameterMustBeAnEnumName");
+            return false;
         }
 
-        if (value != null && !Enum.IsDefined(typeof(PackageSourceType), value))
+        var currentPackageSource = (string)value;
+        var currentParameter = (string)parameter;
+
+        if (currentPackageSource == "default" && currentParameter == "Official")
         {
-            throw new ArgumentException("ExceptionPackageSourceTypeToBooleanConverterValueMustBeAnEnum");
+            return true;
         }
-
-        var enumValue = Enum.Parse(typeof(PackageSourceType), enumString);
-
-        return enumValue.Equals(value);
+        return currentPackageSource.Equals(currentParameter, StringComparison.OrdinalIgnoreCase);
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (parameter is not string enumString)
+        if (value == null || parameter == null)
         {
-            throw new ArgumentException("ExceptionPackageSourceTypeToBooleanConverterParameterMustBeAnEnumName");
+            return "default";
         }
 
-        return Enum.Parse(typeof(PackageSourceType), enumString);
+        var isChecked = (bool)value;
+        var currentParameter = (string)parameter;
+
+        if (isChecked)
+        {
+            return currentParameter == "Official" ? "default" : currentParameter;
+        }
+        return "default";
     }
 }

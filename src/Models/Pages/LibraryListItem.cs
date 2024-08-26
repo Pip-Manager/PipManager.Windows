@@ -1,4 +1,4 @@
-﻿using PipManager.Windows.Models.Package;
+﻿using PipManager.Core.PyPackage.Models;
 using Wpf.Ui.Controls;
 
 namespace PipManager.Windows.Models.Pages;

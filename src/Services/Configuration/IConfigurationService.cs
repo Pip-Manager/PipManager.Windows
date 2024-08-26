@@ -1,12 +1,11 @@
-﻿using PipManager.Windows.Models;
-using PipManager.Windows.Models.AppConfigModels;
+﻿using PipManager.Core.Configuration.Models;
 using PipManager.Windows.Models.Package;
 
 namespace PipManager.Windows.Services.Configuration;
 
 public interface IConfigurationService
 {
-    public AppConfig AppConfig { get; set; }
+    public ConfigModel AppConfig { get; set; }
     public bool DebugMode { get; set; }
     public bool ExperimentMode { get; set; }
 
@@ -18,9 +17,9 @@ public interface IConfigurationService
 
     public string FindPythonPathByPipDir(string pipDir);
 
-    public EnvironmentItem? GetEnvironmentItem(string pythonPath);
+    public EnvironmentModel? GetEnvironmentItem(string pythonPath);
 
-    public EnvironmentItem? GetEnvironmentItemFromCommand(string command, string arguments);
+    public EnvironmentModel? GetEnvironmentItemFromCommand(string command, string arguments);
 
     public void RefreshAllEnvironmentVersions();
 }

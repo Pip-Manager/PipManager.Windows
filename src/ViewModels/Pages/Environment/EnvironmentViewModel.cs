@@ -1,10 +1,10 @@
 ﻿using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using PipManager.Core.Configuration.Models;
 using PipManager.Windows.Controls;
 using PipManager.Windows.Languages;
 using PipManager.Windows.Models.Action;
-using PipManager.Windows.Models.AppConfigModels;
 using PipManager.Windows.Services.Action;
 using PipManager.Windows.Services.Configuration;
 using PipManager.Windows.Services.Environment;
@@ -34,8 +34,8 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         
         configurationService.RefreshAllEnvironmentVersions();
         EnvironmentItems =
-            new ObservableCollection<EnvironmentItem>(configurationService.AppConfig.EnvironmentItems);
-        var currentEnvironment = configurationService.AppConfig.CurrentEnvironment;
+            new ObservableCollection<EnvironmentModel>(configurationService.AppConfig.Environments);
+        var currentEnvironment = configurationService.AppConfig.SelectedEnvironment;
         foreach (var environmentItem in EnvironmentItems)
         {
             if (currentEnvironment is null || environmentItem.PythonPath != currentEnvironment.PythonPath)
@@ -64,7 +64,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
     }
 
     [ObservableProperty]
-    private EnvironmentItem? _currentEnvironment;
+    private EnvironmentModel? _currentEnvironment;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(DeleteEnvironmentCommand), nameof(CheckEnvironmentCommand))]
@@ -80,8 +80,8 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         Log.Information($"[Environment] Environment has been removed from list ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
         EnvironmentItems.Remove(CurrentEnvironment!);
         CurrentEnvironment = null;
-        configurationService.AppConfig.CurrentEnvironment = null;
-        configurationService.AppConfig.EnvironmentItems = [..EnvironmentItems];
+        configurationService.AppConfig.SelectedEnvironment = null;
+        configurationService.AppConfig.Environments = [..EnvironmentItems];
         configurationService.Save();
         var mainWindowViewModel = App.GetService<MainWindowViewModel>();
         mainWindowViewModel.ApplicationTitle = "Pip Manager";
@@ -117,7 +117,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         var latest = "";
         await Task.Run(async () =>
         {
-            var versions = await environmentService.GetVersions("pip", new CancellationToken(), configurationService.AppConfig.PackageSource.DetectNonReleaseVersion);
+            var versions = await environmentService.GetVersions("pip", new CancellationToken(), configurationService.AppConfig.PackageSource.AllowNonRelease);
             if (versions.Status == 0)
             {
                 latest = versions.Versions!.Last();
@@ -125,7 +125,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         });
         Task.WaitAll();
         maskService.Hide();
-        var current = configurationService.AppConfig.CurrentEnvironment!.PipVersion!.Trim();
+        var current = configurationService.AppConfig.SelectedEnvironment!.PipVersion.Trim();
         if (latest != current && latest != string.Empty)
         {
             Log.Information($"[Environment] Environment update available ({current} => {latest})");
@@ -179,7 +179,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         {
             var mainWindowViewModel = App.GetService<MainWindowViewModel>();
             mainWindowViewModel.ApplicationTitle = $"Pip Manager | {CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion}";
-            configurationService.AppConfig.CurrentEnvironment = CurrentEnvironment;
+            configurationService.AppConfig.SelectedEnvironment = CurrentEnvironment;
             configurationService.Save();
             Log.Information($"[Environment] Environment changed ({CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion})");
         }
@@ -188,7 +188,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
     #region Add Environment
 
     [ObservableProperty]
-    private ObservableCollection<EnvironmentItem> _environmentItems = [];
+    private ObservableCollection<EnvironmentModel> _environmentItems = [];
 
     [RelayCommand]
     private void AddEnvironment()
