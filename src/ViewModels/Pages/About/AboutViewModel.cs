@@ -1,18 +1,16 @@
 ﻿using Serilog;
 using System.Collections.ObjectModel;
 using PipManager.Windows.Models.Pages;
-using PipManager.Windows.Services.Configuration;
 using Wpf.Ui.Controls;
 
 namespace PipManager.Windows.ViewModels.Pages.About;
 
-public partial class AboutViewModel(IConfigurationService configurationService) : ObservableObject, INavigationAware
+public partial class AboutViewModel : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
 
     [ObservableProperty] private string _appVersion = "Development";
     [ObservableProperty] private bool _debugMode;
-    [ObservableProperty] private bool _experimentMode;
 
     public void OnNavigatedTo()
     {
@@ -26,8 +24,7 @@ public partial class AboutViewModel(IConfigurationService configurationService) 
 
     private void InitializeViewModel()
     {
-        DebugMode = configurationService.DebugMode;
-        ExperimentMode = configurationService.ExperimentMode;
+        DebugMode = App.IsDebugMode;
         AppVersion = AppInfo.AppVersion;
         _isInitialized = true;
         NugetLibraryList =

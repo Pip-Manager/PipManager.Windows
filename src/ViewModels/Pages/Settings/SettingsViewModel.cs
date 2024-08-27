@@ -1,13 +1,11 @@
-﻿using Newtonsoft.Json;
-using Serilog;
+﻿using Serilog;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net.Http;
-using PipManager.Core.Configuration.Models;
+using PipManager.Core.Configuration;
+using PipManager.Core.Extensions;
 using PipManager.Windows.Languages;
-using PipManager.Windows.Models.Package;
-using PipManager.Windows.Services.Configuration;
 using PipManager.Windows.Services.Toast;
 using PipManager.Windows.Views.Pages.About;
 using PipManager.Windows.Views.Pages.Settings;
@@ -22,16 +20,14 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
 {
     private readonly HttpClient _httpClient;
     private readonly ISnackbarService _snackbarService;
-    private readonly IConfigurationService _configurationService;
     private readonly IThemeService _themeService;
     private readonly INavigationService _navigationService;
     private readonly IToastService _toastService;
 
-    public SettingsViewModel(ISnackbarService snackbarService, IConfigurationService configurationService, IThemeService themeService, INavigationService navigationService, IToastService toastService)
+    public SettingsViewModel(ISnackbarService snackbarService, IThemeService themeService, INavigationService navigationService, IToastService toastService)
     {
         _httpClient = App.GetService<HttpClient>();
         _snackbarService = snackbarService;
-        _configurationService = configurationService;
         _themeService = themeService;
         _navigationService = navigationService;
         _toastService = toastService;
@@ -57,11 +53,12 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
 
     private void InitializeViewModel()
     {
-        CurrentPackageSource = _configurationService.AppConfig.PackageSource.Source;
-        AllowNonRelease = _configurationService.AppConfig.PackageSource.AllowNonRelease;
-        var language = _configurationService.AppConfig.Personalization.Language;
+        var config = Configuration.AppConfig!;
+        CurrentPackageSource = config.PackageSource.Source;
+        AllowNonRelease = config.PackageSource.AllowNonRelease;
+        var language = config.Personalization.Language;
         Language = language != "Auto" ? GetLanguage.LanguageList.Select(x => x.Key).ToList()[GetLanguage.LanguageList.Select(x => x.Value).ToList().IndexOf(language)] : "Auto";
-        CurrentTheme = _configurationService.AppConfig.Personalization.Theme switch
+        CurrentTheme = config.Personalization.Theme switch
         {
             "light" => ApplicationTheme.Light,
             "dark" => ApplicationTheme.Dark,
@@ -82,8 +79,8 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private void OnChangePackageSource(string parameter)
     {
-        _configurationService.AppConfig.PackageSource.Source = parameter;
-        _configurationService.Save();
+        Configuration.AppConfig!.PackageSource.Source = parameter;
+        Configuration.Save();
         Log.Information($"[Settings] Package source changes to {parameter}");
     }
 
@@ -100,7 +97,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         {
             try
             {
-                await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Official));
+                await _httpClient.GetByteArrayAsync("default".GetPackageSourceTestingUrl());
                 OfficialPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
             }
             catch (Exception exception) when (exception is HttpRequestException or TaskCanceledException)
@@ -113,7 +110,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         {
             try
             {
-                await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Tsinghua));
+                await _httpClient.GetByteArrayAsync("tsinghua".GetPackageSourceTestingUrl());
                 TsinghuaPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
             }
             catch (Exception exception) when (exception is HttpRequestException or TaskCanceledException)
@@ -126,7 +123,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         {
             try
             {
-                await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Aliyun));
+                await _httpClient.GetByteArrayAsync("aliyun".GetPackageSourceTestingUrl());
                 AliyunPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
             }
             catch (Exception exception) when (exception is HttpRequestException or TaskCanceledException)
@@ -139,7 +136,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         {
             try
             {
-                await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Douban));
+                await _httpClient.GetByteArrayAsync("douban".GetPackageSourceTestingUrl());
                 DoubanPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
             }
             catch (Exception exception) when (exception is HttpRequestException or TaskCanceledException)
@@ -158,8 +155,8 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private void OnChangeDetectNonReleaseVersion()
     {
-        _configurationService.AppConfig.PackageSource.AllowNonRelease = AllowNonRelease;
-        _configurationService.Save();
+        Configuration.AppConfig!.PackageSource.AllowNonRelease = AllowNonRelease;
+        Configuration.Save();
         Log.Information($"[Settings] Detect non-release update changes to {AllowNonRelease}");
     }
 
@@ -175,8 +172,8 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     {
         var language = Language != "Auto" ? GetLanguage.LanguageList[Language] : "Auto";
         I18NExtension.Culture = language != "Auto" ? new CultureInfo(language) : CultureInfo.CurrentCulture;
-        _configurationService.AppConfig.Personalization.Language = Language != "Auto" ? GetLanguage.LanguageList[Language] : "Auto";
-        _configurationService.Save();
+        Configuration.AppConfig!.Personalization.Language = Language != "Auto" ? GetLanguage.LanguageList[Language] : "Auto";
+        Configuration.Save();
         if (_isInitialized)
         {
             _navigationService.Navigate(typeof(AboutPage));
@@ -206,8 +203,8 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
                 CurrentTheme = ApplicationTheme.Dark;
                 break;
         }
-        _configurationService.AppConfig.Personalization.Theme = parameter;
-        _configurationService.Save();
+        Configuration.AppConfig!.Personalization.Theme = parameter;
+        Configuration.Save();
         Log.Information($"[Settings] Theme changes to {parameter}");
     }
 
@@ -287,7 +284,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         if (result == Wpf.Ui.Controls.MessageBoxResult.Primary)
         {
             Log.Information("Config reset");
-            await File.WriteAllTextAsync(AppInfo.ConfigPath, JsonConvert.SerializeObject(new ConfigModel(), Formatting.Indented));
+            Configuration.Reset();
         }
     }
 

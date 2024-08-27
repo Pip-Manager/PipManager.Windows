@@ -11,7 +11,6 @@ using System.Windows.Threading;
 using PipManager.Core.Services.PackageSearchService;
 using PipManager.Windows.Services;
 using PipManager.Windows.Services.Action;
-using PipManager.Windows.Services.Configuration;
 using PipManager.Windows.Services.Environment;
 using PipManager.Windows.Services.Mask;
 using PipManager.Windows.Services.Overlay;
@@ -75,7 +74,6 @@ public partial class App
             services.AddSingleton<ISnackbarService, SnackbarService>();
             services.AddSingleton<IMaskService, MaskService>();
             services.AddSingleton<IToastService, ToastService>();
-            services.AddSingleton<IConfigurationService, ConfigurationService>();
             services.AddSingleton<IEnvironmentService, EnvironmentService>();
             services.AddSingleton<IActionService, ActionService>();
             services.AddSingleton<IThemeService, ThemeService>();
@@ -138,7 +136,7 @@ public partial class App
     private static partial void FreeConsole();
 
     private bool _showConsoleWindow;
-    private bool _experimentMode;
+    public static bool IsDebugMode { get; private set; }
 
     /// <summary>
     /// Occurs when the application is loading.
@@ -154,10 +152,6 @@ public partial class App
                 case "/debug":
                     _showConsoleWindow = true;
                     break;
-
-                case "/experiment":
-                    _experimentMode = true;
-                    break;
             }
         }
         var appStarting = new AppStarting
@@ -168,9 +162,7 @@ public partial class App
         appStarting.LoadLanguage();
         appStarting.CachesDeletion();
         Host.Start();
-        GetService<IConfigurationService>().DebugMode = _showConsoleWindow;
-        GetService<IConfigurationService>().ExperimentMode = _experimentMode;
-        GetService<MainWindowViewModel>().ExperimentMode = _experimentMode;
+        IsDebugMode = _showConsoleWindow;
     }
 
     /// <summary>

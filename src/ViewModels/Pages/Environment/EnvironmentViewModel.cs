@@ -1,12 +1,12 @@
 ﻿using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using PipManager.Core.Configuration;
 using PipManager.Core.Configuration.Models;
 using PipManager.Windows.Controls;
 using PipManager.Windows.Languages;
 using PipManager.Windows.Models.Action;
 using PipManager.Windows.Services.Action;
-using PipManager.Windows.Services.Configuration;
 using PipManager.Windows.Services.Environment;
 using PipManager.Windows.Services.Mask;
 using PipManager.Windows.Services.Toast;
@@ -20,7 +20,7 @@ using Wpf.Ui.Extensions;
 namespace PipManager.Windows.ViewModels.Pages.Environment;
 
 public partial class EnvironmentViewModel(INavigationService navigationService,
-        IConfigurationService configurationService, IEnvironmentService environmentService,
+        IEnvironmentService environmentService,
         IActionService actionService, IMaskService maskService, IContentDialogService contentDialogService,
         IToastService toastService)
     : ObservableObject, INavigationAware
@@ -32,10 +32,10 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         if (!_isInitialized)
             InitializeViewModel();
         
-        configurationService.RefreshAllEnvironmentVersions();
+        Configuration.RefreshAllEnvironments();
         EnvironmentItems =
-            new ObservableCollection<EnvironmentModel>(configurationService.AppConfig.Environments);
-        var currentEnvironment = configurationService.AppConfig.SelectedEnvironment;
+            new ObservableCollection<EnvironmentModel>(Configuration.AppConfig!.Environments);
+        var currentEnvironment = Configuration.AppConfig.SelectedEnvironment;
         foreach (var environmentItem in EnvironmentItems)
         {
             if (currentEnvironment is null || environmentItem.PythonPath != currentEnvironment.PythonPath)
@@ -80,9 +80,9 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         Log.Information($"[Environment] Environment has been removed from list ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
         EnvironmentItems.Remove(CurrentEnvironment!);
         CurrentEnvironment = null;
-        configurationService.AppConfig.SelectedEnvironment = null;
-        configurationService.AppConfig.Environments = [..EnvironmentItems];
-        configurationService.Save();
+        Configuration.AppConfig!.SelectedEnvironment = null;
+        Configuration.AppConfig.Environments = [..EnvironmentItems];
+        Configuration.Save();
         var mainWindowViewModel = App.GetService<MainWindowViewModel>();
         mainWindowViewModel.ApplicationTitle = "Pip Manager";
         EnvironmentSelected = false;
@@ -117,7 +117,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         var latest = "";
         await Task.Run(async () =>
         {
-            var versions = await environmentService.GetVersions("pip", new CancellationToken(), configurationService.AppConfig.PackageSource.AllowNonRelease);
+            var versions = await environmentService.GetVersions("pip", new CancellationToken(), Configuration.AppConfig!.PackageSource.AllowNonRelease);
             if (versions.Status == 0)
             {
                 latest = versions.Versions!.Last();
@@ -125,7 +125,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         });
         Task.WaitAll();
         maskService.Hide();
-        var current = configurationService.AppConfig.SelectedEnvironment!.PipVersion.Trim();
+        var current = Configuration.AppConfig!.SelectedEnvironment!.PipVersion.Trim();
         if (latest != current && latest != string.Empty)
         {
             Log.Information($"[Environment] Environment update available ({current} => {latest})");
@@ -140,7 +140,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
                     progressIntermediate: false
                 ));
                 navigationService.Navigate(typeof(ActionPage));
-                configurationService.RefreshAllEnvironmentVersions();
+                Configuration.RefreshAllEnvironments();
             }
         }
         else if (latest == string.Empty)
@@ -179,8 +179,8 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         {
             var mainWindowViewModel = App.GetService<MainWindowViewModel>();
             mainWindowViewModel.ApplicationTitle = $"Pip Manager | {CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion}";
-            configurationService.AppConfig.SelectedEnvironment = CurrentEnvironment;
-            configurationService.Save();
+            Configuration.AppConfig!.SelectedEnvironment = CurrentEnvironment;
+            Configuration.Save();
             Log.Information($"[Environment] Environment changed ({CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion})");
         }
     }
