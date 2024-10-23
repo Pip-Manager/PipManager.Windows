@@ -1,49 +1,49 @@
-﻿using Newtonsoft.Json;
-using Serilog;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
-using PipManager.Windows.Helpers;
+using Newtonsoft.Json;
+using PipManager.Core.Configuration;
+using PipManager.Core.Configuration.Models;
+using PipManager.Core.Extensions;
+using PipManager.Core.PyEnvironment.Helpers;
+using PipManager.Core.PyPackage.Helpers;
+using PipManager.Core.PyPackage.Models;
 using PipManager.Windows.Models;
-using PipManager.Windows.Models.AppConfigModels;
 using PipManager.Windows.Models.Package;
 using PipManager.Windows.Models.Pages;
-using PipManager.Windows.Models.Pypi;
-using PipManager.Windows.Services.Configuration;
 using PipManager.Windows.Services.Environment.Response;
+using Serilog;
 using Wpf.Ui.Controls;
 using Path = System.IO.Path;
 
 namespace PipManager.Windows.Services.Environment;
 
-public partial class EnvironmentService(IConfigurationService configurationService) : IEnvironmentService
+public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentService
 {
-    private readonly HttpClient _httpClient = App.GetService<HttpClient>();
-
-    public bool CheckEnvironmentExists(EnvironmentItem environmentItem)
+    public bool CheckEnvironmentExists(EnvironmentModel environmentModel)
     {
-        var environmentItems = configurationService.AppConfig.EnvironmentItems;
-        return environmentItems.Any(item => item.PythonPath == environmentItem.PythonPath);
+        var environmentItems = Configuration.AppConfig!.Environments;
+        return environmentItems.Any(item => item.PythonPath == environmentModel.PythonPath);
     }
 
-    public ActionResponse CheckEnvironmentAvailable(EnvironmentItem environmentItem)
+    public ActionResponse CheckEnvironmentAvailable(EnvironmentModel environmentModel)
     {
-        var verify = configurationService.GetEnvironmentItemFromCommand(environmentItem.PythonPath!, "-m pip -V");
-        return verify != null && environmentItem.PythonPath != string.Empty
+        var verify = WindowsSpecified.GetEnvironmentByCommand(environmentModel.PythonPath, "-m pip -V");
+        return verify != null && environmentModel.PythonPath != string.Empty
             ? new ActionResponse { Success = true }
             : new ActionResponse { Success = false, Exception = ExceptionType.EnvironmentBroken };
     }
 
-    public ActionResponse PurgeEnvironmentCache(EnvironmentItem environmentItem)
+    public ActionResponse PurgeEnvironmentCache(EnvironmentModel environmentModel)
     {
         var process = new Process
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = configurationService.AppConfig.CurrentEnvironment!.PythonPath,
+                FileName = Configuration.AppConfig!.SelectedEnvironment!.PythonPath,
                 Arguments = "-m pip cache purge",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
@@ -63,13 +63,13 @@ public partial class EnvironmentService(IConfigurationService configurationServi
 
     public async Task<List<PackageItem>?> GetLibraries()
     {
-        if (configurationService.AppConfig.CurrentEnvironment is null)
+        if (Configuration.AppConfig!.SelectedEnvironment is null)
         {
             return null;
         }
 
         var packageDirInfo = new DirectoryInfo(Path.Combine(
-            Path.GetDirectoryName(configurationService.AppConfig.CurrentEnvironment!.PythonPath)!,
+            Path.GetDirectoryName(Configuration.AppConfig.SelectedEnvironment!.PythonPath)!,
             @"Lib\site-packages"));
         
         var packages = new ConcurrentBag<PackageItem>();
@@ -239,11 +239,11 @@ public partial class EnvironmentService(IConfigurationService configurationServi
             if (!PackageNameVerificationRegex().IsMatch(packageName))
                 return new GetVersionsResponse { Status = 2, Versions = [] };
             var responseMessage =
-                await _httpClient.GetAsync(
-                    $"{configurationService.GetUrlFromPackageSourceType("pypi")}{packageName}/json", cancellationToken);
+                await httpClient.GetAsync(
+                    $"{Configuration.AppConfig!.PackageSource.Source.GetPackageSourceUrl("pypi")}{packageName}/json", cancellationToken);
             var response = await responseMessage.Content.ReadAsStringAsync(cancellationToken);
 
-            var pypiPackageInfo = JsonConvert.DeserializeObject<PypiPackageInfo>(response)
+            var pypiPackageInfo = JsonConvert.DeserializeObject<PackageInfo>(response)
                 ?.Releases?
                 .Where(item => item.Value.Count != 0).OrderBy(e => e.Value[0].UploadTime)
                 .ThenBy(e => e.Value[0].UploadTime).ToDictionary(pair => pair.Key, pair => pair.Value);
@@ -308,7 +308,7 @@ public partial class EnvironmentService(IConfigurationService configurationServi
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = configurationService.AppConfig.CurrentEnvironment!.PythonPath,
+                FileName = Configuration.AppConfig!.SelectedEnvironment!.PythonPath,
                 Arguments = $"{arguments} {extra}",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
@@ -332,23 +332,23 @@ public partial class EnvironmentService(IConfigurationService configurationServi
     public ActionResponse Install(string packageName, DataReceivedEventHandler consoleOutputCallback,
         string[]? extraParameters = null)
         => RaiseProcess(
-            $"-m pip install \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
+            $"-m pip install \"{packageName}\" -i {Configuration.AppConfig!.PackageSource.Source.GetPackageSourceUrl()} --retries 1 --timeout 6",
             consoleOutputCallback, extraParameters);
     
     public ActionResponse InstallByRequirements(string requirementsFilePath,
         DataReceivedEventHandler consoleOutputCallback)
         => RaiseProcess(
-            $"-m pip install -r \"{requirementsFilePath}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
+            $"-m pip install -r \"{requirementsFilePath}\" -i {Configuration.AppConfig!.PackageSource.Source.GetPackageSourceUrl()} --retries 1 --timeout 6",
             consoleOutputCallback);
 
     public ActionResponse Download(string packageName, string downloadPath, DataReceivedEventHandler consoleOutputCallback, string[]? extraParameters = null)
         => RaiseProcess(
-            $"-m pip download -d \"{downloadPath}\" \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
+            $"-m pip download -d \"{downloadPath}\" \"{packageName}\" -i {Configuration.AppConfig!.PackageSource.Source.GetPackageSourceUrl()} --retries 1 --timeout 6",
             consoleOutputCallback, extraParameters);
 
     public ActionResponse Update(string packageName, DataReceivedEventHandler consoleOutputCallback)
         => RaiseProcess(
-            $"-m pip install --upgrade \"{packageName}\" -i {configurationService.GetUrlFromPackageSourceType()} --retries 1 --timeout 6",
+            $"-m pip install --upgrade \"{packageName}\" -i {Configuration.AppConfig!.PackageSource.Source.GetPackageSourceUrl()} --retries 1 --timeout 6",
             consoleOutputCallback);
 
     public ActionResponse Uninstall(string packageName, DataReceivedEventHandler consoleOutputCallback)

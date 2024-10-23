@@ -2,8 +2,8 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/Pip-Manager/PipManager.Wpf">
-    <img src="https://raw.githubusercontent.com/Pip-Manager/PipManager.Wpf/main/src/PipManager/Assets/icon.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/Pip-Manager/PipManager.Windows">
+    <img src="https://raw.githubusercontent.com/Pip-Manager/PipManager.Windows/refs/heads/main/src/Assets/icon.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Pip Manager</h3>
@@ -14,11 +14,11 @@
     <a href="https://pipmanager.dev"><strong>Explore the docs (Chinese Simplified) »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/Pip-Manager/PipManager.Wpf?tab=readme-ov-file#screenshots">Screenshots</a>
+    <a href="https://github.com/Pip-Manager/PipManager.Windows?tab=readme-ov-file#screenshots">Screenshots</a>
     ·
-    <a href="https://github.com/Pip-Manager/PipManager.Wpf/issues">Report Bug</a>
+    <a href="https://github.com/Pip-Manager/PipManager.Windows/issues">Report Bug</a>
     ·
-    <a href="https://github.com/Pip-Manager/PipManager.Wpf/pulls">Request Feature</a>
+    <a href="https://github.com/Pip-Manager/PipManager.Windows/pulls">Request Feature</a>
   </p>
 </div>
 
@@ -70,12 +70,10 @@ Double click `PipManager.exe` or `PipManager_withRuntime.exe` *If you have not i
 ### Arguments
 
 - `/console`: Show console while program running
-- `/experiment`: Enable a secret page for test *Currently this feature is useless*
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 See the [Open Issues](https://github.com/Pip-Manager/PipManager.Wpf/issues) for a full list of proposed features (and known issues).
-
 
 ## Contributing
 

@@ -1,6 +1,5 @@
 ﻿using Wpf.Ui.Controls;
 using Settings_SettingsViewModel = PipManager.Windows.ViewModels.Pages.Settings.SettingsViewModel;
-using SettingsViewModel = PipManager.Windows.ViewModels.Pages.Settings.SettingsViewModel;
 
 namespace PipManager.Windows.Views.Pages.Settings;
 

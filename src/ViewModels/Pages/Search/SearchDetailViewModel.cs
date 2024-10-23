@@ -6,11 +6,11 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Net.Http;
 using Microsoft.Win32;
+using PipManager.Core.Configuration;
 using PipManager.Core.Wrappers.PackageSearchQueryWrapper;
 using PipManager.Windows.Languages;
 using PipManager.Windows.Models.Action;
 using PipManager.Windows.Services.Action;
-using PipManager.Windows.Services.Configuration;
 using PipManager.Windows.Services.Environment;
 using PipManager.Windows.Services.Toast;
 using PipManager.Windows.Views.Pages.Search;
@@ -30,7 +30,6 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     private readonly IToastService _toastService;
     private readonly IActionService _actionService;
     private readonly IEnvironmentService _environmentService;
-    private readonly IConfigurationService _configurationService;
 
     [ObservableProperty]
     private bool _projectDescriptionVisibility;
@@ -61,7 +60,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     [ObservableProperty]
     private QueryListItemModel? _package;
 
-    public SearchDetailViewModel(INavigationService navigationService, HttpClient httpClient, IThemeService themeService, IToastService toastService, IEnvironmentService environmentService, IActionService actionService, IConfigurationService configurationService)
+    public SearchDetailViewModel(INavigationService navigationService, HttpClient httpClient, IThemeService themeService, IToastService toastService, IEnvironmentService environmentService, IActionService actionService)
     {
         _navigationService = navigationService;
         _httpClient = httpClient;
@@ -69,7 +68,6 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
         _toastService = toastService;
         _environmentService = environmentService;
         _actionService = actionService;
-        _configurationService = configurationService;
 
         WeakReferenceMessenger.Default.Register<SearchDetailMessage>(this, Receive);
     }
@@ -165,7 +163,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
         SearchDetailPage.ProjectDescriptionWebView!.Loaded += async (_, _) =>
         {
             ProjectDescriptionVisibility = false;
-            var packageVersions = await _environmentService.GetVersions(Package!.Name, new CancellationToken(), _configurationService.AppConfig.PackageSource.DetectNonReleaseVersion);
+            var packageVersions = await _environmentService.GetVersions(Package!.Name, new CancellationToken(), Configuration.AppConfig!.PackageSource.AllowNonRelease);
             switch (packageVersions.Status)
             {
                 case 1 or 2:

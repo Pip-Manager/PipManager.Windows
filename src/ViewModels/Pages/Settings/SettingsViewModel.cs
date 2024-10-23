@@ -1,13 +1,11 @@
-﻿using Newtonsoft.Json;
-using Serilog;
+﻿using Serilog;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net.Http;
+using PipManager.Core.Configuration;
+using PipManager.Core.Extensions;
 using PipManager.Windows.Languages;
-using PipManager.Windows.Models;
-using PipManager.Windows.Models.Package;
-using PipManager.Windows.Services.Configuration;
 using PipManager.Windows.Services.Toast;
 using PipManager.Windows.Views.Pages.About;
 using PipManager.Windows.Views.Pages.Settings;
@@ -22,16 +20,14 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
 {
     private readonly HttpClient _httpClient;
     private readonly ISnackbarService _snackbarService;
-    private readonly IConfigurationService _configurationService;
     private readonly IThemeService _themeService;
     private readonly INavigationService _navigationService;
     private readonly IToastService _toastService;
 
-    public SettingsViewModel(ISnackbarService snackbarService, IConfigurationService configurationService, IThemeService themeService, INavigationService navigationService, IToastService toastService)
+    public SettingsViewModel(ISnackbarService snackbarService, IThemeService themeService, INavigationService navigationService, IToastService toastService)
     {
         _httpClient = App.GetService<HttpClient>();
         _snackbarService = snackbarService;
-        _configurationService = configurationService;
         _themeService = themeService;
         _navigationService = navigationService;
         _toastService = toastService;
@@ -57,27 +53,24 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
 
     private void InitializeViewModel()
     {
-        CurrentPackageSource = _configurationService.AppConfig.PackageSource.PackageSourceType;
-        DetectNonReleaseVersion = _configurationService.AppConfig.PackageSource.DetectNonReleaseVersion;
-        var language = _configurationService.AppConfig.Personalization.Language;
+        var config = Configuration.AppConfig!;
+        CurrentPackageSource = config.PackageSource.Source;
+        AllowNonRelease = config.PackageSource.AllowNonRelease;
+        var language = config.Personalization.Language;
         Language = language != "Auto" ? GetLanguage.LanguageList.Select(x => x.Key).ToList()[GetLanguage.LanguageList.Select(x => x.Value).ToList().IndexOf(language)] : "Auto";
-        CurrentTheme = _configurationService.AppConfig.Personalization.Theme switch
+        CurrentTheme = config.Personalization.Theme switch
         {
             "light" => ApplicationTheme.Light,
             "dark" => ApplicationTheme.Dark,
             _ => ApplicationTheme.Dark
         };
-        LogAutoDeletion = _configurationService.AppConfig.Personalization.LogAutoDeletion;
-        LogAutoDeletionTimes = _configurationService.AppConfig.Personalization.LogAutoDeletionTimes;
-        CrushesAutoDeletion = _configurationService.AppConfig.Personalization.CrushesAutoDeletion;
-        CrushesAutoDeletionTimes = _configurationService.AppConfig.Personalization.CrushesAutoDeletionTimes;
         _isInitialized = true;
         Log.Information("[Settings] Initialized");
     }
 
     #region Package Source
 
-    [ObservableProperty] private PackageSourceType _currentPackageSource = PackageSourceType.Official;
+    [ObservableProperty] private string _currentPackageSource = "default";
     [ObservableProperty] private string _officialPackageSourceNetwork = string.Empty;
     [ObservableProperty] private string _tsinghuaPackageSourceNetwork = string.Empty;
     [ObservableProperty] private string _aliyunPackageSourceNetwork = string.Empty;
@@ -86,16 +79,8 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private void OnChangePackageSource(string parameter)
     {
-        CurrentPackageSource = parameter switch
-        {
-            "official" => PackageSourceType.Official,
-            "tsinghua" => PackageSourceType.Tsinghua,
-            "aliyun" => PackageSourceType.Aliyun,
-            "douban" => PackageSourceType.Douban,
-            _ => PackageSourceType.Official
-        };
-        _configurationService.AppConfig.PackageSource.PackageSourceType = CurrentPackageSource;
-        _configurationService.Save();
+        Configuration.AppConfig!.PackageSource.Source = parameter;
+        Configuration.Save();
         Log.Information($"[Settings] Package source changes to {parameter}");
     }
 
@@ -112,7 +97,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         {
             try
             {
-                await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Official));
+                await _httpClient.GetByteArrayAsync("default".GetPackageSourceTestingUrl());
                 OfficialPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
             }
             catch (Exception exception) when (exception is HttpRequestException or TaskCanceledException)
@@ -125,7 +110,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         {
             try
             {
-                await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Tsinghua));
+                await _httpClient.GetByteArrayAsync("tsinghua".GetPackageSourceTestingUrl());
                 TsinghuaPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
             }
             catch (Exception exception) when (exception is HttpRequestException or TaskCanceledException)
@@ -138,7 +123,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         {
             try
             {
-                await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Aliyun));
+                await _httpClient.GetByteArrayAsync("aliyun".GetPackageSourceTestingUrl());
                 AliyunPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
             }
             catch (Exception exception) when (exception is HttpRequestException or TaskCanceledException)
@@ -151,7 +136,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         {
             try
             {
-                await _httpClient.GetByteArrayAsync(_configurationService.GetTestingUrlFromPackageSourceType(PackageSourceType.Douban));
+                await _httpClient.GetByteArrayAsync("douban".GetPackageSourceTestingUrl());
                 DoubanPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
             }
             catch (Exception exception) when (exception is HttpRequestException or TaskCanceledException)
@@ -165,14 +150,14 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     }
     
     [ObservableProperty]
-    private bool _detectNonReleaseVersion;
+    private bool _allowNonRelease;
     
     [RelayCommand]
     private void OnChangeDetectNonReleaseVersion()
     {
-        _configurationService.AppConfig.PackageSource.DetectNonReleaseVersion = DetectNonReleaseVersion;
-        _configurationService.Save();
-        Log.Information($"[Settings] Detect non-release update changes to {DetectNonReleaseVersion}");
+        Configuration.AppConfig!.PackageSource.AllowNonRelease = AllowNonRelease;
+        Configuration.Save();
+        Log.Information($"[Settings] Detect non-release update changes to {AllowNonRelease}");
     }
 
     #endregion Package Source
@@ -187,8 +172,8 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     {
         var language = Language != "Auto" ? GetLanguage.LanguageList[Language] : "Auto";
         I18NExtension.Culture = language != "Auto" ? new CultureInfo(language) : CultureInfo.CurrentCulture;
-        _configurationService.AppConfig.Personalization.Language = Language != "Auto" ? GetLanguage.LanguageList[Language] : "Auto";
-        _configurationService.Save();
+        Configuration.AppConfig!.Personalization.Language = Language != "Auto" ? GetLanguage.LanguageList[Language] : "Auto";
+        Configuration.Save();
         if (_isInitialized)
         {
             _navigationService.Navigate(typeof(AboutPage));
@@ -218,53 +203,12 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
                 CurrentTheme = ApplicationTheme.Dark;
                 break;
         }
-        _configurationService.AppConfig.Personalization.Theme = parameter;
-        _configurationService.Save();
+        Configuration.AppConfig!.Personalization.Theme = parameter;
+        Configuration.Save();
         Log.Information($"[Settings] Theme changes to {parameter}");
     }
 
     #endregion Theme
-
-    #region Log and Crushes Auto Deletion
-
-    [ObservableProperty] private bool _logAutoDeletion;
-    [ObservableProperty] private bool _crushesAutoDeletion;
-    [ObservableProperty] private int _logAutoDeletionTimes;
-    [ObservableProperty] private int _crushesAutoDeletionTimes;
-
-    [RelayCommand]
-    private void OnChangeLogAutoDeletion()
-    {
-        _configurationService.AppConfig.Personalization.LogAutoDeletion = LogAutoDeletion;
-        _configurationService.Save();
-        Log.Information($"[Settings] Log auto deletion now is {LogAutoDeletion}");
-    }
-
-    [RelayCommand]
-    private void OnChangeLogAutoDeletionTimes()
-    {
-        _configurationService.AppConfig.Personalization.LogAutoDeletionTimes = LogAutoDeletionTimes;
-        _configurationService.Save();
-        Log.Information($"[Settings] Log auto deletion will be executed when the number of files reaches {LogAutoDeletionTimes}");
-    }
-
-    [RelayCommand]
-    private void OnChangeCrushesAutoDeletion()
-    {
-        _configurationService.AppConfig.Personalization.CrushesAutoDeletion = CrushesAutoDeletion;
-        _configurationService.Save();
-        Log.Information($"[Settings] Crushes auto deletion now is {CrushesAutoDeletion}");
-    }
-
-    [RelayCommand]
-    private void OnChangeCrushesAutoDeletionTimes()
-    {
-        _configurationService.AppConfig.Personalization.CrushesAutoDeletionTimes = CrushesAutoDeletionTimes;
-        _configurationService.Save();
-        Log.Information($"[Settings] Crushes auto deletion will be executed when the number of files reaches {CrushesAutoDeletionTimes}");
-    }
-
-    #endregion Log and Crushes Auto Deletion
 
     #region File Management
 
@@ -340,7 +284,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         if (result == Wpf.Ui.Controls.MessageBoxResult.Primary)
         {
             Log.Information("Config reset");
-            await File.WriteAllTextAsync(AppInfo.ConfigPath, JsonConvert.SerializeObject(new AppConfig(), Formatting.Indented));
+            Configuration.Reset();
         }
     }
 

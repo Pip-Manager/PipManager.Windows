@@ -2,13 +2,13 @@
 using Serilog;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using PipManager.Core.Configuration;
 using PipManager.Windows.Languages;
 using PipManager.Windows.Models.Action;
 using PipManager.Windows.Models.Package;
 using PipManager.Windows.Models.Pages;
 using PipManager.Windows.Resources.Library;
 using PipManager.Windows.Services.Action;
-using PipManager.Windows.Services.Configuration;
 using PipManager.Windows.Services.Environment;
 using PipManager.Windows.Services.Mask;
 using PipManager.Windows.Services.Overlay;
@@ -19,8 +19,6 @@ using PipManager.Windows.Views.Pages.Library;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
-using static PipManager.Windows.ViewModels.Pages.Library.LibraryDetailViewModel;
-using static PipManager.Windows.ViewModels.Pages.Library.LibraryInstallViewModel;
 
 namespace PipManager.Windows.ViewModels.Pages.Library;
 
@@ -30,7 +28,6 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private bool _isInitialized;
     private readonly INavigationService _navigationService;
     private readonly IEnvironmentService _environmentService;
-    private readonly IConfigurationService _configurationService;
     private readonly IActionService _actionService;
     private readonly IMaskService _maskService;
     private readonly IToastService _toastService;
@@ -38,18 +35,17 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private readonly IOverlayService _overlayService;
 
     public LibraryViewModel(INavigationService navigationService, IEnvironmentService environmentService, IOverlayService overlayService,
-        IConfigurationService configurationService, IActionService actionService, IThemeService themeService, IMaskService maskService, IToastService toastService, IContentDialogService contentDialogService)
+        IActionService actionService, IThemeService themeService, IMaskService maskService, IToastService toastService, IContentDialogService contentDialogService)
     {
         _navigationService = navigationService;
         _environmentService = environmentService;
-        _configurationService = configurationService;
         _actionService = actionService;
         _maskService = maskService;
         _toastService = toastService;
         _contentDialogService = contentDialogService;
         _overlayService = overlayService;
 
-        themeService.SetTheme(_configurationService.AppConfig.Personalization.Theme switch
+        themeService.SetTheme(Configuration.AppConfig!.Personalization.Theme switch
         {
             "light" => ApplicationTheme.Light,
             "dark" => ApplicationTheme.Dark,
@@ -116,7 +112,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         var operationList = "";
         var ioTaskList = new List<Task>();
         var msgListLock = new object();
-        var detectNonRelease = _configurationService.AppConfig.PackageSource.DetectNonReleaseVersion;
+        var detectNonRelease = Configuration.AppConfig!.PackageSource.AllowNonRelease;
         await Task.Run(() =>
         {
             var selected = LibraryList.Where(libraryListItem => libraryListItem.IsSelected).ToList();
@@ -193,7 +189,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         EnvironmentFoundVisible = true;
         _maskService.Show(Lang.MainWindow_NavigationContent_Library);
         _library = [];
-        if (_configurationService.AppConfig.CurrentEnvironment == null)
+        if (Configuration.AppConfig!.SelectedEnvironment == null)
         {
             _maskService.Hide();
             EnvironmentFoundVisible = false;

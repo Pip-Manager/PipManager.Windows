@@ -9,7 +9,6 @@ using PipManager.Windows.Services.Toast;
 using PipManager.Windows.Views.Pages.Search;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
-using static PipManager.Windows.ViewModels.Pages.Search.SearchDetailViewModel;
 
 namespace PipManager.Windows.ViewModels.Pages.Search;
 

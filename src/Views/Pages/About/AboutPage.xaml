@@ -41,13 +41,6 @@
                                     Margin="7,0,0,0"
                                     VerticalAlignment="Top"
                                     Visibility="{Binding ViewModel.DebugMode, Converter={StaticResource BoolToVisibility}}" />
-                                <ui:Badge
-                                    Appearance="Danger"
-                                    Content="Experiment"
-                                    FontSize="12"
-                                    Margin="7,0,0,0"
-                                    VerticalAlignment="Top"
-                                    Visibility="{Binding ViewModel.ExperimentMode, Converter={StaticResource BoolToVisibility}}" />
 
                             </StackPanel>
                             <StackPanel Margin="3,10,0,0" Orientation="Horizontal">

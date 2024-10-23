@@ -6,12 +6,12 @@ using System.IO.Compression;
 using System.Text;
 using ICSharpCode.SharpZipLib.GZip;
 using ICSharpCode.SharpZipLib.Tar;
+using PipManager.Core.Configuration;
 using PipManager.Windows.Languages;
 using PipManager.Windows.Models.Action;
 using PipManager.Windows.Models.Pages;
 using PipManager.Windows.Resources.Library;
 using PipManager.Windows.Services.Action;
-using PipManager.Windows.Services.Configuration;
 using PipManager.Windows.Services.Environment;
 using PipManager.Windows.Services.Mask;
 using PipManager.Windows.Services.Toast;
@@ -33,9 +33,8 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
     private readonly IEnvironmentService _environmentService;
     private readonly IToastService _toastService;
     private readonly INavigationService _navigationService;
-    private readonly IConfigurationService _configurationService;
 
-    public LibraryInstallViewModel(IActionService actionService, IMaskService maskService, IContentDialogService contentDialogService, IEnvironmentService environmentService, IToastService toastService, INavigationService navigationService, IConfigurationService configurationService)
+    public LibraryInstallViewModel(IActionService actionService, IMaskService maskService, IContentDialogService contentDialogService, IEnvironmentService environmentService, IToastService toastService, INavigationService navigationService)
     {
         _actionService = actionService;
         _maskService = maskService;
@@ -44,7 +43,6 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
         _toastService = toastService;
         _installWheelDependencies = false;
         _navigationService = navigationService;
-        _configurationService = configurationService;
         WeakReferenceMessenger.Default.Register<InstalledPackagesMessage>(this, Receive);
     }
 
@@ -96,7 +94,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
             return;
         }
         _maskService.Show(Lang.LibraryInstall_Add_Verifying);
-        var detectNonRelease = _configurationService.AppConfig.PackageSource.DetectNonReleaseVersion;
+        var detectNonRelease = Configuration.AppConfig!.PackageSource.AllowNonRelease;
         var packageVersions = await _environmentService.GetVersions(packageName, new CancellationToken(), detectNonRelease);
         _maskService.Hide();
         switch (packageVersions.Status)
@@ -113,7 +111,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
                 PreInstallPackages.Add(new LibraryInstallPackageItem
                 {
                     PackageName = packageName,
-                    AvailableVersions = new List<string>(packageVersions.Versions!.Reverse())
+                    AvailableVersions = [..packageVersions.Versions!.Reverse()]
                 });
                 break;
         }
@@ -213,7 +211,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
             return;
         }
         _maskService.Show(Lang.LibraryInstall_Add_Verifying);
-        var packageVersions = await _environmentService.GetVersions(packageName, new CancellationToken(), _configurationService.AppConfig.PackageSource.DetectNonReleaseVersion);
+        var packageVersions = await _environmentService.GetVersions(packageName, new CancellationToken(), Configuration.AppConfig!.PackageSource.AllowNonRelease);
         _maskService.Hide();
         switch (packageVersions.Status)
         {
@@ -229,7 +227,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
                 PreDownloadPackages.Add(new LibraryInstallPackageItem
                 {
                     PackageName = packageName,
-                    AvailableVersions = new List<string>(packageVersions.Versions!.Reverse())
+                    AvailableVersions = [..packageVersions.Versions!.Reverse()]
                 });
                 DownloadDistributionsEnabled = DownloadDistributionsFolderPath.Length > 0;
                 break;

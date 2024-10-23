@@ -1,4 +1,4 @@
-﻿using PipManager.Windows.Services.Configuration;
+﻿using PipManager.Core.Configuration;
 using Serilog;
 
 namespace PipManager.Windows.ViewModels.Windows;
@@ -7,13 +7,13 @@ public partial class MainWindowViewModel : ObservableObject
 {
     [ObservableProperty] private bool _experimentMode;
 
-    public MainWindowViewModel(IConfigurationService configurationService)
+    public MainWindowViewModel()
     {
-
-        if (configurationService.AppConfig.CurrentEnvironment != null)
+        var config = Configuration.AppConfig!;
+        if (config.SelectedEnvironment != null)
         {
-            Log.Information($"[MainWindow] Environment loaded ({configurationService.AppConfig.CurrentEnvironment.PipVersion} for {configurationService.AppConfig.CurrentEnvironment.PythonVersion})");
-            ApplicationTitle = $"Pip Manager | {configurationService.AppConfig.CurrentEnvironment.PipVersion} for {configurationService.AppConfig.CurrentEnvironment.PythonVersion}";
+            Log.Information($"[MainWindow] Environment loaded ({config.SelectedEnvironment.PipVersion} for {config.SelectedEnvironment.PythonVersion})");
+            ApplicationTitle = $"Pip Manager | {config.SelectedEnvironment.PipVersion} for {config.SelectedEnvironment.PythonVersion}";
         }
         else
         {

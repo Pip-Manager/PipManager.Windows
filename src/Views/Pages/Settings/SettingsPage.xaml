@@ -153,7 +153,7 @@
                                 Text="{I18N {x:Static lang:LangKeys.Settings_DetectNonReleaseVersion_Subtitle}}" />
                         </Grid>
                     </ui:CardControl.Header>
-                    <ui:ToggleSwitch Command="{Binding ViewModel.ChangeDetectNonReleaseVersionCommand}" IsChecked="{Binding ViewModel.DetectNonReleaseVersion, Mode=TwoWay}" />
+                    <ui:ToggleSwitch Command="{Binding ViewModel.ChangeDetectNonReleaseVersionCommand}" IsChecked="{Binding ViewModel.AllowNonRelease, Mode=TwoWay}" />
                 </ui:CardControl>
             </StackPanel>
         </ui:Card>
@@ -233,118 +233,6 @@
                             Margin="10,0,0,0" />
                     </StackPanel>
                 </ui:CardControl>
-
-                <!--  Personalization - Log Auto Deletion  -->
-                <ui:CardExpander Icon="{ui:SymbolIcon Delete24}" Margin="0,3,0,0">
-                    <ui:CardExpander.Header>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <ui:TextBlock
-                                FontTypography="Body"
-                                Grid.Row="0"
-                                Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_LogAutoDeletion}}" />
-                            <ui:TextBlock
-                                Appearance="Secondary"
-                                FontTypography="Caption"
-                                Grid.Row="1"
-                                Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_LogAutoDeletion_Subtitle}}" />
-                        </Grid>
-                    </ui:CardExpander.Header>
-                    <StackPanel Height="30" Orientation="Horizontal">
-                        <ui:ToggleSwitch
-                            Command="{Binding ViewModel.ChangeLogAutoDeletionCommand, Mode=OneWay}"
-                            IsChecked="{Binding ViewModel.LogAutoDeletion, Mode=TwoWay}"
-                            VerticalAlignment="Center"
-                            x:Name="LogAutoDeletionToggleSwitch" />
-                        <Slider
-                            IsEnabled="{Binding ElementName=LogAutoDeletionToggleSwitch, Path=IsChecked}"
-                            IsSnapToTickEnabled="True"
-                            Margin="10,0,0,0"
-                            Minimum="3"
-                            TickPlacement="BottomRight"
-                            Value="{Binding ViewModel.LogAutoDeletionTimes, Mode=TwoWay}"
-                            VerticalAlignment="Center"
-                            Visibility="{Binding ElementName=LogAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"
-                            Width="200"
-                            x:Name="LogAutoDeletionSlider">
-                            <behaviors:Interaction.Triggers>
-                                <behaviors:EventTrigger EventName="ValueChanged" SourceObject="{Binding ElementName=LogAutoDeletionSlider}">
-                                    <behaviors:InvokeCommandAction Command="{Binding ViewModel.ChangeLogAutoDeletionTimesCommand}" />
-                                </behaviors:EventTrigger>
-                            </behaviors:Interaction.Triggers>
-                        </Slider>
-                        <ui:TextBlock
-                            Appearance="Secondary"
-                            Margin="10,0,0,0"
-                            VerticalAlignment="Center"
-                            Visibility="{Binding ElementName=LogAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
-                            <ui:TextBlock.Text>
-                                <I18N Key="{x:Static lang:LangKeys.Settings_PersonalizationLogAutoDeletion_Tip}">
-                                    <Binding ElementName="LogAutoDeletionSlider" Path="Value" />
-                                </I18N>
-                            </ui:TextBlock.Text>
-                        </ui:TextBlock>
-                    </StackPanel>
-                </ui:CardExpander>
-
-                <!--  Personalization - Crushes Auto Deletion  -->
-                <ui:CardExpander Icon="{ui:SymbolIcon Delete24}" Margin="0,3,0,0">
-                    <ui:CardExpander.Header>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <ui:TextBlock
-                                FontTypography="Body"
-                                Grid.Row="0"
-                                Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_CrushesAutoDeletion}}" />
-                            <ui:TextBlock
-                                Appearance="Secondary"
-                                FontTypography="Caption"
-                                Grid.Row="1"
-                                Text="{I18N {x:Static lang:LangKeys.Settings_PersonalizationTitle_LogAutoDeletion_Subtitle}}" />
-                        </Grid>
-                    </ui:CardExpander.Header>
-                    <StackPanel Height="30" Orientation="Horizontal">
-                        <ui:ToggleSwitch
-                            Command="{Binding ViewModel.ChangeCrushesAutoDeletionCommand, Mode=OneWay}"
-                            IsChecked="{Binding ViewModel.CrushesAutoDeletion, Mode=TwoWay}"
-                            VerticalAlignment="Center"
-                            x:Name="CrushesAutoDeletionToggleSwitch" />
-                        <Slider
-                            IsEnabled="{Binding ElementName=CrushesAutoDeletionToggleSwitch, Path=IsChecked}"
-                            IsSnapToTickEnabled="True"
-                            Margin="10,0,0,0"
-                            Minimum="3"
-                            TickPlacement="BottomRight"
-                            Value="{Binding ViewModel.CrushesAutoDeletionTimes, Mode=TwoWay}"
-                            VerticalAlignment="Center"
-                            Visibility="{Binding ElementName=CrushesAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"
-                            Width="200"
-                            x:Name="CrushesAutoDeletionSlider">
-                            <behaviors:Interaction.Triggers>
-                                <behaviors:EventTrigger EventName="ValueChanged" SourceObject="{Binding ElementName=CrushesAutoDeletionSlider}">
-                                    <behaviors:InvokeCommandAction Command="{Binding ViewModel.ChangeCrushesAutoDeletionTimesCommand}" />
-                                </behaviors:EventTrigger>
-                            </behaviors:Interaction.Triggers>
-                        </Slider>
-                        <ui:TextBlock
-                            Appearance="Secondary"
-                            Margin="10,0,0,0"
-                            VerticalAlignment="Center"
-                            Visibility="{Binding ElementName=CrushesAutoDeletionToggleSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibility}}">
-                            <ui:TextBlock.Text>
-                                <I18N Key="{x:Static lang:LangKeys.Settings_PersonalizationCrushesAutoDeletion_Tip}">
-                                    <Binding Path="ViewModel.CrushesAutoDeletionTimes" />
-                                </I18N>
-                            </ui:TextBlock.Text>
-                        </ui:TextBlock>
-                    </StackPanel>
-                </ui:CardExpander>
             </StackPanel>
         </ui:Card>
 
