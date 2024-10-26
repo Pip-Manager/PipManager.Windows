@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
 using PipManager.Core.Configuration;
 using PipManager.Core.Configuration.Models;
 using PipManager.Core.Extensions;
@@ -243,10 +243,12 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
                     $"{Configuration.AppConfig!.PackageSource.Source.GetPackageSourceUrl("pypi")}{packageName}/json", cancellationToken);
             var response = await responseMessage.Content.ReadAsStringAsync(cancellationToken);
 
-            var pypiPackageInfo = JsonConvert.DeserializeObject<PackageInfo>(response)
+            var pypiPackageInfo = JsonSerializer.Deserialize<PackageInfo>(response)
                 ?.Releases?
-                .Where(item => item.Value.Count != 0).OrderBy(e => e.Value[0].UploadTime)
-                .ThenBy(e => e.Value[0].UploadTime).ToDictionary(pair => pair.Key, pair => pair.Value);
+                .Where(item => item.Value.Count != 0)
+                .OrderBy(e => e.Value[0].UploadTime)
+                .ThenBy(e => e.Value[0].UploadTime)
+                .ToDictionary(pair => pair.Key, pair => pair.Value);
 
             if (!detectNonRelease && pypiPackageInfo != null)
             {
