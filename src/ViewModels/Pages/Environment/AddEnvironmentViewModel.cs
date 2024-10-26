@@ -30,7 +30,7 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
     [RelayCommand]
     private void ChangeWay()
     {
-        Log.Information($"[AddEnvironment] Addition way changed to index:{ByWay}");
+        Log.Information($"[AddEnvironment] Addition way changed to index: {ByWay}");
     }
 
     #endregion ByWaysList

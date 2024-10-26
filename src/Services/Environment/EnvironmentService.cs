@@ -63,7 +63,7 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
 
     public async Task<List<PackageItem>?> GetLibraries()
     {
-        if (Configuration.AppConfig!.SelectedEnvironment is null)
+        if (Configuration.AppConfig?.SelectedEnvironment == null)
         {
             return null;
         }
@@ -72,193 +72,185 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
             Path.GetDirectoryName(Configuration.AppConfig.SelectedEnvironment!.PythonPath)!,
             @"Lib\site-packages"));
         
-        var packages = new ConcurrentBag<PackageItem>();
-        var ioTaskList = new List<Task>();
+        var packages = new ConcurrentQueue<PackageItem>();
         var distInfoDirectories = packageDirInfo.GetDirectories()
                      .Where(path => path.Name.EndsWith(".dist-info"))
-                     .AsParallel()
                      .ToList();
+
+        var semaphore = new SemaphoreSlim(50);
+        var ioTaskList = new List<Task>();
 
         foreach (var distInfoDirectory in distInfoDirectories)
         {
+            await semaphore.WaitAsync();
             var task = Task.Run(async () =>
             {
-                var distInfoDirectoryFullName = distInfoDirectory.FullName;
-                var distInfoDirectoryName = distInfoDirectory.Name;
-
-                // Basic
-                var packageBasicInfo = distInfoDirectoryName[..^10].Split('-');
-                var packageName = packageBasicInfo[0];
-                var packageVersion = packageBasicInfo[1];
-
-                if (packageName == "pip") return;
-
-                // Metadata
-                var metadataDict = new Dictionary<string, List<StringBuilder>>();
-                var lastValidKey = "";
-                var lastValidIndex = 0;
-                var classifiers = new Dictionary<string, List<string>>();
-                await foreach (var line in File.ReadLinesAsync(Path.Combine(distInfoDirectoryFullName, "METADATA")))
+                try
                 {
-                    if (line == "")
-                    {
-                        break;
-                    }
-
-                    var key = line.Split(": ")[0];
-                    var value = line.Replace(key + ": ", "");
-                    if (!string.IsNullOrWhiteSpace(key) && !key.StartsWith(' '))
-                    {
-                        key = key.ToLower();
-                        if (!metadataDict.ContainsKey(key))
-                        {
-                            metadataDict.Add(key, []);
-                            lastValidKey = key;
-                            lastValidIndex = 0;
-                        }
-                        else
-                        {
-                            lastValidIndex++;
-                        }
-
-                        metadataDict[key].Add(new StringBuilder(value));
-                    }
-                    else
-                    {
-                        metadataDict[lastValidKey][lastValidIndex].Append('\n').Append(value);
-                    }
+                    await ProcessDistInfoDirectory(distInfoDirectory, packages);
                 }
-                var metadata = metadataDict.ToDictionary(
-                    pair => pair.Key, 
-                    pair => pair.Value.Select(sb => sb.ToString()).ToList()
-                );
-                foreach (var item in metadata.GetValueOrDefault("classifier", []))
+                finally
                 {
-                    var keyValues = item.Split(" :: ");
-
-                    if (keyValues.Length < 2)
-                    {
-                        continue;
-                    }
-
-                    var key = keyValues[0];
-                    var value = string.Join(" :: ", keyValues[1..]);
-
-                    if (!classifiers.TryGetValue(key, out var existingList))
-                    {
-                        existingList = [];
-                        classifiers.Add(key, existingList);
-                    }
-
-                    existingList.Add(value);
+                    semaphore.Release();
                 }
-
-                // Record
-                var record = new List<string>();
-                var actualPath = "";
-                await foreach (var line in File.ReadLinesAsync(Path.Combine(distInfoDirectoryFullName, "RECORD")))
-                {
-                    var dirIdentifier = line.Split('/')[0];
-                    if (dirIdentifier == distInfoDirectoryName || dirIdentifier[0] == '.') continue;
-                    record.Add(line);
-                    if (actualPath == "")
-                    {
-                        actualPath = Path.Combine(packageDirInfo.FullName, dirIdentifier);
-                    }
-                }
-
-                // Extra
-                var projectUrl = metadata.GetValueOrDefault("project-url", []);
-                var projectUrlDictionary = new List<LibraryDetailProjectUrlModel>();
-
-                if (projectUrl.Count != 0)
-                {
-                    projectUrlDictionary.AddRange(projectUrl.Select(url => new LibraryDetailProjectUrlModel
-                    {
-                        Icon = url.Split(", ")[0].ToLower() switch
-                        {
-                            "homepage" or "home" => SymbolRegular.Home24,
-                            "download" => SymbolRegular.ArrowDownload24,
-                            "changelog" or "changes" or "release notes" => SymbolRegular
-                                .ClipboardTextEdit24,
-                            "bug tracker" or "issue tracker" or "bug reports" or "issues" or "tracker" =>
-                                SymbolRegular.Bug24,
-                            "source code" or "source" or "repository" or "code" => SymbolRegular
-                                .Code24,
-                            "funding" or "donate" or "donations" => SymbolRegular.Money24,
-                            "documentation" => SymbolRegular.Document24,
-                            "commercial" => SymbolRegular.PeopleMoney24,
-                            "support" => SymbolRegular.PersonSupport24,
-                            "chat" or "q & a" => SymbolRegular.ChatHelp24,
-                            _ => SymbolRegular.Link24
-                        },
-                        UrlType = url.Split(", ")[0],
-                        Url = url.Split(", ")[1]
-                    }));
-                }
-                else
-                {
-                    projectUrlDictionary.Add(new LibraryDetailProjectUrlModel
-                    {
-                        Icon = SymbolRegular.Question24,
-                        UrlType = "Unknown",
-                        Url = ""
-                    });
-                }
-
                 
-                packages.Add(new PackageItem
-                {
-                    Name = packageName,
-                    Version = packageVersion,
-                    DetailedVersion = PackageValidator.CheckVersion(packageVersion),
-                    Path = actualPath,
-                    DistInfoPath = distInfoDirectoryFullName,
-                    Summary = metadata.GetValueOrDefault("summary", [""])[0],
-                    Author = metadata.GetValueOrDefault("author", []),
-                    AuthorEmail = metadata.GetValueOrDefault("author-email", [""])[0],
-                    ProjectUrl = projectUrlDictionary,
-                    Classifier = classifiers,
-                    Metadata = metadata,
-                    Record = record
-                });
             });
             ioTaskList.Add(task);
         }
-        await Task.WhenAll([.. ioTaskList]);
+        await Task.WhenAll(ioTaskList);
         Log.Information($"[EnvironmentService] Found {packages.Count} packages");
-        return [.. packages.OrderBy(x => x.Name)];
+        
+        return packages.OrderBy(x => x.Name).ToList();
+    }
+
+    private static async Task ProcessDistInfoDirectory(DirectoryInfo distInfoDirectory, ConcurrentQueue<PackageItem> packages)
+    {
+        var distInfoDirectoryFullName = distInfoDirectory.FullName;
+        var distInfoDirectoryName = distInfoDirectory.Name;
+
+        // Basic
+        var packageBasicInfo = distInfoDirectoryName[..^10].Split('-');
+        var packageName = packageBasicInfo[0];
+        var packageVersion = packageBasicInfo[1];
+
+        if (packageName == "pip") return;
+
+        // Metadata
+        var metadataDict = new Dictionary<string, List<string>>();
+        var classifiers = new Dictionary<string, List<string>>();
+        
+        var metadataFilePath = Path.Combine(distInfoDirectoryFullName, "METADATA");
+        if (File.Exists(metadataFilePath))
+        {
+            string? currentKey = null;
+            await foreach (var line in File.ReadLinesAsync(metadataFilePath))
+            {
+                if (string.IsNullOrWhiteSpace(line)) break;
+
+                var parts = line.Split(": ", 2);
+                if (parts.Length == 2)
+                {
+                    currentKey = parts[0].ToLower();
+                    if (!metadataDict.ContainsKey(currentKey))
+                    {
+                        metadataDict[currentKey] = new List<string>();
+                    }
+                    metadataDict[currentKey].Add(parts[1]);
+                }
+                else if (currentKey != null)
+                {
+                    metadataDict[currentKey][^1] += "\n" + line;
+                }
+            }
+
+            foreach (var item in metadataDict.GetValueOrDefault("classifier", new List<string>()))
+            {
+                var keyValues = item.Split(" :: ");
+                if (keyValues.Length < 2) continue;
+
+                var key = keyValues[0];
+                var value = string.Join(" :: ", keyValues[1..]);
+
+                if (!classifiers.ContainsKey(key))
+                {
+                    classifiers[key] = new List<string>();
+                }
+                classifiers[key].Add(value);
+            }
+        }
+
+        // Record
+        var record = new List<string>();
+        var recordFilePath = Path.Combine(distInfoDirectoryFullName, "RECORD");
+        if (File.Exists(recordFilePath))
+        {
+            await foreach (var line in File.ReadLinesAsync(recordFilePath))
+            {
+                var dirIdentifier = line.Split('/')[0];
+                if (dirIdentifier == distInfoDirectoryName || dirIdentifier[0] == '.') continue;
+                record.Add(line);
+            }
+        }
+
+        // Extra
+        var projectUrls = metadataDict.GetValueOrDefault("project-url", new List<string>());
+        var projectUrlDictionary = projectUrls.Any()
+            ? projectUrls.Select(url => new LibraryDetailProjectUrlModel
+            {
+                Icon = url.Split(", ")[0].ToLower() switch
+                {
+                    "homepage" or "home" => SymbolRegular.Home24,
+                    "download" => SymbolRegular.ArrowDownload24,
+                    "changelog" or "changes" or "release notes" => SymbolRegular.ClipboardTextEdit24,
+                    "bug tracker" or "issue tracker" or "bug reports" or "issues" or "tracker" => SymbolRegular.Bug24,
+                    "source code" or "source" or "repository" or "code" => SymbolRegular.Code24,
+                    "funding" or "donate" or "donations" => SymbolRegular.Money24,
+                    "documentation" => SymbolRegular.Document24,
+                    "commercial" => SymbolRegular.PeopleMoney24,
+                    "support" => SymbolRegular.PersonSupport24,
+                    "chat" or "q & a" => SymbolRegular.ChatHelp24,
+                    _ => SymbolRegular.Link24
+                },
+                UrlType = url.Split(", ")[0],
+                Url = url.Split(", ")[1]
+            }).ToList()
+            : new List<LibraryDetailProjectUrlModel> { new() { Icon = SymbolRegular.Question24, UrlType = "Unknown", Url = "" } };
+        
+        packages.Enqueue(new PackageItem
+        {
+            Name = packageName,
+            Version = packageVersion,
+            DetailedVersion = PackageValidator.CheckVersion(packageVersion),
+            Path = distInfoDirectoryFullName,
+            DistInfoPath = distInfoDirectoryFullName,
+            Summary = metadataDict.GetValueOrDefault("summary", [""]).First(),
+            Author = metadataDict.GetValueOrDefault("author", []),
+            AuthorEmail = metadataDict.GetValueOrDefault("author-email", [""]).First(),
+            ProjectUrl = projectUrlDictionary,
+            Classifier = classifiers,
+            Metadata = metadataDict,
+            Record = record
+        });
     }
 
     public async Task<GetVersionsResponse> GetVersions(string packageName, CancellationToken cancellationToken, bool detectNonRelease = true)
     {
         try
         {
+            var emptyArray = Array.Empty<string>();
+            
             packageName = PackageNameFilterRegex().Replace(packageName, "");
             packageName = PackageNameNormalizerRegex().Replace(packageName, "-").ToLower();
+            
             if (!PackageNameVerificationRegex().IsMatch(packageName))
-                return new GetVersionsResponse { Status = 2, Versions = [] };
-            var responseMessage =
-                await httpClient.GetAsync(
-                    $"{Configuration.AppConfig!.PackageSource.Source.GetPackageSourceUrl("pypi")}{packageName}/json", cancellationToken);
+                return new GetVersionsResponse { Status = 2, Versions = emptyArray };
+            
+            var responseMessage = await httpClient.GetAsync(
+                $"{Configuration.AppConfig!.PackageSource.Source.GetPackageSourceUrl("pypi")}{packageName}/json", cancellationToken);
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                Log.Warning($"[EnvironmentService] Failed to fetch package {packageName}, StatusCode: {responseMessage.StatusCode}");
+                return new GetVersionsResponse { Status = 1, Versions = emptyArray };
+            }
+            
             var response = await responseMessage.Content.ReadAsStringAsync(cancellationToken);
-
             var pypiPackageInfo = JsonSerializer.Deserialize<PackageInfo>(response)
                 ?.Releases?
                 .Where(item => item.Value.Count != 0)
                 .OrderBy(e => e.Value[0].UploadTime)
-                .ThenBy(e => e.Value[0].UploadTime)
                 .ToDictionary(pair => pair.Key, pair => pair.Value);
 
             if (!detectNonRelease && pypiPackageInfo != null)
             {
-                pypiPackageInfo = pypiPackageInfo.Where(item => PackageValidator.IsReleaseVersion(item.Key)).ToDictionary();
+                pypiPackageInfo = pypiPackageInfo
+                    .Where(item => PackageValidator.IsReleaseVersion(item.Key))
+                    .ToDictionary();
             }
             
             if (pypiPackageInfo == null || pypiPackageInfo.Count == 0)
             {
                 Log.Warning($"[EnvironmentService] {packageName} package not found");
-                return new GetVersionsResponse { Status = 1, Versions = [] };
+                return new GetVersionsResponse { Status = 1, Versions = emptyArray };
             }
 
             Log.Information($"[EnvironmentService] Found {packageName}");
@@ -266,12 +258,22 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
         }
         catch (TaskCanceledException)
         {
-            return new GetVersionsResponse { Status = 1, Versions = [] };
+            return new GetVersionsResponse { Status = 1, Versions = Array.Empty<string>() };
         }
-        catch (Exception)
+        catch (HttpRequestException e)
         {
-            Log.Warning($"[EnvironmentService] Unexpected error when get versions of {packageName} package");
-            return new GetVersionsResponse { Status = 1, Versions = [] };
+            Log.Warning($"[EnvironmentService] Network error while fetching versions for {packageName}: {e.Message}");
+            return new GetVersionsResponse { Status = 1, Versions = Array.Empty<string>() };
+        }
+        catch (JsonException e)
+        {
+            Log.Warning($"[EnvironmentService] JSON deserialization error for {packageName}: {e.Message}");
+            return new GetVersionsResponse { Status = 1, Versions = Array.Empty<string>() };
+        }
+        catch (Exception e)
+        {
+            Log.Warning($"[EnvironmentService] Unexpected error while fetching versions for {packageName}: {e.Message}");
+            return new GetVersionsResponse { Status = 1, Versions = Array.Empty<string>() };
         }
     }
     
