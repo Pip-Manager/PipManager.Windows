@@ -1,5 +1,7 @@
-﻿using Microsoft.Web.WebView2.Core;
+﻿using System.Diagnostics;
+using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
+using Serilog;
 using Wpf.Ui.Abstractions.Controls;
 using SearchDetailViewModel = PipManager.Windows.ViewModels.Pages.Search.SearchDetailViewModel;
 
@@ -21,9 +23,23 @@ public partial class SearchDetailPage : INavigableView<SearchDetailViewModel>
 
     private void SearchDetailProjectDescriptionWebView_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
     {
-        if (e.Uri.StartsWith("http://") || e.Uri.StartsWith("https://"))
+        var uri = e.Uri;
+        if (uri.StartsWith("http://") || uri.StartsWith("https://"))
         {
             e.Cancel = true;
+            
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = uri,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Failed to open link in external browser: " + ex.Message);
+            }
         }
     }
 

@@ -71,7 +71,6 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                     ? $"[Runner] {item} uninstall sub-task completed"
                                     : $"[Runner] {item} uninstall sub-task failed\n   Reason:{result.Message}");
                             }
-                            Log.Information($"[Runner] Task {currentAction.OperationType} Completed");
                             break;
                         }
 
@@ -93,7 +92,6 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                     ? $"[Runner] {item} install sub-task completed"
                                     : $"[Runner] {item} install sub-task failed\n   Reason:{result.Message}");
                             }
-                            Log.Information($"[Runner] Task {currentAction.OperationType} Completed");
                             break;
                         }
                     case ActionType.InstallByRequirements:
@@ -108,7 +106,6 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                 currentAction.DetectIssue = true;
                                 consoleError.AppendLine(result.Message);
                             }
-                            Log.Information($"[Runner] Task {currentAction.OperationType} Completed");
                             break;
                         }
                     case ActionType.Download:
@@ -129,7 +126,6 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                     ? $"[Runner] {item} download sub-task completed"
                                     : $"[Runner] {item} download sub-task failed\n   Reason:{result.Message}");
                             }
-                            Log.Information($"[Runner] Task {currentAction.OperationType} Completed");
                             break;
                         }
                     case ActionType.Update:
@@ -150,12 +146,13 @@ public class ActionService(IEnvironmentService environmentService, IToastService
                                     ? $"[Runner] {item} update sub-task completed"
                                     : $"[Runner] {item} update sub-task failed\n   Reason:{result.Message}");
                             }
-                            Log.Information($"[Runner] Task {currentAction.OperationType} Completed");
                             break;
                         }
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
+
+                Log.Information($"[Runner] Task {currentAction.OperationType} Completed");
                 currentAction.CompletedSubTaskNumber = currentAction.TotalSubTaskNumber;
                 currentAction.OperationStatus = "Completed";
                 if (errorDetection)

@@ -129,58 +129,81 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
     {
         Package = message.Package;
 
-        SearchDetailPage.ProjectDescriptionWebView!.Loaded += async (_, _) =>
+        SearchDetailPage.ProjectDescriptionWebView!.Loaded += async (_, _) => await LoadPackageDetailsAsync(message);
+    }
+    
+    private async Task LoadPackageDetailsAsync(SearchDetailMessage message)
+    {
+        try
         {
             ProjectDescriptionVisibility = false;
-            var packageVersions = await _environmentService.GetVersions(Package!.Name, new CancellationToken(), Configuration.AppConfig!.PackageSource.AllowNonRelease);
-            switch (packageVersions.Status)
-            {
-                case 1 or 2:
-                    _toastService.Error(Lang.SearchDetail_Exception_NetworkError);
-                    await Task.Delay(1000);
-                    _navigationService.GoBack();
-                    return;
-
-                default:
-                    AvailableVersions = new ObservableCollection<string>(packageVersions.Versions!.Reverse());
-                    TargetVersion = AvailableVersions.First();
-                    break;
-            }
-            await CoreWebView2Environment.CreateAsync(null, AppInfo.CachesDir);
-            await SearchDetailPage.ProjectDescriptionWebView.EnsureCoreWebView2Async().ConfigureAwait(true);
-            try
-            {
-                var projectDescriptionUrl = message.Package.Url;
-                var html = await _httpClient.GetStringAsync(projectDescriptionUrl);
-                var htmlDocument = new HtmlDocument();
-                htmlDocument.LoadHtml(html);
-                string projectDescriptionHtml = string.Format(HtmlModel, _themeType, ThemeTypeInHex, htmlDocument.DocumentNode.SelectSingleNode("//*[@id=\"description\"]/div").InnerHtml);
-
-                SearchDetailPage.ProjectDescriptionWebView.CoreWebView2.Profile.PreferredColorScheme = CoreWebView2PreferredColorScheme.Dark;
-                SearchDetailPage.ProjectDescriptionWebView.NavigateToString(projectDescriptionHtml);
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex.Message);
-                _toastService.Error(Lang.SearchDetail_ProjectDescription_LoadFailed);
-                string projectDescriptionHtml = string.Format(HtmlModel, _themeType, ThemeTypeInHex, $"<p>{Lang.SearchDetail_ProjectDescription_LoadFailed}</p>");
-
-                SearchDetailPage.ProjectDescriptionWebView.CoreWebView2.Profile.PreferredColorScheme = CoreWebView2PreferredColorScheme.Dark;
-                SearchDetailPage.ProjectDescriptionWebView.NavigateToString(projectDescriptionHtml);
-            }
-            finally
-            {
-                await Task.Delay(500);
-                ProjectDescriptionVisibility = true;
-            }
-        };
+            await SetupWebViewAsync(message.Package);
+        }
+        catch (Exception ex)
+        {
+            HandleLoadingError(ex);
+        }
+        finally
+        {
+            await Task.Delay(500);
+            ProjectDescriptionVisibility = true;
+        }
     }
 
-    public Task OnNavigatedToAsync()
+    private async Task SetupWebViewAsync(QueryListItemModel package)
+    {
+        var packageVersions = await _environmentService.GetVersions(package.Name, new CancellationToken(), Configuration.AppConfig!.PackageSource.AllowNonRelease);
+        if (packageVersions.Status is 1 or 2)
+        {
+            _toastService.Error(Lang.SearchDetail_Exception_NetworkError);
+            await Task.Delay(1000);
+            _navigationService.GoBack();
+            return;
+        }
+
+        AvailableVersions = new ObservableCollection<string>(packageVersions.Versions!.Reverse());
+        TargetVersion = AvailableVersions.First();
+
+        await CoreWebView2Environment.CreateAsync(null, AppInfo.CachesDir);
+        await SearchDetailPage.ProjectDescriptionWebView!.EnsureCoreWebView2Async().ConfigureAwait(true);
+        await LoadProjectDescriptionAsync(package.Url);
+    }
+
+    private async Task LoadProjectDescriptionAsync(string projectDescriptionUrl)
+    {
+        try
+        {
+            var html = await _httpClient.GetStringAsync(projectDescriptionUrl);
+            var htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(html);
+            string projectDescriptionHtml = string.Format(HtmlModel, _themeType, ThemeTypeInHex, htmlDocument.DocumentNode.SelectSingleNode("//*[@id=\"description\"]/div").InnerHtml);
+
+            SearchDetailPage.ProjectDescriptionWebView!.CoreWebView2.Profile.PreferredColorScheme = CoreWebView2PreferredColorScheme.Dark;
+            SearchDetailPage.ProjectDescriptionWebView.NavigateToString(projectDescriptionHtml);
+        }
+        catch (Exception ex)
+        {
+            HandleLoadingError(ex);
+        }
+    }
+
+    private void HandleLoadingError(Exception ex)
+    {
+        Log.Error(ex.Message);
+        _toastService.Error(Lang.SearchDetail_ProjectDescription_LoadFailed);
+        string projectDescriptionHtml = string.Format(HtmlModel, _themeType, ThemeTypeInHex, $"<p>{Lang.SearchDetail_ProjectDescription_LoadFailed}</p>");
+        SearchDetailPage.ProjectDescriptionWebView!.CoreWebView2.Profile.PreferredColorScheme = CoreWebView2PreferredColorScheme.Dark;
+        SearchDetailPage.ProjectDescriptionWebView.NavigateToString(projectDescriptionHtml);
+    }
+
+    public async Task OnNavigatedToAsync()
     {
         if (!_isInitialized)
             InitializeViewModel();
-        _navigationService.GetNavigationControl().BreadcrumbBar!.Visibility = Visibility.Collapsed;
+        await Application.Current.Dispatcher.InvokeAsync(() =>
+        {
+            _navigationService.GetNavigationControl().BreadcrumbBar!.Visibility = Visibility.Collapsed;
+        });
         switch (_themeService.GetTheme())
         {
             case ApplicationTheme.Light:
@@ -200,7 +223,6 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
                 throw new ArgumentOutOfRangeException();
         }
         SearchDetailPage.ProjectDescriptionWebView!.DefaultBackgroundColor = Color.FromArgb(_themeTypeInInteger);
-        return Task.CompletedTask;
     }
 
     public Task OnNavigatedFromAsync()
