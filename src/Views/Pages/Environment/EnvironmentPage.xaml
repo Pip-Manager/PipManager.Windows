@@ -17,9 +17,9 @@
     xmlns:environment="clr-namespace:PipManager.Windows.Views.Pages.Environment"
     xmlns:lang="clr-namespace:PipManager.Windows.Languages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:PipManager.Core.Configuration.Models;assembly=PipManager.Core"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:models="clr-namespace:PipManager.Core.Configuration.Models;assembly=PipManager.Core">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Grid>
         <StackPanel>
@@ -58,7 +58,7 @@
                 ItemsSource="{Binding ViewModel.EnvironmentItems}"
                 Margin="0,10,0,0"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                SelectedItem="{Binding ViewModel.CurrentEnvironment}"
+                SelectedItem="{Binding ViewModel.CurrentEnvironment, UpdateSourceTrigger=PropertyChanged}"
                 VerticalAlignment="Stretch">
                 <ui:ListView.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:EnvironmentModel}">
@@ -93,7 +93,5 @@
                 </ui:ListView.ItemTemplate>
             </ui:ListView>
         </StackPanel>
-
     </Grid>
-
 </Page>

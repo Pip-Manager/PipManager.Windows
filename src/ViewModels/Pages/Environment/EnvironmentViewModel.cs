@@ -48,12 +48,15 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
             ContentDialogCreateOptions.Warning(Lang.ContentDialog_Message_EnvironmentDeletion,
                 Lang.ContentDialog_PrimaryButton_Action));
         if (result != ContentDialogResult.Primary) return;
+        
         Log.Information($"[Environment] Environment has been removed from list ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
+        
         EnvironmentItems.Remove(CurrentEnvironment!);
         CurrentEnvironment = null;
         Configuration.AppConfig!.SelectedEnvironment = null;
         Configuration.AppConfig.Environments = [..EnvironmentItems];
         Configuration.Save();
+        
         var mainWindowViewModel = App.GetService<MainWindowViewModel>();
         mainWindowViewModel.ApplicationTitle = "Pip Manager";
         EnvironmentSelected = false;
@@ -90,22 +93,26 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
     {
         maskService.Show(Lang.Environment_Operation_CheckEnvironmentUpdate);
         var latest = "";
-        await Task.Run(async () =>
+        try
         {
-            var versions = await environmentService.GetVersions("pip", new CancellationToken(), Configuration.AppConfig!.PackageSource.AllowNonRelease);
+            var versions = await Task.Run(() => environmentService.GetVersions("pip", new CancellationToken(), Configuration.AppConfig!.PackageSource.AllowNonRelease));
             if (versions.Status == 0)
             {
                 latest = versions.Versions!.Last();
             }
-        });
-        Task.WaitAll();
-        maskService.Hide();
+        }
+        finally
+        {
+            maskService.Hide();
+        }
+        
         var current = Configuration.AppConfig!.SelectedEnvironment!.PipVersion.Trim();
-        if (latest != current && latest != string.Empty)
+        if (!string.IsNullOrEmpty(latest) && latest != current)
         {
             Log.Information($"[Environment] Environment update available ({current} => {latest})");
             var message = $"{Lang.ContentDialog_Message_FindUpdate}\n\n{Lang.EnvironmentCheckEnvironmentUpdate_CurrentVersion}{current}\n{Lang.EnvironmentCheckEnvironmentUpdate_LatestVersion}{latest}";
             var result = await contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.Notice(message));
+            
             if (result == ContentDialogResult.Primary)
             {
                 actionService.AddOperation(new ActionListItem
@@ -118,7 +125,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
                 Configuration.RefreshAllEnvironments();
             }
         }
-        else if (latest == string.Empty)
+        else if (string.IsNullOrEmpty(latest))
         {
             toastService.Error(Lang.ContentDialog_Message_NetworkError);
             Log.Error("[Environment] Network error while checking for updates (environment: {environment})", CurrentEnvironment!.PipVersion);
@@ -174,7 +181,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
 
     #endregion Add Environment
 
-    public Task OnNavigatedToAsync()
+    public async Task OnNavigatedToAsync()
     {
         if (!_isInitialized)
             InitializeViewModel();
@@ -182,23 +189,16 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         Configuration.RefreshAllEnvironments();
         EnvironmentItems =
             new ObservableCollection<EnvironmentModel>(Configuration.AppConfig!.Environments);
-        var currentEnvironment = Configuration.AppConfig.SelectedEnvironment;
-        foreach (var environmentItem in EnvironmentItems)
-        {
-            if (currentEnvironment is null || environmentItem.PythonPath != currentEnvironment.PythonPath)
-            {
-                continue;
-            }
+        EnvironmentItems = new ObservableCollection<EnvironmentModel>(Configuration.AppConfig.Environments);
+        await Task.Delay(50);
+        CurrentEnvironment = EnvironmentItems.FirstOrDefault(item => item.PythonPath == Configuration.AppConfig.SelectedEnvironment?.PythonPath);
 
-            CurrentEnvironment = environmentItem;
-        
+        if (CurrentEnvironment != null)
+        {
             var mainWindowViewModel = App.GetService<MainWindowViewModel>();
-            mainWindowViewModel.ApplicationTitle =
-                $"Pip Manager | {CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion}";
-            Log.Information($"[Environment] Current Environment changed: {CurrentEnvironment.PythonPath}");
-            break;
+            mainWindowViewModel.ApplicationTitle = $"Pip Manager | {CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion}";
+            Log.Information($"[Environment] Current Environment set: {CurrentEnvironment.PythonPath}");
         }
-        return Task.CompletedTask;
     }
 
     public Task OnNavigatedFromAsync()
