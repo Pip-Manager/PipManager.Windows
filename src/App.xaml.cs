@@ -14,6 +14,7 @@ using PipManager.Windows.Services.Action;
 using PipManager.Windows.Services.Environment;
 using PipManager.Windows.Services.Mask;
 using PipManager.Windows.Services.Overlay;
+using PipManager.Windows.Services.Page;
 using PipManager.Windows.Services.Toast;
 using PipManager.Windows.ViewModels.Pages.Action;
 using PipManager.Windows.ViewModels.Pages.Environment;
@@ -34,6 +35,7 @@ using PipManager.Windows.Views.Pages.Settings;
 using PipManager.Windows.Views.Pages.Tools;
 using PipManager.Windows.Views.Windows;
 using Wpf.Ui;
+using Wpf.Ui.Abstractions;
 
 namespace PipManager.Windows;
 
@@ -55,6 +57,7 @@ public partial class App
         .ConfigureAppConfiguration(c => { c.SetBasePath(AppContext.BaseDirectory); })
         .ConfigureServices((_, services) =>
         {
+            
             services.AddHostedService<ApplicationHostService>();
 
             services.AddTransient(_ =>
@@ -70,6 +73,8 @@ public partial class App
             services.AddSingleton<MainWindowViewModel>();
 
             // Services
+            services.AddSingleton<INavigationViewPageProvider, PageService>();
+            
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<ISnackbarService, SnackbarService>();
             services.AddSingleton<IMaskService, MaskService>();

@@ -14,6 +14,7 @@ using PipManager.Windows.ViewModels.Windows;
 using PipManager.Windows.Views.Pages.Action;
 using PipManager.Windows.Views.Pages.Environment;
 using Wpf.Ui;
+using Wpf.Ui.Abstractions.Controls;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
 
@@ -26,36 +27,6 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
     : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
-
-    public void OnNavigatedTo()
-    {
-        if (!_isInitialized)
-            InitializeViewModel();
-        
-        Configuration.RefreshAllEnvironments();
-        EnvironmentItems =
-            new ObservableCollection<EnvironmentModel>(Configuration.AppConfig!.Environments);
-        var currentEnvironment = Configuration.AppConfig.SelectedEnvironment;
-        foreach (var environmentItem in EnvironmentItems)
-        {
-            if (currentEnvironment is null || environmentItem.PythonPath != currentEnvironment.PythonPath)
-            {
-                continue;
-            }
-
-            CurrentEnvironment = environmentItem;
-        
-            var mainWindowViewModel = App.GetService<MainWindowViewModel>();
-            mainWindowViewModel.ApplicationTitle =
-                $"Pip Manager | {CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion}";
-            Log.Information($"[Environment] Current Environment changed: {CurrentEnvironment.PythonPath}");
-            break;
-        }
-    }
-
-    public void OnNavigatedFrom()
-    {
-    }
 
     private void InitializeViewModel()
     {
@@ -198,4 +169,36 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
     }
 
     #endregion Add Environment
+
+    public Task OnNavigatedToAsync()
+    {
+        if (!_isInitialized)
+            InitializeViewModel();
+        
+        Configuration.RefreshAllEnvironments();
+        EnvironmentItems =
+            new ObservableCollection<EnvironmentModel>(Configuration.AppConfig!.Environments);
+        var currentEnvironment = Configuration.AppConfig.SelectedEnvironment;
+        foreach (var environmentItem in EnvironmentItems)
+        {
+            if (currentEnvironment is null || environmentItem.PythonPath != currentEnvironment.PythonPath)
+            {
+                continue;
+            }
+
+            CurrentEnvironment = environmentItem;
+        
+            var mainWindowViewModel = App.GetService<MainWindowViewModel>();
+            mainWindowViewModel.ApplicationTitle =
+                $"Pip Manager | {CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion}";
+            Log.Information($"[Environment] Current Environment changed: {CurrentEnvironment.PythonPath}");
+            break;
+        }
+        return Task.CompletedTask;
+    }
+
+    public Task OnNavigatedFromAsync()
+    {
+        return Task.CompletedTask;
+    }
 }

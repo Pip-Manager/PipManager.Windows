@@ -1,14 +1,13 @@
-﻿using Wpf.Ui.Controls;
-using Action_ActionViewModel = PipManager.Windows.ViewModels.Pages.Action.ActionViewModel;
+﻿using Wpf.Ui.Abstractions.Controls;
 using ActionViewModel = PipManager.Windows.ViewModels.Pages.Action.ActionViewModel;
 
 namespace PipManager.Windows.Views.Pages.Action;
 
-public partial class ActionPage : INavigableView<Action_ActionViewModel>
+public partial class ActionPage : INavigableView<ActionViewModel>
 {
-    public Action_ActionViewModel ViewModel { get; }
+    public ActionViewModel ViewModel { get; }
 
-    public ActionPage(Action_ActionViewModel viewModel)
+    public ActionPage(ActionViewModel viewModel)
     {
         ViewModel = viewModel;
         DataContext = this;

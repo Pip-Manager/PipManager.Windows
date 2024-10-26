@@ -8,6 +8,7 @@ using PipManager.Windows.Services.Mask;
 using PipManager.Windows.Services.Toast;
 using PipManager.Windows.Views.Pages.Search;
 using Wpf.Ui;
+using Wpf.Ui.Abstractions.Controls;
 using Wpf.Ui.Controls;
 
 namespace PipManager.Windows.ViewModels.Pages.Search;
@@ -42,16 +43,6 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
 
     [ObservableProperty]
     private int _maxPage = 1;
-
-    public void OnNavigatedTo()
-    {
-        if (!_isInitialized)
-            InitializeViewModel();
-    }
-
-    public void OnNavigatedFrom()
-    {
-    }
 
     private void InitializeViewModel()
     {
@@ -161,5 +152,17 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
             Process(result);
             OnQuerying = false;
         }
+    }
+
+    public Task OnNavigatedToAsync()
+    {
+        if (!_isInitialized)
+            InitializeViewModel();
+        return Task.CompletedTask;
+    }
+
+    public Task OnNavigatedFromAsync()
+    {
+        return Task.CompletedTask;
     }
 }

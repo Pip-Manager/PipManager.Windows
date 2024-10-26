@@ -1,18 +1,18 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
+using Wpf.Ui.Abstractions.Controls;
 using Wpf.Ui.Controls;
-using Search_SearchDetailViewModel = PipManager.Windows.ViewModels.Pages.Search.SearchDetailViewModel;
 using SearchDetailViewModel = PipManager.Windows.ViewModels.Pages.Search.SearchDetailViewModel;
 
 namespace PipManager.Windows.Views.Pages.Search;
 
-public partial class SearchDetailPage : INavigableView<Search_SearchDetailViewModel>
+public partial class SearchDetailPage : INavigableView<SearchDetailViewModel>
 {
     public static WebView2? ProjectDescriptionWebView { get; private set; }
 
-    public Search_SearchDetailViewModel ViewModel { get; }
+    public SearchDetailViewModel ViewModel { get; }
 
-    public SearchDetailPage(Search_SearchDetailViewModel viewModel)
+    public SearchDetailPage(SearchDetailViewModel viewModel)
     {
         ViewModel = viewModel;
         DataContext = this;

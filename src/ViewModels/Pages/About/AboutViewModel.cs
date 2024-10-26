@@ -1,6 +1,7 @@
 ﻿using Serilog;
 using System.Collections.ObjectModel;
 using PipManager.Windows.Models.Pages;
+using Wpf.Ui.Abstractions.Controls;
 using Wpf.Ui.Controls;
 
 namespace PipManager.Windows.ViewModels.Pages.About;
@@ -11,16 +12,6 @@ public partial class AboutViewModel : ObservableObject, INavigationAware
 
     [ObservableProperty] private string _appVersion = "Development";
     [ObservableProperty] private bool _debugMode;
-
-    public void OnNavigatedTo()
-    {
-        if (!_isInitialized)
-            InitializeViewModel();
-    }
-
-    public void OnNavigatedFrom()
-    {
-    }
 
     private void InitializeViewModel()
     {
@@ -74,4 +65,16 @@ public partial class AboutViewModel : ObservableObject, INavigationAware
 
     [ObservableProperty]
     private ObservableCollection<AboutNugetLibraryListItem> _nugetLibraryList = [];
+
+    public Task OnNavigatedToAsync()
+    {
+        if (!_isInitialized)
+            InitializeViewModel();
+        return Task.CompletedTask;
+    }
+
+    public Task OnNavigatedFromAsync()
+    {
+        return Task.CompletedTask;
+    }
 }

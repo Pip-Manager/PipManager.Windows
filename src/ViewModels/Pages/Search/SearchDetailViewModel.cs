@@ -15,6 +15,7 @@ using PipManager.Windows.Services.Environment;
 using PipManager.Windows.Services.Toast;
 using PipManager.Windows.Views.Pages.Search;
 using Wpf.Ui;
+using Wpf.Ui.Abstractions.Controls;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 
@@ -74,33 +75,10 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
 
     public void OnNavigatedTo()
     {
-        if (!_isInitialized)
-            InitializeViewModel();
-        _navigationService.GetNavigationControl().BreadcrumbBar!.Visibility = Visibility.Collapsed;
-        switch (_themeService.GetTheme())
-        {
-            case ApplicationTheme.Light:
-                _themeType = "light";
-                ThemeTypeInHex = "#FFFFFF";
-                _themeTypeInInteger = 16777215;
-                break;
-
-            case ApplicationTheme.Dark:
-                _themeType = "dark";
-                ThemeTypeInHex = "#0D1117";
-                _themeTypeInInteger = 856343;
-                break;
-            case ApplicationTheme.Unknown:
-            case ApplicationTheme.HighContrast:
-            default:
-                throw new ArgumentOutOfRangeException();
         }
-        SearchDetailPage.ProjectDescriptionWebView!.DefaultBackgroundColor = Color.FromArgb(_themeTypeInInteger);
-    }
 
     public void OnNavigatedFrom()
     {
-        _navigationService.GetNavigationControl().BreadcrumbBar!.Visibility = Visibility.Visible;
     }
 
     private void InitializeViewModel()
@@ -205,5 +183,38 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
                 ProjectDescriptionVisibility = true;
             }
         };
+    }
+
+    public Task OnNavigatedToAsync()
+    {
+        if (!_isInitialized)
+            InitializeViewModel();
+        _navigationService.GetNavigationControl().BreadcrumbBar!.Visibility = Visibility.Collapsed;
+        switch (_themeService.GetTheme())
+        {
+            case ApplicationTheme.Light:
+                _themeType = "light";
+                ThemeTypeInHex = "#FFFFFF";
+                _themeTypeInInteger = 16777215;
+                break;
+
+            case ApplicationTheme.Dark:
+                _themeType = "dark";
+                ThemeTypeInHex = "#0D1117";
+                _themeTypeInInteger = 856343;
+                break;
+            case ApplicationTheme.Unknown:
+            case ApplicationTheme.HighContrast:
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        SearchDetailPage.ProjectDescriptionWebView!.DefaultBackgroundColor = Color.FromArgb(_themeTypeInInteger);
+        return Task.CompletedTask;
+    }
+
+    public Task OnNavigatedFromAsync()
+    {     
+        _navigationService.GetNavigationControl().BreadcrumbBar!.Visibility = Visibility.Visible;
+        return Task.CompletedTask;
     }
 }

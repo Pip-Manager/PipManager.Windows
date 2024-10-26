@@ -1,4 +1,5 @@
 ﻿using PipManager.Windows.ViewModels.Pages.Search;
+using Wpf.Ui.Abstractions.Controls;
 using Wpf.Ui.Controls;
 
 namespace PipManager.Windows.Views.Pages.Search;
