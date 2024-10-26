@@ -159,6 +159,7 @@ public partial class App
                     break;
             }
         }
+        IsDebugMode = _showConsoleWindow;
         var appStarting = new AppStarting
         {
             ShowConsoleWindow = _showConsoleWindow
@@ -167,7 +168,6 @@ public partial class App
         appStarting.LoadLanguage();
         appStarting.CachesDeletion();
         Host.Start();
-        IsDebugMode = _showConsoleWindow;
     }
 
     /// <summary>

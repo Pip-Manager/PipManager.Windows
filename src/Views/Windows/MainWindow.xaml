@@ -111,6 +111,17 @@
             CloseWindowByDoubleClickOnIcon="True"
             Grid.Row="0"
             Title="{Binding ViewModel.ApplicationTitle}">
+            <ui:TitleBar.Header>
+                <StackPanel
+                    Margin="0,0,20,0"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center">
+                    <ui:Badge
+                        Appearance="Caution"
+                        Content="Debug"
+                        Visibility="{Binding ViewModel.DebugMode, Converter={StaticResource BoolToVisibility}}" />
+                </StackPanel>
+            </ui:TitleBar.Header>
             <ui:TitleBar.Icon>
                 <ui:ImageIcon Source="pack://application:,,,/Assets/icon.png" />
             </ui:TitleBar.Icon>
@@ -121,8 +132,7 @@
             Background="{DynamicResource ApplicationBackgroundBrush}"
             Grid.Row="0"
             Margin="0,0,300,15"
-            Visibility="{Binding ViewModel.IsTitleBarCoverageGridVisible, Converter={StaticResource BoolToVisibility}}"
-            x:Name="TitleBarCoverageGrid" />
+            Visibility="{Binding ViewModel.IsTitleBarCoverageGridVisible, Converter={StaticResource BoolToVisibility}}" />
 
         <tray:NotifyIcon
             Focusable="False"

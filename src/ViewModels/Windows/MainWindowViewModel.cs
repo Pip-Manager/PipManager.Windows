@@ -7,8 +7,11 @@ public partial class MainWindowViewModel : ObservableObject
 {
     [ObservableProperty] private bool _experimentMode;
 
+    [ObservableProperty] private bool _debugMode;
+
     public MainWindowViewModel()
     {
+        DebugMode = App.IsDebugMode;
         var config = Configuration.AppConfig!;
         if (config.SelectedEnvironment != null)
         {
