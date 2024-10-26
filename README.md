@@ -9,16 +9,16 @@
   <h3 align="center">Pip Manager</h3>
 
   <p align="center">
-    A Python Package Manager (pip based)
+    基于 Pip 的图形化 Python 包管理器
     <br />
-    <a href="https://pipmanager.dev"><strong>Explore the docs (Chinese Simplified) »</strong></a>
+    <a href="https://pipmanager.dev"><strong>查看文档(WIP) »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/Pip-Manager/PipManager.Windows?tab=readme-ov-file#screenshots">Screenshots</a>
+    <a href="https://github.com/Pip-Manager/PipManager.Windows?tab=readme-ov-file#screenshots">展示</a>
     ·
-    <a href="https://github.com/Pip-Manager/PipManager.Windows/issues">Report Bug</a>
+    <a href="https://github.com/Pip-Manager/PipManager.Windows/issues">报告 Bug</a>
     ·
-    <a href="https://github.com/Pip-Manager/PipManager.Windows/pulls">Request Feature</a>
+    <a href="https://github.com/Pip-Manager/PipManager.Windows/pulls">新功能请求</a>
   </p>
 </div>
 
@@ -35,59 +35,51 @@
 
 该项目现已依赖[PipManager.Core](https://github.com/Pip-Manager/PipManager.Core)并逐渐迁移
 
+有关项目进展和计划：[2024 PipManager Roadmap](https://github.com/Pip-Manager/PipManager.Windows/issues/3)
+
 ---
 
-## About Pip Manager
+## 关于 Pip Manager
 
-Pip Manager is a package manager for Python newcomers (based on Pip)
+Pip Manager 是一个为 Python 新手设计的包管理工具，基于原生的 Pip，专门用来简化 Pip 的使用过程。
 
-Features:
-* GUI
-* Integration of most Pip commands
-* Multi-Pip environment switching
+### 特性：
+* **GUI**
+  Pip Manager 提供了一种简洁、直观的图形用户界面，让用户可以轻松地使用原来需要通过命令行执行的 Pip 功能。
+  
+* **集成常用命令**
+  Pip Manager 对 Pip 的部分常用功能进行了集成，如安装、卸载、查看包信息、更新等常用操作。
 
-Easier operation of Pip is the goal of Pip Manager.
+* **多环境切换**
+  Pip Manager 支持多环境切换，在不同项目之间灵活管理包的依赖关系。
 
-### Technology
-
-<img height="200" alt="language csharp" src="https://raw.githubusercontent.com/jonacruz89/SAWARATSUKI.ServiceLogos/main/C%23/C%23%20Purple.png"/>
-
-Pip Manager is based on the following technology stacks:
+### 技术栈
 
 [![.NET Core][.NET Core]][.NET-url][![WPF][WPF]][WPF-url]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+## 展示
 
-## Screenshots
+![light.jpeg](https://r2.pipmanager.dev/pipManager-screenshots-1.png)
+![dark.jpeg](https://r2.pipmanager.dev/pipManager-screenshots-2.png)
 
-![light.jpeg](https://loli.tc/images/light.jpeg)
-![dark.jpeg](https://loli.tc/images/dark.jpeg)
+## 使用
 
-## Getting Started
+如果你的电脑上安装了[.Net 8 桌面运行时](https://dotnet.microsoft.com/download/dotnet/8.0)，请下载 `PipManager.exe` 并启动；否则启动 `PipManager_withRuntime.exe`
 
-Double click `PipManager.exe` or `PipManager_withRuntime.exe` *If you have not installed [.Net 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0)*
+### 命令行参数
 
-### Arguments
+- `/console`: 在程序运行时弹出控制台窗口显示日志
 
-- `/console`: Show console while program running
+## 共同改进
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+1. Fork 该项目
+2. 提交更改
+3. Push 到该仓库的 `development` 分支
+4. 提交一个 Pull Request
 
-See the [Open Issues](https://github.com/Pip-Manager/PipManager.Wpf/issues) for a full list of proposed features (and known issues).
-
-## Contributing
-
-1. Fork the Project
-2. Create your Feature Branch
-3. Commit your Changes
-4. Push to the Branch `development`
-5. Open a Pull Request
-
-## License
+## 许可证
 
 Distributed under the MIT License. See `LICENSE` for more information.
-
-Kawaii `C#` Logo in [Technology Stack](#technology-stack) is created by [SAWATSUKI](https://github.com/SAWARATSUKI)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
