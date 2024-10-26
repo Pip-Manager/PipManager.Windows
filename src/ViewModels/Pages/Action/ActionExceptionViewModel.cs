@@ -9,7 +9,6 @@ using PipManager.Windows.Models.Action;
 using PipManager.Windows.Services.Action;
 using PipManager.Windows.Services.Toast;
 using Wpf.Ui.Abstractions.Controls;
-using Wpf.Ui.Controls;
 
 namespace PipManager.Windows.ViewModels.Pages.Action;
 

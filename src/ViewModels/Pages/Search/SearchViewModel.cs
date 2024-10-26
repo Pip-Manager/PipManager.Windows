@@ -9,40 +9,23 @@ using PipManager.Windows.Services.Toast;
 using PipManager.Windows.Views.Pages.Search;
 using Wpf.Ui;
 using Wpf.Ui.Abstractions.Controls;
-using Wpf.Ui.Controls;
 
 namespace PipManager.Windows.ViewModels.Pages.Search;
 
-public partial class SearchViewModel(IPackageSearchService packageSearchService, IToastService toastService, IMaskService maskService, INavigationService navigationService) : ObservableObject, INavigationAware
+public partial class SearchViewModel(IPackageSearchService packageSearchService, IToastService toastService, IMaskService maskService, INavigationService navigationService) 
+    : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
 
-    [ObservableProperty]
-    private ObservableCollection<QueryListItemModel> _queryList = [];
-
-    [ObservableProperty]
-    private string _queryPackageName = "";
-
-    [ObservableProperty]
-    private string _totalResultNumber = "";
-
-    [ObservableProperty]
-    private bool _onQuerying;
-
-    [ObservableProperty]
-    private bool _successQueried;
-
-    [ObservableProperty]
-    private bool _reachesFirstPage = true;
-
-    [ObservableProperty]
-    private bool _reachesLastPage;
-
-    [ObservableProperty]
-    private int _currentPage = 1;
-
-    [ObservableProperty]
-    private int _maxPage = 1;
+    [ObservableProperty] private ObservableCollection<QueryListItemModel> _queryList = [];
+    [ObservableProperty] private string _queryPackageName = "";
+    [ObservableProperty] private string _totalResultNumber = "";
+    [ObservableProperty] private bool _onQuerying;
+    [ObservableProperty] private bool _successQueried;
+    [ObservableProperty] private bool _reachesFirstPage = true;
+    [ObservableProperty] private bool _reachesLastPage;
+    [ObservableProperty] private int _currentPage = 1;
+    [ObservableProperty] private int _maxPage = 1;
 
     private void InitializeViewModel()
     {

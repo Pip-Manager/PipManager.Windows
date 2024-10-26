@@ -17,7 +17,6 @@ using PipManager.Windows.Views.Pages.Search;
 using Wpf.Ui;
 using Wpf.Ui.Abstractions.Controls;
 using Wpf.Ui.Appearance;
-using Wpf.Ui.Controls;
 
 namespace PipManager.Windows.ViewModels.Pages.Search;
 
@@ -71,14 +70,6 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
         _actionService = actionService;
 
         WeakReferenceMessenger.Default.Register<SearchDetailMessage>(this, Receive);
-    }
-
-    public void OnNavigatedTo()
-    {
-        }
-
-    public void OnNavigatedFrom()
-    {
     }
 
     private void InitializeViewModel()

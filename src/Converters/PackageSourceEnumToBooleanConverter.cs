@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
-using PipManager.Windows.Models.Package;
 
 namespace PipManager.Windows.Converters;
 

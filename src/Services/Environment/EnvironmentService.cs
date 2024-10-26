@@ -93,7 +93,6 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
                 {
                     semaphore.Release();
                 }
-                
             });
             ioTaskList.Add(task);
         }
@@ -131,11 +130,13 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
                 if (parts.Length == 2)
                 {
                     currentKey = parts[0].ToLower();
-                    if (!metadataDict.ContainsKey(currentKey))
+                    if (!metadataDict.TryGetValue(currentKey, out List<string>? value))
                     {
-                        metadataDict[currentKey] = new List<string>();
+                        value = [];
+                        metadataDict[currentKey] = value;
                     }
-                    metadataDict[currentKey].Add(parts[1]);
+
+                    value.Add(parts[1]);
                 }
                 else if (currentKey != null)
                 {

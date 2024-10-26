@@ -109,6 +109,7 @@
 
         <ui:TitleBar
             CloseWindowByDoubleClickOnIcon="True"
+            FontSize="14"
             Grid.Row="0"
             Title="{Binding ViewModel.ApplicationTitle}">
             <ui:TitleBar.Header>

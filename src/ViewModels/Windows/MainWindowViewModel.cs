@@ -6,12 +6,12 @@ namespace PipManager.Windows.ViewModels.Windows;
 public partial class MainWindowViewModel : ObservableObject
 {
     [ObservableProperty] private bool _experimentMode;
-
-    [ObservableProperty] private bool _debugMode;
+    [ObservableProperty] private bool _debugMode = App.IsDebugMode;
+    [ObservableProperty] private bool _isTitleBarCoverageGridVisible;
+    [ObservableProperty] private string _applicationTitle = "Pip Manager";
 
     public MainWindowViewModel()
     {
-        DebugMode = App.IsDebugMode;
         var config = Configuration.AppConfig!;
         if (config.SelectedEnvironment != null)
         {
@@ -24,10 +24,4 @@ public partial class MainWindowViewModel : ObservableObject
             ApplicationTitle = "Pip Manager";
         }
     }
-    
-    [ObservableProperty]
-    private bool _isTitleBarCoverageGridVisible;
-
-    [ObservableProperty]
-    private string _applicationTitle = "Pip Manager";
 }

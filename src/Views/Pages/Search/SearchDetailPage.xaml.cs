@@ -1,7 +1,6 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
 using Wpf.Ui.Abstractions.Controls;
-using Wpf.Ui.Controls;
 using SearchDetailViewModel = PipManager.Windows.ViewModels.Pages.Search.SearchDetailViewModel;
 
 namespace PipManager.Windows.Views.Pages.Search;

@@ -1,5 +1,4 @@
 ﻿using Wpf.Ui.Abstractions.Controls;
-using Wpf.Ui.Controls;
 using LibraryViewModel = PipManager.Windows.ViewModels.Pages.Library.LibraryViewModel;
 
 namespace PipManager.Windows.Views.Pages.Library;

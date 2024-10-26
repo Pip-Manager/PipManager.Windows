@@ -41,7 +41,7 @@ public partial class MainWindow
         var runnerThread = new Thread(actionService.Runner)
         {
             IsBackground = true,
-            Priority = ThreadPriority.AboveNormal
+            Priority = ThreadPriority.BelowNormal
         };
         runnerThread.Start();
     }

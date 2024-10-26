@@ -2,6 +2,6 @@
 
 public class GetVersionsResponse
 {
-    public int Status { get; set; } // 0: Success 1: Not found 2: Invalid Package Name
-    public string[]? Versions { get; set; }
+    public int Status { get; init; } // 0: Success 1: Not found 2: Invalid Package Name
+    public string[]? Versions { get; init; }
 }

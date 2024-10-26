@@ -2,7 +2,6 @@
 using PipManager.Windows.Services.Action;
 using Serilog;
 using Wpf.Ui.Abstractions.Controls;
-using Wpf.Ui.Controls;
 
 namespace PipManager.Windows.ViewModels.Pages.Lab;
 
