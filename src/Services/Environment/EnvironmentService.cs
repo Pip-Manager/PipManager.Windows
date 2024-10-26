@@ -77,7 +77,7 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
                      .Where(path => path.Name.EndsWith(".dist-info"))
                      .ToList();
 
-        var semaphore = new SemaphoreSlim(50);
+        var semaphore = new SemaphoreSlim(20);
         var ioTaskList = new List<Task>();
 
         foreach (var distInfoDirectory in distInfoDirectories)
@@ -143,7 +143,7 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
                 }
             }
 
-            foreach (var item in metadataDict.GetValueOrDefault("classifier", new List<string>()))
+            foreach (var item in metadataDict.GetValueOrDefault("classifier", []))
             {
                 var keyValues = item.Split(" :: ");
                 if (keyValues.Length < 2) continue;
@@ -153,7 +153,7 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
 
                 if (!classifiers.ContainsKey(key))
                 {
-                    classifiers[key] = new List<string>();
+                    classifiers[key] = [];
                 }
                 classifiers[key].Add(value);
             }
@@ -164,17 +164,23 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
         var recordFilePath = Path.Combine(distInfoDirectoryFullName, "RECORD");
         if (File.Exists(recordFilePath))
         {
-            await foreach (var line in File.ReadLinesAsync(recordFilePath))
+            using var reader = new StreamReader(recordFilePath);
+            while (await reader.ReadLineAsync() is { } line)
             {
-                var dirIdentifier = line.Split('/')[0];
-                if (dirIdentifier == distInfoDirectoryName || dirIdentifier[0] == '.') continue;
+                ReadOnlySpan<char> lineSpan = line.AsSpan();
+                int slashIndex = lineSpan.IndexOf('/');
+                ReadOnlySpan<char> dirIdentifierSpan = (slashIndex == -1) ? lineSpan : lineSpan[..slashIndex];
+
+                if (dirIdentifierSpan.SequenceEqual(distInfoDirectoryName.AsSpan()) || dirIdentifierSpan[0] == '.')
+                    continue;
+
                 record.Add(line);
             }
         }
-
+        
         // Extra
-        var projectUrls = metadataDict.GetValueOrDefault("project-url", new List<string>());
-        var projectUrlDictionary = projectUrls.Any()
+        var projectUrls = metadataDict.GetValueOrDefault("project-url", []);
+        var projectUrlDictionary = projectUrls.Count != 0
             ? projectUrls.Select(url => new LibraryDetailProjectUrlModel
             {
                 Icon = url.Split(", ")[0].ToLower() switch
@@ -194,7 +200,7 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
                 UrlType = url.Split(", ")[0],
                 Url = url.Split(", ")[1]
             }).ToList()
-            : new List<LibraryDetailProjectUrlModel> { new() { Icon = SymbolRegular.Question24, UrlType = "Unknown", Url = "" } };
+            : [new LibraryDetailProjectUrlModel { Icon = SymbolRegular.Question24, UrlType = "Unknown", Url = "" }];
         
         packages.Enqueue(new PackageItem
         {

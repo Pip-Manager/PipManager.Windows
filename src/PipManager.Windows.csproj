@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net8.0-windows</TargetFramework>
-		<LangVersion>12.0</LangVersion>
+		<LangVersion>preview</LangVersion>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<ApplicationIcon>Assets\icon.ico</ApplicationIcon>
 		<Nullable>enable</Nullable>
