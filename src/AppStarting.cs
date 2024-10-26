@@ -1,17 +1,13 @@
 ﻿using Serilog;
 using System.Globalization;
 using System.IO;
-using System.Runtime.InteropServices;
+using Windows.Win32;
 using PipManager.Core.Configuration;
 
 namespace PipManager.Windows;
 
-public partial class AppStarting
+public class AppStarting
 {
-    [LibraryImport("kernel32.dll")]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial void AllocConsole();
-
     public bool ShowConsoleWindow = false;
 
     public AppStarting()
@@ -22,7 +18,7 @@ public partial class AppStarting
         Directory.CreateDirectory(AppInfo.CachesDir);
     }
 
-    public void LoadLanguage()
+    public static void LoadLanguage()
     {
         var language = Configuration.AppConfig!.Personalization.Language;
         if (language != "Auto")
@@ -36,7 +32,7 @@ public partial class AppStarting
     {
         if (ShowConsoleWindow)
         {
-            AllocConsole();
+            PInvoke.AllocConsole();
         }
         Log.Logger = new LoggerConfiguration()
             .Enrich.WithProperty("Version", AppInfo.AppVersion)
@@ -47,7 +43,7 @@ public partial class AppStarting
         Log.Information("Logging started");
     }
 
-    public void CachesDeletion()
+    public static void CachesDeletion()
     {
         if (!Directory.Exists(AppInfo.CachesDir)) return;
         var directoryInfo = new DirectoryInfo(AppInfo.CachesDir);
