@@ -62,7 +62,11 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
     [RelayCommand]
     private async Task CheckEnvironment()
     {
-        var environmentAvailable = environmentService.CheckEnvironmentAvailable(CurrentEnvironment!);
+        maskService.Show(Lang.Environment_Operation_VerifyEnvironment);
+        var environmentAvailable = await Task.Run(() => environmentService.CheckEnvironmentAvailable(CurrentEnvironment!));
+        Task.WaitAll();
+        maskService.Hide();
+
         if (environmentAvailable.Success)
         {
             Log.Information($"[Environment] Environment is available ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
