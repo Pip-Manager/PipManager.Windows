@@ -23,10 +23,7 @@
         Margin="1"
         VerticalAlignment="Stretch">
 
-        <Grid
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            x:Name="Grid">
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
             <StackPanel
                 HorizontalAlignment="Left"

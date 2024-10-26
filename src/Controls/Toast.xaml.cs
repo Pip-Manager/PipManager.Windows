@@ -160,7 +160,7 @@ namespace PipManager.Windows.Controls
                 {
                     PopupAnimation = PopupAnimation.Fade,
                     AllowsTransparency = true,
-                    StaysOpen = true,
+                    StaysOpen = false,
                     Placement = PlacementMode.Top,
                     IsOpen = false,
                     Child = toast,
