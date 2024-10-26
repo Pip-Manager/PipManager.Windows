@@ -29,26 +29,21 @@
                             Source="pack://application:,,,/Assets/icon.png"
                             Width="200" />
                         <StackPanel Margin="15,30,0,0">
-                            <StackPanel Orientation="Horizontal">
-                                <ui:TextBlock
-                                    FontSize="42"
-                                    FontTypography="TitleLarge"
-                                    Text="Pip Manager" />
-                                <ui:Badge
-                                    Appearance="Caution"
-                                    Content="Debug Mode"
-                                    FontSize="12"
-                                    Margin="7,0,0,0"
-                                    VerticalAlignment="Top"
-                                    Visibility="{Binding ViewModel.DebugMode, Converter={StaticResource BoolToVisibility}}" />
-
-                            </StackPanel>
+                            <ui:TextBlock
+                                FontSize="42"
+                                FontTypography="TitleLarge"
+                                Text="Pip Manager" />
                             <StackPanel Margin="3,10,0,0" Orientation="Horizontal">
                                 <ui:TextBlock
                                     FontTypography="BodyStrong"
                                     Text="{Binding ViewModel.AppVersion, StringFormat=Version: {0}}"
-                                    VerticalAlignment="Center" />
-
+                                    VerticalAlignment="Center"
+                                    Visibility="{Binding ViewModel.DebugMode, Converter={StaticResource InverseBoolToVisibility}}" />
+                                <ui:Badge
+                                    Appearance="Caution"
+                                    Content="Debug Mode"
+                                    FontSize="12"
+                                    Visibility="{Binding ViewModel.DebugMode, Converter={StaticResource BoolToVisibility}}" />
                             </StackPanel>
                             <Grid Margin="-3,10,0,0">
                                 <Grid.RowDefinitions>
@@ -98,7 +93,7 @@
                         <ui:TextBlock
                             FontTypography="Body"
                             Margin="0,0,10,0"
-                            Text="Copyright (c) 2023 AuroraZiling" />
+                            Text="Copyright (c) 2023-2024 AuroraZiling" />
                     </StackPanel>
                 </Grid>
             </Border>

@@ -6,7 +6,7 @@ using PipManager.Windows.Services.Toast;
 using PipManager.Windows.Views.Pages.Action;
 using Serilog;
 using Wpf.Ui;
-using Wpf.Ui.Controls;
+using Wpf.Ui.Abstractions.Controls;
 
 namespace PipManager.Windows.ViewModels.Pages.Action;
 
@@ -27,16 +27,6 @@ public partial class ActionViewModel : ObservableObject, INavigationAware
         _navigationService = navigationService;
         _toastService = toastService;
         Actions = _actionService.ActionList;
-    }
-
-    public void OnNavigatedTo()
-    {
-        if (!_isInitialized)
-            InitializeViewModel();
-    }
-
-    public void OnNavigatedFrom()
-    {
     }
 
     private void InitializeViewModel()
@@ -69,5 +59,17 @@ public partial class ActionViewModel : ObservableObject, INavigationAware
             _toastService.Success(Lang.Action_OperationCanceled_Success);
             Log.Information("[Action] Operation canceled: {OperationId}", operationId);
         }
+    }
+
+    public Task OnNavigatedToAsync()
+    {
+        if (!_isInitialized)
+            InitializeViewModel();
+        return Task.CompletedTask;
+    }
+
+    public Task OnNavigatedFromAsync()
+    {
+        return Task.CompletedTask;
     }
 }

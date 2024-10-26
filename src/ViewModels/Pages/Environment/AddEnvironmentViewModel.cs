@@ -9,25 +9,13 @@ using PipManager.Windows.Languages;
 using PipManager.Windows.Services.Environment;
 using PipManager.Windows.Services.Toast;
 using Wpf.Ui;
-using Wpf.Ui.Controls;
+using Wpf.Ui.Abstractions.Controls;
 
 namespace PipManager.Windows.ViewModels.Pages.Environment;
 
 public partial class AddEnvironmentViewModel(INavigationService navigationService, IEnvironmentService environmentService, IToastService toastService) : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
-
-    public void OnNavigatedTo()
-    {
-        if (!_isInitialized)
-            InitializeViewModel();
-        ByWay = 0;
-        _ = RefreshPipList();
-    }
-
-    public void OnNavigatedFrom()
-    {
-    }
 
     private void InitializeViewModel()
     {
@@ -42,7 +30,7 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
     [RelayCommand]
     private void ChangeWay()
     {
-        Log.Information($"[AddEnvironment] Addition way changed to index:{ByWay}");
+        Log.Information($"[AddEnvironment] Addition way changed to index: {ByWay}");
     }
 
     #endregion ByWaysList
@@ -216,4 +204,18 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
     }
 
     #endregion Add
+
+    public Task OnNavigatedToAsync()
+    {
+        if (!_isInitialized)
+            InitializeViewModel();
+        ByWay = 0;
+        _ = RefreshPipList();
+        return Task.CompletedTask;
+    }
+
+    public Task OnNavigatedFromAsync()
+    {
+        return Task.CompletedTask;
+    }
 }

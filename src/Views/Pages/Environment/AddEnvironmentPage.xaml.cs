@@ -1,5 +1,5 @@
 ﻿using PipManager.Windows.ViewModels.Pages.Environment;
-using Wpf.Ui.Controls;
+using Wpf.Ui.Abstractions.Controls;
 
 namespace PipManager.Windows.Views.Pages.Environment;
 

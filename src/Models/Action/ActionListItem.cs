@@ -16,7 +16,7 @@ public partial class ActionListItem : ObservableObject
         DisplayCommand = displayCommand switch
         {
             "" => string.Join(' ', operationCommand),
-            _ => displayCommand,
+            _ => displayCommand
         };
         OperationDescription = operationType switch
         {
@@ -25,7 +25,7 @@ public partial class ActionListItem : ObservableObject
             ActionType.InstallByRequirements => Lang.Action_Operation_InstallByRequirements,
             ActionType.Download => Lang.Action_Operation_Download,
             ActionType.Update => Lang.Action_Operation_Update,
-            _ => "Unknown",
+            _ => "Unknown"
         };
 
         OperationIcon = operationType switch
@@ -41,7 +41,7 @@ public partial class ActionListItem : ObservableObject
             ActionType.Uninstall => "Danger",
             ActionType.Install or ActionType.InstallByRequirements => "Success",
             ActionType.Update or ActionType.Download => "Caution",
-            _ => "Primary",
+            _ => "Primary"
         };
         ConsoleOutput = "";
         ConsoleError = Lang.Action_ConsoleError_Empty;

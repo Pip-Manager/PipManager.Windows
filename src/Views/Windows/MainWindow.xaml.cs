@@ -5,6 +5,7 @@ using PipManager.Windows.Services.Mask;
 using PipManager.Windows.ViewModels.Windows;
 using PipManager.Windows.Views.Pages.Library;
 using Wpf.Ui;
+using Wpf.Ui.Abstractions;
 using Wpf.Ui.Appearance;
 
 namespace PipManager.Windows.Views.Windows;
@@ -17,6 +18,7 @@ public partial class MainWindow
     public MainWindow(
         MainWindowViewModel viewModel,
         INavigationService navigationService,
+        INavigationViewPageProvider pageService,
         IServiceProvider serviceProvider,
         IContentDialogService contentDialogService,
         IMaskService maskPresenter,
@@ -30,17 +32,18 @@ public partial class MainWindow
         SystemThemeWatcher.Watch(this);
 
         InitializeComponent();
+
+        NavigationView.SetServiceProvider(serviceProvider);
+        NavigationView.SetPageProviderService(pageService);
         navigationService.SetNavigationControl(NavigationView);
         maskPresenter.SetMaskPresenter(MaskPresenter);
         contentDialogService.SetDialogHost(RootContentDialog);
         var runnerThread = new Thread(actionService.Runner)
         {
             IsBackground = true,
-            Priority = ThreadPriority.AboveNormal
+            Priority = ThreadPriority.BelowNormal
         };
         runnerThread.Start();
-
-        NavigationView.SetServiceProvider(serviceProvider);
     }
 
     private void MainWindow_OnClosing(object? sender, CancelEventArgs e)

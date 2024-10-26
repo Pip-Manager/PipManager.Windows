@@ -1,7 +1,7 @@
 ﻿using Serilog;
 using System.Collections.ObjectModel;
 using PipManager.Windows.Models.Pages;
-using Wpf.Ui.Controls;
+using Wpf.Ui.Abstractions.Controls;
 
 namespace PipManager.Windows.ViewModels.Pages.About;
 
@@ -11,16 +11,6 @@ public partial class AboutViewModel : ObservableObject, INavigationAware
 
     [ObservableProperty] private string _appVersion = "Development";
     [ObservableProperty] private bool _debugMode;
-
-    public void OnNavigatedTo()
-    {
-        if (!_isInitialized)
-            InitializeViewModel();
-    }
-
-    public void OnNavigatedFrom()
-    {
-    }
 
     private void InitializeViewModel()
     {
@@ -33,8 +23,6 @@ public partial class AboutViewModel : ObservableObject, INavigationAware
                 "https://github.com/Antelcat/Antelcat.I18N"),
             new AboutNugetLibraryListItem("CommunityToolkit.Mvvm", "MIT",
                 "Copyright © .NET Foundation and Contributors", "https://github.com/CommunityToolkit/dotnet"),
-            new AboutNugetLibraryListItem("HtmlAgilityPack", "MIT", "Copyright © ZZZ Projects Inc.",
-                "https://github.com/zzzprojects/html-agility-pack"),
             new AboutNugetLibraryListItem("Meziantou.Framework.WPF", "MIT", "Copyright (c) 2019 Gérald Barré",
                 "https://github.com/meziantou/Meziantou.Framework"),
             new AboutNugetLibraryListItem("Microsoft.Extensions.Hosting", "MIT",
@@ -43,10 +31,8 @@ public partial class AboutViewModel : ObservableObject, INavigationAware
                 "© Microsoft Corporation. All rights reserved.", "https://github.com/dotnet/runtime"),
             new AboutNugetLibraryListItem("Microsoft.Xaml.Behaviors.Wpf", "MIT", "Copyright (c) 2015 Microsoft",
                 "https://github.com/microsoft/XamlBehaviorsWpf"),
-            new AboutNugetLibraryListItem("Newtonsoft.Json", "MIT", "Copyright (c) 2007 James Newton-King",
-                "https://github.com/JamesNK/Newtonsoft.Json"),
-            new AboutNugetLibraryListItem("pythonnet", "MIT", "Copyright (c) 2006-2021 the contributors of the Python.NET project",
-                "https://github.com/pythonnet/pythonnet"),
+            new AboutNugetLibraryListItem("System.Text.Json", "MIT", "Microsoft Corporation. All rights reserved.",
+                "https://github.com/dotnet/runtime"),
             new AboutNugetLibraryListItem("Serilog", "Apache-2.0", "Copyright © 2013-2020 Serilog Contributors",
                 "https://github.com/serilog/serilog"),
             new AboutNugetLibraryListItem("Serilog.Extensions.Logging", "Apache-2.0",
@@ -74,4 +60,16 @@ public partial class AboutViewModel : ObservableObject, INavigationAware
 
     [ObservableProperty]
     private ObservableCollection<AboutNugetLibraryListItem> _nugetLibraryList = [];
+
+    public Task OnNavigatedToAsync()
+    {
+        if (!_isInitialized)
+            InitializeViewModel();
+        return Task.CompletedTask;
+    }
+
+    public Task OnNavigatedFromAsync()
+    {
+        return Task.CompletedTask;
+    }
 }

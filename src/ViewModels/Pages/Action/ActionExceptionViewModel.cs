@@ -8,7 +8,7 @@ using PipManager.Windows.Languages;
 using PipManager.Windows.Models.Action;
 using PipManager.Windows.Services.Action;
 using PipManager.Windows.Services.Toast;
-using Wpf.Ui.Controls;
+using Wpf.Ui.Abstractions.Controls;
 
 namespace PipManager.Windows.ViewModels.Pages.Action;
 
@@ -27,17 +27,6 @@ public partial class ActionExceptionViewModel : ObservableObject, INavigationAwa
         _actionService = actionService;
         _toastService = toastService;
         Exceptions = new ObservableCollection<ActionListItem>(_actionService.ExceptionList);
-    }
-
-    public void OnNavigatedTo()
-    {
-        if (!_isInitialized)
-            InitializeViewModel();
-        UpdateActionExceptionList();
-    }
-
-    public void OnNavigatedFrom()
-    {
     }
 
     private void InitializeViewModel()
@@ -99,5 +88,18 @@ public partial class ActionExceptionViewModel : ObservableObject, INavigationAwa
         Clipboard.SetDataObject(ExceptionFilter(parameter));
         _toastService.Success(Lang.ActionException_CopyToClipboardNotice);
         Log.Information("[Action][Exceptions] Copied exception to clipboard");
+    }
+
+    public Task OnNavigatedToAsync()
+    {
+        if (!_isInitialized)
+            InitializeViewModel();
+        UpdateActionExceptionList();
+        return Task.CompletedTask;
+    }
+
+    public Task OnNavigatedFromAsync()
+    {
+        return Task.CompletedTask;
     }
 }

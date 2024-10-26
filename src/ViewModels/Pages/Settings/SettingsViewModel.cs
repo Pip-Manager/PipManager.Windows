@@ -10,8 +10,8 @@ using PipManager.Windows.Services.Toast;
 using PipManager.Windows.Views.Pages.About;
 using PipManager.Windows.Views.Pages.Settings;
 using Wpf.Ui;
+using Wpf.Ui.Abstractions.Controls;
 using Wpf.Ui.Appearance;
-using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
 
 namespace PipManager.Windows.ViewModels.Pages.Settings;
@@ -40,16 +40,6 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     }
 
     private bool _isInitialized;
-
-    public void OnNavigatedTo()
-    {
-        if (!_isInitialized)
-            InitializeViewModel();
-    }
-
-    public void OnNavigatedFrom()
-    {
-    }
 
     private void InitializeViewModel()
     {
@@ -219,7 +209,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         {
             Directory.Delete(Path.Combine(AppInfo.CachesDir, "EBWebView"), true);
             _toastService.Success(Lang.Settings_FileManagement_WebViewSettings_CacheCleared);
-            Log.Information($"[Settings] WebView cache removed");
+            Log.Information("[Settings] WebView cache removed");
         }
         catch (DirectoryNotFoundException)
         {
@@ -289,4 +279,16 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     }
 
     #endregion File Management
+
+    public Task OnNavigatedToAsync()
+    {
+        if (!_isInitialized)
+            InitializeViewModel();
+        return Task.CompletedTask;
+    }
+
+    public Task OnNavigatedFromAsync()
+    {
+        return Task.CompletedTask;
+    }
 }

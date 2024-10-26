@@ -1,14 +1,13 @@
-﻿using Wpf.Ui.Controls;
-using Action_ActionExceptionViewModel = PipManager.Windows.ViewModels.Pages.Action.ActionExceptionViewModel;
+﻿using Wpf.Ui.Abstractions.Controls;
 using ActionExceptionViewModel = PipManager.Windows.ViewModels.Pages.Action.ActionExceptionViewModel;
 
 namespace PipManager.Windows.Views.Pages.Action;
 
-public partial class ActionExceptionPage : INavigableView<Action_ActionExceptionViewModel>
+public partial class ActionExceptionPage : INavigableView<ActionExceptionViewModel>
 {
-    public Action_ActionExceptionViewModel ViewModel { get; }
+    public ActionExceptionViewModel ViewModel { get; }
 
-    public ActionExceptionPage(Action_ActionExceptionViewModel viewModel)
+    public ActionExceptionPage(ActionExceptionViewModel viewModel)
     {
         ViewModel = viewModel;
         DataContext = this;

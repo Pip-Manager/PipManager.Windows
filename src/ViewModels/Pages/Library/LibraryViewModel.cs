@@ -17,6 +17,7 @@ using PipManager.Windows.Views.Pages.Action;
 using PipManager.Windows.Views.Pages.Environment;
 using PipManager.Windows.Views.Pages.Library;
 using Wpf.Ui;
+using Wpf.Ui.Abstractions.Controls;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 
@@ -51,17 +52,6 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             "dark" => ApplicationTheme.Dark,
             _ => ApplicationTheme.Dark
         });
-    }
-
-    public void OnNavigatedTo()
-    {
-        if (!_isInitialized)
-            InitializeViewModel();
-        _ = RefreshLibrary();
-    }
-
-    public void OnNavigatedFrom()
-    {
     }
 
     private void InitializeViewModel()
@@ -218,5 +208,21 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             return;
         }
         RefreshTimeUsage = 0;
+    }
+
+    public Task OnNavigatedToAsync()
+    {
+        if (!_isInitialized)
+            InitializeViewModel();
+        Application.Current.Dispatcher.InvokeAsync(async () =>
+        {
+            await RefreshLibrary();
+        });
+        return Task.CompletedTask;
+    }
+
+    public Task OnNavigatedFromAsync()
+    {
+        return Task.CompletedTask;
     }
 }

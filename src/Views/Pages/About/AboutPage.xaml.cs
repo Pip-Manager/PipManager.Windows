@@ -1,14 +1,13 @@
-﻿using Wpf.Ui.Controls;
-using About_AboutViewModel = PipManager.Windows.ViewModels.Pages.About.AboutViewModel;
+﻿using Wpf.Ui.Abstractions.Controls;
 using AboutViewModel = PipManager.Windows.ViewModels.Pages.About.AboutViewModel;
 
 namespace PipManager.Windows.Views.Pages.About;
 
-public partial class AboutPage : INavigableView<About_AboutViewModel>
+public partial class AboutPage : INavigableView<AboutViewModel>
 {
-    public About_AboutViewModel ViewModel { get; }
+    public AboutViewModel ViewModel { get; }
 
-    public AboutPage(About_AboutViewModel viewModel)
+    public AboutPage(AboutViewModel viewModel)
     {
         ViewModel = viewModel;
         DataContext = this;

@@ -17,7 +17,7 @@ using PipManager.Windows.Services.Mask;
 using PipManager.Windows.Services.Toast;
 using PipManager.Windows.Views.Pages.Action;
 using Wpf.Ui;
-using Wpf.Ui.Controls;
+using Wpf.Ui.Abstractions.Controls;
 
 namespace PipManager.Windows.ViewModels.Pages.Library;
 
@@ -44,19 +44,6 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
         _installWheelDependencies = false;
         _navigationService = navigationService;
         WeakReferenceMessenger.Default.Register<InstalledPackagesMessage>(this, Receive);
-    }
-
-    public void OnNavigatedTo()
-    {
-        if (!_isInitialized)
-            InitializeViewModel();
-        InstallWheelDependencies = true;
-    }
-
-    public void OnNavigatedFrom()
-    {
-        PreInstallPackages.Clear();
-        PreDownloadPackages.Clear();
     }
 
     private void InitializeViewModel()
@@ -431,4 +418,19 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
     }
 
     #endregion
+
+    public Task OnNavigatedToAsync()
+    {
+        if (!_isInitialized)
+            InitializeViewModel();
+        InstallWheelDependencies = true;
+        return Task.CompletedTask;
+    }
+
+    public Task OnNavigatedFromAsync()
+    {
+        PreInstallPackages.Clear();
+        PreDownloadPackages.Clear();
+        return Task.CompletedTask;
+    }
 }

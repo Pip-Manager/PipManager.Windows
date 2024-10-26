@@ -1,14 +1,13 @@
-﻿using Wpf.Ui.Controls;
-using Library_LibraryViewModel = PipManager.Windows.ViewModels.Pages.Library.LibraryViewModel;
+﻿using Wpf.Ui.Abstractions.Controls;
 using LibraryViewModel = PipManager.Windows.ViewModels.Pages.Library.LibraryViewModel;
 
 namespace PipManager.Windows.Views.Pages.Library;
 
-public partial class LibraryPage : INavigableView<Library_LibraryViewModel>
+public partial class LibraryPage : INavigableView<LibraryViewModel>
 {
-    public Library_LibraryViewModel ViewModel { get; }
+    public LibraryViewModel ViewModel { get; }
 
-    public LibraryPage(Library_LibraryViewModel viewModel)
+    public LibraryPage(LibraryViewModel viewModel)
     {
         ViewModel = viewModel;
         DataContext = this;

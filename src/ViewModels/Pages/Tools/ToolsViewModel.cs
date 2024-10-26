@@ -1,5 +1,5 @@
 ﻿using Serilog;
-using Wpf.Ui.Controls;
+using Wpf.Ui.Abstractions.Controls;
 
 namespace PipManager.Windows.ViewModels.Pages.Tools;
 
@@ -10,19 +10,21 @@ public partial class ToolsViewModel : ObservableObject, INavigationAware
     [ObservableProperty]
     private string? _testProperty;
 
-    public void OnNavigatedTo()
-    {
-        if (!_isInitialized)
-            InitializeViewModel();
-    }
-
-    public void OnNavigatedFrom()
-    {
-    }
-
     private void InitializeViewModel()
     {
         _isInitialized = true;
         Log.Information("[Tools] Initialized");
+    }
+
+    public Task OnNavigatedToAsync()
+    {
+        if (!_isInitialized)
+            InitializeViewModel();
+        return Task.CompletedTask;
+    }
+
+    public Task OnNavigatedFromAsync()
+    {
+        return Task.CompletedTask;
     }
 }
