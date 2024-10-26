@@ -1,6 +1,6 @@
 param(
     [string] $Architecture = "x64",
-    [string] $Version = "0.1.1.0"
+    [string] $Version = "0.1.2.0"
 )
 
 $ErrorActionPreference = "Stop";
