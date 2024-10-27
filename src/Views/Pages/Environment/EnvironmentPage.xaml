@@ -69,51 +69,48 @@
                                 Margin="0,0,18,6"
                                 Orientation="Horizontal"
                                 VerticalAlignment="Center">
+                                <StackPanel.Resources>
+                                    <Style BasedOn="{StaticResource {x:Type ui:Button}}" TargetType="ui:Button">
+                                        <Setter Property="Appearance" Value="Transparent" />
+                                        <Setter Property="BorderThickness" Value="0" />
+                                        <Setter Property="FontSize" Value="18" />
+                                    </Style>
+                                </StackPanel.Resources>
                                 <ui:Button
                                     Command="{Binding Path=ViewModel.RevealEnvironmentFolderCommand, RelativeSource={RelativeSource AncestorType={x:Type environment:EnvironmentPage}}}"
                                     CommandParameter="{Binding}"
-                                    FontSize="18"
                                     Icon="{ui:SymbolIcon Folder20}"
                                     ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_RevealFolder}}" />
                                 <ui:Button
                                     Command="{Binding Path=ViewModel.RevealEnvironmentConsoleCommand, RelativeSource={RelativeSource AncestorType={x:Type environment:EnvironmentPage}}}"
                                     CommandParameter="{Binding}"
-                                    FontSize="18"
                                     Icon="{ui:SymbolIcon WindowConsole20}"
                                     Margin="5,0,0,0"
                                     ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_PopupConsole}}" />
                                 <ui:Button
-                                    BorderBrush="LimeGreen"
                                     Command="{Binding ViewModel.CheckEnvironmentUpdateCommand, RelativeSource={RelativeSource AncestorType={x:Type environment:EnvironmentPage}}}"
                                     CommandParameter="{Binding}"
-                                    FontSize="18"
                                     Foreground="LimeGreen"
                                     Icon="{ui:SymbolIcon ArrowUp20}"
                                     Margin="5,0,0,0"
                                     ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_CheckEnvironmentUpdate}}" />
                                 <ui:Button
-                                    BorderBrush="Orange"
                                     Command="{Binding ViewModel.CheckEnvironmentCommand, RelativeSource={RelativeSource AncestorType={x:Type environment:EnvironmentPage}}}"
                                     CommandParameter="{Binding}"
-                                    FontSize="18"
                                     Foreground="Orange"
                                     Icon="{ui:SymbolIcon Check20}"
                                     Margin="5,0,0,0"
                                     ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_VerifyEnvironment}}" />
                                 <ui:Button
-                                    BorderBrush="Orange"
                                     Command="{Binding ViewModel.ClearCacheCommand, RelativeSource={RelativeSource AncestorType={x:Type environment:EnvironmentPage}}}"
                                     CommandParameter="{Binding}"
-                                    FontSize="18"
                                     Foreground="Orange"
                                     Icon="{ui:SymbolIcon Eraser20}"
                                     Margin="5,0,0,0"
                                     ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_ClearEnvironmentCache}}" />
                                 <ui:Button
-                                    BorderBrush="OrangeRed"
                                     Command="{Binding ViewModel.RemoveEnvironmentCommand, RelativeSource={RelativeSource AncestorType={x:Type environment:EnvironmentPage}}}"
                                     CommandParameter="{Binding}"
-                                    FontSize="18"
                                     Foreground="OrangeRed"
                                     Icon="{ui:SymbolIcon Delete20}"
                                     Margin="5,0,0,0"
