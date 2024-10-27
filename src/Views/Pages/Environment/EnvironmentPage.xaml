@@ -83,11 +83,11 @@
                                     Margin="5,0,0,0"
                                     ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_PopupConsole}}" />
                                 <ui:Button
-                                    BorderBrush="GreenYellow"
+                                    BorderBrush="LimeGreen"
                                     Command="{Binding ViewModel.CheckEnvironmentUpdateCommand, RelativeSource={RelativeSource AncestorType={x:Type environment:EnvironmentPage}}}"
                                     CommandParameter="{Binding}"
                                     FontSize="18"
-                                    Foreground="GreenYellow"
+                                    Foreground="LimeGreen"
                                     Icon="{ui:SymbolIcon ArrowUp20}"
                                     Margin="5,0,0,0"
                                     ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_CheckEnvironmentUpdate}}" />
