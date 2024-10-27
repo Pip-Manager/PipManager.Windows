@@ -1,13 +1,13 @@
 param(
     [string] $Architecture = "x64",
-    [string] $Version = "0.1.2.0"
+    [string] $Version = "0.1.3.0"
 )
 
 $ErrorActionPreference = "Stop";
 
 Write-Output "Start building singleWithRuntime...";
 
-dotnet publish src/PipManager.Windows.csproj -c Release -r "win-$Architecture" -o "build/$Version/singleWithRuntime" -p:Platform=$Architecture -p:PublishReadyToRun=true -p:EnableCompressionInSingleFile=true -p:PublishSingleFile=true -p:SelfContained=true -p:AssemblyVersion=$Version -p:Configuration=Release;
+dotnet publish src/PipManager.Windows.csproj -c Release -r "win-$Architecture" -o "build/$Version/singleWithRuntime" -p:Platform=$Architecture -p:PublishReadyToRun=false -p:EnableCompressionInSingleFile=true -p:PublishSingleFile=true -p:SelfContained=true -p:AssemblyVersion=$Version -p:Configuration=Release;
 
 Rename-Item -Path "build/$Version/singleWithRuntime/PipManager.Windows.exe" -NewName "PipManager_withRuntime.exe"
 

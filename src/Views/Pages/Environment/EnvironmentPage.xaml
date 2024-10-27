@@ -66,7 +66,7 @@
                             <StackPanel
                                 Grid.Column="2"
                                 HorizontalAlignment="Right"
-                                Margin="0,0,20,6"
+                                Margin="0,0,18,6"
                                 Orientation="Horizontal"
                                 VerticalAlignment="Center">
                                 <ui:Button
@@ -83,34 +83,38 @@
                                     Margin="5,0,0,0"
                                     ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_PopupConsole}}" />
                                 <ui:Button
-                                    Appearance="Success"
+                                    BorderBrush="GreenYellow"
                                     Command="{Binding ViewModel.CheckEnvironmentUpdateCommand, RelativeSource={RelativeSource AncestorType={x:Type environment:EnvironmentPage}}}"
                                     CommandParameter="{Binding}"
                                     FontSize="18"
+                                    Foreground="GreenYellow"
                                     Icon="{ui:SymbolIcon ArrowUp20}"
                                     Margin="5,0,0,0"
                                     ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_CheckEnvironmentUpdate}}" />
                                 <ui:Button
-                                    Appearance="Caution"
+                                    BorderBrush="Orange"
                                     Command="{Binding ViewModel.CheckEnvironmentCommand, RelativeSource={RelativeSource AncestorType={x:Type environment:EnvironmentPage}}}"
                                     CommandParameter="{Binding}"
                                     FontSize="18"
+                                    Foreground="Orange"
                                     Icon="{ui:SymbolIcon Check20}"
                                     Margin="5,0,0,0"
                                     ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_VerifyEnvironment}}" />
                                 <ui:Button
-                                    Appearance="Caution"
+                                    BorderBrush="Orange"
                                     Command="{Binding ViewModel.ClearCacheCommand, RelativeSource={RelativeSource AncestorType={x:Type environment:EnvironmentPage}}}"
                                     CommandParameter="{Binding}"
                                     FontSize="18"
+                                    Foreground="Orange"
                                     Icon="{ui:SymbolIcon Eraser20}"
                                     Margin="5,0,0,0"
                                     ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_ClearEnvironmentCache}}" />
                                 <ui:Button
-                                    Appearance="Danger"
+                                    BorderBrush="OrangeRed"
                                     Command="{Binding ViewModel.RemoveEnvironmentCommand, RelativeSource={RelativeSource AncestorType={x:Type environment:EnvironmentPage}}}"
                                     CommandParameter="{Binding}"
                                     FontSize="18"
+                                    Foreground="OrangeRed"
                                     Icon="{ui:SymbolIcon Delete20}"
                                     Margin="5,0,0,0"
                                     ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_RemoveEnvironment}}" />
