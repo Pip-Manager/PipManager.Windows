@@ -160,7 +160,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     #endregion Details
 
     [ObservableProperty] private int _libraryListLength;
-    [ObservableProperty] private ObservableCollection<LibraryListItem> _libraryList = [];
+    [ObservableProperty] private ObservableCollection<PackageListItem> _libraryList = [];
 
     [ObservableProperty] private bool _environmentFoundVisible;
 
@@ -201,10 +201,14 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         {
             foreach (var package in _library)
             {
-                LibraryList.Add(new LibraryListItem
-                (
-                    package.Name!, package.Version!, package.DetailedVersion!, package.Summary!, false
-                ));
+                LibraryList.Add(new PackageListItem
+                {
+                    PackageName = package.Name!,
+                    PackageVersion = package.Version!,
+                    PackageDetailedVersion = package.DetailedVersion!,
+                    PackageSummary = package.Summary!,
+                    IsSelected = false
+                });
             }
             LibraryListLength = _library.Count;
             _refreshStopwatch.Stop();

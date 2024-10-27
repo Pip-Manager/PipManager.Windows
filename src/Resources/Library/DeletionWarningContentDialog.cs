@@ -8,9 +8,9 @@ namespace PipManager.Windows.Resources.Library;
 public class DeletionWarningContentDialog
 {
     private readonly ContentDialog _contentDialog;
-    private List<LibraryListItem> LibraryList { get; set; }
+    private List<PackageListItem> LibraryList { get; set; }
 
-    public DeletionWarningContentDialog(ContentPresenter? contentPresenter, List<LibraryListItem> libraryList)
+    public DeletionWarningContentDialog(ContentPresenter? contentPresenter, List<PackageListItem> libraryList)
     {
         LibraryList = libraryList;
         _contentDialog = new ContentDialog(contentPresenter)

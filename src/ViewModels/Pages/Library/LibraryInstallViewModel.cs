@@ -25,7 +25,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
 {
     private bool _isInitialized;
 
-    public record InstalledPackagesMessage(List<LibraryListItem> InstalledPackages);
+    public record InstalledPackagesMessage(List<PackageListItem> InstalledPackages);
 
     private readonly IActionService _actionService;
     private readonly IMaskService _maskService;
@@ -58,8 +58,8 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
 
     #region Install
 
-    [ObservableProperty] private ObservableCollection<LibraryInstallPackageItem> _preInstallPackages = [];
-    private List<LibraryListItem> _installedPackages = [];
+    [ObservableProperty] private ObservableCollection<PackageInstallItem> _preInstallPackages = [];
+    private List<PackageListItem> _installedPackages = [];
 
     [RelayCommand]
     private async Task AddDefaultTask()
@@ -95,7 +95,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
                 return;
 
             default:
-                PreInstallPackages.Add(new LibraryInstallPackageItem
+                PreInstallPackages.Add(new PackageInstallItem
                 {
                     PackageName = packageName,
                     AvailableVersions = [..packageVersions.Versions!.Reverse()]
@@ -178,7 +178,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
 
     #region Download Wheel File
 
-    [ObservableProperty] private ObservableCollection<LibraryInstallPackageItem> _preDownloadPackages = [];
+    [ObservableProperty] private ObservableCollection<PackageInstallItem> _preDownloadPackages = [];
     [ObservableProperty] private string _downloadDistributionsFolderPath = "";
     [ObservableProperty] private bool _downloadDistributionsEnabled;
     [ObservableProperty] private bool _downloadWheelDependencies;
@@ -211,7 +211,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
                 return;
 
             default:
-                PreDownloadPackages.Add(new LibraryInstallPackageItem
+                PreDownloadPackages.Add(new PackageInstallItem
                 {
                     PackageName = packageName,
                     AvailableVersions = [..packageVersions.Versions!.Reverse()]
@@ -278,7 +278,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
     #endregion Download Wheel File
 
     #region Install via distributions
-    [ObservableProperty] private ObservableCollection<LibraryInstallPackageItem> _preInstallDistributions = [];
+    [ObservableProperty] private ObservableCollection<PackageInstallItem> _preInstallDistributions = [];
     [ObservableProperty] private bool _installWheelDependencies;
 
     [RelayCommand]
@@ -376,7 +376,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
                 return;
             }
             
-            PreInstallDistributions.Add(new LibraryInstallPackageItem
+            PreInstallDistributions.Add(new PackageInstallItem
             {
                 PackageName = packageName,
                 TargetVersion = packageVersion,

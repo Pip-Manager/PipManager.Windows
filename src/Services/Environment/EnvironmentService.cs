@@ -12,7 +12,6 @@ using PipManager.Core.PyEnvironment.Helpers;
 using PipManager.Core.PyPackage.Helpers;
 using PipManager.Core.PyPackage.Models;
 using PipManager.Windows.Models;
-using PipManager.Windows.Models.Pages;
 using PipManager.Windows.Services.Environment.Response;
 using Serilog;
 using Path = System.IO.Path;

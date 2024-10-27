@@ -61,7 +61,7 @@
                     <ScrollViewer Grid.Row="1" Margin="0,10,0,0">
                         <ItemsControl ItemsSource="{Binding ViewModel.PreInstallPackages, Mode=TwoWay}" x:Name="AddDefaultTaskList">
                             <ItemsControl.ItemTemplate>
-                                <DataTemplate DataType="{x:Type pages:LibraryInstallPackageItem}">
+                                <DataTemplate DataType="{x:Type pages:PackageInstallItem}">
                                     <Grid Height="37">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="0.25*" />
@@ -193,7 +193,7 @@
                     <ScrollViewer Grid.Row="1" Margin="0,10,0,0">
                         <ItemsControl ItemsSource="{Binding ViewModel.PreDownloadPackages, Mode=TwoWay}" x:Name="DownloadDistributionsTaskList">
                             <ItemsControl.ItemTemplate>
-                                <DataTemplate DataType="{x:Type pages:LibraryInstallPackageItem}">
+                                <DataTemplate DataType="{x:Type pages:PackageInstallItem}">
                                     <Grid Height="37">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="0.25*" />
@@ -329,7 +329,7 @@
                     <ScrollViewer Grid.Row="1" Margin="0,10,0,0">
                         <ItemsControl ItemsSource="{Binding ViewModel.PreInstallDistributions, Mode=TwoWay}" x:Name="InstallDistributionsTaskList">
                             <ItemsControl.ItemTemplate>
-                                <DataTemplate DataType="{x:Type pages:LibraryInstallPackageItem}">
+                                <DataTemplate DataType="{x:Type pages:PackageInstallItem}">
                                     <Grid Height="37">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
