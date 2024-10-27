@@ -53,6 +53,8 @@ Pip Manager 是一个为 Python 新手设计的包管理工具，基于原生的
 * **多环境切换**
   Pip Manager 支持多环境切换，在不同项目之间灵活管理包的依赖关系。
 
+*Pip Manager 不会在安装目录之外写入任何文件，用户可以通过删除整个安装目录来完全卸载。*
+
 ### 技术栈
 
 [![.NET Core][.NET Core]][.NET-url][![WPF][WPF]][WPF-url]
