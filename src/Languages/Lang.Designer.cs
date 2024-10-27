@@ -492,7 +492,7 @@ namespace PipManager.Windows.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Environment available.
+        ///   Looks up a localized string similar to Environment is available.
         /// </summary>
         public static string ContentDialog_Message_EnvironmentCheckPassed {
             get {
@@ -573,20 +573,20 @@ namespace PipManager.Windows.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Action.
-        /// </summary>
-        public static string ContentDialog_PrimaryButton_Action {
-            get {
-                return ResourceManager.GetString("ContentDialog_PrimaryButton_Action", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove Environment.
+        ///   Looks up a localized string similar to Remove.
         /// </summary>
         public static string ContentDialog_PrimaryButton_EnvironmentDeletion {
             get {
                 return ResourceManager.GetString("ContentDialog_PrimaryButton_EnvironmentDeletion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proceed.
+        /// </summary>
+        public static string ContentDialog_PrimaryButton_Proceed {
+            get {
+                return ResourceManager.GetString("ContentDialog_PrimaryButton_Proceed", resourceCulture);
             }
         }
         
@@ -681,11 +681,29 @@ namespace PipManager.Windows.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pop up console.
+        /// </summary>
+        public static string Environment_Operation_PopupConsole {
+            get {
+                return ResourceManager.GetString("Environment_Operation_PopupConsole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove from list.
         /// </summary>
         public static string Environment_Operation_RemoveEnvironment {
             get {
                 return ResourceManager.GetString("Environment_Operation_RemoveEnvironment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reveal Folder.
+        /// </summary>
+        public static string Environment_Operation_RevealFolder {
+            get {
+                return ResourceManager.GetString("Environment_Operation_RevealFolder", resourceCulture);
             }
         }
         
@@ -852,7 +870,7 @@ namespace PipManager.Windows.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add environment.
+        ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string Library_Error_AddEnvironment {
             get {
@@ -866,6 +884,15 @@ namespace PipManager.Windows.Languages {
         public static string Library_Error_NoEnvironment {
             get {
                 return ResourceManager.GetString("Library_Error_NoEnvironment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string Library_Error_SelectEnvironment {
+            get {
+                return ResourceManager.GetString("Library_Error_SelectEnvironment", resourceCulture);
             }
         }
         

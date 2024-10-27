@@ -55,7 +55,7 @@ public partial class MainWindow
             {
                 Title = Lang.ContentDialog_Title_Warning,
                 Content = Lang.ContentDialog_Message_ActionStillRunning,
-                PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Action,
+                PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Proceed,
                 CloseButtonText = Lang.ContentDialog_CloseButton_Cancel
             };
 

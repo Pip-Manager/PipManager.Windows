@@ -188,13 +188,24 @@
             Margin="0,0,0,50"
             VerticalAlignment="Center"
             Visibility="{Binding ViewModel.EnvironmentFoundVisible, Converter={StaticResource InverseBoolToVisibility}}">
-            <TextBlock FontSize="32" Text="{I18N {x:Static lang:LangKeys.Library_Error_NoEnvironment}}" />
-            <ui:HyperlinkButton
-                Command="{Binding ViewModel.NavigateToAddEnvironmentCommand}"
-                Content="{I18N {x:Static lang:LangKeys.Library_Error_AddEnvironment}}"
-                FontSize="16"
+            <TextBlock FontSize="34" Text="{I18N {x:Static lang:LangKeys.Library_Error_NoEnvironment}}" />
+            <StackPanel
                 HorizontalAlignment="Center"
-                Margin="0,5,0,0" />
+                Margin="0,5,0,0"
+                Orientation="Horizontal">
+                <ui:HyperlinkButton
+                    Command="{Binding ViewModel.NavigateToSelectEnvironmentCommand}"
+                    Content="{I18N {x:Static lang:LangKeys.Library_Error_SelectEnvironment}}"
+                    FontSize="16" />
+                <TextBlock
+                    FontSize="20"
+                    Margin="3,0,3,0"
+                    Text="|" />
+                <ui:HyperlinkButton
+                    Command="{Binding ViewModel.NavigateToAddEnvironmentCommand}"
+                    Content="{I18N {x:Static lang:LangKeys.Library_Error_AddEnvironment}}"
+                    FontSize="16" />
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

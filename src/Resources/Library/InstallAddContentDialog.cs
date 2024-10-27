@@ -9,7 +9,7 @@ public class InstallAddContentDialog(ContentPresenter? contentPresenter)
 {
     private readonly ContentDialog _contentDialog = new(contentPresenter)
     {
-        PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Action,
+        PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Proceed,
         CloseButtonText = Lang.ContentDialog_CloseButton_Cancel,
         Title = Lang.ContentDialog_Title_Notice,
         DialogHeight = 200,

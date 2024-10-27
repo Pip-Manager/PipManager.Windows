@@ -163,6 +163,12 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     [ObservableProperty] private ObservableCollection<PackageListItem> _libraryList = [];
 
     [ObservableProperty] private bool _environmentFoundVisible;
+    
+    [RelayCommand]
+    private void NavigateToSelectEnvironment()
+    {
+        _navigationService.Navigate(typeof(EnvironmentPage));
+    }
 
     [RelayCommand]
     private void NavigateToAddEnvironment()

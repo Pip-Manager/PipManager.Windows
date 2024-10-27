@@ -33,12 +33,7 @@
                     Icon="{ui:SymbolIcon Delete24}"
                     IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}"
                     Margin="5,0,0,0" />
-                <ui:Button
-                    Command="{Binding ViewModel.CheckEnvironmentCommand}"
-                    Content="{I18N {x:Static lang:LangKeys.Environment_Operation_VerifyEnvironment}}"
-                    Icon="{ui:SymbolIcon Check24}"
-                    IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}"
-                    Margin="5,0,0,0" />
+
                 <ui:Button
                     Command="{Binding ViewModel.CheckEnvironmentUpdateCommand}"
                     Content="{I18N {x:Static lang:LangKeys.Environment_Operation_CheckEnvironmentUpdate}}"
@@ -64,7 +59,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="48" />
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="180" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Image
                                 Grid.Column="0"
@@ -73,7 +68,7 @@
                                 RenderOptions.BitmapScalingMode="HighQuality"
                                 Source="../../../Assets/logo/python-logo-only.png"
                                 Width="48" />
-                            <StackPanel Grid.Column="1" Margin="7,0,0,0">
+                            <StackPanel Grid.Column="1" Margin="10,1,0,0">
                                 <StackPanel Orientation="Horizontal">
                                     <ui:TextBlock FontTypography="BodyStrong" Text="{Binding PipVersion, Mode=TwoWay}" />
                                     <ui:TextBlock FontTypography="BodyStrong" Text=" " />
@@ -85,6 +80,35 @@
                                     Foreground="Gray"
                                     Text="{Binding PythonPath}"
                                     TextWrapping="Wrap" />
+                            </StackPanel>
+
+                            <StackPanel
+                                Grid.Column="2"
+                                HorizontalAlignment="Right"
+                                Margin="0,0,20,6"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                                <ui:Button
+                                    Command="{Binding Path=ViewModel.RevealEnvironmentFolderCommand, RelativeSource={RelativeSource AncestorType={x:Type environment:EnvironmentPage}}}"
+                                    CommandParameter="{Binding}"
+                                    FontSize="18"
+                                    Icon="{ui:SymbolIcon Folder20}"
+                                    ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_RevealFolder}}" />
+                                <ui:Button
+                                    Command="{Binding Path=ViewModel.RevealEnvironmentConsoleCommand, RelativeSource={RelativeSource AncestorType={x:Type environment:EnvironmentPage}}}"
+                                    CommandParameter="{Binding}"
+                                    FontSize="18"
+                                    Icon="{ui:SymbolIcon WindowConsole20}"
+                                    Margin="5,0,0,0"
+                                    ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_PopupConsole}}" />
+                                <ui:Button
+                                    Appearance="Caution"
+                                    Command="{Binding ViewModel.CheckEnvironmentCommand, RelativeSource={RelativeSource AncestorType={x:Type environment:EnvironmentPage}}}"
+                                    CommandParameter="{Binding}"
+                                    FontSize="18"
+                                    Icon="{ui:SymbolIcon Check20}"
+                                    Margin="5,0,0,0"
+                                    ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_VerifyEnvironment}}" />
                             </StackPanel>
                         </Grid>
                     </DataTemplate>

@@ -266,7 +266,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         {
             Title = Lang.ContentDialog_Title_AreYouSure,
             Content = Lang.Settings_FileManagement_ResetConfig_DialogContent,
-            PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Action,
+            PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Proceed,
             CloseButtonText = Lang.ContentDialog_CloseButton_Cancel
         };
 

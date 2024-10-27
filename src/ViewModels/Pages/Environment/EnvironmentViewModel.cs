@@ -1,6 +1,8 @@
 ﻿using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using PipManager.Core.Configuration;
 using PipManager.Core.Configuration.Models;
 using PipManager.Windows.Controls;
@@ -42,50 +44,26 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
     private bool _environmentSelected;
 
     [RelayCommand]
-    private async Task DeleteEnvironment()
+    private async Task DeleteEnvironment(EnvironmentModel environment)
     {
         var result = await contentDialogService.ShowSimpleDialogAsync(
             ContentDialogCreateOptions.Warning(Lang.ContentDialog_Message_EnvironmentDeletion,
-                Lang.ContentDialog_PrimaryButton_Action));
+                Lang.ContentDialog_PrimaryButton_Proceed));
         if (result != ContentDialogResult.Primary) return;
         
-        Log.Information($"[Environment] Environment has been removed from list ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
+        Log.Information($"[Environment] Environment has been removed from list ({environment.PipVersion} for {environment.PythonVersion})");
         
-        EnvironmentItems.Remove(CurrentEnvironment!);
-        CurrentEnvironment = null;
-        Configuration.AppConfig!.SelectedEnvironment = null;
-        Configuration.AppConfig.Environments = [..EnvironmentItems];
+        EnvironmentItems.Remove(environment);
+        if (CurrentEnvironment == null)
+        {
+            Configuration.AppConfig!.SelectedEnvironment = null;
+        }
+        Configuration.AppConfig!.Environments = [..EnvironmentItems];
         Configuration.Save();
         
         var mainWindowViewModel = App.GetService<MainWindowViewModel>();
         mainWindowViewModel.ApplicationTitle = "Pip Manager";
         EnvironmentSelected = false;
-    }
-
-    [RelayCommand]
-    private async Task CheckEnvironment()
-    {
-        maskService.Show(Lang.Environment_Operation_VerifyEnvironment);
-        var environmentAvailable = await Task.Run(() => environmentService.CheckEnvironmentAvailable(CurrentEnvironment!));
-        Task.WaitAll();
-        maskService.Hide();
-
-        if (environmentAvailable.Success)
-        {
-            Log.Information($"[Environment] Environment is available ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
-            toastService.Info(Lang.ContentDialog_Message_EnvironmentCheckPassed);
-        }
-        else
-        {
-            Log.Error($"[Environment] Environment not available ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
-            var result = await contentDialogService.ShowSimpleDialogAsync(
-                ContentDialogCreateOptions.Error(Lang.ContentDialog_Message_EnvironmentCheckFailed,
-                    Lang.ContentDialog_PrimaryButton_EnvironmentDeletion));
-            if (result == ContentDialogResult.Primary)
-            {
-                await DeleteEnvironment();
-            }
-        }
     }
 
     [RelayCommand]
@@ -181,6 +159,49 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
 
     #endregion Add Environment
 
+    #region Environment Operation
+
+    [RelayCommand]
+    private static void RevealEnvironmentFolder(EnvironmentModel environment)
+        => Process.Start("explorer.exe", Path.GetDirectoryName(environment.PythonPath)!);
+    
+    [RelayCommand]
+    private static void RevealEnvironmentConsole(EnvironmentModel environment)
+        => Process.Start(new ProcessStartInfo
+        {
+            FileName = "cmd.exe",
+            Arguments = $"/K {environment.PythonPath}",
+            UseShellExecute = true
+        });
+
+    [RelayCommand]
+    private async Task CheckEnvironment(EnvironmentModel environment)
+    {
+        maskService.Show(Lang.Environment_Operation_VerifyEnvironment);
+        var environmentAvailable = await Task.Run(() => environmentService.CheckEnvironmentAvailable(environment));
+        Task.WaitAll();
+        maskService.Hide();
+
+        if (environmentAvailable.Success)
+        {
+            Log.Information($"[Environment] Environment is available ({environment.PipVersion} for {environment.PythonVersion})");
+            toastService.Info(Lang.ContentDialog_Message_EnvironmentCheckPassed);
+        }
+        else
+        {
+            Log.Error($"[Environment] Environment not available ({environment.PipVersion} for {environment.PythonVersion})");
+            var result = await contentDialogService.ShowSimpleDialogAsync(
+                ContentDialogCreateOptions.Error(Lang.ContentDialog_Message_EnvironmentCheckFailed,
+                    Lang.ContentDialog_PrimaryButton_EnvironmentDeletion));
+            if (result == ContentDialogResult.Primary)
+            {
+                await DeleteEnvironment(environment);
+            }
+        }
+    }
+    
+    #endregion
+    
     public async Task OnNavigatedToAsync()
     {
         if (!_isInitialized)

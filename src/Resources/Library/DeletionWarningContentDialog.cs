@@ -15,7 +15,7 @@ public class DeletionWarningContentDialog
         LibraryList = libraryList;
         _contentDialog = new ContentDialog(contentPresenter)
         {
-            PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Action,
+            PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Proceed,
             CloseButtonText = Lang.ContentDialog_CloseButton_Cancel,
             Title = Lang.ContentDialog_Title_Warning,
             Content = Application.Current.TryFindResource("LibraryDeletionWarningContentDialogContent")

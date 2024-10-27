@@ -25,7 +25,7 @@ public static class ContentDialogCreateOptions
     {
         Title = Lang.ContentDialog_Title_Notice,
         Content = message,
-        PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Action,
+        PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Proceed,
         CloseButtonText = Lang.ContentDialog_CloseButton_Cancel
     };
 }
