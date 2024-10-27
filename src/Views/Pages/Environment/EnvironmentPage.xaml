@@ -27,25 +27,6 @@
                     Command="{Binding ViewModel.AddEnvironmentCommand}"
                     Content="{I18N {x:Static lang:LangKeys.Environment_Operation_AddEnvironment}}"
                     Icon="{ui:SymbolIcon Add24}" />
-                <ui:Button
-                    Command="{Binding ViewModel.DeleteEnvironmentCommand}"
-                    Content="{I18N {x:Static lang:LangKeys.Environment_Operation_RemoveEnvironment}}"
-                    Icon="{ui:SymbolIcon Delete24}"
-                    IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}"
-                    Margin="5,0,0,0" />
-
-                <ui:Button
-                    Command="{Binding ViewModel.CheckEnvironmentUpdateCommand}"
-                    Content="{I18N {x:Static lang:LangKeys.Environment_Operation_CheckEnvironmentUpdate}}"
-                    Icon="{ui:SymbolIcon ArrowUp24}"
-                    IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}"
-                    Margin="5,0,0,0" />
-                <ui:Button
-                    Command="{Binding ViewModel.ClearCacheCommand}"
-                    Content="{I18N {x:Static lang:LangKeys.Environment_Operation_ClearEnvironmentCache}}"
-                    Icon="{ui:SymbolIcon Eraser24}"
-                    IsEnabled="{Binding ViewModel.CurrentEnvironment, Converter={StaticResource NullToBool}}"
-                    Margin="5,0,0,0" />
             </StackPanel>
             <ui:ListView
                 ItemsSource="{Binding ViewModel.EnvironmentItems}"
@@ -102,6 +83,14 @@
                                     Margin="5,0,0,0"
                                     ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_PopupConsole}}" />
                                 <ui:Button
+                                    Appearance="Success"
+                                    Command="{Binding ViewModel.CheckEnvironmentUpdateCommand, RelativeSource={RelativeSource AncestorType={x:Type environment:EnvironmentPage}}}"
+                                    CommandParameter="{Binding}"
+                                    FontSize="18"
+                                    Icon="{ui:SymbolIcon ArrowUp20}"
+                                    Margin="5,0,0,0"
+                                    ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_CheckEnvironmentUpdate}}" />
+                                <ui:Button
                                     Appearance="Caution"
                                     Command="{Binding ViewModel.CheckEnvironmentCommand, RelativeSource={RelativeSource AncestorType={x:Type environment:EnvironmentPage}}}"
                                     CommandParameter="{Binding}"
@@ -109,6 +98,22 @@
                                     Icon="{ui:SymbolIcon Check20}"
                                     Margin="5,0,0,0"
                                     ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_VerifyEnvironment}}" />
+                                <ui:Button
+                                    Appearance="Caution"
+                                    Command="{Binding ViewModel.ClearCacheCommand, RelativeSource={RelativeSource AncestorType={x:Type environment:EnvironmentPage}}}"
+                                    CommandParameter="{Binding}"
+                                    FontSize="18"
+                                    Icon="{ui:SymbolIcon Eraser20}"
+                                    Margin="5,0,0,0"
+                                    ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_ClearEnvironmentCache}}" />
+                                <ui:Button
+                                    Appearance="Danger"
+                                    Command="{Binding ViewModel.RemoveEnvironmentCommand, RelativeSource={RelativeSource AncestorType={x:Type environment:EnvironmentPage}}}"
+                                    CommandParameter="{Binding}"
+                                    FontSize="18"
+                                    Icon="{ui:SymbolIcon Delete20}"
+                                    Margin="5,0,0,0"
+                                    ToolTip="{I18N {x:Static lang:LangKeys.Environment_Operation_RemoveEnvironment}}" />
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
