@@ -906,6 +906,15 @@ namespace PipManager.Windows.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uncheck.
+        /// </summary>
+        public static string Library_Operation_Uncheck {
+            get {
+                return ResourceManager.GetString("Library_Operation_Uncheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dev.
         /// </summary>
         public static string Library_Version_Dev {

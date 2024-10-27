@@ -768,4 +768,7 @@
   <data name="Library_Data_RefreshTimeUsage" xml:space="preserve">
     <value>{0}s used</value>
   </data>
+  <data name="Library_Operation_Uncheck" xml:space="preserve">
+    <value>Uncheck</value>
+  </data>
 </root>

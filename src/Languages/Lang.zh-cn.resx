@@ -768,4 +768,7 @@
   <data name="Library_Data_RefreshTimeUsage" xml:space="preserve">
     <value>用时 {0} 秒</value>
   </data>
+  <data name="Library_Operation_Uncheck" xml:space="preserve">
+    <value>取消勾选</value>
+  </data>
 </root>
