@@ -5,8 +5,6 @@
     Title="EnvironmentPage"
     d:DataContext="{d:DesignInstance environment:EnvironmentPage,
                                      IsDesignTimeCreatable=False}"
-    d:DesignHeight="700"
-    d:DesignWidth="1200"
     mc:Ignorable="d"
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"

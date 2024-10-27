@@ -11,6 +11,9 @@
     WindowStartupLocation="CenterScreen"
     d:DataContext="{d:DesignInstance local:MainWindow,
                                      IsDesignTimeCreatable=True}"
+    mc:Ignorable="d"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     x:Class="PipManager.Windows.Views.Windows.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:about="clr-namespace:PipManager.Windows.Views.Pages.About"
@@ -22,6 +25,7 @@
     xmlns:library="clr-namespace:PipManager.Windows.Views.Pages.Library"
     xmlns:local="clr-namespace:PipManager.Windows.Views.Windows"
     xmlns:mask="clr-namespace:PipManager.Windows.Controls.Mask"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:overlay="clr-namespace:PipManager.Windows.Views.Pages.Overlay"
     xmlns:search="clr-namespace:PipManager.Windows.Views.Pages.Search"
     xmlns:settings="clr-namespace:PipManager.Windows.Views.Pages.Settings"
