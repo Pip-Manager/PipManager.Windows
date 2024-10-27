@@ -39,10 +39,6 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
     [ObservableProperty]
     private EnvironmentModel? _currentEnvironment;
 
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(RemoveEnvironmentCommand), nameof(CheckEnvironmentCommand))]
-    private bool _environmentSelected;
-
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
     {
         base.OnPropertyChanged(e);
@@ -198,7 +194,6 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         
         var mainWindowViewModel = App.GetService<MainWindowViewModel>();
         mainWindowViewModel.ApplicationTitle = "Pip Manager";
-        EnvironmentSelected = false;
     }
     
     #endregion

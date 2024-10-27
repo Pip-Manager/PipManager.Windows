@@ -141,6 +141,10 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
     {
         if (!_isInitialized)
             InitializeViewModel();
+        Application.Current.Dispatcher.InvokeAsync(() =>
+        {
+            navigationService.GetNavigationControl().BreadcrumbBar!.Visibility = Visibility.Visible;
+        });
         return Task.CompletedTask;
     }
 
