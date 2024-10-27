@@ -109,7 +109,7 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
         var packageName = packageBasicInfo[0];
         var packageVersion = packageBasicInfo[1];
 
-        if (packageName == "pip") return;
+        if (packageName is "pip" or "~ip") return;
 
         // Metadata
         var metadataDict = new Dictionary<string, List<string>>();
