@@ -192,8 +192,8 @@
   <data name="ContentDialog_Title_AreYouSure" xml:space="preserve">
     <value>Operation Warning</value>
   </data>
-  <data name="ContentDialog_PrimaryButton_Action" xml:space="preserve">
-    <value>Action</value>
+  <data name="ContentDialog_PrimaryButton_Proceed" xml:space="preserve">
+    <value>Proceed</value>
   </data>
   <data name="ContentDialog_CloseButton_Cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -301,13 +301,13 @@
     <value>Success</value>
   </data>
   <data name="ContentDialog_Message_EnvironmentCheckPassed" xml:space="preserve">
-    <value>Environment available</value>
+    <value>Environment is available</value>
   </data>
   <data name="ContentDialog_Message_EnvironmentCheckFailed" xml:space="preserve">
     <value>Environment not available</value>
   </data>
   <data name="ContentDialog_PrimaryButton_EnvironmentDeletion" xml:space="preserve">
-    <value>Remove Environment</value>
+    <value>Remove</value>
   </data>
   <data name="Library_Operation_Install" xml:space="preserve">
     <value>Install</value>
@@ -352,7 +352,7 @@
     <value>No Environment</value>
   </data>
   <data name="Library_Error_AddEnvironment" xml:space="preserve">
-    <value>Add environment</value>
+    <value>Add</value>
   </data>
   <data name="Library_Data_SelectedItemsCount" xml:space="preserve">
     <value>{0} item(s) selected</value>
@@ -767,5 +767,17 @@
   </data>
   <data name="Library_Data_RefreshTimeUsage" xml:space="preserve">
     <value>{0}s used</value>
+  </data>
+  <data name="Library_Operation_Uncheck" xml:space="preserve">
+    <value>Uncheck</value>
+  </data>
+  <data name="Environment_Operation_RevealFolder" xml:space="preserve">
+    <value>Reveal Folder</value>
+  </data>
+  <data name="Environment_Operation_PopupConsole" xml:space="preserve">
+    <value>Pop up console</value>
+  </data>
+  <data name="Library_Error_SelectEnvironment" xml:space="preserve">
+    <value>Select</value>
   </data>
 </root>

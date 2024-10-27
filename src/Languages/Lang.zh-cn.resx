@@ -192,7 +192,7 @@
   <data name="ContentDialog_Title_AreYouSure" xml:space="preserve">
     <value>操作警告</value>
   </data>
-  <data name="ContentDialog_PrimaryButton_Action" xml:space="preserve">
+  <data name="ContentDialog_PrimaryButton_Proceed" xml:space="preserve">
     <value>执行</value>
   </data>
   <data name="ContentDialog_CloseButton_Cancel" xml:space="preserve">
@@ -767,5 +767,17 @@
   </data>
   <data name="Library_Data_RefreshTimeUsage" xml:space="preserve">
     <value>用时 {0} 秒</value>
+  </data>
+  <data name="Library_Operation_Uncheck" xml:space="preserve">
+    <value>取消勾选</value>
+  </data>
+  <data name="Environment_Operation_RevealFolder" xml:space="preserve">
+    <value>打开文件夹</value>
+  </data>
+  <data name="Environment_Operation_PopupConsole" xml:space="preserve">
+    <value>弹出控制台</value>
+  </data>
+  <data name="Library_Error_SelectEnvironment" xml:space="preserve">
+    <value>选择环境</value>
   </data>
 </root>

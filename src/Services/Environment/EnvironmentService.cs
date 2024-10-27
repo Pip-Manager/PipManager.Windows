@@ -12,11 +12,8 @@ using PipManager.Core.PyEnvironment.Helpers;
 using PipManager.Core.PyPackage.Helpers;
 using PipManager.Core.PyPackage.Models;
 using PipManager.Windows.Models;
-using PipManager.Windows.Models.Package;
-using PipManager.Windows.Models.Pages;
 using PipManager.Windows.Services.Environment.Response;
 using Serilog;
-using Wpf.Ui.Controls;
 using Path = System.IO.Path;
 
 namespace PipManager.Windows.Services.Environment;
@@ -61,7 +58,7 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
         return !string.IsNullOrEmpty(error) ? new ActionResponse { Success = false, Exception = ExceptionType.ProcessError, Message = error } : new ActionResponse { Success = true, Message = output[15..].TrimEnd()};
     }
 
-    public async Task<List<PackageItem>?> GetLibraries()
+    public async Task<List<PackageDetailItem>?> GetLibraries()
     {
         if (Configuration.AppConfig?.SelectedEnvironment == null)
         {
@@ -72,7 +69,7 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
             Path.GetDirectoryName(Configuration.AppConfig.SelectedEnvironment!.PythonPath)!,
             @"Lib\site-packages"));
         
-        var packages = new ConcurrentQueue<PackageItem>();
+        var packages = new ConcurrentQueue<PackageDetailItem>();
         var distInfoDirectories = packageDirInfo.GetDirectories()
                      .Where(path => path.Name.EndsWith(".dist-info"))
                      .ToList();
@@ -102,7 +99,7 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
         return packages.OrderBy(x => x.Name).ToList();
     }
 
-    private static async Task ProcessDistInfoDirectory(DirectoryInfo distInfoDirectory, ConcurrentQueue<PackageItem> packages)
+    private static async Task ProcessDistInfoDirectory(DirectoryInfo distInfoDirectory, ConcurrentQueue<PackageDetailItem> packages)
     {
         var distInfoDirectoryFullName = distInfoDirectory.FullName;
         var distInfoDirectoryName = distInfoDirectory.Name;
@@ -112,7 +109,7 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
         var packageName = packageBasicInfo[0];
         var packageVersion = packageBasicInfo[1];
 
-        if (packageName == "pip") return;
+        if (packageName is "pip" or "~ip") return;
 
         // Metadata
         var metadataDict = new Dictionary<string, List<string>>();
@@ -182,28 +179,15 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
         // Extra
         var projectUrls = metadataDict.GetValueOrDefault("project-url", []);
         var projectUrlDictionary = projectUrls.Count != 0
-            ? projectUrls.Select(url => new LibraryDetailProjectUrlModel
+            ? projectUrls.Select(url => new PackageDetailUrlModel
             {
-                Icon = url.Split(", ")[0].ToLower() switch
-                {
-                    "homepage" or "home" => SymbolRegular.Home24,
-                    "download" => SymbolRegular.ArrowDownload24,
-                    "changelog" or "changes" or "release notes" => SymbolRegular.ClipboardTextEdit24,
-                    "bug tracker" or "issue tracker" or "bug reports" or "issues" or "tracker" => SymbolRegular.Bug24,
-                    "source code" or "source" or "repository" or "code" => SymbolRegular.Code24,
-                    "funding" or "donate" or "donations" => SymbolRegular.Money24,
-                    "documentation" => SymbolRegular.Document24,
-                    "commercial" => SymbolRegular.PeopleMoney24,
-                    "support" => SymbolRegular.PersonSupport24,
-                    "chat" or "q & a" => SymbolRegular.ChatHelp24,
-                    _ => SymbolRegular.Link24
-                },
+                UrlIconType = url.Split(", ")[0].ToLower(),
                 UrlType = url.Split(", ")[0],
                 Url = url.Split(", ")[1]
             }).ToList()
-            : [new LibraryDetailProjectUrlModel { Icon = SymbolRegular.Question24, UrlType = "Unknown", Url = "" }];
+            : [new PackageDetailUrlModel { UrlIconType = "", UrlType = "Unknown", Url = "" }];
         
-        packages.Enqueue(new PackageItem
+        packages.Enqueue(new PackageDetailItem
         {
             Name = packageName,
             Version = packageVersion,

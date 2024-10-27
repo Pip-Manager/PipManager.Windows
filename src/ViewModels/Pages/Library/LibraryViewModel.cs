@@ -3,9 +3,9 @@ using Serilog;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using PipManager.Core.Configuration;
+using PipManager.Core.PyPackage.Models;
 using PipManager.Windows.Languages;
 using PipManager.Windows.Models.Action;
-using PipManager.Windows.Models.Package;
 using PipManager.Windows.Models.Pages;
 using PipManager.Windows.Resources.Library;
 using PipManager.Windows.Services.Action;
@@ -25,7 +25,7 @@ namespace PipManager.Windows.ViewModels.Pages.Library;
 
 public partial class LibraryViewModel : ObservableObject, INavigationAware
 {
-    private List<PackageItem>? _library = [];
+    private List<PackageDetailItem>? _library = [];
     private bool _isInitialized;
     private readonly INavigationService _navigationService;
     private readonly IEnvironmentService _environmentService;
@@ -113,7 +113,12 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
                 lock (msgListLock)
                 {
                     operationList += $"{item.PackageName}=={latest.Versions!.Last()} ";
-                    msgList.Add(new PackageUpdateItem(item, latest.Versions!.Last()));
+                    msgList.Add(new PackageUpdateItem
+                    {
+                        PackageName = item.PackageName,
+                        PackageVersion = item.PackageVersion,
+                        NewVersion = latest.Versions!.Last()
+                    });
                 }
             })));
             Task.WaitAll([.. ioTaskList]);
@@ -155,9 +160,15 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     #endregion Details
 
     [ObservableProperty] private int _libraryListLength;
-    [ObservableProperty] private ObservableCollection<LibraryListItem> _libraryList = [];
+    [ObservableProperty] private ObservableCollection<PackageListItem> _libraryList = [];
 
     [ObservableProperty] private bool _environmentFoundVisible;
+    
+    [RelayCommand]
+    private void NavigateToSelectEnvironment()
+    {
+        _navigationService.Navigate(typeof(EnvironmentPage));
+    }
 
     [RelayCommand]
     private void NavigateToAddEnvironment()
@@ -196,10 +207,14 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         {
             foreach (var package in _library)
             {
-                LibraryList.Add(new LibraryListItem
-                (
-                    new SymbolIcon(SymbolRegular.Box24), package.Name!, package.Version!, package.DetailedVersion!, package.Summary!, false
-                ));
+                LibraryList.Add(new PackageListItem
+                {
+                    PackageName = package.Name!,
+                    PackageVersion = package.Version!,
+                    PackageDetailedVersion = package.DetailedVersion!,
+                    PackageSummary = package.Summary!,
+                    IsSelected = false
+                });
             }
             LibraryListLength = _library.Count;
             _refreshStopwatch.Stop();

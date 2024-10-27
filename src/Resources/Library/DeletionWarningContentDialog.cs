@@ -8,14 +8,14 @@ namespace PipManager.Windows.Resources.Library;
 public class DeletionWarningContentDialog
 {
     private readonly ContentDialog _contentDialog;
-    private List<LibraryListItem> LibraryList { get; set; }
+    private List<PackageListItem> LibraryList { get; set; }
 
-    public DeletionWarningContentDialog(ContentPresenter? contentPresenter, List<LibraryListItem> libraryList)
+    public DeletionWarningContentDialog(ContentPresenter? contentPresenter, List<PackageListItem> libraryList)
     {
         LibraryList = libraryList;
         _contentDialog = new ContentDialog(contentPresenter)
         {
-            PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Action,
+            PrimaryButtonText = Lang.ContentDialog_PrimaryButton_Proceed,
             CloseButtonText = Lang.ContentDialog_CloseButton_Cancel,
             Title = Lang.ContentDialog_Title_Warning,
             Content = Application.Current.TryFindResource("LibraryDeletionWarningContentDialogContent")

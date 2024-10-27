@@ -28,7 +28,7 @@
                             Height="200"
                             Source="pack://application:,,,/Assets/icon.png"
                             Width="200" />
-                        <StackPanel Margin="15,30,0,0">
+                        <StackPanel Margin="15,25,0,0">
                             <ui:TextBlock
                                 FontSize="42"
                                 FontTypography="TitleLarge"
@@ -59,13 +59,13 @@
                                     Grid.Column="0"
                                     Grid.Row="0"
                                     Icon="{ui:SymbolIcon Link24}"
-                                    NavigateUri="https://github.com/AuroraZiling/PipManager.Windows" />
+                                    NavigateUri="https://github.com/Pip-Manager/PipManager.Windows" />
                                 <ui:HyperlinkButton
                                     Content="{I18N {x:Static lang:LangKeys.About_GithubIssue}}"
                                     Grid.Column="0"
                                     Grid.Row="1"
                                     Icon="{ui:SymbolIcon Bug24}"
-                                    NavigateUri="https://github.com/AuroraZiling/PipManager.Windows/issues" />
+                                    NavigateUri="https://github.com/Pip-Manager/PipManager.Windows/issues" />
                                 <ui:HyperlinkButton
                                     Content="{I18N {x:Static lang:LangKeys.About_Document}}"
                                     Grid.Column="1"
@@ -77,7 +77,7 @@
                                     Grid.Column="1"
                                     Grid.Row="1"
                                     Icon="{ui:SymbolIcon ArrowUpload24}"
-                                    NavigateUri="https://github.com/AuroraZiling/PipManager.Windows/discussions" />
+                                    NavigateUri="https://github.com/Pip-Manager/PipManager.Windows/discussions" />
                             </Grid>
                         </StackPanel>
                     </StackPanel>
@@ -88,12 +88,12 @@
                         <ui:HyperlinkButton
                             Content="MIT License"
                             HorizontalAlignment="Right"
-                            Margin="-5,3,0,0"
-                            NavigateUri="https://github.com/AuroraZiling/PipManager.Windows/blob/main/LICENSE" />
+                            Margin="-5,0,0,0"
+                            NavigateUri="https://github.com/Pip-Manager/PipManager.Windows/blob/main/LICENSE" />
                         <ui:TextBlock
                             FontTypography="Body"
                             Margin="0,0,10,0"
-                            Text="Copyright (c) 2023-2024 AuroraZiling" />
+                            Text="Copyright © 2023-2024 AuroraZiling" />
                     </StackPanel>
                 </Grid>
             </Border>
@@ -123,26 +123,26 @@
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     VerticalAlignment="Stretch">
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="{x:Type pages:AboutNugetLibraryListItem}">
+                        <DataTemplate DataType="{x:Type pages:AboutNugetItem}">
                             <Grid Margin="7,3,0,3" x:Name="NugetLibraryListItemGrid">
                                 <StackPanel Orientation="Horizontal">
                                     <ui:HyperlinkButton
                                         Content="Github"
                                         HorizontalAlignment="Center"
                                         Icon="{ui:SymbolIcon Link24}"
-                                        NavigateUri="{Binding LibraryUrl}"
+                                        NavigateUri="{Binding Url}"
                                         VerticalAlignment="Center" />
                                     <StackPanel Margin="5,0,0,0">
                                         <ui:TextBlock
                                             Style="{StaticResource BodyLargeTextBlockStyle}"
-                                            Text="{Binding LibraryName}"
+                                            Text="{Binding Name}"
                                             VerticalAlignment="Center" />
 
                                         <StackPanel Orientation="Horizontal">
                                             <ui:TextBlock
                                                 FontTypography="Caption"
                                                 Foreground="Gray"
-                                                Text="{Binding LibraryLicenseType}" />
+                                                Text="{Binding LicenseType}" />
                                             <ui:TextBlock
                                                 FontTypography="Caption"
                                                 Foreground="Gray"
@@ -150,7 +150,7 @@
                                             <ui:TextBlock
                                                 FontTypography="Caption"
                                                 Foreground="Gray"
-                                                Text="{Binding LibraryCopyright}" />
+                                                Text="{Binding Copyright}" />
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>

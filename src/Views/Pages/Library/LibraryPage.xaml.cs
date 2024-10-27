@@ -13,4 +13,9 @@ public partial class LibraryPage : INavigableView<LibraryViewModel>
         DataContext = this;
         InitializeComponent();
     }
+
+    private void ClearSelectionsButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        LibraryList.SelectedItems.Clear();
+    }
 }

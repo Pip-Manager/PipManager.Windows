@@ -12,7 +12,7 @@
         <ScrollViewer Margin="0,30,0,0" VerticalAlignment="Top">
             <ItemsControl x:Name="LibraryDeletionWarningContentDialogContentListView">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type pages:LibraryListItem}">
+                    <DataTemplate DataType="{x:Type pages:PackageListItem}">
                         <Grid>
                             <StackPanel Margin="7,0,0,0">
                                 <StackPanel Orientation="Horizontal">

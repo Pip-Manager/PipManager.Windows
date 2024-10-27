@@ -51,6 +51,11 @@
                 HorizontalAlignment="Right"
                 Orientation="Horizontal"
                 VerticalAlignment="Center">
+                <ui:Button
+                    Click="ClearSelectionsButton_OnClick"
+                    Content="{I18N {x:Static lang:LangKeys.Library_Operation_Uncheck}}"
+                    Margin="0,0,5,0"
+                    Visibility="{Binding ElementName=LibraryList, Path=SelectedItems.Count, Converter={StaticResource InverseIntegerToVisibility}}" />
                 <Border
                     Background="Transparent"
                     BorderBrush="Gray"
@@ -120,13 +125,13 @@
             Visibility="{Binding ViewModel.LibraryList, Converter={StaticResource NotNullToVisibility}}"
             x:Name="LibraryList">
             <ui:ListView.ItemTemplate>
-                <DataTemplate DataType="{x:Type pages:LibraryListItem}">
+                <DataTemplate DataType="{x:Type pages:PackageListItem}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="24" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <ui:SymbolIcon Grid.Column="0" Symbol="{Binding Path=PackageIcon.Symbol}" />
+                        <ui:SymbolIcon Grid.Column="0" Symbol="Box24" />
                         <StackPanel Grid.Column="1" Margin="7,0,0,0">
                             <StackPanel Orientation="Horizontal">
                                 <ui:TextBlock
@@ -183,13 +188,24 @@
             Margin="0,0,0,50"
             VerticalAlignment="Center"
             Visibility="{Binding ViewModel.EnvironmentFoundVisible, Converter={StaticResource InverseBoolToVisibility}}">
-            <TextBlock FontSize="32" Text="{I18N {x:Static lang:LangKeys.Library_Error_NoEnvironment}}" />
-            <ui:HyperlinkButton
-                Command="{Binding ViewModel.NavigateToAddEnvironmentCommand}"
-                Content="{I18N {x:Static lang:LangKeys.Library_Error_AddEnvironment}}"
-                FontSize="16"
+            <TextBlock FontSize="34" Text="{I18N {x:Static lang:LangKeys.Library_Error_NoEnvironment}}" />
+            <StackPanel
                 HorizontalAlignment="Center"
-                Margin="0,5,0,0" />
+                Margin="0,5,0,0"
+                Orientation="Horizontal">
+                <ui:HyperlinkButton
+                    Command="{Binding ViewModel.NavigateToSelectEnvironmentCommand}"
+                    Content="{I18N {x:Static lang:LangKeys.Library_Error_SelectEnvironment}}"
+                    FontSize="16" />
+                <TextBlock
+                    FontSize="20"
+                    Margin="3,0,3,0"
+                    Text="|" />
+                <ui:HyperlinkButton
+                    Command="{Binding ViewModel.NavigateToAddEnvironmentCommand}"
+                    Content="{I18N {x:Static lang:LangKeys.Library_Error_AddEnvironment}}"
+                    FontSize="16" />
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

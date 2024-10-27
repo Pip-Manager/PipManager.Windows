@@ -1,6 +1,8 @@
 ﻿using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using PipManager.Core.Configuration;
 using PipManager.Core.Configuration.Models;
 using PipManager.Windows.Controls;
@@ -37,122 +39,6 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
     [ObservableProperty]
     private EnvironmentModel? _currentEnvironment;
 
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(DeleteEnvironmentCommand), nameof(CheckEnvironmentCommand))]
-    private bool _environmentSelected;
-
-    [RelayCommand]
-    private async Task DeleteEnvironment()
-    {
-        var result = await contentDialogService.ShowSimpleDialogAsync(
-            ContentDialogCreateOptions.Warning(Lang.ContentDialog_Message_EnvironmentDeletion,
-                Lang.ContentDialog_PrimaryButton_Action));
-        if (result != ContentDialogResult.Primary) return;
-        
-        Log.Information($"[Environment] Environment has been removed from list ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
-        
-        EnvironmentItems.Remove(CurrentEnvironment!);
-        CurrentEnvironment = null;
-        Configuration.AppConfig!.SelectedEnvironment = null;
-        Configuration.AppConfig.Environments = [..EnvironmentItems];
-        Configuration.Save();
-        
-        var mainWindowViewModel = App.GetService<MainWindowViewModel>();
-        mainWindowViewModel.ApplicationTitle = "Pip Manager";
-        EnvironmentSelected = false;
-    }
-
-    [RelayCommand]
-    private async Task CheckEnvironment()
-    {
-        maskService.Show(Lang.Environment_Operation_VerifyEnvironment);
-        var environmentAvailable = await Task.Run(() => environmentService.CheckEnvironmentAvailable(CurrentEnvironment!));
-        Task.WaitAll();
-        maskService.Hide();
-
-        if (environmentAvailable.Success)
-        {
-            Log.Information($"[Environment] Environment is available ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
-            toastService.Info(Lang.ContentDialog_Message_EnvironmentCheckPassed);
-        }
-        else
-        {
-            Log.Error($"[Environment] Environment not available ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
-            var result = await contentDialogService.ShowSimpleDialogAsync(
-                ContentDialogCreateOptions.Error(Lang.ContentDialog_Message_EnvironmentCheckFailed,
-                    Lang.ContentDialog_PrimaryButton_EnvironmentDeletion));
-            if (result == ContentDialogResult.Primary)
-            {
-                await DeleteEnvironment();
-            }
-        }
-    }
-
-    [RelayCommand]
-    private async Task CheckEnvironmentUpdate()
-    {
-        maskService.Show(Lang.Environment_Operation_CheckEnvironmentUpdate);
-        var latest = "";
-        try
-        {
-            var versions = await Task.Run(() => environmentService.GetVersions("pip", new CancellationToken(), Configuration.AppConfig!.PackageSource.AllowNonRelease));
-            if (versions.Status == 0)
-            {
-                latest = versions.Versions!.Last();
-            }
-        }
-        finally
-        {
-            maskService.Hide();
-        }
-        
-        var current = Configuration.AppConfig!.SelectedEnvironment!.PipVersion.Trim();
-        if (!string.IsNullOrEmpty(latest) && latest != current)
-        {
-            Log.Information($"[Environment] Environment update available ({current} => {latest})");
-            var message = $"{Lang.ContentDialog_Message_FindUpdate}\n\n{Lang.EnvironmentCheckEnvironmentUpdate_CurrentVersion}{current}\n{Lang.EnvironmentCheckEnvironmentUpdate_LatestVersion}{latest}";
-            var result = await contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.Notice(message));
-            
-            if (result == ContentDialogResult.Primary)
-            {
-                actionService.AddOperation(new ActionListItem
-                (
-                    ActionType.Update,
-                    ["pip"],
-                    progressIntermediate: false
-                ));
-                navigationService.Navigate(typeof(ActionPage));
-                Configuration.RefreshAllEnvironments();
-            }
-        }
-        else if (string.IsNullOrEmpty(latest))
-        {
-            toastService.Error(Lang.ContentDialog_Message_NetworkError);
-            Log.Error("[Environment] Network error while checking for updates (environment: {environment})", CurrentEnvironment!.PipVersion);
-        }
-        else
-        {
-            toastService.Info(Lang.ContentDialog_Message_EnvironmentIsLatest);
-            Log.Information("[Environment] Environment is already up to date (environment: {environment})", CurrentEnvironment!.PipVersion);
-        }
-    }
-
-    [RelayCommand]
-    private void ClearCache()
-    {
-        var result = environmentService.PurgeEnvironmentCache(CurrentEnvironment!);
-        if (result.Success)
-        {
-            Log.Information($"[Environment] Cache cleared ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
-            toastService.Info(string.Format(Lang.ContentDialog_Message_CacheCleared, result.Message));
-        }
-        else
-        {
-            Log.Error($"[Environment] Cache clear failed ({CurrentEnvironment!.PipVersion} for {CurrentEnvironment.PythonVersion})");
-            toastService.Error(Lang.ContentDialog_Message_CacheClearFailed);
-        }
-    }
-
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
     {
         base.OnPropertyChanged(e);
@@ -181,6 +67,137 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
 
     #endregion Add Environment
 
+    #region Environment Operation
+
+    [RelayCommand]
+    private static void RevealEnvironmentFolder(EnvironmentModel environment)
+        => Process.Start("explorer.exe", Path.GetDirectoryName(environment.PythonPath)!);
+    
+    [RelayCommand]
+    private static void RevealEnvironmentConsole(EnvironmentModel environment)
+        => Process.Start(new ProcessStartInfo
+        {
+            FileName = "cmd.exe",
+            Arguments = $"/K {environment.PythonPath}",
+            UseShellExecute = true
+        });
+    
+     [RelayCommand]
+    private async Task CheckEnvironmentUpdate(EnvironmentModel environment)
+    {
+        maskService.Show(Lang.Environment_Operation_CheckEnvironmentUpdate);
+        var latest = "";
+        try
+        {
+            var versions = await Task.Run(() => environmentService.GetVersions("pip", new CancellationToken(), Configuration.AppConfig!.PackageSource.AllowNonRelease));
+            if (versions.Status == 0)
+            {
+                latest = versions.Versions!.Last();
+            }
+        }
+        finally
+        {
+            maskService.Hide();
+        }
+        
+        var current = environment.PipVersion.Trim();
+        if (!string.IsNullOrEmpty(latest) && latest != current)
+        {
+            Log.Information($"[Environment] Environment update available ({current} => {latest})");
+            var message = $"{Lang.ContentDialog_Message_FindUpdate}\n\n{Lang.EnvironmentCheckEnvironmentUpdate_CurrentVersion}{current}\n{Lang.EnvironmentCheckEnvironmentUpdate_LatestVersion}{latest}";
+            var result = await contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.Notice(message));
+            
+            if (result == ContentDialogResult.Primary)
+            {
+                actionService.AddOperation(new ActionListItem
+                (
+                    ActionType.Update,
+                    ["pip"],
+                    path: environment.PythonPath,
+                    progressIntermediate: false
+                ));
+                navigationService.Navigate(typeof(ActionPage));
+                Configuration.RefreshAllEnvironments();
+            }
+        }
+        else if (string.IsNullOrEmpty(latest))
+        {
+            toastService.Error(Lang.ContentDialog_Message_NetworkError);
+            Log.Error("[Environment] Network error while checking for updates (environment: {environment})", environment.PipVersion);
+        }
+        else
+        {
+            toastService.Info(Lang.ContentDialog_Message_EnvironmentIsLatest);
+            Log.Information("[Environment] Environment is already up to date (environment: {environment})", environment.PipVersion);
+        }
+    }
+
+    [RelayCommand]
+    private async Task CheckEnvironment(EnvironmentModel environment)
+    {
+        maskService.Show(Lang.Environment_Operation_VerifyEnvironment);
+        var environmentAvailable = await Task.Run(() => environmentService.CheckEnvironmentAvailable(environment));
+        Task.WaitAll();
+        maskService.Hide();
+
+        if (environmentAvailable.Success)
+        {
+            Log.Information($"[Environment] Environment is available ({environment.PipVersion} for {environment.PythonVersion})");
+            toastService.Info(Lang.ContentDialog_Message_EnvironmentCheckPassed);
+        }
+        else
+        {
+            Log.Error($"[Environment] Environment not available ({environment.PipVersion} for {environment.PythonVersion})");
+            var result = await contentDialogService.ShowSimpleDialogAsync(
+                ContentDialogCreateOptions.Error(Lang.ContentDialog_Message_EnvironmentCheckFailed,
+                    Lang.ContentDialog_PrimaryButton_EnvironmentDeletion));
+            if (result == ContentDialogResult.Primary)
+            {
+                await RemoveEnvironment(environment);
+            }
+        }
+    }
+
+    [RelayCommand]
+    private void ClearCache(EnvironmentModel environment)
+    {
+        var result = environmentService.PurgeEnvironmentCache(environment);
+        if (result.Success)
+        {
+            Log.Information($"[Environment] Cache cleared ({environment.PipVersion} for {environment.PythonVersion})");
+            toastService.Info(string.Format(Lang.ContentDialog_Message_CacheCleared, result.Message));
+        }
+        else
+        {
+            Log.Error($"[Environment] Cache clear failed ({environment.PipVersion} for {environment.PythonVersion})");
+            toastService.Error(Lang.ContentDialog_Message_CacheClearFailed);
+        }
+    }
+    
+    [RelayCommand]
+    private async Task RemoveEnvironment(EnvironmentModel environment)
+    {
+        var result = await contentDialogService.ShowSimpleDialogAsync(
+            ContentDialogCreateOptions.Warning(Lang.ContentDialog_Message_EnvironmentDeletion,
+                Lang.ContentDialog_PrimaryButton_Proceed));
+        if (result != ContentDialogResult.Primary) return;
+        
+        Log.Information($"[Environment] Environment has been removed from list ({environment.PipVersion} for {environment.PythonVersion})");
+        
+        EnvironmentItems.Remove(environment);
+        if (CurrentEnvironment == null)
+        {
+            Configuration.AppConfig!.SelectedEnvironment = null;
+        }
+        Configuration.AppConfig!.Environments = [..EnvironmentItems];
+        Configuration.Save();
+        
+        var mainWindowViewModel = App.GetService<MainWindowViewModel>();
+        mainWindowViewModel.ApplicationTitle = "Pip Manager";
+    }
+    
+    #endregion
+    
     public async Task OnNavigatedToAsync()
     {
         if (!_isInitialized)
