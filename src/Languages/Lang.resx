@@ -636,9 +636,6 @@
   <data name="EnvironmentCheckEnvironmentUpdate_LatestVersion" xml:space="preserve">
     <value>Latest: </value>
   </data>
-  <data name="Search_Operation_Details" xml:space="preserve">
-    <value>Details</value>
-  </data>
   <data name="SearchDetail_Header" xml:space="preserve">
     <value>Details</value>
   </data>

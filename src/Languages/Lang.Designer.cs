@@ -1599,15 +1599,6 @@ namespace PipManager.Windows.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Details.
-        /// </summary>
-        public static string Search_Operation_Details {
-            get {
-                return ResourceManager.GetString("Search_Operation_Details", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No results.
         /// </summary>
         public static string Search_Query_NoResults {
