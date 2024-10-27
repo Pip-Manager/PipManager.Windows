@@ -655,7 +655,7 @@
     <value>WebView still in use, cannot clear cache</value>
   </data>
   <data name="SearchDetail_DownloadDistributions" xml:space="preserve">
-    <value>Download Distributions</value>
+    <value>Download</value>
   </data>
   <data name="SearchDetail_Install" xml:space="preserve">
     <value>Install</value>

@@ -1635,7 +1635,7 @@ namespace PipManager.Windows.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download Distributions.
+        ///   Looks up a localized string similar to Download.
         /// </summary>
         public static string SearchDetail_DownloadDistributions {
             get {
