@@ -20,7 +20,7 @@
     xmlns:lang="clr-namespace:PipManager.Windows.Languages"
     xmlns:local="clr-namespace:PipManager.Windows.Views.Pages.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:package="clr-namespace:PipManager.Windows.Models.Package"
+    xmlns:package="clr-namespace:PipManager.Core.PyPackage.Models;assembly=PipManager.Core"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:xamlFlair="clr-namespace:XamlFlair;assembly=XamlFlair.WPF">
@@ -46,9 +46,21 @@
                                 Style="{StaticResource BodyLargeTextBlockStyle}"
                                 Text="{Binding PackageName}" />
                             <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                <ui:TextBlock Foreground="Gray" Text="{Binding PackageVersion}" />
+                                <ui:TextBlock Foreground="Gray">
+                                    <ui:TextBlock.Text>
+                                        <I18N Key="{x:Static lang:LangKeys.Library_CheckUpdate_Current}">
+                                            <Binding Path="PackageVersion" />
+                                        </I18N>
+                                    </ui:TextBlock.Text>
+                                </ui:TextBlock>
                                 <ui:SymbolIcon Margin="10,0,0,0" Symbol="ChevronRight24" />
-                                <ui:TextBlock Margin="10,0,0,0" Text="{Binding NewVersion}" />
+                                <ui:TextBlock Margin="10,0,0,0">
+                                    <ui:TextBlock.Text>
+                                        <I18N Key="{x:Static lang:LangKeys.Library_CheckUpdate_Latest}">
+                                            <Binding Path="NewVersion" />
+                                        </I18N>
+                                    </ui:TextBlock.Text>
+                                </ui:TextBlock>
                             </StackPanel>
                         </Grid>
                     </DataTemplate>

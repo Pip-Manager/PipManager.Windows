@@ -1,8 +1,7 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Messaging;
+using PipManager.Core.PyPackage.Models;
 using PipManager.Windows.Languages;
-using PipManager.Windows.Models.Package;
-using PipManager.Windows.Models.Pages;
 using PipManager.Windows.Services.Toast;
 using PipManager.Windows.Views.Pages.Library;
 using Wpf.Ui;
@@ -15,17 +14,17 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
 {
     private readonly INavigationService _navigationService;
     private readonly IToastService _toastService;
-    public record LibraryDetailMessage(PackageItem Package, List<PackageItem> Library);
+    public record LibraryDetailMessage(PackageDetailItem PackageDetail, List<PackageDetailItem> Library);
     private bool _isInitialized;
 
-    [ObservableProperty] private PackageItem? _package;
-    [ObservableProperty] private List<PackageItem>? _library;
+    [ObservableProperty] private PackageDetailItem? _package;
+    [ObservableProperty] private List<PackageDetailItem>? _library;
 
     #region Contact
 
     [ObservableProperty] private string? _author;
     [ObservableProperty] private string? _authorEmail;
-    [ObservableProperty] private ObservableCollection<LibraryDetailProjectUrlModel>? _projectUrl;
+    [ObservableProperty] private ObservableCollection<PackageDetailUrlModel>? _projectUrl;
 
     #endregion Contact
 
@@ -69,14 +68,14 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
 
     private void Receive(object recipient, LibraryDetailMessage message)
     {
-        Package = message.Package;
+        Package = message.PackageDetail;
         Library = message.Library;
         
         #region Contact
 
         Author = Package.Author!.Count == 0 ? Lang.LibraryDetail_Unknown : string.Join(", ", Package.Author!);
         AuthorEmail = Package.AuthorEmail == "" ? Lang.LibraryDetail_Unknown : Package.AuthorEmail;
-        ProjectUrl = new ObservableCollection<LibraryDetailProjectUrlModel>(Package.ProjectUrl!);
+        ProjectUrl = new ObservableCollection<PackageDetailUrlModel>(Package.ProjectUrl!);
 
         #endregion Contact
         

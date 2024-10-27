@@ -1,4 +1,4 @@
-﻿using PipManager.Windows.Models.Package;
+﻿using PipManager.Core.PyPackage.Models;
 
 namespace PipManager.Windows.Services.Overlay;
 

@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using PipManager.Windows.Models.Package;
+using PipManager.Core.PyPackage.Models;
 using PipManager.Windows.ViewModels.Pages.Overlay;
 using PipManager.Windows.ViewModels.Windows;
 

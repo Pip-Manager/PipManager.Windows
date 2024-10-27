@@ -126,7 +126,7 @@
                             <ColumnDefinition Width="24" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <ui:SymbolIcon Grid.Column="0" Symbol="{Binding Path=PackageIcon.Symbol}" />
+                        <ui:SymbolIcon Grid.Column="0" Symbol="Box24" />
                         <StackPanel Grid.Column="1" Margin="7,0,0,0">
                             <StackPanel Orientation="Horizontal">
                                 <ui:TextBlock

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using PipManager.Core.Configuration.Models;
-using PipManager.Windows.Models.Package;
+using PipManager.Core.PyPackage.Models;
 using PipManager.Windows.Services.Environment.Response;
 
 namespace PipManager.Windows.Services.Environment;
@@ -13,7 +13,7 @@ public interface IEnvironmentService
 
     public ActionResponse PurgeEnvironmentCache(EnvironmentModel environmentModel);
 
-    public Task<List<PackageItem>?> GetLibraries();
+    public Task<List<PackageDetailItem>?> GetLibraries();
 
     public Task<GetVersionsResponse> GetVersions(string packageName, CancellationToken cancellationToken, bool detectNonRelease = true);
     public bool TryKillProcess();
