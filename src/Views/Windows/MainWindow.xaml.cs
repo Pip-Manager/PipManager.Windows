@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using PipManager.Windows.Languages;
 using PipManager.Windows.Services.Action;
 using PipManager.Windows.Services.Mask;
@@ -67,6 +68,9 @@ public partial class MainWindow
             e.Cancel = false;
         }
     }
+    
+    private void MainWindow_OnClosed(object sender, EventArgs e)
+        => Application.Current.Shutdown();
 
     private void InstallMenuItem_OnClick(object sender, RoutedEventArgs e)
     {

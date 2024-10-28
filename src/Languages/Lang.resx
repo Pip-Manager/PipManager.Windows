@@ -777,4 +777,10 @@
   <data name="Library_Error_SelectEnvironment" xml:space="preserve">
     <value>Select</value>
   </data>
+  <data name="ContentDialog_Message_BrokenConfig" xml:space="preserve">
+    <value>Configuration file is corrupted or unreadable. Please check the file for errors or reset to default settings.</value>
+  </data>
+  <data name="ContentDialog_PrimaryButton_ResetConfig" xml:space="preserve">
+    <value>Reset</value>
+  </data>
 </root>

@@ -12,7 +12,7 @@ public partial class MainWindowViewModel : ObservableObject
 
     public MainWindowViewModel()
     {
-        var config = Configuration.AppConfig!;
+        var config = Configuration.AppConfig;
         if (config.SelectedEnvironment != null)
         {
             Log.Information($"[MainWindow] Environment loaded ({config.SelectedEnvironment.PipVersion} for {config.SelectedEnvironment.PythonVersion})");

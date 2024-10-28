@@ -46,6 +46,7 @@ public partial class App
 
     private void OnStartup(object sender, StartupEventArgs e)
     {
+        ShutdownMode = ShutdownMode.OnExplicitShutdown;
         Environment.SetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER", AppInfo.CachesDir);
 
         for (var i = 0; i != e.Args.Length; ++i)
@@ -58,11 +59,9 @@ public partial class App
             }
         }
         IsDebugMode = _showConsoleWindow;
-        var appStarting = new AppStarting
-        {
-            ShowConsoleWindow = _showConsoleWindow
-        };
-        appStarting.StartLogging();
+        AppStarting.CreateDirectories();
+        AppStarting.LoadConfig();
+        AppStarting.StartLogging(_showConsoleWindow);
         AppStarting.LoadLanguage();
         AppStarting.CachesDeletion();
         Host.Start();

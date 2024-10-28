@@ -5,6 +5,7 @@
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     MinHeight="740"
     MinWidth="1200"
+    Closed="MainWindow_OnClosed"
     Title="{Binding ViewModel.ApplicationTitle, Mode=OneWay}"
     WindowBackdropType="Mica"
     WindowCornerPreference="Round"

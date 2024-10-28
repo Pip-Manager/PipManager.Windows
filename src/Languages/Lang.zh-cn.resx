@@ -777,4 +777,10 @@
   <data name="Library_Error_SelectEnvironment" xml:space="preserve">
     <value>选择环境</value>
   </data>
+  <data name="ContentDialog_Message_BrokenConfig" xml:space="preserve">
+    <value>配置文件已损坏或无法读取。请检查文件是否有错误，或重置为默认设置。</value>
+  </data>
+  <data name="ContentDialog_PrimaryButton_ResetConfig" xml:space="preserve">
+    <value>重置</value>
+  </data>
 </root>

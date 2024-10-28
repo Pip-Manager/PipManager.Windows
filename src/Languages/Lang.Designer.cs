@@ -456,6 +456,15 @@ namespace PipManager.Windows.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configuration file is corrupted or unreadable. Please check the file for errors or reset to default settings..
+        /// </summary>
+        public static string ContentDialog_Message_BrokenConfig {
+            get {
+                return ResourceManager.GetString("ContentDialog_Message_BrokenConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Caches Cleared.
         /// </summary>
         public static string ContentDialog_Message_CacheCleared {
@@ -587,6 +596,15 @@ namespace PipManager.Windows.Languages {
         public static string ContentDialog_PrimaryButton_Proceed {
             get {
                 return ResourceManager.GetString("ContentDialog_PrimaryButton_Proceed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string ContentDialog_PrimaryButton_ResetConfig {
+            get {
+                return ResourceManager.GetString("ContentDialog_PrimaryButton_ResetConfig", resourceCulture);
             }
         }
         
