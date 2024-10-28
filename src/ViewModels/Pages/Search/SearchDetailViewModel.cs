@@ -8,6 +8,7 @@ using System.Net.Http;
 using Microsoft.Win32;
 using PipManager.Core.Configuration;
 using PipManager.Core.Wrappers.PackageSearchQueryWrapper;
+using PipManager.Windows.Extensions;
 using PipManager.Windows.Languages;
 using PipManager.Windows.Models.Action;
 using PipManager.Windows.Services.Action;
@@ -225,9 +226,11 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
         SearchDetailPage.ProjectDescriptionWebView!.DefaultBackgroundColor = Color.FromArgb(_themeTypeInInteger);
     }
 
-    public Task OnNavigatedFromAsync()
-    {     
-        _navigationService.GetNavigationControl().BreadcrumbBar!.Visibility = Visibility.Visible;
-        return Task.CompletedTask;
+    public async Task OnNavigatedFromAsync()
+    {
+        await Application.Current.Dispatcher.InvokeAsync(() =>
+        {
+            _navigationService.GetNavigationControl().BreadcrumbBar!.Visibility = Visibility.Visible;
+        });
     }
 }
