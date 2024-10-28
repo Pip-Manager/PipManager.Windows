@@ -215,9 +215,10 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
             
             if (!PackageNameVerificationRegex().IsMatch(packageName))
                 return new GetVersionsResponse { Status = 2, Versions = emptyArray };
-            
-            var responseMessage = await httpClient.GetAsync(
-                $"{Configuration.AppConfig!.PackageSource.Source.GetPackageSourceUrl("pypi")}{packageName}/json", cancellationToken);
+            var responseUrl =
+                $"{Configuration.AppConfig!.PackageSource.Source.GetPackageSourceUrl("pypi")}{packageName}/json";
+            var responseMessage = await httpClient.GetAsync(responseUrl
+                , cancellationToken);
             if (!responseMessage.IsSuccessStatusCode)
             {
                 Log.Warning($"[EnvironmentService] Failed to fetch package {packageName}, StatusCode: {responseMessage.StatusCode}");

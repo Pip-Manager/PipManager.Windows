@@ -1887,7 +1887,7 @@ namespace PipManager.Windows.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you are in mainland China, we recommend choosing a non-PyPI source.
+        ///   Looks up a localized string similar to If your network environment is in mainland China, it is recommended to choose a non-PyPI source, but package versions may lag behind the PyPI source.
         /// </summary>
         public static string Settings_PackageSource_Notice {
             get {

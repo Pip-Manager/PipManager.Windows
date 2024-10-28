@@ -5,12 +5,14 @@ using System.Diagnostics;
 using System.IO;
 using PipManager.Core.Configuration;
 using PipManager.Core.Configuration.Models;
+using PipManager.Core.PyPackage.Models;
 using PipManager.Windows.Controls;
 using PipManager.Windows.Languages;
 using PipManager.Windows.Models.Action;
 using PipManager.Windows.Services.Action;
 using PipManager.Windows.Services.Environment;
 using PipManager.Windows.Services.Mask;
+using PipManager.Windows.Services.Overlay;
 using PipManager.Windows.Services.Toast;
 using PipManager.Windows.ViewModels.Windows;
 using PipManager.Windows.Views.Pages.Action;
@@ -23,9 +25,9 @@ using Wpf.Ui.Extensions;
 namespace PipManager.Windows.ViewModels.Pages.Environment;
 
 public partial class EnvironmentViewModel(INavigationService navigationService,
-        IEnvironmentService environmentService,
-        IActionService actionService, IMaskService maskService, IContentDialogService contentDialogService,
-        IToastService toastService)
+        IEnvironmentService environmentService, IActionService actionService, 
+        IMaskService maskService, IContentDialogService contentDialogService,
+        IToastService toastService, IOverlayService overlayService)
     : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
@@ -104,10 +106,13 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         if (!string.IsNullOrEmpty(latest) && latest != current)
         {
             Log.Information($"[Environment] Environment update available ({current} => {latest})");
-            var message = $"{Lang.ContentDialog_Message_FindUpdate}\n\n{Lang.EnvironmentCheckEnvironmentUpdate_CurrentVersion}{current}\n{Lang.EnvironmentCheckEnvironmentUpdate_LatestVersion}{latest}";
-            var result = await contentDialogService.ShowSimpleDialogAsync(ContentDialogCreateOptions.Notice(message));
-            
-            if (result == ContentDialogResult.Primary)
+            List<PackageUpdateItem> msgList = [new()
+            {
+                PackageName = $"{environment.PipVersion} for {environment.PythonVersion}",
+                PackageVersion = current,
+                NewVersion = latest
+            }];
+            overlayService.ShowPackageUpdateOverlay(msgList, () =>
             {
                 actionService.AddOperation(new ActionListItem
                 (
@@ -118,7 +123,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
                 ));
                 navigationService.Navigate(typeof(ActionPage));
                 Configuration.RefreshAllEnvironments();
-            }
+            });
         }
         else if (string.IsNullOrEmpty(latest))
         {
@@ -207,8 +212,10 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         EnvironmentItems =
             new ObservableCollection<EnvironmentModel>(Configuration.AppConfig!.Environments);
         EnvironmentItems = new ObservableCollection<EnvironmentModel>(Configuration.AppConfig.Environments);
-        await Task.Delay(50);
-        CurrentEnvironment = EnvironmentItems.FirstOrDefault(item => item.PythonPath == Configuration.AppConfig.SelectedEnvironment?.PythonPath);
+        await Application.Current.Dispatcher.InvokeAsync(() =>
+        {
+            CurrentEnvironment = EnvironmentItems.FirstOrDefault(item => item.PythonPath == Configuration.AppConfig.SelectedEnvironment?.PythonPath);
+        });
 
         if (CurrentEnvironment != null)
         {

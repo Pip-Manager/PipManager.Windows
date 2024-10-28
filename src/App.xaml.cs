@@ -38,11 +38,8 @@ public partial class App
             services.RegisterViewModels();
         }).Build();
 
-    public static T GetService<T>()
-        where T : class
-    {
-        return Host.Services.GetService(typeof(T)) as T ?? throw new InvalidOperationException("Service not found.");
-    }
+    public static T GetService<T>() where T : class
+        => Host.Services.GetService(typeof(T)) as T ?? throw new InvalidOperationException("Service not found.");
 
     private bool _showConsoleWindow;
     public static bool IsDebugMode { get; private set; }
