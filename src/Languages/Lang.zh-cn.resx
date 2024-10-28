@@ -160,7 +160,7 @@
     <value>安装包</value>
   </data>
   <data name="Common_NoticeTitle_Caution" xml:space="preserve">
-    <value>提示</value>
+    <value>警告</value>
   </data>
   <data name="Snackbar_effectAfterRestart" xml:space="preserve">
     <value>更改将在应用重启后生效</value>
@@ -241,7 +241,7 @@
     <value>提示</value>
   </data>
   <data name="Settings_PackageSource_Notice" xml:space="preserve">
-    <value>如果你身处中国大陆境内，建议选择非PyPI源</value>
+    <value>如果你的网络环境在中国大陆内，建议选择非PyPI源，但包版本可能会滞后于PyPI源</value>
   </data>
   <data name="EnvironmentAdd_Header" xml:space="preserve">
     <value>添加环境</value>
@@ -636,9 +636,6 @@
   <data name="EnvironmentCheckEnvironmentUpdate_LatestVersion" xml:space="preserve">
     <value>最新版本: </value>
   </data>
-  <data name="Search_Operation_Details" xml:space="preserve">
-    <value>查看详情</value>
-  </data>
   <data name="SearchDetail_Header" xml:space="preserve">
     <value>详情</value>
   </data>
@@ -779,5 +776,11 @@
   </data>
   <data name="Library_Error_SelectEnvironment" xml:space="preserve">
     <value>选择环境</value>
+  </data>
+  <data name="ContentDialog_Message_BrokenConfig" xml:space="preserve">
+    <value>配置文件已损坏或无法读取。请检查文件是否有错误，或重置为默认设置。</value>
+  </data>
+  <data name="ContentDialog_PrimaryButton_ResetConfig" xml:space="preserve">
+    <value>重置</value>
   </data>
 </root>

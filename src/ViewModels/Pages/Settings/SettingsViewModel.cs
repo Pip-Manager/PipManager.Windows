@@ -24,9 +24,9 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     private readonly INavigationService _navigationService;
     private readonly IToastService _toastService;
 
-    public SettingsViewModel(ISnackbarService snackbarService, IThemeService themeService, INavigationService navigationService, IToastService toastService)
+    public SettingsViewModel(HttpClient httpClient, ISnackbarService snackbarService, IThemeService themeService, INavigationService navigationService, IToastService toastService)
     {
-        _httpClient = App.GetService<HttpClient>();
+        _httpClient = httpClient;
         _snackbarService = snackbarService;
         _themeService = themeService;
         _navigationService = navigationService;
@@ -60,7 +60,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
 
     #region Package Source
 
-    [ObservableProperty] private string _currentPackageSource = "default";
+    [ObservableProperty] private string _currentPackageSource = "official";
     [ObservableProperty] private string _officialPackageSourceNetwork = string.Empty;
     [ObservableProperty] private string _tsinghuaPackageSourceNetwork = string.Empty;
     [ObservableProperty] private string _aliyunPackageSourceNetwork = string.Empty;
@@ -87,7 +87,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         {
             try
             {
-                await _httpClient.GetByteArrayAsync("default".GetPackageSourceTestingUrl());
+                await _httpClient.GetByteArrayAsync("official".GetPackageSourceTestingUrl());
                 OfficialPackageSourceNetwork = $"{stopwatch.ElapsedMilliseconds} ms";
             }
             catch (Exception exception) when (exception is HttpRequestException or TaskCanceledException)

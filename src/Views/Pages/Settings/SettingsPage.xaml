@@ -53,7 +53,6 @@
                         <ui:InfoBar
                             IsClosable="False"
                             IsOpen="True"
-                            Margin="0,8,0,0"
                             Message="{I18N {x:Static lang:LangKeys.Settings_PackageSource_Notice}}"
                             Title="{I18N {x:Static lang:LangKeys.Common_NoticeTitle_Notice}}" />
                         <Grid Margin="0,8,0,0">

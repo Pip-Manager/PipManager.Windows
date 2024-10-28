@@ -62,8 +62,14 @@
         <ui:ListView
             Grid.Row="1"
             ItemsSource="{Binding ViewModel.QueryList, Mode=TwoWay}"
-            Margin="0,7,0,7"
-            x:Name="SearchList">
+            Margin="0,7,0,7">
+            <ui:ListView.ItemContainerStyle>
+                <!-- ReSharper disable once Xaml.StaticResourceNotResolved -->
+                <Style TargetType="ui:ListViewItem" BasedOn="{StaticResource {x:Type ui:ListViewItem}}">
+                    <EventSetter Event="MouseDoubleClick"
+                                 Handler="SearchListItem_DoubleClick"/>
+                </Style>
+            </ui:ListView.ItemContainerStyle>
             <ui:ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type query:QueryListItemModel}">
                     <Grid Margin="5,0,0,0">
@@ -87,14 +93,6 @@
                                 TextWrapping="Wrap"
                                 Width="800" />
                         </StackPanel>
-                        <ui:HyperlinkButton
-                            Command="{Binding ElementName=Search, Path=ViewModel.ToDetailPageCommand}"
-                            CommandParameter="{Binding Name}"
-                            Content="{I18N {x:Static lang:LangKeys.Search_Operation_Details}}"
-                            Grid.Column="0"
-                            HorizontalAlignment="Right"
-                            Icon="{ui:SymbolIcon ChevronRight24}"
-                            Margin="0,0,10,0" />
                     </Grid>
                 </DataTemplate>
             </ui:ListView.ItemTemplate>

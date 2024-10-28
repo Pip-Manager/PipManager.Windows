@@ -241,7 +241,7 @@
     <value>Notice</value>
   </data>
   <data name="Settings_PackageSource_Notice" xml:space="preserve">
-    <value>If you are in mainland China, we recommend choosing a non-PyPI source</value>
+    <value>If your network environment is in mainland China, it is recommended to choose a non-PyPI source, but package versions may lag behind the PyPI source</value>
   </data>
   <data name="EnvironmentAdd_Header" xml:space="preserve">
     <value>Add Environment</value>
@@ -636,9 +636,6 @@
   <data name="EnvironmentCheckEnvironmentUpdate_LatestVersion" xml:space="preserve">
     <value>Latest: </value>
   </data>
-  <data name="Search_Operation_Details" xml:space="preserve">
-    <value>Details</value>
-  </data>
   <data name="SearchDetail_Header" xml:space="preserve">
     <value>Details</value>
   </data>
@@ -655,7 +652,7 @@
     <value>WebView still in use, cannot clear cache</value>
   </data>
   <data name="SearchDetail_DownloadDistributions" xml:space="preserve">
-    <value>Download Distributions</value>
+    <value>Download</value>
   </data>
   <data name="SearchDetail_Install" xml:space="preserve">
     <value>Install</value>
@@ -779,5 +776,11 @@
   </data>
   <data name="Library_Error_SelectEnvironment" xml:space="preserve">
     <value>Select</value>
+  </data>
+  <data name="ContentDialog_Message_BrokenConfig" xml:space="preserve">
+    <value>Configuration file is corrupted or unreadable. Please check the file for errors or reset to default settings.</value>
+  </data>
+  <data name="ContentDialog_PrimaryButton_ResetConfig" xml:space="preserve">
+    <value>Reset</value>
   </data>
 </root>

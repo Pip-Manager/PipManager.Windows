@@ -3,16 +3,39 @@ using System.Globalization;
 using System.IO;
 using Windows.Win32;
 using PipManager.Core.Configuration;
+using PipManager.Windows.Languages;
 
 namespace PipManager.Windows;
 
-public class AppStarting
+public static class AppStarting
 {
-    public bool ShowConsoleWindow = false;
-
-    public AppStarting()
+    public static void LoadConfig()
     {
-        Configuration.Initialize(AppInfo.ConfigDirectory);
+        if (Configuration.Initialize(AppInfo.ConfigDirectory))
+        {
+            return;
+        }
+
+        var uiMessageBox = new Wpf.Ui.Controls.MessageBox
+        {
+            Title = Lang.ContentDialog_Title_Warning,
+            Content = Lang.ContentDialog_Message_BrokenConfig,
+            PrimaryButtonText = Lang.ContentDialog_PrimaryButton_ResetConfig,
+            CloseButtonText = Lang.ContentDialog_CloseButton_Cancel
+        };
+
+        if (uiMessageBox.ShowDialogAsync().Result == Wpf.Ui.Controls.MessageBoxResult.Primary)
+        {
+            Configuration.Initialize(AppInfo.ConfigDirectory, true);
+        }
+        else
+        {
+            Environment.Exit(0);
+        }
+    }
+
+    public static void CreateDirectories()
+    {
         Directory.CreateDirectory(AppInfo.CrushesDir);
         Directory.CreateDirectory(AppInfo.LogDir);
         Directory.CreateDirectory(AppInfo.CachesDir);
@@ -20,7 +43,7 @@ public class AppStarting
 
     public static void LoadLanguage()
     {
-        var language = Configuration.AppConfig!.Personalization.Language;
+        var language = Configuration.AppConfig.Personalization.Language;
         if (language != "Auto")
         {
             I18NExtension.Culture = new CultureInfo(language);
@@ -28,9 +51,9 @@ public class AppStarting
         Log.Information($"Language sets to {language}");
     }
 
-    public void StartLogging()
+    public static void StartLogging(bool showConsoleWindow)
     {
-        if (ShowConsoleWindow)
+        if (showConsoleWindow)
         {
             PInvoke.AllocConsole();
         }

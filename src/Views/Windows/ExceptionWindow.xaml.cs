@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel;
+using System.Diagnostics;
 
 namespace PipManager.Windows.Views.Windows;
 
@@ -25,5 +26,10 @@ public partial class ExceptionWindow
     private void ReportButton_OnClick(object sender, RoutedEventArgs e)
     {
         Process.Start("explorer.exe", "https://github.com/Pip-Manager/PipManager.Windows/issues/new");
+    }
+
+    private void ExceptionWindow_OnClosing(object? sender, CancelEventArgs e)
+    {
+        Environment.Exit(0);
     }
 }

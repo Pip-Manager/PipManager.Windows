@@ -34,14 +34,13 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
     }
 
     #region Details
-
+    
     [RelayCommand]
-    private void ToDetailPage(object parameter)
+    private void SearchItemDoubleClick(QueryListItemModel selectedQueryListItem)
     {
         navigationService.Navigate(typeof(SearchDetailPage));
-        var current = QueryList.Where(searchListItem => searchListItem.Name == parameter as string).ToList()[0];
-        WeakReferenceMessenger.Default.Send(new SearchDetailViewModel.SearchDetailMessage(current));
-        Log.Information($"[Search] Turn to detail page: {current.Name}");
+        WeakReferenceMessenger.Default.Send(new SearchDetailViewModel.SearchDetailMessage(selectedQueryListItem));
+        Log.Information($"[Search] Turn to detail page: {selectedQueryListItem.Name}");
     }
 
     #endregion Details

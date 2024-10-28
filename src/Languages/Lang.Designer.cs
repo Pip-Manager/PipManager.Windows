@@ -456,6 +456,15 @@ namespace PipManager.Windows.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configuration file is corrupted or unreadable. Please check the file for errors or reset to default settings..
+        /// </summary>
+        public static string ContentDialog_Message_BrokenConfig {
+            get {
+                return ResourceManager.GetString("ContentDialog_Message_BrokenConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Caches Cleared.
         /// </summary>
         public static string ContentDialog_Message_CacheCleared {
@@ -587,6 +596,15 @@ namespace PipManager.Windows.Languages {
         public static string ContentDialog_PrimaryButton_Proceed {
             get {
                 return ResourceManager.GetString("ContentDialog_PrimaryButton_Proceed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string ContentDialog_PrimaryButton_ResetConfig {
+            get {
+                return ResourceManager.GetString("ContentDialog_PrimaryButton_ResetConfig", resourceCulture);
             }
         }
         
@@ -1599,15 +1617,6 @@ namespace PipManager.Windows.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Details.
-        /// </summary>
-        public static string Search_Operation_Details {
-            get {
-                return ResourceManager.GetString("Search_Operation_Details", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No results.
         /// </summary>
         public static string Search_Query_NoResults {
@@ -1635,7 +1644,7 @@ namespace PipManager.Windows.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download Distributions.
+        ///   Looks up a localized string similar to Download.
         /// </summary>
         public static string SearchDetail_DownloadDistributions {
             get {
@@ -1896,7 +1905,7 @@ namespace PipManager.Windows.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you are in mainland China, we recommend choosing a non-PyPI source.
+        ///   Looks up a localized string similar to If your network environment is in mainland China, it is recommended to choose a non-PyPI source, but package versions may lag behind the PyPI source.
         /// </summary>
         public static string Settings_PackageSource_Notice {
             get {

@@ -57,14 +57,16 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="350" />
+                    <ColumnDefinition Width="400" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
                     <StackPanel Orientation="Horizontal">
-                        <ui:TextBlock
-                            FontTypography="Subtitle"
-                            Text="{Binding ViewModel.Package.Name}"
-                            VerticalAlignment="Center" />
+                        <ui:HyperlinkButton
+                            NavigateUri="{Binding ViewModel.Package.Url}"
+                            Padding="2, 1, 2, 1"
+                            VerticalAlignment="Center">
+                            <TextBlock FontSize="18" Text="{Binding ViewModel.Package.Name}"></TextBlock>
+                        </ui:HyperlinkButton>
                         <ui:Badge
                             Appearance="Info"
                             Margin="5,0,0,0"
@@ -74,10 +76,10 @@
                     </StackPanel>
                     <ui:TextBlock
                         FontTypography="Body"
-                        Margin="0,3,0,0"
+                        Margin="1,3,0,0"
                         Text="{Binding ViewModel.Package.Description}"
-                        TextWrapping="Wrap" />
-                    <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
+                        TextTrimming="WordEllipsis" />
+                    <StackPanel Margin="1,7,0,0" Orientation="Horizontal">
                         <ui:TextBlock
                             Appearance="Secondary"
                             FontTypography="Caption"
@@ -107,14 +109,14 @@
                         Content="{I18N {x:Static lang:LangKeys.SearchDetail_DownloadDistributions}}"
                         Icon="{ui:SymbolIcon ArrowCircleDown24}"
                         IsEnabled="{Binding ViewModel.ProjectDescriptionVisibility}"
-                        Margin="15,0,0,0" />
+                        Margin="7,0,0,0" />
                     <ui:Button
                         Appearance="Success"
                         Command="{Binding ViewModel.InstallPackageCommand}"
                         Content="{I18N {x:Static lang:LangKeys.SearchDetail_Install}}"
                         Icon="{ui:SymbolIcon AddCircle24}"
                         IsEnabled="{Binding ViewModel.ProjectDescriptionVisibility}"
-                        Margin="15,0,0,0" />
+                        Margin="7,0,0,0" />
                 </StackPanel>
             </Grid>
         </ui:Card>

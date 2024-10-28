@@ -15,7 +15,7 @@ internal class PackageSourceEnumToBooleanConverter : IValueConverter
         var currentPackageSource = (string)value;
         var currentParameter = (string)parameter;
 
-        if (currentPackageSource == "default" && currentParameter == "Official")
+        if (currentPackageSource == "official" && currentParameter == "Official")
         {
             return true;
         }
@@ -26,7 +26,7 @@ internal class PackageSourceEnumToBooleanConverter : IValueConverter
     {
         if (value == null || parameter == null)
         {
-            return "default";
+            return "official";
         }
 
         var isChecked = (bool)value;
@@ -34,8 +34,8 @@ internal class PackageSourceEnumToBooleanConverter : IValueConverter
 
         if (isChecked)
         {
-            return currentParameter == "Official" ? "default" : currentParameter;
+            return currentParameter == "Official" ? "official" : currentParameter;
         }
-        return "default";
+        return "official";
     }
 }

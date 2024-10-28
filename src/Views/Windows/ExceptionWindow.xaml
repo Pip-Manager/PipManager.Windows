@@ -2,9 +2,10 @@
     ExtendsContentIntoTitleBar="True"
     FontFamily="/PipManager.Windows;component/Resources/Fonts/MiSans-Regular.ttf#MiSans"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    MinHeight="540"
-    MinWidth="700"
+    Height="540"
+    Width="800"
     ResizeMode="CanMinimize"
+    Closing="ExceptionWindow_OnClosing"
     Title="ExceptionWindow"
     WindowBackdropType="Mica"
     WindowCornerPreference="Round"
@@ -23,7 +24,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="80" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <ui:TitleBar
@@ -31,8 +32,7 @@
             FontSize="14"
             Grid.Row="0"
             ShowMaximize="False"
-            Title="{I18N {x:Static lang:LangKeys.ExceptionWindow_Title}}"
-            x:Name="TitleBar">
+            Title="{I18N {x:Static lang:LangKeys.ExceptionWindow_Title}}">
             <ui:TitleBar.Icon>
                 <ui:ImageIcon
                     Height="22"
@@ -53,10 +53,11 @@
                     x:Name="TypeTextBlock" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <ui:Badge Appearance="Caution" Content="Message" />
+                <ui:Badge Appearance="Caution" VerticalAlignment="Top" Content="Message" />
                 <TextBlock
                     Margin="5,0,0,0"
                     Text="Unknown Message"
+                    Width="700"
                     TextWrapping="WrapWithOverflow"
                     VerticalAlignment="Center"
                     x:Name="MessageTextBlock" />
@@ -77,8 +78,7 @@
                 Content="Report to Github Issue"
                 HorizontalAlignment="Stretch"
                 Icon="{ui:SymbolIcon Bug24}"
-                VerticalAlignment="Bottom"
-                x:Name="ReportButton" />
+                VerticalAlignment="Bottom" />
         </Grid>
     </Grid>
 </ui:FluentWindow>
