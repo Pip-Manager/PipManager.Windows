@@ -95,6 +95,11 @@
 			<XamlRuntime>Wpf</XamlRuntime>
 			<SubType>Designer</SubType>
 		</Page>
+		<Page Update="Views\Pages\ScriptEditor\ScriptEditorPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		  <XamlRuntime>Wpf</XamlRuntime>
+		  <SubType>Designer</SubType>
+		</Page>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -107,5 +112,11 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\PipManager.Core\src\PipManager.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Monaco\**">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 </Project>

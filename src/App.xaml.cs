@@ -6,6 +6,7 @@ using Serilog;
 using System.IO;
 using Windows.Win32;
 using System.Windows.Threading;
+using Microsoft.Web.WebView2.Wpf;
 using PipManager.Core.Services;
 using PipManager.Windows.Extensions;
 using PipManager.Windows.Services;

@@ -3,27 +3,26 @@ using PipManager.Core.Services.PackageSearchService;
 using PipManager.Windows.Services.Action;
 using PipManager.Windows.Services.Environment;
 using PipManager.Windows.Services.Mask;
+using PipManager.Windows.Services.MonacoEditor;
 using PipManager.Windows.Services.Overlay;
 using PipManager.Windows.Services.Page;
 using PipManager.Windows.Services.Toast;
 using PipManager.Windows.ViewModels.Pages.About;
 using PipManager.Windows.ViewModels.Pages.Action;
 using PipManager.Windows.ViewModels.Pages.Environment;
-using PipManager.Windows.ViewModels.Pages.Lab;
 using PipManager.Windows.ViewModels.Pages.Library;
 using PipManager.Windows.ViewModels.Pages.Overlay;
+using PipManager.Windows.ViewModels.Pages.ScriptEditor;
 using PipManager.Windows.ViewModels.Pages.Search;
 using PipManager.Windows.ViewModels.Pages.Settings;
-using PipManager.Windows.ViewModels.Pages.Tools;
 using PipManager.Windows.Views.Pages.About;
 using PipManager.Windows.Views.Pages.Action;
 using PipManager.Windows.Views.Pages.Environment;
-using PipManager.Windows.Views.Pages.Lab;
 using PipManager.Windows.Views.Pages.Library;
 using PipManager.Windows.Views.Pages.Overlay;
+using PipManager.Windows.Views.Pages.ScriptEditor;
 using PipManager.Windows.Views.Pages.Search;
 using PipManager.Windows.Views.Pages.Settings;
-using PipManager.Windows.Views.Pages.Tools;
 using Wpf.Ui;
 using Wpf.Ui.Abstractions;
 
@@ -45,6 +44,7 @@ public static class ServiceRegisterExtensions
         services.AddSingleton<ITaskBarService, TaskBarService>();
         services.AddSingleton<IPackageSearchService, PackageSearchService>();
         services.AddSingleton<IOverlayService, OverlayService>();
+        services.AddSingleton<IMonacoEditorService, MonacoEditorService>();
     }
 
     public static void RegisterViews(this IServiceCollection services)
@@ -57,8 +57,7 @@ public static class ServiceRegisterExtensions
         services.AddSingleton<ActionExceptionPage>();
         services.AddSingleton<SearchPage>();
         services.AddSingleton<SearchDetailPage>();
-        services.AddSingleton<ToolsPage>();
-        services.AddSingleton<LabPage>();
+        services.AddSingleton<ScriptEditorPage>();
         services.AddSingleton<EnvironmentPage>();
         services.AddSingleton<AddEnvironmentPage>();
         services.AddSingleton<SettingsPage>();
@@ -75,8 +74,7 @@ public static class ServiceRegisterExtensions
         services.AddSingleton<ActionExceptionViewModel>();
         services.AddSingleton<SearchViewModel>();
         services.AddSingleton<SearchDetailViewModel>();
-        services.AddSingleton<ToolsViewModel>();
-        services.AddSingleton<LabViewModel>();
+        services.AddSingleton<ScriptEditorViewModel>();
         services.AddSingleton<EnvironmentViewModel>();
         services.AddSingleton<AddEnvironmentViewModel>();
         services.AddSingleton<SettingsViewModel>();

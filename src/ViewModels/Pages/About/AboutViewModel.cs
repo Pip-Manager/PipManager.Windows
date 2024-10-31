@@ -63,6 +63,13 @@ public partial class AboutViewModel : ObservableObject, INavigationAware
             },
             new AboutNugetItem
             {
+                Name = "Monaco Editor",
+                LicenseType = "MIT",
+                Copyright = "Copyright (c) 2016 - present Microsoft Corporation",
+                Url = "https://github.com/microsoft/monaco-editor"
+            },
+            new AboutNugetItem
+            {
                 Name = "System.Text.Json",
                 LicenseType = "MIT",
                 Copyright = "Microsoft Corporation. All rights reserved.",
