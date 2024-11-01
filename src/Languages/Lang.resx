@@ -783,4 +783,7 @@
   <data name="ContentDialog_PrimaryButton_ResetConfig" xml:space="preserve">
     <value>Reset</value>
   </data>
+  <data name="LibraryDetail_ShowDistInfo" xml:space="preserve">
+    <value>Show .dist-info</value>
+  </data>
 </root>

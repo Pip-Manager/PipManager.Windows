@@ -29,27 +29,33 @@
     <Grid Margin="0,0,0,20">
         <StackPanel>
             <ui:Card>
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <StackPanel Orientation="Horizontal">
+                            <ui:TextBlock
+                                FontTypography="Subtitle"
+                                Text="{Binding ViewModel.Package.Name, Mode=TwoWay}"
+                                VerticalAlignment="Center" />
+                            <ui:Badge
+                                Appearance="Info"
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Center">
+                                <ui:TextBlock FontTypography="Caption" Text="{Binding ViewModel.Package.Version, Mode=TwoWay}" />
+                            </ui:Badge>
+                        </StackPanel>
+
                         <ui:TextBlock
-                            FontTypography="Subtitle"
-                            Text="{Binding ViewModel.Package.Name, Mode=TwoWay}"
-                            VerticalAlignment="Center" />
-                        <ui:Badge
-                            Appearance="Info"
-                            Margin="5,0,0,0"
-                            VerticalAlignment="Center">
-                            <ui:TextBlock FontTypography="Caption" Text="{Binding ViewModel.Package.Version, Mode=TwoWay}" />
-                        </ui:Badge>
+                            FontTypography="Body"
+                            Margin="0,3,0,0"
+                            Text="{Binding ViewModel.Package.Summary, Mode=TwoWay}"
+                            TextWrapping="WrapWithOverflow" />
                     </StackPanel>
-
-                    <ui:TextBlock
-                        FontTypography="Body"
-                        Margin="0,3,0,0"
-                        Text="{Binding ViewModel.Package.Summary, Mode=TwoWay}"
-                        TextWrapping="WrapWithOverflow" />
-
-                </StackPanel>
+                    <ui:Button Command="{Binding ViewModel.OpenDistInfoFolderCommand}" IsEnabled="{Binding ViewModel.DistInfoDirectory, Converter={StaticResource StringIsNotNullOrEmpty}}" Grid.Column="1" HorizontalAlignment="Right" Margin="0, 0, 20, 0" Icon="{ui:SymbolIcon Folder24}" Content="{I18N {x:Static lang:LangKeys.LibraryDetail_ShowDistInfo}}"></ui:Button>
+                </Grid>
             </ui:Card>
             <ui:CardExpander Icon="{ui:SymbolIcon Person24}" Margin="0,10,0,0">
                 <ui:CardExpander.Header>

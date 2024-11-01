@@ -1257,6 +1257,15 @@ namespace PipManager.Windows.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show .dist-info.
+        /// </summary>
+        public static string LibraryDetail_ShowDistInfo {
+            get {
+                return ResourceManager.GetString("LibraryDetail_ShowDistInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Summary.
         /// </summary>
         public static string LibraryDetail_Summary {

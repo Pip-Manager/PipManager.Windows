@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using CommunityToolkit.Mvvm.Messaging;
 using PipManager.Core.PyPackage.Models;
 using PipManager.Windows.Languages;
@@ -19,6 +20,8 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
 
     [ObservableProperty] private PackageDetailItem? _package;
     [ObservableProperty] private List<PackageDetailItem>? _library;
+
+    [ObservableProperty] private string? _distInfoDirectory;
 
     #region Contact
 
@@ -70,6 +73,8 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
     {
         Package = message.PackageDetail;
         Library = message.Library;
+
+        DistInfoDirectory = message.PackageDetail.DistInfoPath;
         
         #region Contact
 
@@ -133,6 +138,12 @@ public partial class LibraryDetailViewModel : ObservableObject, INavigationAware
         Topic = new ObservableCollection<string>(Package.Classifier.GetValueOrDefault("Topic", [Lang.LibraryDetail_Unknown]));
 
         #endregion Classifier
+    }
+
+    [RelayCommand]
+    private void OpenDistInfoFolder()
+    {
+        Process.Start("explorer.exe", DistInfoDirectory!);
     }
 
     public Task OnNavigatedToAsync()
