@@ -1,14 +1,11 @@
 ﻿using PipManager.Core.Configuration;
-using PipManager.Windows.Services.Mask;
 using PipManager.Windows.Services.MonacoEditor;
-using PipManager.Windows.Views.Pages.ScriptEditor;
-using PipManager.Windows.Views.Windows;
 using Serilog;
 using Wpf.Ui.Abstractions.Controls;
 
 namespace PipManager.Windows.ViewModels.Pages.ScriptEditor;
 
-public partial class ScriptEditorViewModel(IMonacoEditorService monacoEditorService, IMaskService maskService): ObservableObject, INavigationAware
+public partial class ScriptEditorViewModel(IMonacoEditorService monacoEditorService): ObservableObject, INavigationAware
 {
     [ObservableProperty]
     private bool _monacoExists;

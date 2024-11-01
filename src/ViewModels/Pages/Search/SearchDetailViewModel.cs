@@ -8,7 +8,6 @@ using System.Net.Http;
 using Microsoft.Win32;
 using PipManager.Core.Configuration;
 using PipManager.Core.Wrappers.PackageSearchQueryWrapper;
-using PipManager.Windows.Extensions;
 using PipManager.Windows.Languages;
 using PipManager.Windows.Models.Action;
 using PipManager.Windows.Services.Action;
@@ -153,7 +152,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
 
     private async Task SetupWebViewAsync(QueryListItemModel package)
     {
-        var packageVersions = await _environmentService.GetVersions(package.Name, new CancellationToken(), Configuration.AppConfig!.PackageSource.AllowNonRelease);
+        var packageVersions = await _environmentService.GetVersions(package.Name, new CancellationToken(), Configuration.AppConfig.PackageSource.AllowNonRelease);
         if (packageVersions.Status is 1 or 2)
         {
             _toastService.Error(Lang.SearchDetail_Exception_NetworkError);

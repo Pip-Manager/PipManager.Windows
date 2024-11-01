@@ -134,7 +134,7 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
                         }
                         else
                         {
-                            Configuration.AppConfig!.SelectedEnvironment = EnvironmentItemInList;
+                            Configuration.AppConfig.SelectedEnvironment = EnvironmentItemInList;
                             Configuration.AppConfig.Environments.Add(EnvironmentItemInList);
                             Configuration.Save();
                             Log.Information($"[AddEnvironment] Environment added ({EnvironmentItemInList.PipVersion} for {EnvironmentItemInList.PythonVersion})");
@@ -160,7 +160,7 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
                         }
                         else
                         {
-                            Configuration.AppConfig!.SelectedEnvironment = result;
+                            Configuration.AppConfig.SelectedEnvironment = result;
                             Configuration.AppConfig.Environments.Add(result);
                             Log.Information($"[AddEnvironment] Environment added ({result.PipVersion} for {result.PythonVersion})");
                             Configuration.Save();
@@ -186,7 +186,7 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
                         }
                         else
                         {
-                            Configuration.AppConfig!.SelectedEnvironment = result;
+                            Configuration.AppConfig.SelectedEnvironment = result;
                             Configuration.AppConfig.Environments.Add(result);
                             Log.Information($"[AddEnvironment] Environment added ({result.PipVersion} for {result.PythonVersion})");
                             Configuration.Save();

@@ -22,7 +22,7 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
 {
     public bool CheckEnvironmentExists(EnvironmentModel environmentModel)
     {
-        var environmentItems = Configuration.AppConfig!.Environments;
+        var environmentItems = Configuration.AppConfig.Environments;
         return environmentItems.Any(item => item.PythonPath == environmentModel.PythonPath);
     }
 
@@ -40,7 +40,7 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = Configuration.AppConfig!.SelectedEnvironment!.PythonPath,
+                FileName = Configuration.AppConfig.SelectedEnvironment!.PythonPath,
                 Arguments = "-m pip cache purge",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
@@ -60,7 +60,7 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
 
     public async Task<List<PackageDetailItem>?> GetLibraries()
     {
-        if (Configuration.AppConfig?.SelectedEnvironment == null)
+        if (Configuration.AppConfig.SelectedEnvironment == null)
         {
             return null;
         }
@@ -216,7 +216,7 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
             if (!PackageNameVerificationRegex().IsMatch(packageName))
                 return new GetVersionsResponse { Status = 2, Versions = emptyArray };
             var responseUrl =
-                $"{Configuration.AppConfig!.PackageSource.Source.GetPackageSourceUrl("pypi")}{packageName}/json";
+                $"{Configuration.AppConfig.PackageSource.Source.GetPackageSourceUrl("pypi")}{packageName}/json";
             var responseMessage = await httpClient.GetAsync(responseUrl
                 , cancellationToken);
             if (!responseMessage.IsSuccessStatusCode)
@@ -304,7 +304,7 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = Configuration.AppConfig!.SelectedEnvironment!.PythonPath,
+                FileName = Configuration.AppConfig.SelectedEnvironment!.PythonPath,
                 Arguments = $"{arguments} {extra}",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
@@ -328,23 +328,23 @@ public partial class EnvironmentService(HttpClient httpClient) : IEnvironmentSer
     public ActionResponse Install(string packageName, DataReceivedEventHandler consoleOutputCallback,
         string[]? extraParameters = null)
         => RaiseProcess(
-            $"-m pip install \"{packageName}\" -i {Configuration.AppConfig!.PackageSource.Source.GetPackageSourceUrl()} --retries 1 --timeout 6",
+            $"-m pip install \"{packageName}\" -i {Configuration.AppConfig.PackageSource.Source.GetPackageSourceUrl()} --retries 1 --timeout 6",
             consoleOutputCallback, extraParameters);
     
     public ActionResponse InstallByRequirements(string requirementsFilePath,
         DataReceivedEventHandler consoleOutputCallback)
         => RaiseProcess(
-            $"-m pip install -r \"{requirementsFilePath}\" -i {Configuration.AppConfig!.PackageSource.Source.GetPackageSourceUrl()} --retries 1 --timeout 6",
+            $"-m pip install -r \"{requirementsFilePath}\" -i {Configuration.AppConfig.PackageSource.Source.GetPackageSourceUrl()} --retries 1 --timeout 6",
             consoleOutputCallback);
 
     public ActionResponse Download(string packageName, string downloadPath, DataReceivedEventHandler consoleOutputCallback, string[]? extraParameters = null)
         => RaiseProcess(
-            $"-m pip download -d \"{downloadPath}\" \"{packageName}\" -i {Configuration.AppConfig!.PackageSource.Source.GetPackageSourceUrl()} --retries 1 --timeout 6",
+            $"-m pip download -d \"{downloadPath}\" \"{packageName}\" -i {Configuration.AppConfig.PackageSource.Source.GetPackageSourceUrl()} --retries 1 --timeout 6",
             consoleOutputCallback, extraParameters);
 
     public ActionResponse Update(string packageName, DataReceivedEventHandler consoleOutputCallback)
         => RaiseProcess(
-            $"-m pip install --upgrade \"{packageName}\" -i {Configuration.AppConfig!.PackageSource.Source.GetPackageSourceUrl()} --retries 1 --timeout 6",
+            $"-m pip install --upgrade \"{packageName}\" -i {Configuration.AppConfig.PackageSource.Source.GetPackageSourceUrl()} --retries 1 --timeout 6",
             consoleOutputCallback);
 
     public ActionResponse Uninstall(string packageName, DataReceivedEventHandler consoleOutputCallback)

@@ -3,7 +3,6 @@ using System.Drawing;
 using System.IO;
 using Microsoft.Web.WebView2.Wpf;
 using PipManager.Core.Configuration.Models;
-using PipManager.Windows.Views.Windows;
 
 namespace PipManager.Windows.Services.MonacoEditor;
 

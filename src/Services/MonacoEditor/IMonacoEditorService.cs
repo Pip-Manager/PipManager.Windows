@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Microsoft.Web.WebView2.Wpf;
+﻿using Microsoft.Web.WebView2.Wpf;
 using PipManager.Core.Configuration.Models;
 
 namespace PipManager.Windows.Services.MonacoEditor;

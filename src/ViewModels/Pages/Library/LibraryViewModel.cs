@@ -46,7 +46,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         _contentDialogService = contentDialogService;
         _overlayService = overlayService;
 
-        themeService.SetTheme(Configuration.AppConfig!.Personalization.Theme switch
+        themeService.SetTheme(Configuration.AppConfig.Personalization.Theme switch
         {
             "light" => ApplicationTheme.Light,
             "dark" => ApplicationTheme.Dark,
@@ -102,7 +102,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         var operationList = "";
         var ioTaskList = new List<Task>();
         var msgListLock = new object();
-        var detectNonRelease = Configuration.AppConfig!.PackageSource.AllowNonRelease;
+        var detectNonRelease = Configuration.AppConfig.PackageSource.AllowNonRelease;
         await Task.Run(() =>
         {
             var selected = LibraryList.Where(libraryListItem => libraryListItem.IsSelected).ToList();
@@ -190,7 +190,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
         EnvironmentFoundVisible = true;
         _maskService.Show(Lang.MainWindow_NavigationContent_Library);
         _library = [];
-        if (Configuration.AppConfig!.SelectedEnvironment == null)
+        if (Configuration.AppConfig.SelectedEnvironment == null)
         {
             _maskService.Hide();
             EnvironmentFoundVisible = false;

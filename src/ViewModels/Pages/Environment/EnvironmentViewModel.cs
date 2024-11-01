@@ -49,7 +49,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         {
             var mainWindowViewModel = App.GetService<MainWindowViewModel>();
             mainWindowViewModel.ApplicationTitle = $"Pip Manager | {CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion}";
-            Configuration.AppConfig!.SelectedEnvironment = CurrentEnvironment;
+            Configuration.AppConfig.SelectedEnvironment = CurrentEnvironment;
             Configuration.Save();
             Log.Information($"[Environment] Environment changed ({CurrentEnvironment.PipVersion} for {CurrentEnvironment.PythonVersion})");
         }
@@ -91,7 +91,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         var latest = "";
         try
         {
-            var versions = await Task.Run(() => environmentService.GetVersions("pip", new CancellationToken(), Configuration.AppConfig!.PackageSource.AllowNonRelease));
+            var versions = await Task.Run(() => environmentService.GetVersions("pip", new CancellationToken(), Configuration.AppConfig.PackageSource.AllowNonRelease));
             if (versions.Status == 0)
             {
                 latest = versions.Versions!.Last();
@@ -192,9 +192,9 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         EnvironmentItems.Remove(environment);
         if (CurrentEnvironment == null)
         {
-            Configuration.AppConfig!.SelectedEnvironment = null;
+            Configuration.AppConfig.SelectedEnvironment = null;
         }
-        Configuration.AppConfig!.Environments = [..EnvironmentItems];
+        Configuration.AppConfig.Environments = [..EnvironmentItems];
         Configuration.Save();
         
         var mainWindowViewModel = App.GetService<MainWindowViewModel>();
@@ -210,7 +210,7 @@ public partial class EnvironmentViewModel(INavigationService navigationService,
         
         Configuration.RefreshAllEnvironments();
         EnvironmentItems =
-            new ObservableCollection<EnvironmentModel>(Configuration.AppConfig!.Environments);
+            new ObservableCollection<EnvironmentModel>(Configuration.AppConfig.Environments);
         EnvironmentItems = new ObservableCollection<EnvironmentModel>(Configuration.AppConfig.Environments);
         await Application.Current.Dispatcher.InvokeAsync(() =>
         {
