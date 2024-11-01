@@ -16,7 +16,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
     xmlns:scriptEditor="clr-namespace:PipManager.Windows.Views.Pages.ScriptEditor">
 
     <Grid x:Name="MonacoContainer" Margin="-30, 0, 0, 30">
@@ -25,6 +24,6 @@
             <ui:HyperlinkButton HorizontalAlignment="Center" Icon="{ui:SymbolIcon QuestionCircle24}" Content="Add Monaco Extension"></ui:HyperlinkButton>
         </StackPanel>
         
-        <ui:Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, -55, 15, 0" Appearance="Transparent" Foreground="LimeGreen" Icon="{ui:SymbolIcon Play24}" Content="Run"></ui:Button>
+        <ui:Button Command="{Binding ViewModel.RunScriptCommand}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, -55, 15, 0" Appearance="Transparent" Visibility="{Binding ViewModel.MonacoExists, Converter={StaticResource BoolToVisibility}}" Foreground="LimeGreen" Icon="{ui:SymbolIcon Play24}" Content="Run"></ui:Button>
     </Grid>
 </Page>

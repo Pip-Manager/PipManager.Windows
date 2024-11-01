@@ -68,7 +68,7 @@
                     TargetPageType="{x:Type search:SearchPage}" />
                 <ui:NavigationViewItem
                     Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_ScriptEditor}}"
-                    Icon="{ui:SymbolIcon Script24}"
+                    Icon="{ui:SymbolIcon Code24}"
                     TargetPageType="{x:Type scriptEditor:ScriptEditorPage}" />
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
