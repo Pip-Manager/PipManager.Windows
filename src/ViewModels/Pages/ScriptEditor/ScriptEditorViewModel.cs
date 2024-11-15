@@ -12,6 +12,8 @@ public partial class ScriptEditorViewModel(IMonacoEditorService monacoEditorServ
     
     private bool _isInitialized;
     
+    private const string CodeModel = "try:\n    {code}\nexcept Exception as e:\n    print(f\"[PipManager - ScriptEditor] An error occurred: {e}\")\nfinally:\n    input(\"[PipManager - ScriptEditor] Press Enter to exit...\")";
+    
     [RelayCommand]
     private async Task RunScript()
     {
@@ -21,14 +23,7 @@ public partial class ScriptEditorViewModel(IMonacoEditorService monacoEditorServ
             return;
         }
         var code = await monacoEditorService.MonacoWebView!.ExecuteScriptAsync("editor.getValue();");
-        if (code == null)
-        {
-            code = "input('\\n[PipManager - ScriptEditor] Press Enter to close...')";
-        }
-        else
-        {
-            code = code[1..^1] + "\ninput('\\n[PipManager - ScriptEditor] Press Enter to close...')";
-        }
+        code = code == null ? "input(\"[PipManager - ScriptEditor] Press Enter to exit...\")" : CodeModel.Replace("{code}", code[1..^1].Replace("\\r\\n", "\n    "));
         await monacoEditorService.RunScript(environment, code);
     }
 
