@@ -7,13 +7,15 @@ using PipManager.Core.PyEnvironment;
 using PipManager.Core.PyEnvironment.Helpers;
 using PipManager.Windows.Languages;
 using PipManager.Windows.Services.Environment;
+using PipManager.Windows.Services.Mask;
 using PipManager.Windows.Services.Toast;
 using Wpf.Ui;
 using Wpf.Ui.Abstractions.Controls;
 
 namespace PipManager.Windows.ViewModels.Pages.Environment;
 
-public partial class AddEnvironmentViewModel(INavigationService navigationService, IEnvironmentService environmentService, IToastService toastService) : ObservableObject, INavigationAware
+public partial class AddEnvironmentViewModel(INavigationService navigationService, IMaskService maskService,
+    IEnvironmentService environmentService, IToastService toastService) : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
 
@@ -116,6 +118,7 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
     [RelayCommand]
     private void AddEnvironment(string parameter)
     {
+        maskService.Show();
         switch (ByWay)
         {
             case 0 when EnvironmentItemInList == null:
@@ -201,6 +204,7 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
                     break;
                 }
         }
+        maskService.Hide();
     }
 
     #endregion Add
