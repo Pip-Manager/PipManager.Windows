@@ -2,7 +2,6 @@
 using PipManager.Windows.Languages;
 using PipManager.Windows.Services.Action;
 using PipManager.Windows.Services.Mask;
-using PipManager.Windows.Services.MonacoEditor;
 using PipManager.Windows.ViewModels.Windows;
 using PipManager.Windows.Views.Pages.Library;
 using Wpf.Ui;
@@ -23,8 +22,7 @@ public partial class MainWindow
         IServiceProvider serviceProvider,
         IContentDialogService contentDialogService,
         IMaskService maskPresenter,
-        IActionService actionService,
-        IMonacoEditorService monacoEditorService
+        IActionService actionService
     )
     {
         ViewModel = viewModel;
@@ -40,9 +38,6 @@ public partial class MainWindow
         navigationService.SetNavigationControl(NavigationView);
         maskPresenter.SetMaskPresenter(MaskPresenter);
         contentDialogService.SetDialogHost(RootContentDialog);
-        
-        // Monaco Editor - WebView
-        monacoEditorService.Initialize();
         
         // Action - Background Runner
         var runnerThread = new Thread(actionService.Runner)
