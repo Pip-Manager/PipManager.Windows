@@ -47,7 +47,7 @@
             IsPaneToggleVisible="True"
             OpenPaneLength="200"
             Padding="42,0,42,0"
-            Transition="FadeInWithSlide"
+            Transition="None"
             x:Name="NavigationView">
             <ui:NavigationView.Header>
                 <ui:BreadcrumbBar Margin="42,32,42,20" x:Name="BreadcrumbBar" />

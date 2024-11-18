@@ -18,41 +18,19 @@ using PipManager.Windows.Views.Pages.Environment;
 using PipManager.Windows.Views.Pages.Library;
 using Wpf.Ui;
 using Wpf.Ui.Abstractions.Controls;
-using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 
 namespace PipManager.Windows.ViewModels.Pages.Library;
 
-public partial class LibraryViewModel : ObservableObject, INavigationAware
+public partial class LibraryViewModel(
+    INavigationService navigationService, IEnvironmentService environmentService,
+    IOverlayService overlayService, IActionService actionService,
+    IMaskService maskService, IToastService toastService,
+    IContentDialogService contentDialogService)
+    : ObservableObject, INavigationAware
 {
     private List<PackageDetailItem>? _library = [];
     private bool _isInitialized;
-    private readonly INavigationService _navigationService;
-    private readonly IEnvironmentService _environmentService;
-    private readonly IActionService _actionService;
-    private readonly IMaskService _maskService;
-    private readonly IToastService _toastService;
-    private readonly IContentDialogService _contentDialogService;
-    private readonly IOverlayService _overlayService;
-
-    public LibraryViewModel(INavigationService navigationService, IEnvironmentService environmentService, IOverlayService overlayService,
-        IActionService actionService, IThemeService themeService, IMaskService maskService, IToastService toastService, IContentDialogService contentDialogService)
-    {
-        _navigationService = navigationService;
-        _environmentService = environmentService;
-        _actionService = actionService;
-        _maskService = maskService;
-        _toastService = toastService;
-        _contentDialogService = contentDialogService;
-        _overlayService = overlayService;
-
-        themeService.SetTheme(Configuration.AppConfig.Personalization.Theme switch
-        {
-            "light" => ApplicationTheme.Light,
-            "dark" => ApplicationTheme.Dark,
-            _ => ApplicationTheme.Dark
-        });
-    }
 
     private void InitializeViewModel()
     {
@@ -65,7 +43,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private void InstallPackage()
     {
-        _navigationService.NavigateWithHierarchy(typeof(LibraryInstallPage));
+        navigationService.NavigateWithHierarchy(typeof(LibraryInstallPage));
         WeakReferenceMessenger.Default.Send(new LibraryInstallViewModel.InstalledPackagesMessage([.. LibraryList]));
     }
 
@@ -77,17 +55,17 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private async Task DeletePackageAsync()
     {
         var selected = LibraryList.Where(libraryListItem => libraryListItem.IsSelected).ToList();
-        var custom = new DeletionWarningContentDialog(_contentDialogService.GetDialogHost(), selected);
+        var custom = new DeletionWarningContentDialog(contentDialogService.GetDialogHost(), selected);
         var result = await custom.ShowAsync();
         var command = selected.Aggregate("", (current, item) => current + (item.PackageName + ' '));
         if (result != ContentDialogResult.Primary) return;
-        _actionService.AddOperation(new ActionListItem
+        actionService.AddOperation(new ActionListItem
         (
             ActionType.Uninstall,
             command.Trim().Split(' '),
             progressIntermediate: false
         ));
-        _navigationService.Navigate(typeof(ActionPage));
+        navigationService.Navigate(typeof(ActionPage));
     }
 
     #endregion Delete Package
@@ -97,7 +75,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private async Task CheckUpdate()
     {
-        _maskService.Show(Lang.Library_Operation_CheckUpdate);
+        maskService.Show(Lang.Library_Operation_CheckUpdate);
         var msgList = new List<PackageUpdateItem>();
         var operationList = "";
         var ioTaskList = new List<Task>();
@@ -108,7 +86,7 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             var selected = LibraryList.Where(libraryListItem => libraryListItem.IsSelected).ToList();
             ioTaskList.AddRange(selected.Select(item => Task.Run(async () =>
             {
-                var latest = await _environmentService.GetVersions(item.PackageName.ToLower().Replace('_', '-'), new CancellationToken(), detectNonRelease);
+                var latest = await environmentService.GetVersions(item.PackageName.ToLower().Replace('_', '-'), new CancellationToken(), detectNonRelease);
                 if (latest.Status != 0 || item.PackageVersion == latest.Versions!.Last()) return;
                 lock (msgListLock)
                 {
@@ -123,22 +101,22 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
             })));
             Task.WaitAll([.. ioTaskList]);
         });
-        _maskService.Hide();
+        maskService.Hide();
         if (msgList.Count == 0)
         {
-            _toastService.Info(Lang.ContentDialog_Message_PackageIsLatest);
+            toastService.Info(Lang.ContentDialog_Message_PackageIsLatest);
         }
         else
         {
-            _overlayService.ShowPackageUpdateOverlay(msgList, () =>
+            overlayService.ShowPackageUpdateOverlay(msgList, () =>
             {
-                _actionService.AddOperation(new ActionListItem
+                actionService.AddOperation(new ActionListItem
                 (
                     ActionType.Update,
                     operationList.Trim().Split(' '),
                     progressIntermediate: false
                 ));
-                _navigationService.Navigate(typeof(ActionPage));
+                navigationService.Navigate(typeof(ActionPage));
             });
         }
     }
@@ -151,27 +129,25 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     private void ToDetailPage(object parameter)
     {
         if (_library is null) return;
-        _navigationService.NavigateWithHierarchy(typeof(LibraryDetailPage));
+        navigationService.NavigateWithHierarchy(typeof(LibraryDetailPage));
         var current = _library.Where(libraryListItem => libraryListItem.Name == parameter as string).ToList()[0];
         WeakReferenceMessenger.Default.Send(new LibraryDetailViewModel.LibraryDetailMessage(current, _library));
         Log.Information($"[Library] Turn to detail page: {current.Name}");
     }
 
     #endregion Details
-
-    [ObservableProperty] private int _libraryListLength;
-    [ObservableProperty] private ObservableCollection<PackageListItem> _libraryList = [];
-
-    [ObservableProperty] private bool _environmentFoundVisible;
     
     [RelayCommand]
     private void NavigateToSelectEnvironment()
-        => _navigationService.Navigate(typeof(EnvironmentPage));
+        => navigationService.Navigate(typeof(EnvironmentPage));
 
     [RelayCommand]
     private void NavigateToAddEnvironment()
-        => _navigationService.Navigate(typeof(AddEnvironmentPage));
+        => navigationService.Navigate(typeof(AddEnvironmentPage));
 
+    [ObservableProperty] private int _libraryListLength;
+    [ObservableProperty] private ObservableCollection<PackageListItem> _libraryList = [];
+    [ObservableProperty] private bool _environmentFoundVisible;
     [ObservableProperty] private double _refreshTimeUsage;
     
     private readonly Stopwatch _refreshStopwatch = new();
@@ -181,58 +157,68 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     {
         _refreshStopwatch.Reset();
         _refreshStopwatch.Start();
+        
         LibraryList = [];
-        EnvironmentFoundVisible = true;
-        _maskService.Show(Lang.MainWindow_NavigationContent_Library);
         _library = [];
+        LibraryListLength = 0;
+        EnvironmentFoundVisible = true;
         if (Configuration.AppConfig.SelectedEnvironment == null)
         {
-            _maskService.Hide();
             EnvironmentFoundVisible = false;
             return;
         }
-        await Task.Run(async () =>
+
+        try
         {
-            _library = await _environmentService.GetLibraries();
-        }).ContinueWith(_ =>
+            _ = maskService.ShowAsync(Lang.MainWindow_NavigationContent_Library, 300);
+            var fetchTask = environmentService.GetLibraries();
+            _library = await fetchTask;
+            maskService.Hide();
+        }
+        catch (Exception ex)
         {
-            _maskService.Hide();
-        });
-        if (_library != null)
+            Log.Error(ex, "[Library] Error fetching libraries");
+            maskService.Hide();
+            RefreshTimeUsage = 0;
+            return;
+        }
+        finally
         {
-            foreach (var package in _library)
-            {
-                LibraryList.Add(new PackageListItem
-                {
-                    PackageName = package.Name!,
-                    PackageVersion = package.Version!,
-                    PackageDetailedVersion = package.DetailedVersion!,
-                    PackageSummary = package.Summary!,
-                    IsSelected = false
-                });
-            }
-            LibraryListLength = _library.Count;
             _refreshStopwatch.Stop();
             RefreshTimeUsage = Math.Round(_refreshStopwatch.Elapsed.TotalMilliseconds / 1000.0, 3);
+        }
+
+        if (_library != null)
+        {
+            Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                foreach (var package in _library)
+                {
+                    LibraryList.Add(new PackageListItem
+                    {
+                        PackageName = package.Name!,
+                        PackageVersion = package.Version!,
+                        PackageDetailedVersion = package.DetailedVersion!,
+                        PackageSummary = package.Summary!,
+                        IsSelected = false
+                    });
+                }
+            });
+            
+            LibraryListLength = _library.Count;
             Log.Information("[Library] Package list refreshed successfully");
             return;
         }
         RefreshTimeUsage = 0;
     }
 
-    public Task OnNavigatedToAsync()
+    public async Task OnNavigatedToAsync()
     {
         if (!_isInitialized)
             InitializeViewModel();
-        Application.Current.Dispatcher.InvokeAsync(async () =>
-        {
-            await RefreshLibrary();
-        });
-        return Task.CompletedTask;
+        await RefreshLibrary();
     }
 
     public Task OnNavigatedFromAsync()
-    {
-        return Task.CompletedTask;
-    }
+        => Task.CompletedTask;
 }
