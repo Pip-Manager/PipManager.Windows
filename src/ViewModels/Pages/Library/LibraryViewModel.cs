@@ -166,16 +166,11 @@ public partial class LibraryViewModel : ObservableObject, INavigationAware
     
     [RelayCommand]
     private void NavigateToSelectEnvironment()
-    {
-        _navigationService.Navigate(typeof(EnvironmentPage));
-    }
+        => _navigationService.Navigate(typeof(EnvironmentPage));
 
     [RelayCommand]
     private void NavigateToAddEnvironment()
-    {
-        _navigationService.Navigate(typeof(EnvironmentPage));
-        _navigationService.Navigate(typeof(AddEnvironmentPage));
-    }
+        => _navigationService.Navigate(typeof(AddEnvironmentPage));
 
     [ObservableProperty] private double _refreshTimeUsage;
     
