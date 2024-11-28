@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using PipManager.Core.Configuration;
 using PipManager.Windows.Languages;
 using PipManager.Windows.Services.Action;
 using PipManager.Windows.Services.Mask;
@@ -22,7 +23,8 @@ public partial class MainWindow
         IServiceProvider serviceProvider,
         IContentDialogService contentDialogService,
         IMaskService maskPresenter,
-        IActionService actionService
+        IActionService actionService,
+        IThemeService themeService
     )
     {
         ViewModel = viewModel;
@@ -39,6 +41,11 @@ public partial class MainWindow
         maskPresenter.SetMaskPresenter(MaskPresenter);
         contentDialogService.SetDialogHost(RootContentDialog);
         
+        // Theme
+        themeService.SetTheme(Configuration.AppConfig.Personalization.Theme == "light"
+            ? ApplicationTheme.Light
+            : ApplicationTheme.Dark);
+
         // Action - Background Runner
         var runnerThread = new Thread(actionService.Runner)
         {
