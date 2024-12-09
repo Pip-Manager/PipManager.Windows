@@ -429,8 +429,11 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
 
     public Task OnNavigatedFromAsync()
     {
-        PreInstallPackages.Clear();
-        PreDownloadPackages.Clear();
+        Application.Current.Dispatcher.InvokeAsync(() =>
+        {
+            PreInstallPackages.Clear();
+            PreDownloadPackages.Clear();
+        });
         return Task.CompletedTask;
     }
 }
