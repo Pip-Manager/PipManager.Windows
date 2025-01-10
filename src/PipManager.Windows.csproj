@@ -28,7 +28,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Antelcat.I18N.WPF" Version="1.0.1" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Meziantou.Framework.WPF" Version="1.5.5" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
 		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2849.39" />
