@@ -54,22 +54,27 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
     [RelayCommand]
     private async Task RefreshPipList()
     {
+        Loading = true;
+        Found = false;
+        EnvironmentItems = [];
         await Task.Run(() =>
         {
-            Loading = true;
-            Found = false;
-            EnvironmentItems = [];
-            var value = System.Environment.GetEnvironmentVariable("Path")!.Split(';');
-            foreach (var item in value)
+            var value = (System.Environment.GetEnvironmentVariable("Path") ?? string.Empty)
+                .Split(';', StringSplitOptions.RemoveEmptyEntries)
+                .Distinct()
+                .Where(path => File.Exists(Path.Combine(path, "python.exe")))
+                .Select(path => Detector.ByPythonPath(Path.Combine(path, "python.exe")))
+                .ToList();
+            foreach (var environmentModel in value.OfType<EnvironmentModel>())
             {
-                if (!File.Exists(Path.Combine(item, "python.exe")))
-                    continue;
-                var environmentModel =
-                    Detector.ByPythonPath(Path.Combine(item, "python.exe"));
-                if (environmentModel == null) continue;
                 EnvironmentItems.Add(environmentModel);
             }
-        }).ContinueWith(_ => { Loading = false; Found = EnvironmentItems.Count == 0; Log.Information($"[AddEnvironment] Pip list in environment variable refreshed"); });
+        }).ContinueWith(_ =>
+        {
+            Loading = false;
+            Found = EnvironmentItems.Count == 0;
+            Log.Information("[AddEnvironment] Pip list in environment variable refreshed");
+        });
     }
 
     #endregion By Environment Variables
