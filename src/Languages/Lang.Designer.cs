@@ -1257,6 +1257,15 @@ namespace PipManager.Windows.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show .dist-info.
+        /// </summary>
+        public static string LibraryDetail_ShowDistInfo {
+            get {
+                return ResourceManager.GetString("LibraryDetail_ShowDistInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Summary.
         /// </summary>
         public static string LibraryDetail_Summary {
@@ -1518,6 +1527,15 @@ namespace PipManager.Windows.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Script Editor.
+        /// </summary>
+        public static string MainWindow_NavigationContent_ScriptEditor {
+            get {
+                return ResourceManager.GetString("MainWindow_NavigationContent_ScriptEditor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string MainWindow_NavigationContent_Search {
@@ -1532,15 +1550,6 @@ namespace PipManager.Windows.Languages {
         public static string MainWindow_NavigationContent_Settings {
             get {
                 return ResourceManager.GetString("MainWindow_NavigationContent_Settings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tools.
-        /// </summary>
-        public static string MainWindow_NavigationContent_Tools {
-            get {
-                return ResourceManager.GetString("MainWindow_NavigationContent_Tools", resourceCulture);
             }
         }
         

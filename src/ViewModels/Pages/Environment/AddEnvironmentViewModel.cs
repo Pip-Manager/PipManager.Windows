@@ -7,13 +7,15 @@ using PipManager.Core.PyEnvironment;
 using PipManager.Core.PyEnvironment.Helpers;
 using PipManager.Windows.Languages;
 using PipManager.Windows.Services.Environment;
+using PipManager.Windows.Services.Mask;
 using PipManager.Windows.Services.Toast;
 using Wpf.Ui;
 using Wpf.Ui.Abstractions.Controls;
 
 namespace PipManager.Windows.ViewModels.Pages.Environment;
 
-public partial class AddEnvironmentViewModel(INavigationService navigationService, IEnvironmentService environmentService, IToastService toastService) : ObservableObject, INavigationAware
+public partial class AddEnvironmentViewModel(INavigationService navigationService, IMaskService maskService,
+    IEnvironmentService environmentService, IToastService toastService) : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
 
@@ -52,22 +54,27 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
     [RelayCommand]
     private async Task RefreshPipList()
     {
+        Loading = true;
+        Found = false;
+        EnvironmentItems = [];
         await Task.Run(() =>
         {
-            Loading = true;
-            Found = false;
-            EnvironmentItems = [];
-            var value = System.Environment.GetEnvironmentVariable("Path")!.Split(';');
-            foreach (var item in value)
+            var value = (System.Environment.GetEnvironmentVariable("Path") ?? string.Empty)
+                .Split(';', StringSplitOptions.RemoveEmptyEntries)
+                .Distinct()
+                .Where(path => File.Exists(Path.Combine(path, "python.exe")))
+                .Select(path => Detector.ByPythonPath(Path.Combine(path, "python.exe")))
+                .ToList();
+            foreach (var environmentModel in value.OfType<EnvironmentModel>())
             {
-                if (!File.Exists(Path.Combine(item, "python.exe")))
-                    continue;
-                var environmentModel =
-                    Detector.ByPythonPath(Path.Combine(item, "python.exe"));
-                if (environmentModel == null) continue;
                 EnvironmentItems.Add(environmentModel);
             }
-        }).ContinueWith(_ => { Loading = false; Found = EnvironmentItems.Count == 0; Log.Information($"[AddEnvironment] Pip list in environment variable refreshed"); });
+        }).ContinueWith(_ =>
+        {
+            Loading = false;
+            Found = EnvironmentItems.Count == 0;
+            Log.Information("[AddEnvironment] Pip list in environment variable refreshed");
+        });
     }
 
     #endregion By Environment Variables
@@ -116,6 +123,7 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
     [RelayCommand]
     private void AddEnvironment(string parameter)
     {
+        maskService.Show();
         switch (ByWay)
         {
             case 0 when EnvironmentItemInList == null:
@@ -134,7 +142,7 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
                         }
                         else
                         {
-                            Configuration.AppConfig!.SelectedEnvironment = EnvironmentItemInList;
+                            Configuration.AppConfig.SelectedEnvironment = EnvironmentItemInList;
                             Configuration.AppConfig.Environments.Add(EnvironmentItemInList);
                             Configuration.Save();
                             Log.Information($"[AddEnvironment] Environment added ({EnvironmentItemInList.PipVersion} for {EnvironmentItemInList.PythonVersion})");
@@ -160,7 +168,7 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
                         }
                         else
                         {
-                            Configuration.AppConfig!.SelectedEnvironment = result;
+                            Configuration.AppConfig.SelectedEnvironment = result;
                             Configuration.AppConfig.Environments.Add(result);
                             Log.Information($"[AddEnvironment] Environment added ({result.PipVersion} for {result.PythonVersion})");
                             Configuration.Save();
@@ -186,7 +194,7 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
                         }
                         else
                         {
-                            Configuration.AppConfig!.SelectedEnvironment = result;
+                            Configuration.AppConfig.SelectedEnvironment = result;
                             Configuration.AppConfig.Environments.Add(result);
                             Log.Information($"[AddEnvironment] Environment added ({result.PipVersion} for {result.PythonVersion})");
                             Configuration.Save();
@@ -201,6 +209,7 @@ public partial class AddEnvironmentViewModel(INavigationService navigationServic
                     break;
                 }
         }
+        maskService.Hide();
     }
 
     #endregion Add

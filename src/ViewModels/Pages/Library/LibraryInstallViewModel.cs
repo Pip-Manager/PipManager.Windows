@@ -81,7 +81,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
             return;
         }
         _maskService.Show(Lang.LibraryInstall_Add_Verifying);
-        var detectNonRelease = Configuration.AppConfig!.PackageSource.AllowNonRelease;
+        var detectNonRelease = Configuration.AppConfig.PackageSource.AllowNonRelease;
         var packageVersions = await _environmentService.GetVersions(packageName, new CancellationToken(), detectNonRelease);
         _maskService.Hide();
         switch (packageVersions.Status)
@@ -198,7 +198,7 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
             return;
         }
         _maskService.Show(Lang.LibraryInstall_Add_Verifying);
-        var packageVersions = await _environmentService.GetVersions(packageName, new CancellationToken(), Configuration.AppConfig!.PackageSource.AllowNonRelease);
+        var packageVersions = await _environmentService.GetVersions(packageName, new CancellationToken(), Configuration.AppConfig.PackageSource.AllowNonRelease);
         _maskService.Hide();
         switch (packageVersions.Status)
         {
@@ -429,8 +429,11 @@ public partial class LibraryInstallViewModel : ObservableObject, INavigationAwar
 
     public Task OnNavigatedFromAsync()
     {
-        PreInstallPackages.Clear();
-        PreDownloadPackages.Clear();
+        Application.Current.Dispatcher.InvokeAsync(() =>
+        {
+            PreInstallPackages.Clear();
+            PreDownloadPackages.Clear();
+        });
         return Task.CompletedTask;
     }
 }

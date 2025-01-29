@@ -21,7 +21,6 @@
     xmlns:action="clr-namespace:PipManager.Windows.Views.Pages.Action"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:environment="clr-namespace:PipManager.Windows.Views.Pages.Environment"
-    xmlns:lab="clr-namespace:PipManager.Windows.Views.Pages.Lab"
     xmlns:lang="clr-namespace:PipManager.Windows.Languages"
     xmlns:library="clr-namespace:PipManager.Windows.Views.Pages.Library"
     xmlns:local="clr-namespace:PipManager.Windows.Views.Windows"
@@ -30,7 +29,6 @@
     xmlns:overlay="clr-namespace:PipManager.Windows.Views.Pages.Overlay"
     xmlns:search="clr-namespace:PipManager.Windows.Views.Pages.Search"
     xmlns:settings="clr-namespace:PipManager.Windows.Views.Pages.Settings"
-    xmlns:tools="clr-namespace:PipManager.Windows.Views.Pages.Tools"
     xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -49,7 +47,7 @@
             IsPaneToggleVisible="True"
             OpenPaneLength="200"
             Padding="42,0,42,0"
-            Transition="FadeInWithSlide"
+            Transition="None"
             x:Name="NavigationView">
             <ui:NavigationView.Header>
                 <ui:BreadcrumbBar Margin="42,32,42,20" x:Name="BreadcrumbBar" />
@@ -67,15 +65,6 @@
                     Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_Search}}"
                     Icon="{ui:SymbolIcon BoxSearch24}"
                     TargetPageType="{x:Type search:SearchPage}" />
-                <ui:NavigationViewItem
-                    Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_Tools}}"
-                    Icon="{ui:SymbolIcon Toolbox24}"
-                    TargetPageType="{x:Type tools:ToolsPage}" />
-                <ui:NavigationViewItem
-                    Content="{I18N {x:Static lang:LangKeys.MainWindow_NavigationContent_Lab}}"
-                    Icon="{ui:SymbolIcon FormNew24}"
-                    TargetPageType="{x:Type lab:LabPage}"
-                    Visibility="{Binding ViewModel.ExperimentMode, Converter={StaticResource BoolToVisibility}}" />
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem

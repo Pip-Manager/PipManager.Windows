@@ -43,11 +43,13 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
 
     private void InitializeViewModel()
     {
-        var config = Configuration.AppConfig!;
+        var config = Configuration.AppConfig;
         CurrentPackageSource = config.PackageSource.Source;
         AllowNonRelease = config.PackageSource.AllowNonRelease;
         var language = config.Personalization.Language;
-        Language = language != "Auto" ? GetLanguage.LanguageList.Select(x => x.Key).ToList()[GetLanguage.LanguageList.Select(x => x.Value).ToList().IndexOf(language)] : "Auto";
+        Language = language != "Auto" 
+            ? GetLanguage.LanguageList.FirstOrDefault(x => x.Value == language).Key 
+            : "Auto";
         CurrentTheme = config.Personalization.Theme switch
         {
             "light" => ApplicationTheme.Light,
@@ -69,7 +71,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private void OnChangePackageSource(string parameter)
     {
-        Configuration.AppConfig!.PackageSource.Source = parameter;
+        Configuration.AppConfig.PackageSource.Source = parameter;
         Configuration.Save();
         Log.Information($"[Settings] Package source changes to {parameter}");
     }
@@ -145,7 +147,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     [RelayCommand]
     private void OnChangeDetectNonReleaseVersion()
     {
-        Configuration.AppConfig!.PackageSource.AllowNonRelease = AllowNonRelease;
+        Configuration.AppConfig.PackageSource.AllowNonRelease = AllowNonRelease;
         Configuration.Save();
         Log.Information($"[Settings] Detect non-release update changes to {AllowNonRelease}");
     }
@@ -162,7 +164,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     {
         var language = Language != "Auto" ? GetLanguage.LanguageList[Language] : "Auto";
         I18NExtension.Culture = language != "Auto" ? new CultureInfo(language) : CultureInfo.CurrentCulture;
-        Configuration.AppConfig!.Personalization.Language = Language != "Auto" ? GetLanguage.LanguageList[Language] : "Auto";
+        Configuration.AppConfig.Personalization.Language = Language != "Auto" ? GetLanguage.LanguageList[Language] : "Auto";
         Configuration.Save();
         if (_isInitialized)
         {
@@ -193,7 +195,7 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
                 CurrentTheme = ApplicationTheme.Dark;
                 break;
         }
-        Configuration.AppConfig!.Personalization.Theme = parameter;
+        Configuration.AppConfig.Personalization.Theme = parameter;
         Configuration.Save();
         Log.Information($"[Settings] Theme changes to {parameter}");
     }
