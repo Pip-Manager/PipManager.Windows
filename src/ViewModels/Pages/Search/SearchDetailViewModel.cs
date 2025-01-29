@@ -152,7 +152,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
 
     private async Task SetupWebViewAsync(QueryListItemModel package)
     {
-        var packageVersions = await _environmentService.GetVersions(package.Name, new CancellationToken(), Configuration.AppConfig.PackageSource.AllowNonRelease);
+        var packageVersions = await _environmentService.GetVersions(package.Name, CancellationToken.None, Configuration.AppConfig.PackageSource.AllowNonRelease);
         if (packageVersions.Status is 1 or 2)
         {
             _toastService.Error(Lang.SearchDetail_Exception_NetworkError);
