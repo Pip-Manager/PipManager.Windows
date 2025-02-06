@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipManager.Cli", "src\PipManager.Cli\PipManager.Cli.csproj", "{A5C269AB-7331-407B-BFB1-A11D80705AD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipManager.Core", "src\PipManager.Core\PipManager.Core.csproj", "{07A404D9-1E8D-4B6F-9D5D-45045E2AD5E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipManager.Windows", "src\PipManager.Windows\PipManager.Windows.csproj", "{ECB02E45-ADCC-4EE4-8F98-D136FEFD71B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipManager.Desktop", "src\PipManager.Desktop\PipManager.Desktop.csproj", "{4B462C92-3B35-4E9E-A906-63461318D783}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repo", "Repo", "{482231E2-63A0-4499-B439-FA7F27E25414}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		build.ps1 = build.ps1
+		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Github", "Github", "{46AD195E-6798-4C06-96AF-C2BBC0816C22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IssueTemplate", "IssueTemplate", "{93128CBF-D5F6-4C74-82FD-BFBD19A57864}"
+	ProjectSection(SolutionItems) = preProject
+		.github\ISSUE_TEMPLATE\bug-en.yml = .github\ISSUE_TEMPLATE\bug-en.yml
+		.github\ISSUE_TEMPLATE\bug-zh.yml = .github\ISSUE_TEMPLATE\bug-zh.yml
+		.github\ISSUE_TEMPLATE\feat-en.yml = .github\ISSUE_TEMPLATE\feat-en.yml
+		.github\ISSUE_TEMPLATE\feat-zh.yml = .github\ISSUE_TEMPLATE\feat-zh.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5C269AB-7331-407B-BFB1-A11D80705AD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5C269AB-7331-407B-BFB1-A11D80705AD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5C269AB-7331-407B-BFB1-A11D80705AD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5C269AB-7331-407B-BFB1-A11D80705AD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07A404D9-1E8D-4B6F-9D5D-45045E2AD5E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07A404D9-1E8D-4B6F-9D5D-45045E2AD5E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07A404D9-1E8D-4B6F-9D5D-45045E2AD5E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07A404D9-1E8D-4B6F-9D5D-45045E2AD5E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECB02E45-ADCC-4EE4-8F98-D136FEFD71B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECB02E45-ADCC-4EE4-8F98-D136FEFD71B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECB02E45-ADCC-4EE4-8F98-D136FEFD71B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECB02E45-ADCC-4EE4-8F98-D136FEFD71B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41D3609E-3FE9-4ACE-B3F1-1E6BCFA12DDA}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{41D3609E-3FE9-4ACE-B3F1-1E6BCFA12DDA}.Debug|Any CPU.Build.0 = Debug|x86
+		{41D3609E-3FE9-4ACE-B3F1-1E6BCFA12DDA}.Release|Any CPU.ActiveCfg = Release|x86
+		{41D3609E-3FE9-4ACE-B3F1-1E6BCFA12DDA}.Release|Any CPU.Build.0 = Release|x86
+		{4B462C92-3B35-4E9E-A906-63461318D783}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B462C92-3B35-4E9E-A906-63461318D783}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B462C92-3B35-4E9E-A906-63461318D783}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B462C92-3B35-4E9E-A906-63461318D783}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{46AD195E-6798-4C06-96AF-C2BBC0816C22} = {482231E2-63A0-4499-B439-FA7F27E25414}
+		{93128CBF-D5F6-4C74-82FD-BFBD19A57864} = {46AD195E-6798-4C06-96AF-C2BBC0816C22}
+	EndGlobalSection
+EndGlobal
