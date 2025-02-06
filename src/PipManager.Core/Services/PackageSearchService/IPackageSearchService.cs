@@ -1,8 +1,9 @@
-﻿using PipManager.Core.Wrappers.PackageSearchQueryWrapper;
+﻿using PipManager.Core.PyPackage.Models;
+using PipManager.Core.Wrappers.PackageSearchIndexWrapper;
 
 namespace PipManager.Core.Services.PackageSearchService;
 
 public interface IPackageSearchService
 {
-    public ValueTask<QueryWrapper> Query(string name, int page = 1);
+    public Task<List<IndexItemModel>?> GetIndexAsync(PackageSourceType packageSourceType);
 }

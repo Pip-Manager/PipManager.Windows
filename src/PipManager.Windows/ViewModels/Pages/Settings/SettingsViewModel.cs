@@ -3,9 +3,14 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net.Http;
+using System.Text.Json;
 using PipManager.Core.Configuration;
 using PipManager.Core.Extensions;
+using PipManager.Core.PyPackage.Models;
+using PipManager.Core.Services.PackageSearchService;
+using PipManager.Core.Wrappers.PackageSearchIndexWrapper;
 using PipManager.Windows.Languages;
+using PipManager.Windows.Services.Mask;
 using PipManager.Windows.Services.Toast;
 using PipManager.Windows.Views.Pages.About;
 using PipManager.Windows.Views.Pages.Settings;
@@ -23,14 +28,18 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
     private readonly IThemeService _themeService;
     private readonly INavigationService _navigationService;
     private readonly IToastService _toastService;
+    private readonly IMaskService _maskService;
+    private readonly IPackageSearchService _packageSearchService;
 
-    public SettingsViewModel(HttpClient httpClient, ISnackbarService snackbarService, IThemeService themeService, INavigationService navigationService, IToastService toastService)
+    public SettingsViewModel(HttpClient httpClient, ISnackbarService snackbarService, IThemeService themeService, INavigationService navigationService, IToastService toastService, IMaskService maskService, IPackageSearchService packageSearchService)
     {
         _httpClient = httpClient;
         _snackbarService = snackbarService;
         _themeService = themeService;
         _navigationService = navigationService;
         _toastService = toastService;
+        _maskService = maskService;
+        _packageSearchService = packageSearchService;
 
         foreach (var languagePair in GetLanguage.LanguageList)
         {
@@ -150,6 +159,31 @@ public partial class SettingsViewModel : ObservableObject, INavigationAware
         Configuration.AppConfig.PackageSource.AllowNonRelease = AllowNonRelease;
         Configuration.Save();
         Log.Information($"[Settings] Detect non-release update changes to {AllowNonRelease}");
+    }
+
+    [RelayCommand]
+    private async Task UpdateIndex()
+    {
+        _maskService.Show(Lang.Settings_PackageSource_UpdateIndex);
+        var packageSource = Configuration.AppConfig.PackageSource.Source switch
+        {
+            "official" => PackageSourceType.Official,
+            "tsinghua" => PackageSourceType.Tsinghua,
+            "aliyun" => PackageSourceType.Aliyun,
+            "douban" => PackageSourceType.Douban,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        var indexContent = await _packageSearchService.GetIndexAsync(packageSource);
+        if (indexContent == null)
+        {
+            _toastService.Error(Lang.Settings_PackageSource_UpdateIndex_Failed);
+        }
+        else
+        {
+            await File.WriteAllTextAsync(Path.Combine(AppInfo.CachesDir, $"{packageSource}-index.json"), JsonSerializer.Serialize(indexContent));
+            _toastService.Success(Lang.Settings_PackageSource_UpdateIndex_Success);
+        }
+        _maskService.Hide();
     }
 
     #endregion Package Source

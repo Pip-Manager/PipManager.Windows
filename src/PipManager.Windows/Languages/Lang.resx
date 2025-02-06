@@ -786,4 +786,13 @@
   <data name="LibraryDetail_ShowDistInfo" xml:space="preserve">
     <value>Show .dist-info</value>
   </data>
+  <data name="Settings_PackageSource_UpdateIndex" xml:space="preserve">
+    <value>Update Index</value>
+  </data>
+  <data name="Settings_PackageSource_UpdateIndex_Success" xml:space="preserve">
+    <value>Successfully update index</value>
+  </data>
+  <data name="Settings_PackageSource_UpdateIndex_Failed" xml:space="preserve">
+    <value>Update index failed</value>
+  </data>
 </root>

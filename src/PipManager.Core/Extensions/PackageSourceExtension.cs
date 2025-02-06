@@ -1,4 +1,6 @@
-﻿namespace PipManager.Core.Extensions;
+﻿using PipManager.Core.PyPackage.Models;
+
+namespace PipManager.Core.Extensions;
 
 public static class PackageSourceExtension
 {
@@ -23,6 +25,20 @@ public static class PackageSourceExtension
                 _ => index
             }}/",
             "douban" => $"https://pypi.doubanio.com/{index}/",
+            _ => throw new ArgumentOutOfRangeException(nameof(packageSourceType), packageSourceType, null)
+        };
+    
+    public static string GetPackageSourceUrl(this PackageSourceType packageSourceType, string index = "simple")
+        => packageSourceType switch
+        {
+            PackageSourceType.Official => $"https://pypi.org/{index}/",
+            PackageSourceType.Tsinghua => $"https://pypi.tuna.tsinghua.edu.cn/{index}/",
+            PackageSourceType.Aliyun => $"https://mirrors.aliyun.com/pypi/{index switch
+            {
+                "pypi" => "web/pypi/",
+                _ => index
+            }}/",
+            PackageSourceType.Douban => $"https://pypi.doubanio.com/{index}/",
             _ => throw new ArgumentOutOfRangeException(nameof(packageSourceType), packageSourceType, null)
         };
 }

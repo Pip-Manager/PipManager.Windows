@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Net.Http;
 using Microsoft.Win32;
 using PipManager.Core.Configuration;
-using PipManager.Core.Wrappers.PackageSearchQueryWrapper;
+using PipManager.Core.Wrappers.PackageSearchIndexWrapper;
 using PipManager.Windows.Languages;
 using PipManager.Windows.Models.Action;
 using PipManager.Windows.Services.Action;
@@ -22,7 +22,7 @@ namespace PipManager.Windows.ViewModels.Pages.Search;
 
 public partial class SearchDetailViewModel : ObservableObject, INavigationAware
 {
-    public record SearchDetailMessage(QueryListItemModel Package);
+    public record SearchDetailMessage(IndexItemModel Package);
     private bool _isInitialized;
     private readonly INavigationService _navigationService;
     private readonly HttpClient _httpClient;
@@ -58,7 +58,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
         """;
 
     [ObservableProperty]
-    private QueryListItemModel? _package;
+    private IndexItemModel? _package;
 
     public SearchDetailViewModel(INavigationService navigationService, HttpClient httpClient, IThemeService themeService, IToastService toastService, IEnvironmentService environmentService, IActionService actionService)
     {
@@ -150,7 +150,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
         }
     }
 
-    private async Task SetupWebViewAsync(QueryListItemModel package)
+    private async Task SetupWebViewAsync(IndexItemModel package)
     {
         var packageVersions = await _environmentService.GetVersions(package.Name, CancellationToken.None, Configuration.AppConfig.PackageSource.AllowNonRelease);
         if (packageVersions.Status is 1 or 2)
@@ -166,7 +166,7 @@ public partial class SearchDetailViewModel : ObservableObject, INavigationAware
 
         await CoreWebView2Environment.CreateAsync(null, AppInfo.CachesDir);
         await SearchDetailPage.ProjectDescriptionWebView!.EnsureCoreWebView2Async().ConfigureAwait(true);
-        await LoadProjectDescriptionAsync(package.Url);
+        await LoadProjectDescriptionAsync($"https://pypi.org/project/{package.Name}");
     }
 
     private async Task LoadProjectDescriptionAsync(string projectDescriptionUrl)

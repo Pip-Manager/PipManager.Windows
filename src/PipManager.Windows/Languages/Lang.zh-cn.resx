@@ -786,4 +786,13 @@
   <data name="LibraryDetail_ShowDistInfo" xml:space="preserve">
     <value>打开 .dist-info 文件夹</value>
   </data>
+  <data name="Settings_PackageSource_UpdateIndex" xml:space="preserve">
+    <value>更新索引</value>
+  </data>
+  <data name="Settings_PackageSource_UpdateIndex_Success" xml:space="preserve">
+    <value>索引更新成功</value>
+  </data>
+  <data name="Settings_PackageSource_UpdateIndex_Failed" xml:space="preserve">
+    <value>索引更新失败</value>
+  </data>
 </root>

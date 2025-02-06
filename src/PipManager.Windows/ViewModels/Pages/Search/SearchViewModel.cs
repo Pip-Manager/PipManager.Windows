@@ -1,23 +1,29 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using Serilog;
 using System.Collections.ObjectModel;
-using PipManager.Core.Services.PackageSearchService;
-using PipManager.Core.Wrappers.PackageSearchQueryWrapper;
-using PipManager.Windows.Languages;
+using System.IO;
+using System.Text.Json;
+using PipManager.Core.Configuration;
+using PipManager.Core.Extensions;
+using PipManager.Core.PyPackage.Models;
+using PipManager.Core.Wrappers.PackageSearchIndexWrapper;
 using PipManager.Windows.Services.Mask;
-using PipManager.Windows.Services.Toast;
 using PipManager.Windows.Views.Pages.Search;
 using Wpf.Ui;
 using Wpf.Ui.Abstractions.Controls;
+using Process = Raffinert.FuzzySharp.Process;
 
 namespace PipManager.Windows.ViewModels.Pages.Search;
 
-public partial class SearchViewModel(IPackageSearchService packageSearchService, IToastService toastService, IMaskService maskService, INavigationService navigationService) 
+public partial class SearchViewModel(IMaskService maskService, INavigationService navigationService)
     : ObservableObject, INavigationAware
 {
     private bool _isInitialized;
 
-    [ObservableProperty] private ObservableCollection<QueryListItemModel> _queryList = [];
+    [ObservableProperty] private Dictionary<string, string>? _queryMapping;
+    [ObservableProperty] private List<string>? _queryNameList = [];
+    [ObservableProperty] private ObservableCollection<string> _searchResults = [];
+    
     [ObservableProperty] private string _queryPackageName = "";
     [ObservableProperty] private string _totalResultNumber = "";
     [ObservableProperty] private bool _onQuerying;
@@ -26,6 +32,29 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
     [ObservableProperty] private bool _reachesLastPage;
     [ObservableProperty] private int _currentPage = 1;
     [ObservableProperty] private int _maxPage = 1;
+
+    private async Task<Dictionary<string, string>?> TryLoadIndex()
+    {
+        var packageSource = Configuration.AppConfig.PackageSource.Source switch
+        {
+            "official" => PackageSourceType.Official,
+            "tsinghua" => PackageSourceType.Tsinghua,
+            "aliyun" => PackageSourceType.Aliyun,
+            "douban" => PackageSourceType.Douban,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        var targetIndexFilePath = Path.Combine(AppInfo.CachesDir, $"{packageSource}-index.json");
+        var indexContent =
+            JsonSerializer.Deserialize<List<IndexItemModel>>(await File.ReadAllTextAsync(targetIndexFilePath));
+        if (indexContent != null)
+        {
+            return File.Exists(targetIndexFilePath)
+                ? indexContent.ToDictionary(key => key.Name, value => value.Url)
+                : null;
+        }
+
+        return null;
+    }
 
     private void InitializeViewModel()
     {
@@ -36,107 +65,47 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
     #region Details
     
     [RelayCommand]
-    private void SearchItemDoubleClick(QueryListItemModel selectedQueryListItem)
+    private void SearchItemDoubleClick(string selectedPackageName)
     {
+        var selectedIndexItem = new IndexItemModel
+        {
+            Name = selectedPackageName,
+            Url = $"{Configuration.AppConfig.PackageSource.Source.GetPackageSourceUrl()}{QueryMapping![selectedPackageName]}"
+        };
         navigationService.Navigate(typeof(SearchDetailPage));
-        WeakReferenceMessenger.Default.Send(new SearchDetailViewModel.SearchDetailMessage(selectedQueryListItem));
-        Log.Information($"[Search] Turn to detail page: {selectedQueryListItem.Name}");
+        WeakReferenceMessenger.Default.Send(new SearchDetailViewModel.SearchDetailMessage(selectedIndexItem));
+        Log.Information($"[Search] Turn to detail page: {selectedIndexItem.Name}");
     }
 
     #endregion Details
 
     [RelayCommand]
-    private async Task ToPreviousPage()
-    {
-        if (CurrentPage == 1)
-        {
-            return;
-        }
-        maskService.Show();
-        var result = await packageSearchService.Query(QueryPackageName, CurrentPage - 1);
-        Process(result);
-        maskService.Hide();
-        CurrentPage--;
-        DeterminePageReaches();
-    }
-
-    [RelayCommand]
-    private async Task ToNextPage()
-    {
-        if (CurrentPage == MaxPage)
-        {
-            return;
-        }
-        maskService.Show();
-        var result = await packageSearchService.Query(QueryPackageName, CurrentPage + 1);
-        Process(result);
-        maskService.Hide();
-        CurrentPage++;
-        DeterminePageReaches();
-    }
-
-    private void DeterminePageReaches()
-    {
-        ReachesFirstPage = CurrentPage == 1;
-        ReachesLastPage = CurrentPage == MaxPage;
-    }
-
-    private void Process(QueryWrapper queryWrapper)
-    {
-        if (queryWrapper.Status == QueryStatus.Success)
-        {
-            foreach (var resultItem in queryWrapper.Results!.Where(resultItem => string.IsNullOrEmpty(resultItem.Description)))
-            {
-                resultItem.Description = Lang.Search_List_NoDescription;
-            }
-            QueryList = new ObservableCollection<QueryListItemModel>(queryWrapper.Results!);
-            TotalResultNumber = queryWrapper.ResultCount!;
-            SuccessQueried = true;
-            MaxPage = queryWrapper.MaxPageNumber;
-            DeterminePageReaches();
-        }
-        else
-        {
-            switch (queryWrapper.Status)
-            {
-                case QueryStatus.NoResults:
-                    toastService.Error(Lang.Search_Query_NoResults);
-                    break;
-                case QueryStatus.Timeout:
-                    toastService.Error(Lang.Search_Query_Timeout);
-                    break;
-                case QueryStatus.Success:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            QueryList.Clear();
-            TotalResultNumber = "";
-            SuccessQueried = false;
-            MaxPage = 1;
-        }
-    }
-
-    [RelayCommand]
     private async Task Search(string? parameter)
     {
-        if (parameter != null && !string.IsNullOrEmpty(parameter))
+        if (parameter == null || QueryNameList == null)
         {
-            OnQuerying = true;
-            Log.Information($"[Search] Query: {parameter}");
-            QueryList.Clear();
-            TotalResultNumber = "";
-            SuccessQueried = false;
-            MaxPage = 1;
-            CurrentPage = 1;
-            QueryPackageName = parameter;
-            var result = await packageSearchService.Query(parameter);
-            Process(result);
-            OnQuerying = false;
+            return;
         }
+        
+        maskService.Show();
+        SearchResults.Clear();
+        await Task.Run(() =>
+        {
+            var searchText = parameter.ToLower();
+            var fuzzyResults = Process.ExtractTop(searchText, QueryNameList, limit:1000);
+            foreach (var fuzzyResult in fuzzyResults)
+            {
+                Application.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    SearchResults.Add(fuzzyResult.Value);
+                });
+            }
+        });
+        Task.WaitAll();
+        maskService.Hide();
     }
 
-    public Task OnNavigatedToAsync()
+    public async Task OnNavigatedToAsync()
     {
         if (!_isInitialized)
             InitializeViewModel();
@@ -144,7 +113,8 @@ public partial class SearchViewModel(IPackageSearchService packageSearchService,
         {
             navigationService.GetNavigationControl().BreadcrumbBar!.Visibility = Visibility.Visible;
         });
-        return Task.CompletedTask;
+        QueryMapping = await TryLoadIndex();
+        QueryNameList = QueryMapping?.Keys.ToList();
     }
 
     public Task OnNavigatedFromAsync()

@@ -1950,6 +1950,33 @@ namespace PipManager.Windows.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update Index.
+        /// </summary>
+        public static string Settings_PackageSource_UpdateIndex {
+            get {
+                return ResourceManager.GetString("Settings_PackageSource_UpdateIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update index failed.
+        /// </summary>
+        public static string Settings_PackageSource_UpdateIndex_Failed {
+            get {
+                return ResourceManager.GetString("Settings_PackageSource_UpdateIndex_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully update index.
+        /// </summary>
+        public static string Settings_PackageSource_UpdateIndex_Success {
+            get {
+                return ResourceManager.GetString("Settings_PackageSource_UpdateIndex_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Crush files will be deleted after more than {0} items.
         /// </summary>
         public static string Settings_PersonalizationCrushesAutoDeletion_Tip {

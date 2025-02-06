@@ -1,5 +1,5 @@
 ﻿using System.Windows.Input;
-using PipManager.Core.Wrappers.PackageSearchQueryWrapper;
+using PipManager.Core.Wrappers.PackageSearchIndexWrapper;
 using PipManager.Windows.ViewModels.Pages.Search;
 using Wpf.Ui.Abstractions.Controls;
 using Wpf.Ui.Controls;
@@ -22,7 +22,7 @@ public partial class SearchPage : INavigableView<SearchViewModel>
     {
         if (sender is ListViewItem item)
         {
-            ViewModel.SearchItemDoubleClickCommand.Execute(item.DataContext as QueryListItemModel);
+            ViewModel.SearchItemDoubleClickCommand.Execute(item.DataContext as string);
         }
     }
 }

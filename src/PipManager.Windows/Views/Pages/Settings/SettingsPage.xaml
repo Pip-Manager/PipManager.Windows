@@ -25,7 +25,7 @@
     </Page.Resources>
 
     <StackPanel Margin="0,0,0,20">
-        <!--  Network  -->
+        <!--  Package  -->
         <ui:Card>
             <StackPanel>
                 <ui:TextBlock Style="{StaticResource BodyLargeTextBlockStyle}" Text="{I18N {x:Static lang:LangKeys.Settings_Category_Package}}" />
@@ -125,11 +125,14 @@
                                 Margin="0,10,0,0"
                                 Text="{Binding ViewModel.DoubanPackageSourceNetwork}" />
                         </Grid>
-                        <ui:Button
-                            Command="{Binding ViewModel.TestNetworkCommand}"
-                            Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_NetworkTest}}"
-                            Icon="{ui:SymbolIcon NetworkCheck20}"
-                            Margin="0,10,0,0" />
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0,10,0,0" >
+                            <ui:Button
+                                Command="{Binding ViewModel.TestNetworkCommand}"
+                                Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_NetworkTest}}"
+                                Icon="{ui:SymbolIcon NetworkCheck20}"/>
+                            <ui:Button Command="{Binding ViewModel.UpdateIndexCommand}" Margin="7, 0, 0, 0" Content="{I18N {x:Static lang:LangKeys.Settings_PackageSource_UpdateIndex}}" Icon="{ui:SymbolIcon List24}"></ui:Button>
+                        </StackPanel>
                     </StackPanel>
                 </ui:CardExpander>
 

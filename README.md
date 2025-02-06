@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/Pip-Manager/PipManager">
-    <img src="https://raw.githubusercontent.com/Pip-Manager/PipManager/refs/heads/main/src/Assets/icon.png" alt="Logo" width="80" height="80">
+    <img src="https://raw.githubusercontent.com/Pip-Manager/PipManager.Assets/refs/heads/main/pipManager.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Pip Manager</h3>
@@ -34,6 +34,8 @@
 ---
 
 有关项目进展和计划：[PipManager Roadmap](https://github.com/Pip-Manager/PipManager/issues/3)
+
+已知严重问题：搜索功能无法使用
 
 ---
 
