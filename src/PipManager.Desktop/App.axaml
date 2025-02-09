@@ -1,10 +1,34 @@
-<Application xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="PipManager.Desktop.App"
-             RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
-  
+<Application
+    x:Class="PipManager.Desktop.App"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    RequestedThemeVariant="Default">
+
     <Application.Styles>
         <FluentTheme />
+
+        <!--  Styles  -->
+        <StyleInclude Source="Styles/Button.axaml" />
+        <StyleInclude Source="Styles/ListBox.axaml" />
+        <StyleInclude Source="Styles/TextBlock.axaml" />
+        <StyleInclude Source="Styles/Markdown.axaml" />
+
+        <!--  Controls  -->
+        <StyleInclude Source="Controls/Badge.axaml" />
+        <StyleInclude Source="Controls/Markdown/MarkdownViewer.axaml" />
     </Application.Styles>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="Resources/Theming/Themes.axaml" />
+                <MergeResourceInclude Source="Resources/Theming/BadgeThemes.axaml" />
+                <MergeResourceInclude Source="Resources/Theming/PageSpecificThemes.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+        <!--  Fonts  -->
+        <FontFamily x:Key="MiSansMediumFont">avares://PipManager.Desktop/Assets/Fonts/MiSans-Medium.ttf#MiSans</FontFamily>
+        <FontFamily x:Key="MiSansLightFont">avares://PipManager.Desktop/Assets/Fonts/MiSans-Light.ttf#MiSans</FontFamily>
+    </Application.Resources>
 </Application>

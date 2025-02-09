@@ -1,0 +1,56 @@
+﻿<UserControl
+    x:Class="PipManager.Desktop.Views.Pages.SettingsPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:PipManager.Desktop.Converters"
+    xmlns:languages="clr-namespace:PipManager.Desktop.Languages"
+    xmlns:pages="clr-namespace:PipManager.Desktop.ViewModels.Pages"
+    Padding="32"
+    x:DataType="pages:SettingsViewModel">
+    <UserControl.Resources>
+        <converters:ThemeBoolConverter x:Key="ThemeBoolConverter" />
+    </UserControl.Resources>
+
+    <ScrollViewer>
+        <StackPanel>
+            <TextBlock Classes="PageTitle" Text="{I18N {x:Static languages:LangKeys.Page_Settings_Title}}" />
+
+            <!--  Theme  -->
+            <TextBlock
+                Margin="0,24,0,0"
+                Classes="PageSubtitle"
+                Text="{I18N {x:Static languages:LangKeys.Page_Settings_Theme_Subtitle}}" />
+            <StackPanel Margin="0,10,0,0" Spacing="7">
+                <RadioButton
+                    Content="{I18N {x:Static languages:LangKeys.Page_Settings_Theme_Light}}"
+                    GroupName="SettingsThemeGroup"
+                    IsChecked="{Binding Theme, Converter={StaticResource ThemeBoolConverter}, ConverterParameter=Light}" />
+                <RadioButton
+                    Content="{I18N {x:Static languages:LangKeys.Page_Settings_Theme_Dark}}"
+                    GroupName="SettingsThemeGroup"
+                    IsChecked="{Binding Theme, Converter={StaticResource ThemeBoolConverter}, ConverterParameter=Dark}" />
+            </StackPanel>
+
+            <!--  Language  -->
+            <TextBlock
+                Margin="0,24,0,0"
+                Classes="PageSubtitle"
+                Text="{I18N {x:Static languages:LangKeys.Page_Settings_Language_Subtitle}}" />
+            <StackPanel Margin="0,10,0,0">
+                <ComboBox
+                    x:Name="LanguageComboBox"
+                    Width="200"
+                    Focusable="False"
+                    ItemsSource="{Binding Languages}"
+                    SelectedItem="{Binding Language, Mode=TwoWay}">
+
+                    <Interaction.Behaviors>
+                        <EventTriggerBehavior EventName="SelectionChanged" SourceObject="LanguageComboBox">
+                            <InvokeCommandAction Command="{Binding ChangeLanguageCommand}" />
+                        </EventTriggerBehavior>
+                    </Interaction.Behaviors>
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

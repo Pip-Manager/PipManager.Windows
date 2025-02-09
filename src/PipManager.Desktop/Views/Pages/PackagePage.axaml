@@ -1,0 +1,8 @@
+﻿<UserControl
+    x:Class="PipManager.Desktop.Views.Pages.PackagePage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:pages="clr-namespace:PipManager.Desktop.ViewModels.Pages"
+    x:DataType="pages:PackageViewModel">
+    <TextBlock Text="{Binding Text}" />
+</UserControl>

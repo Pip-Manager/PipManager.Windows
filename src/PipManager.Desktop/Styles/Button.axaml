@@ -1,0 +1,24 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:avalonia="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia">
+    <Style Selector="Button.SystemDecorations">
+        <Setter Property="Width" Value="45" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="LightGray" />
+        <Style Selector="^ avalonia|SymbolIcon">
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+        <Setter Property="CornerRadius" Value="0" />
+        <Style Selector="^:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#3F3F3F" />
+        </Style>
+        <Style Selector="^.Close:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#B54747" />
+        </Style>
+
+        <Style Selector="^.Close:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="DarkRed" />
+        </Style>
+    </Style>
+</Styles>

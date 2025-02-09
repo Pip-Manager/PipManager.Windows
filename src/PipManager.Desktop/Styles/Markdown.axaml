@@ -1,0 +1,58 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:DeepSeekBox.Controls"
+    xmlns:controls1="clr-namespace:PipManager.Desktop.Controls">
+    <Style Selector="TextBlock.Markdown">
+        <Style Selector="^.Heading1">
+            <Setter Property="FontSize" Value="24" />
+        </Style>
+        <Style Selector="^.Heading2">
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+        <Style Selector="^.Heading3">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+        <Style Selector="^.Heading4">
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+        <Style Selector="^.Heading5">
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+        <Style Selector="^.Heading6">
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+    </Style>
+
+    <Style Selector="Border.Markdown">
+        <Style Selector="^.FencedCodeBlock">
+            <Setter Property="Background" Value="{DynamicResource BgBlock}" />
+        </Style>
+        <Style Selector="^.CodeInline">
+            <Setter Property="Background" Value="{DynamicResource BgBlock}" />
+        </Style>
+        <Style Selector="^.QuoteBlock">
+            <Setter Property="BorderThickness" Value="2, 0, 0, 0" />
+            <Setter Property="Padding" Value="15, 5, 0, 5" />
+            <Setter Property="Margin" Value="0, 0, 0, 12" />
+            <Setter Property="Background" Value="{DynamicResource BgBlock}" />
+            <Setter Property="BorderBrush" Value="{StaticResource SystemAccentColor}" />
+        </Style>
+    </Style>
+
+    <Style Selector="controls1|InlineHyperlink">
+        <Style Selector="^ Button">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+
+            <Style Selector="^:pointerover /template/ ContentPresenter">
+                <Setter Property="Background" Value="Transparent" />
+            </Style>
+        </Style>
+        <Style Selector="^ TextBlock">
+            <Setter Property="Foreground" Value="DodgerBlue" />
+            <Setter Property="TextDecorations" Value="Underline" />
+        </Style>
+    </Style>
+</Styles>

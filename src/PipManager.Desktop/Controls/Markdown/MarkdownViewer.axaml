@@ -1,0 +1,12 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:markdown="clr-namespace:PipManager.Desktop.Controls.Markdown">
+    <Style Selector="markdown|MarkdownViewer">
+        <Setter Property="Template">
+            <ControlTemplate TargetType="markdown:MarkdownViewer">
+                <ContentControl Content="{TemplateBinding RenderedContent}" />
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

@@ -1,0 +1,88 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:DeepSeekBox.Controls">
+    <Design.PreviewWith>
+        <StackPanel Margin="5" Spacing="5">
+            <ThemeVariantScope RequestedThemeVariant="Light">
+                <StackPanel Spacing="3">
+                    <controls:Badge Classes="Info" Text="Info Badge" />
+                    <controls:Badge Classes="Warning" Text="Warning Badge" />
+                    <controls:Badge Classes="Critical" Text="Critical Badge" />
+                    <controls:Badge Classes="Success" Text="Success Badge" />
+                </StackPanel>
+            </ThemeVariantScope>
+            <ThemeVariantScope RequestedThemeVariant="Dark">
+                <StackPanel Spacing="3">
+                    <controls:Badge Classes="Info" Text="Info Badge" />
+                    <controls:Badge Classes="Warning" Text="Warning Badge" />
+                    <controls:Badge Classes="Critical" Text="Critical Badge" />
+                    <controls:Badge Classes="Success" Text="Success Badge" />
+                </StackPanel>
+            </ThemeVariantScope>
+        </StackPanel>
+    </Design.PreviewWith>
+
+    <Style Selector="controls|Badge">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Height="18"
+                    Padding="5,0,5,0"
+                    Background="Gray"
+                    BorderBrush="LightGray"
+                    BorderThickness="1"
+                    CornerRadius="5">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        FontSize="11"
+                        Text="{TemplateBinding Text}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="controls|Badge.Info">
+        <Style Selector="^ Border">
+            <Setter Property="BorderBrush" Value="{DynamicResource BadgeInfoBorderBrush}" />
+            <Setter Property="Background" Value="{DynamicResource BadgeInfoBackground}" />
+
+            <Style Selector="^ TextBlock">
+                <Setter Property="Foreground" Value="{DynamicResource BadgeInfoForeground}" />
+            </Style>
+        </Style>
+    </Style>
+
+    <Style Selector="controls|Badge.Warning">
+        <Style Selector="^ Border">
+            <Setter Property="BorderBrush" Value="{DynamicResource BadgeWarningBorderBrush}" />
+            <Setter Property="Background" Value="{DynamicResource BadgeWarningBackground}" />
+
+            <Style Selector="^ TextBlock">
+                <Setter Property="Foreground" Value="{DynamicResource BadgeWarningForeground}" />
+            </Style>
+        </Style>
+    </Style>
+
+    <Style Selector="controls|Badge.Critical">
+        <Style Selector="^ Border">
+            <Setter Property="BorderBrush" Value="{DynamicResource BadgeCriticalBorderBrush}" />
+            <Setter Property="Background" Value="{DynamicResource BadgeCriticalBackground}" />
+
+            <Style Selector="^ TextBlock">
+                <Setter Property="Foreground" Value="{DynamicResource BadgeCriticalForeground}" />
+            </Style>
+        </Style>
+    </Style>
+
+    <Style Selector="controls|Badge.Success">
+        <Style Selector="^ Border">
+            <Setter Property="BorderBrush" Value="{DynamicResource BadgeSuccessBorderBrush}" />
+            <Setter Property="Background" Value="{DynamicResource BadgeSuccessBackground}" />
+
+            <Style Selector="^ TextBlock">
+                <Setter Property="Foreground" Value="{DynamicResource BadgeSuccessForeground}" />
+            </Style>
+        </Style>
+    </Style>
+</Styles>

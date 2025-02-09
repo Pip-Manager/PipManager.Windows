@@ -1,0 +1,17 @@
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style Selector="TextBlock">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+    </Style>
+    <Style Selector="TextBlock.PageTitle">
+        <Setter Property="FontSize" Value="30" />
+    </Style>
+    <Style Selector="TextBlock.PageSubtitle">
+        <Setter Property="FontSize" Value="22" />
+    </Style>
+    <Style Selector="TextBlock.PageTips">
+        <Setter Property="Foreground" Value="{DynamicResource TipTextColor}" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+    </Style>
+</Styles>

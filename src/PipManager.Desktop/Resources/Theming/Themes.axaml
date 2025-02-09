@@ -1,0 +1,30 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <SolidColorBrush x:Key="BgWindow">#FFFFFF</SolidColorBrush>
+            <SolidColorBrush x:Key="TextColor">#141414</SolidColorBrush>
+            <SolidColorBrush x:Key="TipTextColor">#434343</SolidColorBrush>
+            <SolidColorBrush x:Key="UnSelectedToolBarIconColor">#616161</SolidColorBrush>
+            <SolidColorBrush x:Key="SelectedToolBarIconColor">#1F1F1F</SolidColorBrush>
+            <SolidColorBrush x:Key="BgWindowBar">#F8F8F8</SolidColorBrush>
+            <SolidColorBrush x:Key="BgSideBar">#F8F8F8</SolidColorBrush>
+            <SolidColorBrush x:Key="BgSplitLine">#e4e4e4</SolidColorBrush>
+
+            <!--  Markdown Styles  -->
+            <SolidColorBrush x:Key="BgBlock">#fafafa</SolidColorBrush>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+            <SolidColorBrush x:Key="BgWindow">#1F1F1F</SolidColorBrush>
+            <SolidColorBrush x:Key="TextColor">#C3C3C3</SolidColorBrush>
+            <SolidColorBrush x:Key="TipTextColor">#bfbfbf</SolidColorBrush>
+            <SolidColorBrush x:Key="UnSelectedToolBarIconColor">#858585</SolidColorBrush>
+            <SolidColorBrush x:Key="SelectedToolBarIconColor">#D7D7D7</SolidColorBrush>
+            <SolidColorBrush x:Key="BgWindowBar">#181818</SolidColorBrush>
+            <SolidColorBrush x:Key="BgSideBar">#181818</SolidColorBrush>
+            <SolidColorBrush x:Key="BgSplitLine">#2B2B2B</SolidColorBrush>
+
+            <!--  Markdown Styles  -->
+            <SolidColorBrush x:Key="BgBlock">#292929</SolidColorBrush>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>

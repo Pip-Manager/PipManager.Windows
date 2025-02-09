@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <SolidColorBrush x:Key="BadgeInfoBorderBrush">#C0D6F0</SolidColorBrush>
+            <SolidColorBrush x:Key="BadgeInfoBackground">#E8EFF7</SolidColorBrush>
+            <SolidColorBrush x:Key="BadgeInfoForeground">#4F8EDB</SolidColorBrush>
+
+            <SolidColorBrush x:Key="BadgeWarningBorderBrush">#ffd666</SolidColorBrush>
+            <SolidColorBrush x:Key="BadgeWarningBackground">#fff1b8</SolidColorBrush>
+            <SolidColorBrush x:Key="BadgeWarningForeground">#d48806</SolidColorBrush>
+
+            <SolidColorBrush x:Key="BadgeCriticalBorderBrush">#FCA9A9</SolidColorBrush>
+            <SolidColorBrush x:Key="BadgeCriticalBackground">#FBE1E1</SolidColorBrush>
+            <SolidColorBrush x:Key="BadgeCriticalForeground">#FF1B1B</SolidColorBrush>
+
+            <SolidColorBrush x:Key="BadgeSuccessBorderBrush">#ADE1D2</SolidColorBrush>
+            <SolidColorBrush x:Key="BadgeSuccessBackground">#E2F2EE</SolidColorBrush>
+            <SolidColorBrush x:Key="BadgeSuccessForeground">#0DAA7C</SolidColorBrush>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+            <SolidColorBrush x:Key="BadgeInfoBorderBrush">#2D5684</SolidColorBrush>
+            <SolidColorBrush x:Key="BadgeInfoBackground">#14222E</SolidColorBrush>
+            <SolidColorBrush x:Key="BadgeInfoForeground">#488AD9</SolidColorBrush>
+
+            <SolidColorBrush x:Key="BadgeWarningBorderBrush">#ad6800</SolidColorBrush>
+            <SolidColorBrush x:Key="BadgeWarningBackground">#614700</SolidColorBrush>
+            <SolidColorBrush x:Key="BadgeWarningForeground">#ffc53d</SolidColorBrush>
+
+            <SolidColorBrush x:Key="BadgeCriticalBorderBrush">#934143</SolidColorBrush>
+            <SolidColorBrush x:Key="BadgeCriticalBackground">#271E22</SolidColorBrush>
+            <SolidColorBrush x:Key="BadgeCriticalForeground">#F66161</SolidColorBrush>
+
+            <SolidColorBrush x:Key="BadgeSuccessBorderBrush">#22583F</SolidColorBrush>
+            <SolidColorBrush x:Key="BadgeSuccessBackground">#152B26</SolidColorBrush>
+            <SolidColorBrush x:Key="BadgeSuccessForeground">#47D083</SolidColorBrush>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>

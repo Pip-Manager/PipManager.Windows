@@ -1,0 +1,34 @@
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style Selector="ListBox.ToolBar">
+        <Setter Property="Background" Value="Transparent" />
+
+        <Style Selector="^ ListBoxItem">
+            <Setter Property="Template">
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border BorderBrush="Transparent" BorderThickness="2,0,0,0">
+                        <ContentPresenter
+                            Width="48"
+                            Height="48"
+                            Margin="-2,0,0,0"
+                            Content="{TemplateBinding Content}"
+                            Foreground="{DynamicResource UnSelectedToolBarIconColor}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+
+            <Style Selector="^:pointerover /template/ ContentPresenter">
+                <Setter Property="Foreground" Value="{DynamicResource SelectedToolBarIconColor}" />
+            </Style>
+
+            <Style Selector="^:selected">
+                <Style Selector="^ /template/ Border">
+                    <Setter Property="BorderBrush" Value="{StaticResource SystemAccentColor}" />
+                </Style>
+                <Style Selector="^ /template/ ContentPresenter">
+                    <Setter Property="Foreground" Value="{DynamicResource SelectedToolBarIconColor}" />
+                </Style>
+            </Style>
+        </Style>
+
+    </Style>
+</Styles>
